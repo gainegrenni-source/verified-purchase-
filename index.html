@@ -20,6 +20,16 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f5f8fc;
   color:#071633;
+  line-height:1.6;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
 }
 
 a{
@@ -27,19 +37,20 @@ a{
   color:inherit;
 }
 
-.demo{
+/* DEMO NOTICE */
+.demo-notice{
   background:#fff3cd;
   color:#765500;
   text-align:center;
-  padding:8px;
-  font-size:12px;
-  font-weight:bold;
+  padding:9px 15px;
+  font-size:13px;
+  font-weight:800;
 }
 
 /* NAVIGATION */
 .nav{
   min-height:66px;
-  background:white;
+  background:#fff;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -80,390 +91,446 @@ a{
 
 .navlinks{
   display:flex;
-  gap:24px;
-  font-size:13px;
+  gap:22px;
+  align-items:center;
+  font-size:14px;
+}
+
+.navlinks a{
+  color:#536174;
+  transition:.2s;
 }
 
 .navlinks a:hover{
   color:#0878e8;
 }
 
-.btn{
-  border:0;
+.signup-btn{
   background:#0878e8;
-  color:white;
+  color:#fff;
+  border:0;
   padding:13px 24px;
-  border-radius:7px;
-  font-weight:bold;
-  cursor:pointer;
-  font-size:14px;
-}
-
-.btn:hover{
-  opacity:.9;
-}
-
-.btn.light{
-  background:white;
-  color:#17243d;
-  border:1px solid #dce4ef;
+  border-radius:9px;
+  font-weight:700;
 }
 
 /* HERO */
 .hero{
-  min-height:375px;
-  padding:55px 5%;
-  display:flex;
+  max-width:1180px;
+  margin:auto;
+  padding:65px 5% 75px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
   align-items:center;
-  background:linear-gradient(110deg,#eef7ff,#ffffff);
-}
-
-.heroText{
-  width:52%;
 }
 
 .badge{
   display:inline-block;
-  background:#e1f0ff;
+  background:#e2f1ff;
   color:#0878e8;
-  padding:8px 15px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:bold;
-  margin-bottom:17px;
+  padding:10px 18px;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:22px;
 }
 
-h1{
-  font-size:42px;
+.hero h1{
+  font-size:56px;
   line-height:1.08;
-  margin-bottom:18px;
+  margin-bottom:25px;
+  letter-spacing:-2px;
 }
 
 .hero p{
-  color:#4c5870;
-  line-height:1.6;
-  max-width:560px;
+  font-size:19px;
+  color:#607086;
+  margin-bottom:30px;
 }
 
-.actions{
+.hero-buttons{
   display:flex;
-  gap:14px;
-  margin-top:24px;
+  flex-direction:column;
+  gap:13px;
 }
 
-/* VISUAL CARD */
-.visual{
-  width:48%;
-  height:290px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+.primary-btn{
+  border:0;
+  background:#0878e8;
+  color:white;
+  padding:17px 25px;
+  border-radius:10px;
+  font-size:17px;
+  font-weight:800;
+  width:100%;
 }
 
-.card{
-  width:430px;
-  height:245px;
+.secondary-btn{
+  border:1px solid #d5dee9;
+  background:#fff;
+  color:#17263e;
+  padding:16px 25px;
+  border-radius:10px;
+  font-size:17px;
+  font-weight:700;
+  width:100%;
+}
+
+/* HERO CARD */
+.demo-card{
   background:white;
-  border-radius:18px;
-  box-shadow:0 15px 40px #b9c7d8;
-  padding:28px;
-  position:relative;
-  transform:rotate(-3deg);
+  border-radius:25px;
+  padding:35px;
+  box-shadow:0 20px 55px rgba(15,40,80,.10);
+  transform:rotate(1deg);
 }
 
-.cardTitle{
+.demo-card h2{
   color:#0878e8;
-  font-size:22px;
-  font-weight:bold;
   margin-bottom:20px;
 }
 
 .check{
-  margin:13px 0;
-  color:#26344d;
+  display:flex;
+  gap:12px;
+  margin:14px 0;
+  color:#39475a;
 }
 
 .check span{
-  color:#19a663;
+  color:#21a46a;
   font-weight:bold;
-  margin-right:8px;
-}
-
-.shield{
-  position:absolute;
-  right:25px;
-  bottom:25px;
-  width:75px;
-  height:90px;
-  background:#0878e8;
-  clip-path:polygon(
-    50% 0,
-    100% 20%,
-    88% 75%,
-    50% 100%,
-    12% 75%,
-    0 20%
-  );
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-size:38px;
 }
 
 /* SECTIONS */
+section{
+  scroll-margin-top:90px;
+}
+
 .section{
-  padding:55px 5%;
-  background:white;
+  max-width:1180px;
+  margin:auto;
+  padding:65px 5%;
 }
 
-.center{
+.section-title{
   text-align:center;
+  margin-bottom:40px;
 }
 
-.section h2{
-  font-size:30px;
-  margin-bottom:8px;
+.section-title h2{
+  font-size:38px;
+  margin-bottom:10px;
 }
 
-.sub{
-  color:#68758a;
-  font-size:14px;
-  margin-bottom:30px;
+.section-title p{
+  color:#68778b;
 }
 
-/* STEPS */
-.steps{
+/* DEMO OPTIONS */
+.options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
+}
+
+.option-card{
+  background:#fff;
+  padding:30px;
+  border-radius:18px;
+  border:1px solid #e4eaf2;
+  box-shadow:0 8px 25px rgba(20,40,70,.05);
+}
+
+.option-card h3{
+  margin-bottom:10px;
+  font-size:23px;
+}
+
+.option-card p{
+  color:#69778b;
+  margin-bottom:20px;
+}
+
+.option-card button{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:8px;
+  background:#0878e8;
+  color:#fff;
+  font-weight:bold;
+}
+
+/* WORKFLOW */
+.workflow{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:25px;
+  gap:18px;
 }
 
 .step{
-  text-align:center;
+  background:#fff;
+  padding:25px;
+  border-radius:15px;
+  border:1px solid #e4eaf2;
 }
 
-.circle{
-  width:64px;
-  height:64px;
-  margin:auto;
+.step-number{
+  width:40px;
+  height:40px;
   border-radius:50%;
-  background:#eaf5ff;
+  background:#e5f2ff;
   color:#0878e8;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:25px;
   font-weight:bold;
-}
-
-.step h3{
-  font-size:15px;
-  margin:14px 0 7px;
-}
-
-.step p{
-  font-size:13px;
-  color:#68758a;
-  line-height:1.5;
-}
-
-/* BUYERS / SELLERS */
-.infoGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:25px;
-}
-
-.infoCard{
-  background:white;
-  border:1px solid #e0e7f0;
-  border-radius:14px;
-  padding:28px;
-  box-shadow:0 5px 20px #d8e2ee;
-}
-
-.infoCard h3{
-  font-size:22px;
-  margin-bottom:12px;
-}
-
-.infoCard p{
-  color:#68758a;
-  line-height:1.6;
-  font-size:14px;
-}
-
-.infoCard ul{
-  margin-top:15px;
-  padding-left:20px;
-  color:#4c5870;
-  line-height:2;
-  font-size:14px;
-}
-
-/* WHY */
-.why{
-  background:#edf7ff;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
-  padding:45px 5%;
-}
-
-.why h2{
-  font-size:25px;
   margin-bottom:15px;
 }
 
-.list{
-  line-height:2;
-  font-size:14px;
-}
-
-.list span{
-  color:#16a66a;
-  margin-right:8px;
-  font-weight:bold;
-}
-
-.demoBox{
-  background:white;
-  border-radius:14px;
-  padding:30px;
-  box-shadow:0 5px 20px #d8e2ee;
-}
-
-.demoBox h2{
-  margin-bottom:10px;
-}
-
-.demoBox p{
-  color:#68758a;
-  line-height:1.6;
-}
-
 /* FEES */
-.feeBox{
-  max-width:650px;
+.fee-box{
+  background:white;
+  border-radius:18px;
+  padding:30px;
+  max-width:700px;
   margin:auto;
-  background:#f8fbff;
-  border:1px solid #dce7f3;
-  border-radius:14px;
-  padding:28px;
-  text-align:center;
+  border:1px solid #e1e8f1;
 }
 
-.feeBox h3{
-  font-size:22px;
-  margin-bottom:10px;
+.fee-row{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 0;
+  border-bottom:1px solid #edf1f6;
 }
 
-.feeBox p{
-  color:#68758a;
-  line-height:1.6;
+.fee-row:last-child{
+  border-bottom:0;
+}
+
+/* INFO */
+.info-card{
+  background:white;
+  border-radius:18px;
+  padding:35px;
+  max-width:850px;
+  margin:auto;
+  border:1px solid #e2e8f0;
+}
+
+.info-card h3{
+  margin:20px 0 8px;
+}
+
+.info-card p{
+  color:#657387;
 }
 
 /* STATS */
 .stats{
-  background:#071c3d;
+  background:#071d43;
   color:white;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  padding:28px 5%;
   text-align:center;
+  padding:45px 5%;
 }
 
-.stat b{
-  font-size:22px;
+.stat strong{
   display:block;
+  font-size:30px;
 }
 
 .stat span{
-  font-size:12px;
-  color:#b9c7da;
-}
-
-/* HELP */
-.helpBox{
-  max-width:700px;
-  margin:auto;
-  text-align:center;
-}
-
-.helpBox p{
-  color:#68758a;
-  line-height:1.6;
-  margin-bottom:20px;
+  color:#c2d0e5;
 }
 
 /* FOOTER */
 footer{
   background:white;
-  padding:35px 5%;
+  padding:45px 5%;
+  text-align:center;
+}
+
+.footer-logo{
+  font-size:24px;
+  font-weight:800;
+}
+
+.footer-sub{
+  color:#778294;
+}
+
+.footer-links{
   display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  color:#68758a;
+  justify-content:center;
+  gap:30px;
+  margin-top:20px;
+  flex-wrap:wrap;
 }
 
-.footerLogo{
-  font-weight:bold;
-  color:#071633;
-  font-size:16px;
-}
-
-.footerLinks{
-  display:flex;
-  gap:22px;
-}
-
-.footerLinks a:hover{
-  color:#0878e8;
+.footer-links a{
+  color:#657387;
 }
 
 /* MODAL */
 .modal{
-  display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.55);
-  z-index:100;
+  background:rgba(5,17,35,.65);
+  display:none;
   align-items:center;
   justify-content:center;
   padding:20px;
+  z-index:100;
 }
 
-.modalBox{
+.modal.active{
+  display:flex;
+}
+
+.modal-box{
   width:100%;
-  max-width:430px;
-  background:white;
-  border-radius:16px;
-  padding:28px;
-  text-align:center;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  max-width:520px;
+  background:#fff;
+  border-radius:20px;
+  padding:32px;
+  max-height:90vh;
+  overflow:auto;
+  position:relative;
 }
 
-.modalBox h2{
+.close{
+  position:absolute;
+  right:18px;
+  top:15px;
+  width:35px;
+  height:35px;
+  border:0;
+  border-radius:50%;
+  background:#eef2f7;
+  font-size:20px;
+}
+
+.modal-box h2{
   margin-bottom:12px;
 }
 
-.modalBox p{
-  color:#68758a;
-  line-height:1.6;
+.modal-box p{
+  color:#68778a;
+}
+
+.form-group{
+  margin:16px 0;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:7px;
+  font-weight:700;
+}
+
+.form-group input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ccd6e2;
+  border-radius:8px;
+  outline:none;
+}
+
+.form-group input:focus{
+  border-color:#0878e8;
+}
+
+.modal-btn{
+  width:100%;
+  border:0;
+  background:#0878e8;
+  color:#fff;
+  padding:14px;
+  border-radius:9px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+/* DASHBOARD */
+.dashboard{
+  display:none;
+}
+
+.dashboard.active{
+  display:block;
+}
+
+.dashboard-header{
+  background:#071d43;
+  color:#fff;
+  padding:25px;
+  border-radius:15px;
   margin-bottom:20px;
 }
 
-.closeBtn{
-  background:#071c3d;
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.dashboard-item{
+  background:#fff;
+  padding:25px;
+  border-radius:14px;
+  border:1px solid #e0e7f0;
+}
+
+.dashboard-item h3{
+  margin-bottom:8px;
+}
+
+.dashboard-item p{
+  color:#6c798a;
+  margin-bottom:15px;
+}
+
+.dashboard-item button{
+  border:0;
+  background:#0878e8;
+  color:white;
+  padding:11px 17px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%) translateY(100px);
+  background:#071d43;
+  color:white;
+  padding:14px 22px;
+  border-radius:10px;
+  opacity:0;
+  transition:.3s;
+  z-index:200;
+  max-width:90%;
+  text-align:center;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
 /* MOBILE */
 @media(max-width:800px){
 
   .nav{
-    position:relative;
-    padding:14px 5%;
+    padding:10px 18px;
   }
 
   .navlinks{
@@ -471,85 +538,41 @@ footer{
   }
 
   .hero{
-    padding:35px 5%;
-    display:block;
+    grid-template-columns:1fr;
+    padding-top:45px;
   }
 
-  .heroText{
-    width:100%;
-  }
-
-  h1{
-    font-size:31px;
+  .hero h1{
+    font-size:42px;
   }
 
   .hero p{
-    font-size:14px;
+    font-size:17px;
   }
 
-  .actions{
-    display:block;
+  .demo-card{
+    transform:none;
   }
 
-  .actions .btn{
-    width:100%;
-    margin-bottom:10px;
-  }
-
-  .visual{
-    width:100%;
-    height:230px;
-    margin-top:15px;
-  }
-
-  .card{
-    width:90%;
-    height:200px;
-    padding:20px;
-  }
-
-  .cardTitle{
-    font-size:18px;
-  }
-
-  .check{
-    font-size:12px;
-    margin:8px 0;
-  }
-
-  .shield{
-    width:55px;
-    height:65px;
-    font-size:28px;
-  }
-
-  .steps{
-    grid-template-columns:1fr;
-    gap:25px;
-  }
-
-  .infoGrid{
+  .options{
     grid-template-columns:1fr;
   }
 
-  .why{
+  .workflow{
     grid-template-columns:1fr;
   }
 
   .stats{
     grid-template-columns:repeat(2,1fr);
-    gap:25px;
+    gap:30px;
   }
 
-  footer{
-    display:block;
-    text-align:center;
+  .dashboard-grid{
+    grid-template-columns:1fr;
   }
 
-  .footerLinks{
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:15px;
+  .section-title h2{
+    font-size:30px;
   }
 }
 </style>
@@ -558,41 +581,41 @@ footer{
 <body>
 
 <!-- DEMO NOTICE -->
-<div class="demo">
+<div class="demo-notice">
   DEMO / SAMPLE WEBSITE — NOT AN OFFICIAL PAYMENT SERVICE
 </div>
 
 <!-- NAVIGATION -->
 <nav class="nav">
 
-  <a href="#home" class="logo">
+  <div class="logo">
     <div class="logoIcon">S</div>
     <div>
       SecureTrade Demo
       <small>Demo Escrow Interface</small>
     </div>
-  </a>
+  </div>
 
   <div class="navlinks">
     <a href="#home">Home</a>
-    <a href="#works">How It Works</a>
-    <a href="#buyers">For Buyers</a>
-    <a href="#sellers">For Sellers</a>
+    <a href="#demos">Demos</a>
     <a href="#fees">Fees</a>
     <a href="#help">Help</a>
+    <a href="#about">About</a>
   </div>
 
-  <button class="btn" onclick="openModal('Sign Up')">
+  <button class="signup-btn" onclick="openSignup()">
     Sign Up
   </button>
 
 </nav>
 
-
 <!-- HERO -->
-<section class="hero" id="home">
+<main id="home">
 
-  <div class="heroText">
+<section class="hero">
+
+  <div>
 
     <div class="badge">
       ✓ SECURE DEMO PAYMENTS
@@ -608,13 +631,13 @@ footer{
       This sample shows how a protected purchase workflow could look.
     </p>
 
-    <div class="actions">
+    <div class="hero-buttons">
 
-      <button class="btn" onclick="openModal('Get Started')">
+      <button class="primary-btn" onclick="openBuyer()">
         Get Started
       </button>
 
-      <button class="btn light" onclick="goTo('works')">
+      <button class="secondary-btn" onclick="showHowItWorks()">
         ▶ &nbsp; How It Works
       </button>
 
@@ -622,198 +645,74 @@ footer{
 
   </div>
 
+  <div class="demo-card">
 
-  <div class="visual">
+    <h2>SecureTrade Demo</h2>
 
-    <div class="card">
+    <div class="check">
+      <span>✓</span>
+      Funds shown as held in demo escrow
+    </div>
 
-      <div class="cardTitle">
-        SecureTrade Demo
-      </div>
+    <div class="check">
+      <span>✓</span>
+      Sample order verification
+    </div>
 
-      <div class="check">
-        <span>✓</span>
-        Funds shown as held in demo escrow
-      </div>
+    <div class="check">
+      <span>✓</span>
+      Clear transaction workflow
+    </div>
 
-      <div class="check">
-        <span>✓</span>
-        Sample order verification
-      </div>
+    <div class="check">
+      <span>✓</span>
+      Buyer and seller demo interfaces
+    </div>
 
-      <div class="check">
-        <span>✓</span>
-        Buyer confirmation
-      </div>
-
-      <div class="check">
-        <span>✓</span>
-        Demo payout release
-      </div>
-
-      <div class="shield">
-        ✓
-      </div>
-
+    <div class="check">
+      <span>✓</span>
+      Responsive mobile design
     </div>
 
   </div>
 
 </section>
 
+<!-- DEMO OPTIONS -->
+<section class="section" id="demos">
 
-<!-- HOW IT WORKS -->
-<section class="section" id="works">
-
-  <div class="center">
-
-    <h2>
-      How Our Demo Works
-    </h2>
-
-    <p class="sub">
-      A simple four-step sample workflow
-    </p>
-
+  <div class="section-title">
+    <h2>Choose a Demo</h2>
+    <p>Explore the sample buyer and seller workflows.</p>
   </div>
 
+  <div class="options">
 
-  <div class="steps">
+    <div class="option-card">
 
-    <div class="step">
-
-      <div class="circle">🛒</div>
-
-      <h3>
-        1. Seller Places Order
-      </h3>
+      <h3>Buyer Demo</h3>
 
       <p>
-        Seller creates a sample transaction and enters
-        the required trade details.
+        Explore a sample buyer dashboard and protected
+        purchase workflow.
       </p>
 
-    </div>
-
-
-    <div class="step">
-
-      <div class="circle">↥</div>
-
-      <h3>
-        2. Buyer Verification
-      </h3>
-
-      <p>
-        Buyer submits sample confirmation information
-        for the demonstration.
-      </p>
-
-    </div>
-
-
-    <div class="step">
-
-      <div class="circle">✓</div>
-
-      <h3>
-        3. Demo Verification
-      </h3>
-
-      <p>
-        The sample interface displays a verification
-        step for the transaction.
-      </p>
-
-    </div>
-
-
-    <div class="step">
-
-      <div class="circle">▣</div>
-
-      <h3>
-        4. Demo Release
-      </h3>
-
-      <p>
-        The interface shows how a completed
-        demonstration transaction could appear.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- BUYERS -->
-<section class="section" id="buyers">
-
-  <div class="center">
-
-    <h2>
-      For Buyers
-    </h2>
-
-    <p class="sub">
-      Example buyer-side workflow
-    </p>
-
-  </div>
-
-
-  <div class="infoGrid">
-
-    <div class="infoCard">
-
-      <h3>
-        Buyer Demo
-      </h3>
-
-      <p>
-        This section demonstrates how buyer information
-        could be presented in a sample interface.
-      </p>
-
-      <ul>
-        <li>Review sample order details</li>
-        <li>Review sample transaction status</li>
-        <li>Confirm demonstration information</li>
-        <li>View sample completion screen</li>
-      </ul>
-
-      <br>
-
-      <button class="btn" onclick="openModal('Buyer Demo')">
+      <button onclick="openBuyer()">
         Open Buyer Demo
       </button>
 
     </div>
 
+    <div class="option-card">
 
-    <div class="infoCard" id="sellers">
-
-      <h3>
-        For Sellers
-      </h3>
+      <h3>Seller Demo</h3>
 
       <p>
-        This section demonstrates how a seller-side
-        workflow could be displayed.
+        Explore a sample seller dashboard and order
+        management workflow.
       </p>
 
-      <ul>
-        <li>Create a sample order</li>
-        <li>Enter demonstration details</li>
-        <li>View sample status</li>
-        <li>Review sample completion</li>
-      </ul>
-
-      <br>
-
-      <button class="btn" onclick="openModal('Seller Demo')">
+      <button onclick="openSeller()">
         Open Seller Demo
       </button>
 
@@ -823,211 +722,282 @@ footer{
 
 </section>
 
+<!-- WORKFLOW -->
+<section class="section" id="how">
 
-<!-- WHY -->
-<section class="why">
+  <div class="section-title">
+    <h2>How It Works</h2>
+    <p>A simple demonstration of a protected transaction flow.</p>
+  </div>
 
-  <div>
+  <div class="workflow">
 
-    <h2>
-      Why Choose Our Demo?
-    </h2>
+    <div class="step">
+      <div class="step-number">1</div>
+      <h3>Create Demo Order</h3>
+      <p>
+        Buyer creates a sample purchase order.
+      </p>
+    </div>
 
-    <div class="list">
+    <div class="step">
+      <div class="step-number">2</div>
+      <h3>Seller Responds</h3>
+      <p>
+        Seller reviews the sample order.
+      </p>
+    </div>
 
-      <div>
-        <span>✓</span>
-        Clear transaction workflow
-      </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <h3>Order Verification</h3>
+      <p>
+        The interface demonstrates a sample verification step.
+      </p>
+    </div>
 
-      <div>
-        <span>✓</span>
-        Simple buyer and seller interface
-      </div>
-
-      <div>
-        <span>✓</span>
-        Responsive mobile design
-      </div>
-
-      <div>
-        <span>✓</span>
-        Sample verification process
-      </div>
-
-      <div>
-        <span>✓</span>
-        Transparent demo interface
-      </div>
-
-      <div>
-        <span>✓</span>
-        Easy-to-understand layout
-      </div>
-
+    <div class="step">
+      <div class="step-number">4</div>
+      <h3>Complete Demo</h3>
+      <p>
+        The sample transaction reaches a demo completion state.
+      </p>
     </div>
 
   </div>
 
-
-  <div class="demoBox">
-
-    <h2>
-      Trade safely. Stay protected.
-    </h2>
-
-    <p>
-      This is a visual demonstration only.
-      No real payments, escrow funds, account verification,
-      or payout processing are performed by this page.
-    </p>
-
-  </div>
-
 </section>
-
 
 <!-- FEES -->
 <section class="section" id="fees">
 
-  <div class="center">
+  <div class="section-title">
+    <h2>Demo Fee Details</h2>
+    <p>Example fee information for interface demonstration only.</p>
+  </div>
 
-    <h2>
-      Demo Fees
-    </h2>
+  <div class="fee-box">
 
-    <p class="sub">
-      Example pricing information for the interface
+    <div class="fee-row">
+      <strong>Sample transaction</strong>
+      <span>$100.00</span>
+    </div>
+
+    <div class="fee-row">
+      <strong>Example service fee</strong>
+      <span>$2.50</span>
+    </div>
+
+    <div class="fee-row">
+      <strong>Example total</strong>
+      <strong>$102.50</strong>
+    </div>
+
+    <p style="margin-top:20px;color:#777;font-size:13px;">
+      These are illustrative values only. No actual payment or
+      financial transaction is processed by this website.
     </p>
 
   </div>
 
-  <div class="feeBox">
+</section>
 
-    <h3>
-      Sample Transaction Fee
-    </h3>
+<!-- ABOUT -->
+<section class="section" id="about">
+
+  <div class="section-title">
+    <h2>About SecureTrade Demo</h2>
+  </div>
+
+  <div class="info-card">
 
     <p>
-      This demonstration does not process real payments
-      or charge real transaction fees.
+      SecureTrade Demo is a visual prototype created to demonstrate
+      how a buyer-and-seller transaction interface could be organized.
     </p>
 
-    <br>
+    <h3>What this demo provides</h3>
 
-    <button class="btn" onclick="openModal('Demo Fees')">
-      View Fee Details
-    </button>
+    <p>
+      Sample dashboards, navigation, order states, fee information,
+      help content and interactive interface elements.
+    </p>
+
+    <h3>Important Notice</h3>
+
+    <p>
+      This website does not create real accounts, hold real funds,
+      process payments, perform KYC, verify identities, or provide
+      payout services.
+    </p>
 
   </div>
 
 </section>
-
-
-<!-- STATS -->
-<section class="stats">
-
-  <div class="stat">
-    <b>10K+</b>
-    <span>Demo Traders</span>
-  </div>
-
-  <div class="stat">
-    <b>$20M+</b>
-    <span>Sample Transactions</span>
-  </div>
-
-  <div class="stat">
-    <b>99.9%</b>
-    <span>Demo Success Rate</span>
-  </div>
-
-  <div class="stat">
-    <b>24/7</b>
-    <span>Demo Support</span>
-  </div>
-
-</section>
-
 
 <!-- HELP -->
 <section class="section" id="help">
 
-  <div class="helpBox">
+  <div class="section-title">
+    <h2>Help & FAQ</h2>
+    <p>Common questions about this demonstration.</p>
+  </div>
 
-    <h2>
-      Need Help?
-    </h2>
+  <div class="info-card">
 
+    <h3>Is this a real payment service?</h3>
+    <p>No. This is a demonstration interface only.</p>
+
+    <h3>Can I create a real account?</h3>
     <p>
-      This demo page is designed to show a sample
-      escrow-style user interface. No real account,
-      payment or transaction is created.
+      No. The Sign Up button demonstrates the appearance of
+      an account-creation flow without creating an account.
     </p>
 
-    <button class="btn" onclick="openModal('Help')">
-      Open Demo Help
-    </button>
+    <h3>Are the displayed funds real?</h3>
+    <p>
+      No. All balances, transactions and statuses are sample data.
+    </p>
+
+    <h3>Can I make a real payment?</h3>
+    <p>
+      No. This prototype does not connect to a payment processor.
+    </p>
 
   </div>
 
 </section>
 
+<!-- PRIVACY -->
+<section class="section" id="privacy">
+
+  <div class="section-title">
+    <h2>Privacy Notice</h2>
+  </div>
+
+  <div class="info-card">
+
+    <p>
+      This demonstration website does not require real personal
+      information. Any information entered into the demo form is
+      used only for the current interface interaction and is not
+      submitted to a payment or account system.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- TERMS -->
+<section class="section" id="terms">
+
+  <div class="section-title">
+    <h2>Demo Terms</h2>
+  </div>
+
+  <div class="info-card">
+
+    <p>
+      This prototype is provided solely for demonstration and
+      interface-testing purposes. No real financial service,
+      escrow service, account service, identity verification,
+      payment processing or payout functionality is provided.
+    </p>
+
+  </div>
+
+</section>
+
+</main>
+
+<!-- STATS -->
+<div class="stats">
+
+  <div class="stat">
+    <strong>10K+</strong>
+    <span>Demo Traders</span>
+  </div>
+
+  <div class="stat">
+    <strong>$20M+</strong>
+    <span>Sample Transactions</span>
+  </div>
+
+  <div class="stat">
+    <strong>99.9%</strong>
+    <span>Demo Success Rate</span>
+  </div>
+
+  <div class="stat">
+    <strong>24/7</strong>
+    <span>Demo Support</span>
+  </div>
+
+</div>
 
 <!-- FOOTER -->
 <footer>
 
-  <div>
+  <div class="footer-logo">
+    SecureTrade Demo
+  </div>
 
-    <div class="footerLogo">
-      SecureTrade Demo
-    </div>
+  <div class="footer-sub">
+    Demo Escrow Interface
+  </div>
 
-    <div>
-      Demo Escrow Interface
-    </div>
+  <div class="footer-links">
+
+    <a href="#about">About</a>
+
+    <a href="#help">Help</a>
+
+    <a href="#terms">Terms</a>
+
+    <a href="#privacy">Privacy</a>
 
   </div>
 
-
-  <div class="footerLinks">
-
-    <a href="#home">
-      About
-    </a>
-
-    <a href="#help">
-      Help
-    </a>
-
-    <a href="#fees">
-      Terms
-    </a>
-
-    <a href="#home">
-      Privacy
-    </a>
-
-  </div>
+  <p style="margin-top:25px;color:#999;font-size:12px;">
+    DEMO / SAMPLE WEBSITE — NOT AN OFFICIAL PAYMENT SERVICE
+  </p>
 
 </footer>
 
 
-<!-- MODAL -->
-<div class="modal" id="demoModal">
+<!-- SIGNUP MODAL -->
+<div class="modal" id="signupModal">
 
-  <div class="modalBox">
+  <div class="modal-box">
 
-    <h2 id="modalTitle">
-      Demo
-    </h2>
+    <button class="close" onclick="closeModal('signupModal')">
+      ×
+    </button>
 
-    <p id="modalText">
-      This is a demonstration only.
+    <h2>Sign Up — Demo</h2>
+
+    <p>
+      Create a sample profile to explore the interface.
+      No real account will be created.
     </p>
 
-    <button class="btn closeBtn" onclick="closeModal()">
-      Close
+    <div class="form-group">
+      <label>Name</label>
+      <input id="signupName" type="text" placeholder="Demo User">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input id="signupEmail" type="email" placeholder="demo@example.com">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" placeholder="Demo password">
+    </div>
+
+    <button class="modal-btn" onclick="createDemoAccount()">
+      Create Demo Account
     </button>
 
   </div>
@@ -1035,49 +1005,340 @@ footer{
 </div>
 
 
+<!-- HOW IT WORKS MODAL -->
+<div class="modal" id="howModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('howModal')">
+      ×
+    </button>
+
+    <h2>How It Works</h2>
+
+    <div class="check">
+      <span>1</span>
+      Buyer creates a sample order.
+    </div>
+
+    <div class="check">
+      <span>2</span>
+      Seller reviews the demo order.
+    </div>
+
+    <div class="check">
+      <span>3</span>
+      The interface displays a sample verification state.
+    </div>
+
+    <div class="check">
+      <span>4</span>
+      The demo order reaches completion.
+    </div>
+
+    <button class="modal-btn" onclick="openBuyer()">
+      Open Buyer Demo
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- BUYER MODAL -->
+<div class="modal" id="buyerModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('buyerModal')">
+      ×
+    </button>
+
+    <div class="dashboard active">
+
+      <div class="dashboard-header">
+
+        <h2>Buyer Demo Dashboard</h2>
+
+        <p style="color:#cbd7e8;">
+          Sample buyer interface — demo mode
+        </p>
+
+      </div>
+
+      <div class="dashboard-grid">
+
+        <div class="dashboard-item">
+
+          <h3>Create Demo Order</h3>
+
+          <p>
+            Start a sample purchase workflow.
+          </p>
+
+          <button onclick="demoAction('Demo order created successfully.')">
+            Create Order
+          </button>
+
+        </div>
+
+        <div class="dashboard-item">
+
+          <h3>Order Status</h3>
+
+          <p>
+            Sample order: <strong>Pending Verification</strong>
+          </p>
+
+          <button onclick="demoAction('Demo order status checked.')">
+            Check Status
+          </button>
+
+        </div>
+
+        <div class="dashboard-item">
+
+          <h3>Verification</h3>
+
+          <p>
+            View the sample verification step.
+          </p>
+
+          <button onclick="demoAction('Sample verification displayed.')">
+            Verify Demo
+          </button>
+
+        </div>
+
+        <div class="dashboard-item">
+
+          <h3>Complete Order</h3>
+
+          <p>
+            Complete the sample workflow.
+          </p>
+
+          <button onclick="demoAction('Demo order marked as completed.')">
+            Complete Demo
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- SELLER MODAL -->
+<div class="modal" id="sellerModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('sellerModal')">
+      ×
+    </button>
+
+    <div class="dashboard active">
+
+      <div class="dashboard-header">
+
+        <h2>Seller Demo Dashboard</h2>
+
+        <p style="color:#cbd7e8;">
+          Sample seller interface — demo mode
+        </p>
+
+      </div>
+
+      <div class="dashboard-grid">
+
+        <div class="dashboard-item">
+
+          <h3>Incoming Order</h3>
+
+          <p>
+            Sample buyer order awaiting review.
+          </p>
+
+          <button onclick="demoAction('Sample order opened.')">
+            Open Order
+          </button>
+
+        </div>
+
+        <div class="dashboard-item">
+
+          <h3>Accept Demo Order</h3>
+
+          <p>
+            Accept the sample transaction.
+          </p>
+
+          <button onclick="demoAction('Demo order accepted.')">
+            Accept
+          </button>
+
+        </div>
+
+        <div class="dashboard-item">
+
+          <h3>Order Ready</h3>
+
+          <p>
+            Mark the sample order as ready.
+          </p>
+
+          <button onclick="demoAction('Demo order marked ready.')">
+            Mark Ready
+          </button>
+
+        </div>
+
+        <div class="dashboard-item">
+
+          <h3>Complete Demo</h3>
+
+          <p>
+            Finish the sample seller workflow.
+          </p>
+
+          <button onclick="demoAction('Seller demo completed.')">
+            Complete
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
 <script>
 
-function goTo(sectionId){
-  const section = document.getElementById(sectionId);
+/* MODAL */
+function openModal(id){
+  document.getElementById(id).classList.add("active");
+}
 
-  if(section){
-    section.scrollIntoView({
-      behavior:"smooth"
-    });
+function closeModal(id){
+  document.getElementById(id).classList.remove("active");
+}
+
+/* SIGN UP */
+function openSignup(){
+  openModal("signupModal");
+}
+
+function createDemoAccount(){
+
+  const name =
+    document.getElementById("signupName").value.trim();
+
+  const email =
+    document.getElementById("signupEmail").value.trim();
+
+  if(!name || !email){
+
+    showToast("Please enter a demo name and email.");
+
+    return;
   }
+
+  closeModal("signupModal");
+
+  showToast(
+    "Demo account created for this session. No real account was created."
+  );
+}
+
+/* BUYER */
+function openBuyer(){
+
+  closeModal("howModal");
+  closeModal("sellerModal");
+
+  openModal("buyerModal");
+}
+
+/* SELLER */
+function openSeller(){
+
+  closeModal("buyerModal");
+  closeModal("howModal");
+
+  openModal("sellerModal");
+}
+
+/* HOW IT WORKS */
+function showHowItWorks(){
+  openModal("howModal");
+}
+
+/* DEMO ACTION */
+function demoAction(message){
+  showToast(message);
+}
+
+/* TOAST */
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  setTimeout(function(){
+
+    toast.classList.remove("show");
+
+  },3000);
 }
 
 
-function openModal(title){
+/* CLOSE MODAL BY CLICKING OUTSIDE */
+document.querySelectorAll(".modal").forEach(function(modal){
 
-  document.getElementById("modalTitle").textContent =
-    title;
+  modal.addEventListener("click",function(event){
 
-  document.getElementById("modalText").textContent =
-    "This is a demo interaction only. No real payment, escrow, verification, account creation, or payout is performed.";
+    if(event.target === modal){
 
-  document.getElementById("demoModal").style.display =
-    "flex";
-}
+      modal.classList.remove("active");
 
-
-function closeModal(){
-
-  document.getElementById("demoModal").style.display =
-    "none";
-}
-
-
-document.getElementById("demoModal").addEventListener(
-  "click",
-  function(event){
-
-    if(event.target === this){
-      closeModal();
     }
 
+  });
+
+});
+
+
+/* ESC KEY */
+document.addEventListener("keydown",function(event){
+
+  if(event.key === "Escape"){
+
+    document.querySelectorAll(".modal").forEach(function(modal){
+
+      modal.classList.remove("active");
+
+    });
+
   }
-);
+
+});
 
 </script>
 
