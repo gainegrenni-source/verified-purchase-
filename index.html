@@ -12,6 +12,10 @@
   padding:0;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f5f8fc;
@@ -23,25 +27,27 @@ a{
   color:inherit;
 }
 
-/* Demo Notice */
 .demo{
   background:#fff3cd;
   color:#765500;
   text-align:center;
-  padding:7px;
+  padding:8px;
   font-size:12px;
   font-weight:bold;
 }
 
-/* Navigation */
+/* NAVIGATION */
 .nav{
-  height:66px;
+  min-height:66px;
   background:white;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 5%;
+  padding:12px 5%;
   border-bottom:1px solid #e8edf4;
+  position:sticky;
+  top:0;
+  z-index:50;
 }
 
 .logo{
@@ -74,7 +80,7 @@ a{
 
 .navlinks{
   display:flex;
-  gap:28px;
+  gap:24px;
   font-size:13px;
 }
 
@@ -90,6 +96,11 @@ a{
   border-radius:7px;
   font-weight:bold;
   cursor:pointer;
+  font-size:14px;
+}
+
+.btn:hover{
+  opacity:.9;
 }
 
 .btn.light{
@@ -98,10 +109,10 @@ a{
   border:1px solid #dce4ef;
 }
 
-/* Hero */
+/* HERO */
 .hero{
   min-height:375px;
-  padding:45px 5%;
+  padding:55px 5%;
   display:flex;
   align-items:center;
   background:linear-gradient(110deg,#eef7ff,#ffffff);
@@ -140,7 +151,7 @@ h1{
   margin-top:24px;
 }
 
-/* Demo Card */
+/* VISUAL CARD */
 .visual{
   width:48%;
   height:290px;
@@ -200,9 +211,9 @@ h1{
   font-size:38px;
 }
 
-/* How It Works */
+/* SECTIONS */
 .section{
-  padding:38px 5%;
+  padding:55px 5%;
   background:white;
 }
 
@@ -221,6 +232,7 @@ h1{
   margin-bottom:30px;
 }
 
+/* STEPS */
 .steps{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -256,13 +268,47 @@ h1{
   line-height:1.5;
 }
 
-/* Why Section */
+/* BUYERS / SELLERS */
+.infoGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+}
+
+.infoCard{
+  background:white;
+  border:1px solid #e0e7f0;
+  border-radius:14px;
+  padding:28px;
+  box-shadow:0 5px 20px #d8e2ee;
+}
+
+.infoCard h3{
+  font-size:22px;
+  margin-bottom:12px;
+}
+
+.infoCard p{
+  color:#68758a;
+  line-height:1.6;
+  font-size:14px;
+}
+
+.infoCard ul{
+  margin-top:15px;
+  padding-left:20px;
+  color:#4c5870;
+  line-height:2;
+  font-size:14px;
+}
+
+/* WHY */
 .why{
   background:#edf7ff;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:30px;
-  padding:30px 5%;
+  padding:45px 5%;
 }
 
 .why h2{
@@ -297,13 +343,34 @@ h1{
   line-height:1.6;
 }
 
-/* Stats */
+/* FEES */
+.feeBox{
+  max-width:650px;
+  margin:auto;
+  background:#f8fbff;
+  border:1px solid #dce7f3;
+  border-radius:14px;
+  padding:28px;
+  text-align:center;
+}
+
+.feeBox h3{
+  font-size:22px;
+  margin-bottom:10px;
+}
+
+.feeBox p{
+  color:#68758a;
+  line-height:1.6;
+}
+
+/* STATS */
 .stats{
   background:#071c3d;
   color:white;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  padding:22px 5%;
+  padding:28px 5%;
   text-align:center;
 }
 
@@ -317,10 +384,23 @@ h1{
   color:#b9c7da;
 }
 
-/* Footer */
+/* HELP */
+.helpBox{
+  max-width:700px;
+  margin:auto;
+  text-align:center;
+}
+
+.helpBox p{
+  color:#68758a;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+/* FOOTER */
 footer{
   background:white;
-  padding:30px 5%;
+  padding:35px 5%;
   display:flex;
   justify-content:space-between;
   font-size:12px;
@@ -338,11 +418,51 @@ footer{
   gap:22px;
 }
 
-/* Mobile */
+.footerLinks a:hover{
+  color:#0878e8;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:100;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modalBox{
+  width:100%;
+  max-width:430px;
+  background:white;
+  border-radius:16px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.modalBox h2{
+  margin-bottom:12px;
+}
+
+.modalBox p{
+  color:#68758a;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.closeBtn{
+  background:#071c3d;
+}
+
+/* MOBILE */
 @media(max-width:800px){
 
   .nav{
-    height:auto;
+    position:relative;
     padding:14px 5%;
   }
 
@@ -351,7 +471,7 @@ footer{
   }
 
   .hero{
-    padding:28px 5%;
+    padding:35px 5%;
     display:block;
   }
 
@@ -408,13 +528,17 @@ footer{
     gap:25px;
   }
 
+  .infoGrid{
+    grid-template-columns:1fr;
+  }
+
   .why{
     grid-template-columns:1fr;
   }
 
   .stats{
     grid-template-columns:repeat(2,1fr);
-    gap:20px;
+    gap:25px;
   }
 
   footer{
@@ -433,26 +557,21 @@ footer{
 
 <body>
 
-<!-- Demo Notice -->
+<!-- DEMO NOTICE -->
 <div class="demo">
   DEMO / SAMPLE WEBSITE — NOT AN OFFICIAL PAYMENT SERVICE
 </div>
 
-<!-- Navigation -->
+<!-- NAVIGATION -->
 <nav class="nav">
 
-  <div class="logo">
-
-    <div class="logoIcon">
-      S
-    </div>
-
+  <a href="#home" class="logo">
+    <div class="logoIcon">S</div>
     <div>
       SecureTrade Demo
       <small>Demo Escrow Interface</small>
     </div>
-
-  </div>
+  </a>
 
   <div class="navlinks">
     <a href="#home">Home</a>
@@ -463,13 +582,14 @@ footer{
     <a href="#help">Help</a>
   </div>
 
-  <button class="btn" onclick="alert('Demo only')">
+  <button class="btn" onclick="openModal('Sign Up')">
     Sign Up
   </button>
 
 </nav>
 
-<!-- Hero -->
+
+<!-- HERO -->
 <section class="hero" id="home">
 
   <div class="heroText">
@@ -490,20 +610,18 @@ footer{
 
     <div class="actions">
 
-      <button class="btn" onclick="alert('Demo only')">
+      <button class="btn" onclick="openModal('Get Started')">
         Get Started
       </button>
 
-      <button
-        class="btn light"
-        onclick="document.getElementById('works').scrollIntoView()"
-      >
+      <button class="btn light" onclick="goTo('works')">
         ▶ &nbsp; How It Works
       </button>
 
     </div>
 
   </div>
+
 
   <div class="visual">
 
@@ -543,7 +661,8 @@ footer{
 
 </section>
 
-<!-- How It Works -->
+
+<!-- HOW IT WORKS -->
 <section class="section" id="works">
 
   <div class="center">
@@ -558,68 +677,68 @@ footer{
 
   </div>
 
+
   <div class="steps">
 
     <div class="step">
 
-      <div class="circle">
-        🛒
-      </div>
+      <div class="circle">🛒</div>
 
       <h3>
         1. Seller Places Order
       </h3>
 
       <p>
-        Seller creates a sample transaction and enters the required trade details.
+        Seller creates a sample transaction and enters
+        the required trade details.
       </p>
 
     </div>
 
+
     <div class="step">
 
-      <div class="circle">
-        ↥
-      </div>
+      <div class="circle">↥</div>
 
       <h3>
         2. Buyer Verification
       </h3>
 
       <p>
-        Buyer submits sample confirmation information for the demonstration.
+        Buyer submits sample confirmation information
+        for the demonstration.
       </p>
 
     </div>
 
+
     <div class="step">
 
-      <div class="circle">
-        ✓
-      </div>
+      <div class="circle">✓</div>
 
       <h3>
         3. Demo Verification
       </h3>
 
       <p>
-        The sample system displays a verification step for the transaction.
+        The sample interface displays a verification
+        step for the transaction.
       </p>
 
     </div>
 
+
     <div class="step">
 
-      <div class="circle">
-        ▣
-      </div>
+      <div class="circle">▣</div>
 
       <h3>
         4. Demo Release
       </h3>
 
       <p>
-        The interface shows how a completed transaction could appear.
+        The interface shows how a completed
+        demonstration transaction could appear.
       </p>
 
     </div>
@@ -628,7 +747,84 @@ footer{
 
 </section>
 
-<!-- Why Choose Demo -->
+
+<!-- BUYERS -->
+<section class="section" id="buyers">
+
+  <div class="center">
+
+    <h2>
+      For Buyers
+    </h2>
+
+    <p class="sub">
+      Example buyer-side workflow
+    </p>
+
+  </div>
+
+
+  <div class="infoGrid">
+
+    <div class="infoCard">
+
+      <h3>
+        Buyer Demo
+      </h3>
+
+      <p>
+        This section demonstrates how buyer information
+        could be presented in a sample interface.
+      </p>
+
+      <ul>
+        <li>Review sample order details</li>
+        <li>Review sample transaction status</li>
+        <li>Confirm demonstration information</li>
+        <li>View sample completion screen</li>
+      </ul>
+
+      <br>
+
+      <button class="btn" onclick="openModal('Buyer Demo')">
+        Open Buyer Demo
+      </button>
+
+    </div>
+
+
+    <div class="infoCard" id="sellers">
+
+      <h3>
+        For Sellers
+      </h3>
+
+      <p>
+        This section demonstrates how a seller-side
+        workflow could be displayed.
+      </p>
+
+      <ul>
+        <li>Create a sample order</li>
+        <li>Enter demonstration details</li>
+        <li>View sample status</li>
+        <li>Review sample completion</li>
+      </ul>
+
+      <br>
+
+      <button class="btn" onclick="openModal('Seller Demo')">
+        Open Seller Demo
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHY -->
 <section class="why">
 
   <div>
@@ -673,6 +869,7 @@ footer{
 
   </div>
 
+
   <div class="demoBox">
 
     <h2>
@@ -680,16 +877,54 @@ footer{
     </h2>
 
     <p>
-      This is a visual demonstration only. No real payments,
-      escrow funds, account verification, or payout processing
-      are performed by this page.
+      This is a visual demonstration only.
+      No real payments, escrow funds, account verification,
+      or payout processing are performed by this page.
     </p>
 
   </div>
 
 </section>
 
-<!-- Statistics -->
+
+<!-- FEES -->
+<section class="section" id="fees">
+
+  <div class="center">
+
+    <h2>
+      Demo Fees
+    </h2>
+
+    <p class="sub">
+      Example pricing information for the interface
+    </p>
+
+  </div>
+
+  <div class="feeBox">
+
+    <h3>
+      Sample Transaction Fee
+    </h3>
+
+    <p>
+      This demonstration does not process real payments
+      or charge real transaction fees.
+    </p>
+
+    <br>
+
+    <button class="btn" onclick="openModal('Demo Fees')">
+      View Fee Details
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- STATS -->
 <section class="stats">
 
   <div class="stat">
@@ -714,7 +949,32 @@ footer{
 
 </section>
 
-<!-- Footer -->
+
+<!-- HELP -->
+<section class="section" id="help">
+
+  <div class="helpBox">
+
+    <h2>
+      Need Help?
+    </h2>
+
+    <p>
+      This demo page is designed to show a sample
+      escrow-style user interface. No real account,
+      payment or transaction is created.
+    </p>
+
+    <button class="btn" onclick="openModal('Help')">
+      Open Demo Help
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
 <footer>
 
   <div>
@@ -729,27 +989,97 @@ footer{
 
   </div>
 
+
   <div class="footerLinks">
 
-    <a href="#">
+    <a href="#home">
       About
     </a>
 
-    <a href="#">
+    <a href="#help">
       Help
     </a>
 
-    <a href="#">
+    <a href="#fees">
       Terms
     </a>
 
-    <a href="#">
+    <a href="#home">
       Privacy
     </a>
 
   </div>
 
 </footer>
+
+
+<!-- MODAL -->
+<div class="modal" id="demoModal">
+
+  <div class="modalBox">
+
+    <h2 id="modalTitle">
+      Demo
+    </h2>
+
+    <p id="modalText">
+      This is a demonstration only.
+    </p>
+
+    <button class="btn closeBtn" onclick="closeModal()">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+function goTo(sectionId){
+  const section = document.getElementById(sectionId);
+
+  if(section){
+    section.scrollIntoView({
+      behavior:"smooth"
+    });
+  }
+}
+
+
+function openModal(title){
+
+  document.getElementById("modalTitle").textContent =
+    title;
+
+  document.getElementById("modalText").textContent =
+    "This is a demo interaction only. No real payment, escrow, verification, account creation, or payout is performed.";
+
+  document.getElementById("demoModal").style.display =
+    "flex";
+}
+
+
+function closeModal(){
+
+  document.getElementById("demoModal").style.display =
+    "none";
+}
+
+
+document.getElementById("demoModal").addEventListener(
+  "click",
+  function(event){
+
+    if(event.target === this){
+      closeModal();
+    }
+
+  }
+);
+
+</script>
 
 </body>
 </html>
