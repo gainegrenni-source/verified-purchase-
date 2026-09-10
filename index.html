@@ -6,14 +6,24 @@
 <title>SecureTrade Demo</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f5f8fc;
   color:#071633;
 }
-a{text-decoration:none;color:inherit}
 
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+/* Demo Notice */
 .demo{
   background:#fff3cd;
   color:#765500;
@@ -23,6 +33,7 @@ a{text-decoration:none;color:inherit}
   font-weight:bold;
 }
 
+/* Navigation */
 .nav{
   height:66px;
   background:white;
@@ -32,6 +43,7 @@ a{text-decoration:none;color:inherit}
   padding:0 5%;
   border-bottom:1px solid #e8edf4;
 }
+
 .logo{
   display:flex;
   align-items:center;
@@ -39,20 +51,37 @@ a{text-decoration:none;color:inherit}
   font-size:19px;
   font-weight:800;
 }
+
 .logoIcon{
-  width:38px;height:38px;border-radius:10px;
-  background:#0878e8;color:white;
-  display:flex;align-items:center;justify-content:center;
-  font-size:21px;font-weight:bold;
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:#0878e8;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+  font-weight:bold;
 }
+
 .logo small{
   display:block;
   font-size:10px;
   color:#777;
   font-weight:500;
 }
-.navlinks{display:flex;gap:28px;font-size:13px}
-.navlinks a:hover{color:#0878e8}
+
+.navlinks{
+  display:flex;
+  gap:28px;
+  font-size:13px;
+}
+
+.navlinks a:hover{
+  color:#0878e8;
+}
+
 .btn{
   border:0;
   background:#0878e8;
@@ -62,12 +91,14 @@ a{text-decoration:none;color:inherit}
   font-weight:bold;
   cursor:pointer;
 }
+
 .btn.light{
   background:white;
   color:#17243d;
   border:1px solid #dce4ef;
 }
 
+/* Hero */
 .hero{
   min-height:375px;
   padding:45px 5%;
@@ -75,7 +106,11 @@ a{text-decoration:none;color:inherit}
   align-items:center;
   background:linear-gradient(110deg,#eef7ff,#ffffff);
 }
-.heroText{width:52%}
+
+.heroText{
+  width:52%;
+}
+
 .badge{
   display:inline-block;
   background:#e1f0ff;
@@ -86,18 +121,26 @@ a{text-decoration:none;color:inherit}
   font-weight:bold;
   margin-bottom:17px;
 }
+
 h1{
   font-size:42px;
   line-height:1.08;
   margin-bottom:18px;
 }
+
 .hero p{
   color:#4c5870;
   line-height:1.6;
   max-width:560px;
 }
-.actions{display:flex;gap:14px;margin-top:24px}
 
+.actions{
+  display:flex;
+  gap:14px;
+  margin-top:24px;
+}
+
+/* Demo Card */
 .visual{
   width:48%;
   height:290px;
@@ -105,6 +148,7 @@ h1{
   justify-content:center;
   align-items:center;
 }
+
 .card{
   width:430px;
   height:245px;
@@ -115,51 +159,104 @@ h1{
   position:relative;
   transform:rotate(-3deg);
 }
+
 .cardTitle{
   color:#0878e8;
   font-size:22px;
   font-weight:bold;
   margin-bottom:20px;
 }
-.check{margin:13px 0;color:#26344d}
-.check span{color:#19a663;font-weight:bold;margin-right:8px}
+
+.check{
+  margin:13px 0;
+  color:#26344d;
+}
+
+.check span{
+  color:#19a663;
+  font-weight:bold;
+  margin-right:8px;
+}
+
 .shield{
   position:absolute;
   right:25px;
   bottom:25px;
-  width:75px;height:90px;
+  width:75px;
+  height:90px;
   background:#0878e8;
-  clip-path:polygon(50% 0,100% 20%,88% 75%,50% 100%,12% 75%,0 20%);
-  display:flex;align-items:center;justify-content:center;
-  color:white;font-size:38px;
+  clip-path:polygon(
+    50% 0,
+    100% 20%,
+    88% 75%,
+    50% 100%,
+    12% 75%,
+    0 20%
+  );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:38px;
 }
 
+/* How It Works */
 .section{
   padding:38px 5%;
   background:white;
 }
-.center{text-align:center}
-.section h2{font-size:30px;margin-bottom:8px}
-.sub{color:#68758a;font-size:14px;margin-bottom:30px}
+
+.center{
+  text-align:center;
+}
+
+.section h2{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.sub{
+  color:#68758a;
+  font-size:14px;
+  margin-bottom:30px;
+}
 
 .steps{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:25px;
 }
-.step{text-align:center}
+
+.step{
+  text-align:center;
+}
+
 .circle{
-  width:64px;height:64px;
+  width:64px;
+  height:64px;
   margin:auto;
   border-radius:50%;
   background:#eaf5ff;
   color:#0878e8;
-  display:flex;align-items:center;justify-content:center;
-  font-size:25px;font-weight:bold;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  font-weight:bold;
 }
-.step h3{font-size:15px;margin:14px 0 7px}
-.step p{font-size:13px;color:#68758a;line-height:1.5}
 
+.step h3{
+  font-size:15px;
+  margin:14px 0 7px;
+}
+
+.step p{
+  font-size:13px;
+  color:#68758a;
+  line-height:1.5;
+}
+
+/* Why Section */
 .why{
   background:#edf7ff;
   display:grid;
@@ -167,9 +264,22 @@ h1{
   gap:30px;
   padding:30px 5%;
 }
-.why h2{font-size:25px;margin-bottom:15px}
-.list{line-height:2;font-size:14px}
-.list span{color:#16a66a;margin-right:8px;font-weight:bold}
+
+.why h2{
+  font-size:25px;
+  margin-bottom:15px;
+}
+
+.list{
+  line-height:2;
+  font-size:14px;
+}
+
+.list span{
+  color:#16a66a;
+  margin-right:8px;
+  font-weight:bold;
+}
 
 .demoBox{
   background:white;
@@ -177,9 +287,17 @@ h1{
   padding:30px;
   box-shadow:0 5px 20px #d8e2ee;
 }
-.demoBox h2{margin-bottom:10px}
-.demoBox p{color:#68758a;line-height:1.6}
 
+.demoBox h2{
+  margin-bottom:10px;
+}
+
+.demoBox p{
+  color:#68758a;
+  line-height:1.6;
+}
+
+/* Stats */
 .stats{
   background:#071c3d;
   color:white;
@@ -188,9 +306,18 @@ h1{
   padding:22px 5%;
   text-align:center;
 }
-.stat b{font-size:22px;display:block}
-.stat span{font-size:12px;color:#b9c7da}
 
+.stat b{
+  font-size:22px;
+  display:block;
+}
+
+.stat span{
+  font-size:12px;
+  color:#b9c7da;
+}
+
+/* Footer */
 footer{
   background:white;
   padding:30px 5%;
@@ -199,21 +326,51 @@ footer{
   font-size:12px;
   color:#68758a;
 }
-.footerLogo{font-weight:bold;color:#071633;font-size:16px}
-.footerLinks{display:flex;gap:22px}
 
+.footerLogo{
+  font-weight:bold;
+  color:#071633;
+  font-size:16px;
+}
+
+.footerLinks{
+  display:flex;
+  gap:22px;
+}
+
+/* Mobile */
 @media(max-width:800px){
-  .nav{height:auto;padding:14px 5%}
-  .navlinks{display:none}
+
+  .nav{
+    height:auto;
+    padding:14px 5%;
+  }
+
+  .navlinks{
+    display:none;
+  }
 
   .hero{
     padding:28px 5%;
     display:block;
   }
-  .heroText{width:100%}
-  h1{font-size:31px}
-  .hero p{font-size:14px}
-  .actions{display:block}
+
+  .heroText{
+    width:100%;
+  }
+
+  h1{
+    font-size:31px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .actions{
+    display:block;
+  }
+
   .actions .btn{
     width:100%;
     margin-bottom:10px;
@@ -224,14 +381,27 @@ footer{
     height:230px;
     margin-top:15px;
   }
+
   .card{
     width:90%;
     height:200px;
     padding:20px;
   }
-  .cardTitle{font-size:18px}
-  .check{font-size:12px;margin:8px 0}
-  .shield{width:55px;height:65px;font-size:28px}
+
+  .cardTitle{
+    font-size:18px;
+  }
+
+  .check{
+    font-size:12px;
+    margin:8px 0;
+  }
+
+  .shield{
+    width:55px;
+    height:65px;
+    font-size:28px;
+  }
 
   .steps{
     grid-template-columns:1fr;
@@ -251,6 +421,7 @@ footer{
     display:block;
     text-align:center;
   }
+
   .footerLinks{
     justify-content:center;
     flex-wrap:wrap;
@@ -262,17 +433,25 @@ footer{
 
 <body>
 
+<!-- Demo Notice -->
 <div class="demo">
   DEMO / SAMPLE WEBSITE — NOT AN OFFICIAL PAYMENT SERVICE
 </div>
 
+<!-- Navigation -->
 <nav class="nav">
+
   <div class="logo">
-    <div class="logoIcon">S</div>
+
+    <div class="logoIcon">
+      S
+    </div>
+
     <div>
       SecureTrade Demo
       <small>Demo Escrow Interface</small>
     </div>
+
   </div>
 
   <div class="navlinks">
@@ -284,15 +463,25 @@ footer{
     <a href="#help">Help</a>
   </div>
 
-  <button class="btn" onclick="alert('Demo only')">Sign Up</button>
+  <button class="btn" onclick="alert('Demo only')">
+    Sign Up
+  </button>
+
 </nav>
 
+<!-- Hero -->
 <section class="hero" id="home">
-  <div class="heroText">
-    <div class="badge">✓ SECURE DEMO PAYMENTS</div>
 
-    <h1>Verified Purchase Trades:<br>
-    Buy & Sell with Confidence</h1>
+  <div class="heroText">
+
+    <div class="badge">
+      ✓ SECURE DEMO PAYMENTS
+    </div>
+
+    <h1>
+      Verified Purchase Trades:<br>
+      Buy & Sell with Confidence
+    </h1>
 
     <p>
       A safe and simple escrow interface for demonstration purposes.
@@ -300,92 +489,209 @@ footer{
     </p>
 
     <div class="actions">
+
       <button class="btn" onclick="alert('Demo only')">
         Get Started
       </button>
 
-      <button class="btn light" onclick="document.getElementById('works').scrollIntoView()">
+      <button
+        class="btn light"
+        onclick="document.getElementById('works').scrollIntoView()"
+      >
         ▶ &nbsp; How It Works
       </button>
+
     </div>
+
   </div>
 
   <div class="visual">
+
     <div class="card">
-      <div class="cardTitle">SecureTrade Demo</div>
 
-      <div class="check"><span>✓</span>Funds shown as held in demo escrow</div>
-      <div class="check"><span>✓</span>Sample order verification</div>
-      <div class="check"><span>✓</span>Buyer confirmation</div>
-      <div class="check"><span>✓</span>Demo payout release</div>
+      <div class="cardTitle">
+        SecureTrade Demo
+      </div>
 
-      <div class="shield">✓</div>
+      <div class="check">
+        <span>✓</span>
+        Funds shown as held in demo escrow
+      </div>
+
+      <div class="check">
+        <span>✓</span>
+        Sample order verification
+      </div>
+
+      <div class="check">
+        <span>✓</span>
+        Buyer confirmation
+      </div>
+
+      <div class="check">
+        <span>✓</span>
+        Demo payout release
+      </div>
+
+      <div class="shield">
+        ✓
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- How It Works -->
 <section class="section" id="works">
+
   <div class="center">
-    <h2>How Our Demo Works</h2>
-    <p class="sub">A simple four-step sample workflow</p>
+
+    <h2>
+      How Our Demo Works
+    </h2>
+
+    <p class="sub">
+      A simple four-step sample workflow
+    </p>
+
   </div>
 
   <div class="steps">
 
     <div class="step">
-      <div class="circle">🛒</div>
-      <h3>1. Seller Places Order</h3>
-      <p>Seller creates a sample transaction and enters the required trade details.</p>
+
+      <div class="circle">
+        🛒
+      </div>
+
+      <h3>
+        1. Seller Places Order
+      </h3>
+
+      <p>
+        Seller creates a sample transaction and enters the required trade details.
+      </p>
+
     </div>
 
     <div class="step">
-      <div class="circle">↥</div>
-      <h3>2. Buyer Verification</h3>
-      <p>Buyer submits sample confirmation information for the demonstration.</p>
+
+      <div class="circle">
+        ↥
+      </div>
+
+      <h3>
+        2. Buyer Verification
+      </h3>
+
+      <p>
+        Buyer submits sample confirmation information for the demonstration.
+      </p>
+
     </div>
 
     <div class="step">
-      <div class="circle">✓</div>
-      <h3>3. Demo Verification</h3>
-      <p>The sample system displays a verification step for the transaction.</p>
+
+      <div class="circle">
+        ✓
+      </div>
+
+      <h3>
+        3. Demo Verification
+      </h3>
+
+      <p>
+        The sample system displays a verification step for the transaction.
+      </p>
+
     </div>
 
     <div class="step">
-      <div class="circle">▣</div>
-      <h3>4. Demo Release</h3>
-      <p>The interface shows how a completed transaction could appear.</p>
+
+      <div class="circle">
+        ▣
+      </div>
+
+      <h3>
+        4. Demo Release
+      </h3>
+
+      <p>
+        The interface shows how a completed transaction could appear.
+      </p>
+
     </div>
 
   </div>
+
 </section>
 
+<!-- Why Choose Demo -->
 <section class="why">
 
   <div>
-    <h2>Why Choose Our Demo?</h2>
+
+    <h2>
+      Why Choose Our Demo?
+    </h2>
 
     <div class="list">
-      <div><span>✓</span>Clear transaction workflow</div>
-      <div><span>✓</span>Simple buyer and seller interface</div>
-      <div><span>✓</span>Responsive mobile design</div>
-      <div><span>✓</span>Sample verification process</div>
-      <div><span>✓</span>Transparent demo interface</div>
-      <div><span>✓</span>Easy-to-understand layout</div>
+
+      <div>
+        <span>✓</span>
+        Clear transaction workflow
+      </div>
+
+      <div>
+        <span>✓</span>
+        Simple buyer and seller interface
+      </div>
+
+      <div>
+        <span>✓</span>
+        Responsive mobile design
+      </div>
+
+      <div>
+        <span>✓</span>
+        Sample verification process
+      </div>
+
+      <div>
+        <span>✓</span>
+        Transparent demo interface
+      </div>
+
+      <div>
+        <span>✓</span>
+        Easy-to-understand layout
+      </div>
+
     </div>
+
   </div>
 
   <div class="demoBox">
-    <h2>Trade safely. Stay protected.</h2>
+
+    <h2>
+      Trade safely. Stay protected.
+    </h2>
+
     <p>
       This is a visual demonstration only. No real payments,
       escrow funds, account verification, or payout processing
       are performed by this page.
     </p>
+
   </div>
 
 </section>
 
+<!-- Statistics -->
 <section class="stats">
+
   <div class="stat">
     <b>10K+</b>
     <span>Demo Traders</span>
@@ -405,20 +711,44 @@ footer{
     <b>24/7</b>
     <span>Demo Support</span>
   </div>
+
 </section>
 
+<!-- Footer -->
 <footer>
+
   <div>
-    <div class="footerLogo">SecureTrade Demo</div>
-    <div>Demo Escrow Interface</div>
+
+    <div class="footerLogo">
+      SecureTrade Demo
+    </div>
+
+    <div>
+      Demo Escrow Interface
+    </div>
+
   </div>
 
   <div class="footerLinks">
-    <a href="#">About</a>
-    <a href="#">Help</a>
-    <a href="#">Terms</a>
-    <a href="#">Privacy</a>
+
+    <a href="#">
+      About
+    </a>
+
+    <a href="#">
+      Help
+    </a>
+
+    <a href="#">
+      Terms
+    </a>
+
+    <a href="#">
+      Privacy
+    </a>
+
   </div>
+
 </footer>
 
 </body>
