@@ -1097,7 +1097,7 @@ footer{
           <button class="btn btn-primary" onclick="openSignupModal()">
             Get Started
           </button>
-          <button class="btn btn-how" data-target="how-it-works">
+          <button class="btn btn-how" onclick="scrollToSection('how-it-works')">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             How It Works
           </button>
@@ -1323,7 +1323,7 @@ footer{
   <!-- Logged-In User Interface with Bottom Navigation Bar -->
   <div id="loggedInView" style="display:none; max-width:640px; margin:20px auto 90px auto; background:#f8fafc; border-radius:24px; box-shadow:0 15px 35px rgba(0,0,0,0.08); overflow:hidden; border:1px solid #e2e8f0; position:relative;">
     
-    <!-- Scrollable Body Content (Fixed overlapping and padding issues) -->
+    <!-- Scrollable Body Content -->
     <div style="padding:22px; max-height:calc(100vh - 120px); overflow-y:auto; padding-bottom:90px;">
       
       <!-- Dynamic Tab Content Views -->
@@ -1604,7 +1604,7 @@ footer{
 
     </div>
 
-    <!-- Bottom Navigation Bar (Fully functional with active state tracking) -->
+    <!-- Bottom Navigation Bar -->
     <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #e2ebf3; display:grid; grid-template-columns:repeat(5, 1fr); padding:8px 0; z-index:100; border-bottom-left-radius:24px; border-bottom-right-radius:24px;">
       <div id="navHome" onclick="switchTab('home')" style="text-align:center; cursor:pointer; color:var(--blue);">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
@@ -1670,7 +1670,6 @@ function updateHeaderAndUI(){
   const loggedInView = document.getElementById("loggedInView");
 
   if(isLoggedIn){
-    // Logged in state: Show logged in view directly with default home tab active
     publicView.style.display = "none";
     loggedInView.style.display = "block";
     switchTab('home');
@@ -1698,17 +1697,16 @@ function updateHeaderAndUI(){
       <button class="btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="handleLogout()">Log Out</button>
     `;
   } else {
-    // Logged out state: standard landing page
     publicView.style.display = "block";
     loggedInView.style.display = "none";
 
     desktopNav.innerHTML = `
-      <a data-target="home">Home</a>
-      <a data-target="how-it-works">How It Works</a>
+      <a onclick="scrollToSection('home')">Home</a>
+      <a onclick="scrollToSection('how-it-works')">How It Works</a>
       <a data-modal="buyersModal">For Buyers</a>
       <a data-modal="sellersModal">For Sellers</a>
       <a data-modal="feesModal">Fees</a>
-      <a data-target="help">Help</a>
+      <a onclick="scrollToSection('help')">Help</a>
     `;
 
     headerActions.innerHTML = `
@@ -1717,12 +1715,12 @@ function updateHeaderAndUI(){
     `;
 
     mobileNav.innerHTML = `
-      <a data-target="home">Home</a>
-      <a data-target="how-it-works">How It Works</a>
+      <a onclick="scrollToSection('home')">Home</a>
+      <a onclick="scrollToSection('how-it-works')">How It Works</a>
       <a data-modal="buyersModal">For Buyers</a>
       <a data-modal="sellersModal">For Sellers</a>
       <a data-modal="feesModal">Fees</a>
-      <a data-target="help">Help</a>
+      <a onclick="scrollToSection('help')">Help</a>
       <button class="btn btn-outline" data-modal="loginModal">Log In</button>
       <button class="btn btn-primary" data-modal="signupModal">Sign Up</button>
     `;
@@ -1732,14 +1730,11 @@ function updateHeaderAndUI(){
 }
 
 function switchTab(tabName) {
-  // Hide all tab contents
   document.querySelectorAll('.app-tab-content').forEach(el => el.style.display = 'none');
   
-  // Show selected tab
   const targetTab = document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
   if(targetTab) targetTab.style.display = 'block';
 
-  // Reset all nav icons to muted color
   const navIds = ['navHome', 'navTransactions', 'navNewTrade', 'navMessages', 'navProfile'];
   navIds.forEach(id => {
     const item = document.getElementById(id);
@@ -1754,7 +1749,6 @@ function switchTab(tabName) {
     }
   });
 
-  // Highlight active nav item
   const activeNavItem = document.getElementById('nav' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
   if(activeNavItem) {
     if(tabName === 'newTrade') {
@@ -1776,7 +1770,10 @@ function handleLogout(){
 
 function scrollToSection(id){
   const el = document.getElementById(id);
-  if(el) el.scrollIntoView({behavior:'smooth'});
+  if(el) {
+    el.scrollIntoView({behavior:'smooth'});
+    mobileNav.classList.remove("open");
+  }
 }
 
 // Mobile Navigation Toggle
@@ -2078,4 +2075,3 @@ updateHeaderAndUI();
 
 </body>
 </html>
-
