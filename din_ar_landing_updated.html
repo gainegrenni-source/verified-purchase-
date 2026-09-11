@@ -1,0 +1,2600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DIN AR Escrow System</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:#f4f6fa;
+    color:#1a2b4c;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+    border:0;
+}
+
+.app{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    margin:auto;
+    background:#ffffff;
+    position:relative;
+    overflow-x:hidden;
+    padding-bottom:90px;
+}
+
+/* HEADER */
+.header{
+    height:65px;
+    background:#ffffff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 16px;
+    border-bottom:1px solid #edf0f5;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+}
+
+.brand-icon{
+    width:32px;
+    height:32px;
+    background:#0070ba;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+}
+
+.brand-icon svg{
+    width:18px;
+    height:18px;
+}
+
+.brand-text{
+    font-size:15px;
+    font-weight:800;
+    color:#1a2b4c;
+    letter-spacing:-.3px;
+}
+
+.brand-sub{
+    font-size:8px;
+    color:#718096;
+    margin-top:1px;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.icon-btn{
+    width:38px;
+    height:38px;
+    background:#f4f6fa;
+    border:1px solid #e2e8f0;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#1a2b4c;
+    position:relative;
+}
+
+.icon-btn svg{
+    width:18px;
+    height:18px;
+}
+
+/* PAGES */
+.page{
+    display:none;
+    padding:20px 16px 40px;
+}
+
+.page.active{
+    display:block;
+}
+
+/* =========================================================
+   LANDING PAGE ONLY
+   ========================================================= */
+
+#landing-page{
+    padding:0 16px 34px;
+    overflow:hidden;
+}
+
+.landing-hero{
+    padding-top:18px;
+}
+
+.hero-main{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-height:250px;
+}
+
+.hero-copy{
+    width:53%;
+    flex-shrink:0;
+}
+
+.badge-tag{
+    text-align:left;
+    margin-bottom:11px;
+}
+
+.badge-tag span{
+    display:inline-block;
+    background:#edf6ff;
+    color:#2b6cb0;
+    font-size:8.5px;
+    font-weight:800;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:20px;
+    letter-spacing:.45px;
+    border:1px solid #dcebf7;
+}
+
+.hero-title{
+    font-size:21px;
+    font-weight:800;
+    text-align:left;
+    line-height:1.18;
+    color:#102a52;
+    padding:0;
+    letter-spacing:-.55px;
+}
+
+.hero-desc{
+    font-size:10.5px;
+    color:#5b6878;
+    text-align:left;
+    margin-top:10px;
+    line-height:1.42;
+    padding:0;
+}
+
+.hero-btns{
+    margin-top:14px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.btn-primary{
+    width:100%;
+    height:46px;
+    background:#0070ba;
+    color:#fff;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 4px 14px rgba(0,112,186,.25);
+}
+
+.btn-secondary{
+    width:100%;
+    height:42px;
+    background:#ffffff;
+    color:#1a2b4c;
+    border:1px solid #d7e0e8;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.btn-secondary svg{
+    width:14px;
+    height:14px;
+    fill:#0070ba;
+}
+
+/* PROTECTION ORBIT */
+.protection-visual{
+    width:47%;
+    height:245px;
+    position:relative;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:visible;
+}
+
+.orbit-stage{
+    width:220px;
+    height:220px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.orbit-ring{
+    position:absolute;
+    width:190px;
+    height:92px;
+    border:2px solid rgba(65,173,239,.30);
+    border-radius:50%;
+    transform:rotate(-18deg);
+    box-shadow:0 0 18px rgba(65,173,239,.07);
+}
+
+.orbit-ring.r2{
+    width:205px;
+    height:105px;
+    transform:rotate(24deg);
+    border-color:rgba(65,173,239,.18);
+}
+
+.shield-wrap{
+    width:105px;
+    height:115px;
+    position:relative;
+    z-index:4;
+    filter:drop-shadow(0 10px 15px rgba(0,112,186,.18));
+}
+
+.shield-wrap svg{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+.orbit-items{
+    position:absolute;
+    inset:0;
+    z-index:5;
+    animation:orbitRotate 15s linear infinite;
+}
+
+@keyframes orbitRotate{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+.orbit-badge{
+    position:absolute;
+    min-width:68px;
+    height:38px;
+    padding:4px 7px;
+    background:rgba(255,255,255,.97);
+    border:1px solid #e4eef7;
+    border-radius:18px;
+    box-shadow:0 5px 16px rgba(33,96,146,.10);
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:7px;
+    font-weight:800;
+    color:#18345b;
+    line-height:1.05;
+    animation:orbitCounter 15s linear infinite;
+}
+
+@keyframes orbitCounter{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(-360deg);}
+}
+
+.orbit-badge small{
+    display:block;
+    font-size:6.5px;
+    color:#718096;
+    font-weight:600;
+    margin-top:2px;
+}
+
+.orbit-badge .mini-icon{
+    width:23px;
+    height:23px;
+    border-radius:50%;
+    background:#edf7ff;
+    color:#0070ba;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.orbit-badge .mini-icon svg{
+    width:13px;
+    height:13px;
+}
+
+.badge-safe{top:16px;left:7px;}
+.badge-trusted{top:30px;right:-1px;}
+.badge-fast{bottom:22px;left:1px;}
+.badge-support{bottom:10px;right:1px;}
+
+/* 3 ICON ROW */
+.features-row-3{
+    display:flex;
+    justify-content:space-between;
+    margin-top:5px;
+    gap:9px;
+    text-align:center;
+}
+
+.feat-col{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    background:#fff;
+    padding:10px 6px 9px;
+    border-radius:14px;
+    border:1px solid #edf2f7;
+}
+
+.feat-icon-circle{
+    width:42px;
+    height:42px;
+    background:#f1f8fe;
+    border:1px solid #e1edf6;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#0070ba;
+    margin-bottom:6px;
+}
+
+.feat-icon-circle svg{
+    width:19px;
+    height:19px;
+}
+
+.feat-col strong{
+    font-size:9.5px;
+    font-weight:800;
+    color:#1a2b4c;
+    line-height:1.15;
+}
+
+.feat-col p{
+    font-size:8px;
+    color:#718096;
+    margin-top:3px;
+    line-height:1.25;
+}
+
+/* HOW WE WORKS */
+.how-section{
+    margin-top:27px;
+    scroll-margin-top:78px;
+}
+
+.how-title{
+    text-align:center;
+    font-size:19px;
+    font-weight:800;
+    color:#102a52;
+}
+
+.how-subtitle{
+    text-align:center;
+    font-size:10px;
+    color:#718096;
+    margin-top:3px;
+    margin-bottom:16px;
+}
+
+.steps-list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    position:relative;
+}
+
+.steps-list::before{
+    content:"";
+    position:absolute;
+    left:18px;
+    top:17px;
+    bottom:17px;
+    width:1px;
+    background:#b9d8ee;
+}
+
+.step-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    border:1px solid #e4ebf1;
+    border-radius:11px;
+    padding:10px 10px 10px 6px;
+    box-shadow:0 3px 12px rgba(32,72,108,.035);
+    position:relative;
+    z-index:1;
+}
+
+.step-number{
+    width:27px;
+    height:27px;
+    background:#0879c1;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:800;
+    flex-shrink:0;
+    border:3px solid #fff;
+    box-shadow:0 1px 4px rgba(0,112,186,.12);
+}
+
+.step-ico{
+    width:39px;
+    height:39px;
+    background:#eaf5fe;
+    color:#0070ba;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.step-ico svg{
+    width:19px;
+    height:19px;
+}
+
+.step-content{
+    flex:1;
+}
+
+.step-content strong{
+    font-size:11px;
+    color:#1a2b4c;
+    display:block;
+    line-height:1.15;
+}
+
+.step-content p{
+    font-size:8.7px;
+    color:#718096;
+    margin-top:3px;
+    line-height:1.35;
+}
+
+/* ESCROW SERVICE BOX */
+.escrow-info-box{
+    margin-top:22px;
+    background:linear-gradient(135deg,#f4faff,#eaf5fd);
+    border:1px solid #d7eaf7;
+    border-radius:14px;
+    padding:15px;
+    scroll-margin-top:78px;
+}
+
+.escrow-info-head{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:8px;
+}
+
+.escrow-info-icon{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    background:#fff;
+    color:#0070ba;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #dbeaf5;
+    flex-shrink:0;
+}
+
+.escrow-info-icon svg{
+    width:19px;
+    height:19px;
+}
+
+.escrow-info-head h3{
+    font-size:13px;
+    font-weight:800;
+    color:#102a52;
+}
+
+.escrow-info-head p{
+    font-size:8.5px;
+    color:#718096;
+    margin-top:2px;
+}
+
+.escrow-info-box > p{
+    font-size:9.5px;
+    line-height:1.5;
+    color:#5b6878;
+}
+
+.escrow-points{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+    margin-top:11px;
+}
+
+.escrow-point{
+    background:#fff;
+    border:1px solid #e2edf5;
+    border-radius:9px;
+    padding:8px;
+    font-size:8.5px;
+    color:#506174;
+    line-height:1.3;
+}
+
+.escrow-point strong{
+    display:block;
+    font-size:9px;
+    color:#1a2b4c;
+    margin-bottom:2px;
+}
+
+/* WHY CHOOSE */
+.why-section{
+    margin-top:24px;
+    scroll-margin-top:78px;
+}
+
+.landing-section-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+
+.landing-section-head h2{
+    font-size:17px;
+    font-weight:800;
+    color:#102a52;
+}
+
+.text-link{
+    background:transparent;
+    color:#1478b8;
+    font-size:9.5px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+.why-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+}
+
+.why-card{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:9px;
+    background:#fff;
+    border:1px solid #e7edf3;
+    border-radius:11px;
+    min-height:61px;
+    cursor:pointer;
+}
+
+.why-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:#eaf5fe;
+    color:#0070ba;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.why-icon svg{
+    width:19px;
+    height:19px;
+}
+
+.why-card strong{
+    display:block;
+    font-size:9.5px;
+    color:#1a2b4c;
+}
+
+.why-card p{
+    font-size:8px;
+    color:#718096;
+    margin-top:2px;
+    line-height:1.3;
+}
+
+/* STATS */
+.stats-strip{
+    margin-top:15px;
+    background:linear-gradient(135deg,#123f69,#075e99);
+    border-radius:12px;
+    padding:12px 5px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    color:#fff;
+    box-shadow:0 8px 20px rgba(8,76,122,.16);
+}
+
+.stat-item{
+    text-align:center;
+    border-right:1px solid rgba(255,255,255,.28);
+}
+
+.stat-item:last-child{
+    border-right:0;
+}
+
+.stat-icon{
+    height:19px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:2px;
+}
+
+.stat-icon svg{
+    width:17px;
+    height:17px;
+}
+
+.stat-item strong{
+    display:block;
+    font-size:12px;
+    font-weight:800;
+}
+
+.stat-item span{
+    display:block;
+    font-size:7px;
+    opacity:.88;
+    margin-top:1px;
+}
+
+/* TESTIMONIAL */
+.testimonials-section{
+    margin-top:21px;
+}
+
+.testimonial-card{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    background:#fff;
+    border:1px solid #e7edf3;
+    border-radius:12px;
+    padding:11px;
+}
+
+.stars{
+    color:#f6b900;
+    font-size:11px;
+    letter-spacing:1px;
+    margin-bottom:4px;
+}
+
+.quote{
+    font-size:9.5px;
+    line-height:1.35;
+    color:#32455e;
+}
+
+.user-avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#dfe6ff;
+    color:#4c5fc2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    font-weight:800;
+    flex-shrink:0;
+    margin-left:auto;
+}
+
+.user-meta{
+    width:64px;
+    flex-shrink:0;
+}
+
+.user-meta strong{
+    display:block;
+    font-size:8.5px;
+    color:#1a2b4c;
+}
+
+.user-meta span{
+    font-size:7px;
+    color:#718096;
+}
+
+.dots{
+    display:flex;
+    justify-content:center;
+    gap:5px;
+    margin-top:8px;
+}
+
+.dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#d5e3ee;
+}
+
+.dot.active{
+    background:#0879c1;
+}
+
+/* CTA */
+.landing-cta{
+    margin-top:16px;
+    background:linear-gradient(135deg,#eff8ff,#e6f4fd);
+    border:1px solid #d9ebf8;
+    border-radius:13px;
+    padding:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.cta-copy{
+    flex:1;
+}
+
+.cta-copy h3{
+    font-size:13px;
+    color:#102a52;
+    font-weight:800;
+}
+
+.cta-copy p{
+    font-size:8.5px;
+    color:#718096;
+    line-height:1.3;
+    margin-top:3px;
+}
+
+.cta-button{
+    min-width:126px;
+    height:42px;
+    background:#0879c1;
+    color:#fff;
+    border-radius:9px;
+    font-size:10px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    box-shadow:0 5px 13px rgba(0,112,186,.18);
+}
+
+.cta-button svg{
+    width:13px;
+    height:13px;
+}
+
+/* LANDING FOOTER */
+.landing-footer{
+    margin:28px -16px -34px;
+    padding:21px 16px 13px;
+    background:#092b4b;
+    color:#fff;
+}
+
+.footer-top{
+    display:grid;
+    grid-template-columns:1.35fr 1fr 1fr 1fr;
+    gap:11px;
+}
+
+.footer-brand{
+    min-width:0;
+}
+
+.footer-logo{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    margin-bottom:7px;
+}
+
+.footer-logo-mark{
+    width:32px;
+    height:32px;
+    border-radius:8px;
+    background:#0070ba;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.footer-logo-mark svg{
+    width:18px;
+    height:18px;
+}
+
+.footer-logo strong{
+    display:block;
+    font-size:12px;
+    font-weight:800;
+}
+
+.footer-logo small{
+    display:block;
+    font-size:6.5px;
+    color:#a9bfd0;
+    margin-top:1px;
+}
+
+.footer-brand > p{
+    font-size:7.8px;
+    line-height:1.45;
+    color:#b8c9d6;
+}
+
+.footer-col h4{
+    font-size:8.5px;
+    margin-bottom:7px;
+    font-weight:800;
+}
+
+.footer-col button{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:transparent;
+    color:#b8c9d6;
+    font-size:7.8px;
+    padding:2px 0;
+}
+
+.footer-col button:hover{
+    color:#fff;
+}
+
+.footer-bottom{
+    margin-top:13px;
+    padding-top:10px;
+    border-top:1px solid rgba(255,255,255,.18);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+}
+
+.footer-socials{
+    display:flex;
+    gap:5px;
+}
+
+.social-btn{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:rgba(255,255,255,.09);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.social-btn svg{
+    width:12px;
+    height:12px;
+}
+
+.footer-copy{
+    text-align:right;
+    font-size:6.8px;
+    line-height:1.35;
+    color:#9fb5c6;
+}
+
+/* DASHBOARD STYLES */
+.dashboard-header-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:16px;
+}
+
+.welcome-text{
+    font-size:12px;
+    color:#718096;
+}
+
+.dash-title{
+    font-size:22px;
+    font-weight:800;
+    color:#1a2b4c;
+}
+
+.secure-badge-pill{
+    background:#e1effe;
+    border:1px solid #cbd5e0;
+    padding:6px 10px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:10px;
+    font-weight:700;
+    color:#0070ba;
+}
+
+.secure-badge-pill svg{
+    width:14px;
+    height:14px;
+    fill:#0070ba;
+}
+
+.main-balance-card{
+    background:linear-gradient(135deg,#00458e,#0070ba);
+    border-radius:18px;
+    padding:18px;
+    color:#fff;
+    margin-bottom:16px;
+    box-shadow:0 8px 20px rgba(0,112,186,.2);
+    position:relative;
+}
+
+.balance-amount{
+    font-size:30px;
+    font-weight:800;
+    margin:8px 0 14px 0;
+}
+
+.balance-stats-row{
+    display:flex;
+    justify-content:space-between;
+    border-top:1px solid rgba(255,255,255,0.2);
+    padding-top:12px;
+}
+
+.b-stat span{
+    font-size:9px;
+    opacity:0.8;
+    display:block;
+}
+
+.b-stat strong{
+    font-size:13px;
+    font-weight:700;
+}
+
+.section-header-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+    margin-top:16px;
+}
+
+.section-title{
+    font-size:14px;
+    font-weight:800;
+    color:#1a2b4c;
+}
+
+.quick-actions-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:8px;
+    margin-bottom:10px;
+}
+
+.q-action-card{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:12px 6px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+}
+
+.q-icon-box{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.q-icon-box svg{
+    width:20px;
+    height:20px;
+}
+
+.q-action-card span{
+    font-size:10px;
+    font-weight:700;
+    color:#1a2b4c;
+}
+
+.active-escrow-box{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:20px;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+/* NEW TRADE PAGE STYLES */
+.nt-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.nt-back-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    width:36px;
+    height:36px;
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#1a2b4c;
+}
+
+.back-btn svg{
+    width:18px;
+    height:18px;
+}
+
+.nt-title-group h2{
+    font-size:18px;
+    font-weight:800;
+    color:#1a2b4c;
+}
+
+.nt-title-group p{
+    font-size:10px;
+    color:#718096;
+    margin-top:1px;
+}
+
+.nt-escrow-brand{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:#e1effe;
+    padding:6px 10px;
+    border-radius:10px;
+    border:1px solid #cbd5e0;
+}
+
+.nt-escrow-brand svg{
+    width:16px;
+    height:16px;
+    fill:#0070ba;
+}
+
+.nt-escrow-brand span{
+    font-size:10px;
+    font-weight:800;
+    color:#1a2b4c;
+    display:block;
+    line-height:1.1;
+}
+
+.nt-escrow-brand small{
+    font-size:8px;
+    color:#718096;
+}
+
+.nt-protection-box{
+    background:linear-gradient(135deg, #f0f7ff, #e1effe);
+    border:1px solid #cbd5e0;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:16px;
+}
+
+.nt-prot-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nt-prot-shield{
+    width:38px;
+    height:38px;
+    background:#0070ba;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    flex-shrink:0;
+}
+
+.nt-prot-shield svg{
+    width:20px;
+    height:20px;
+}
+
+.timeline-container{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    position:relative;
+    padding-left:14px;
+    margin-bottom:20px;
+}
+
+.timeline-container::before{
+    content:'';
+    position:absolute;
+    top:18px;
+    bottom:18px;
+    left:29px;
+    width:2px;
+    background:#cbd5e0;
+    z-index:1;
+}
+
+.t-step-item{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    position:relative;
+    z-index:2;
+    padding:10px 0;
+}
+
+.t-step-num{
+    width:32px;
+    height:32px;
+    background:#0070ba;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:800;
+    flex-shrink:0;
+}
+
+.t-step-num.inactive{
+    background:#cbd5e0;
+    color:#fff;
+}
+
+.t-step-content{
+    flex:1;
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:12px;
+}
+
+.t-step-content h4{
+    font-size:12px;
+    font-weight:800;
+    color:#1a2b4c;
+    margin-bottom:2px;
+}
+
+.t-step-content p{
+    font-size:10px;
+    color:#718096;
+    margin-bottom:8px;
+}
+
+.t-action-btn{
+    width:100%;
+    height:38px;
+    background:#f0f4f8;
+    border:1px solid #cbd5e0;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    font-size:11px;
+    font-weight:700;
+    color:#0070ba;
+}
+
+.t-action-btn svg{
+    width:15px;
+    height:15px;
+}
+
+/* Rules Card */
+.rules-card{
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:16px;
+}
+
+.rules-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.rules-title-area{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.rules-icon-box{
+    width:32px;
+    height:32px;
+    background:#e1effe;
+    color:#0070ba;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.rules-icon-box svg{
+    width:16px;
+    height:16px;
+}
+
+.rules-title-area span{
+    font-size:12.5px;
+    font-weight:800;
+    color:#1a2b4c;
+}
+
+.rules-sub{
+    font-size:10px;
+    color:#718096;
+    margin-bottom:12px;
+}
+
+.buyer-protected-pill{
+    background:#e1effe;
+    border:1px solid #cbd5e0;
+    color:#0070ba;
+    font-size:9.5px;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:20px;
+}
+
+.rule-list-item{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.rule-list-item:last-child{
+    margin-bottom:0;
+}
+
+.rule-num-circle{
+    width:22px;
+    height:22px;
+    background:#e1effe;
+    color:#0070ba;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10px;
+    font-weight:800;
+    flex-shrink:0;
+    margin-top:1px;
+}
+
+.rule-text h5{
+    font-size:11px;
+    font-weight:800;
+    color:#1a2b4c;
+    margin-bottom:1px;
+}
+
+.rule-text p{
+    font-size:9.5px;
+    color:#718096;
+    line-height:1.35;
+}
+
+.btn-continue-full{
+    width:100%;
+    height:46px;
+    background:#0070ba;
+    color:#fff;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 4px 14px rgba(0,112,186,.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+}
+
+/* MODALS */
+.custom-modal-backdrop{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:300;
+    padding:16px;
+}
+
+.custom-modal-backdrop.show{
+    display:flex;
+}
+
+.custom-modal{
+    width:100%;
+    max-width:420px;
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+    position:relative;
+    max-height:90vh;
+    overflow-y:auto;
+}
+
+.modal-close-btn{
+    position:absolute;
+    top:14px;
+    right:14px;
+    background:#f4f6fa;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    color:#718096;
+}
+
+.form-field-group{
+    margin-bottom:12px;
+}
+
+.form-field-group label{
+    display:block;
+    font-size:10.5px;
+    font-weight:700;
+    color:#4a5568;
+    margin-bottom:4px;
+}
+
+.form-field-group input, .form-field-group select{
+    width:100%;
+    height:40px;
+    border:1px solid #cbd5e0;
+    border-radius:8px;
+    padding:0 10px;
+    font-size:11.5px;
+    outline:none;
+    background:#fff;
+}
+
+/* Invoice view points styling */
+.invoice-points-box{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:16px;
+}
+
+.invoice-point-item{
+    font-size:11px;
+    color:#1a2b4c;
+    margin-bottom:8px;
+    line-height:1.4;
+}
+
+.invoice-point-item:last-child{
+    margin-bottom:0;
+}
+
+.invoice-point-item strong{
+    color:#4a5568;
+}
+
+/* BOTTOM NAVIGATION BAR FOR DASHBOARD */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:480px;
+    height:65px;
+    background:#ffffff;
+    border-top:1px solid #edf0f5;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:90;
+    box-shadow:0 -4px 15px rgba(0,0,0,.05);
+}
+
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:transparent;
+    color:#718096;
+    flex:1;
+    height:100%;
+    gap:4px;
+}
+
+.nav-item svg{
+    width:20px;
+    height:20px;
+}
+
+.nav-item span{
+    font-size:9.5px;
+    font-weight:700;
+}
+
+.nav-item.active{
+    color:#0070ba;
+}
+
+/* PROFILE DROPDOWN MENU */
+.profile-dropdown{
+    position:absolute;
+    top:55px;
+    right:16px;
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    width:160px;
+    display:none;
+    z-index:200;
+    padding:6px;
+}
+
+.profile-dropdown.show{
+    display:block;
+}
+
+.dropdown-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    width:100%;
+    padding:10px 12px;
+    background:transparent;
+    font-size:11px;
+    font-weight:700;
+    color:#e53e3e;
+    border-radius:8px;
+}
+
+.dropdown-item:hover{
+    background:#fff5f5;
+}
+
+.dropdown-item svg{
+    width:15px;
+    height:15px;
+}
+
+/* AUTH MODAL */
+.auth-modal-backdrop{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:300;
+    padding:20px;
+}
+
+.auth-modal-backdrop.show{
+    display:flex;
+}
+
+.auth-modal{
+    width:100%;
+    max-width:400px;
+    background:#fff;
+    border-radius:20px;
+    padding:24px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+    position:relative;
+}
+
+.close-modal{
+    position:absolute;
+    top:16px;
+    right:16px;
+    background:#f4f6fa;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    color:#718096;
+}
+
+.auth-switcher{
+    display:flex;
+    background:#f4f6fa;
+    border-radius:12px;
+    padding:4px;
+    margin:20px 0;
+}
+
+.auth-tab{
+    flex:1;
+    height:36px;
+    border-radius:9px;
+    font-size:11px;
+    font-weight:700;
+    background:transparent;
+    color:#718096;
+}
+
+.auth-tab.active{
+    background:#fff;
+    color:#1a2b4c;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:80px;
+    transform:translate(-50%,20px);
+    opacity:0;
+    pointer-events:none;
+    background:#1a2b4c;
+    color:#fff;
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:11px;
+    transition:.3s;
+    z-index:400;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* SMALL MOBILE SAFETY */
+@media(max-width:370px){
+    .hero-main{gap:3px;}
+    .hero-copy{width:55%;}
+    .protection-visual{width:45%; transform:scale(.9); transform-origin:center;}
+    .hero-title{font-size:19px;}
+    .footer-top{grid-template-columns:1.25fr 1fr 1fr 1fr;gap:7px;}
+    .footer-col button,.footer-brand > p{font-size:7px;}
+    .cta-button{min-width:112px;font-size:9px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- HEADER -->
+<header class="header">
+    <div class="brand" onclick="goHome()">
+        <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+            <div class="brand-text">DIN AR</div>
+            <div class="brand-sub">Escrow System</div>
+        </div>
+    </div>
+
+    <div class="header-right" id="headerRightArea"></div>
+</header>
+
+<!-- LANDING PAGE -->
+<section id="landing-page" class="page">
+
+    <div class="landing-hero">
+        <div class="hero-main">
+
+            <div class="hero-copy">
+                <div class="badge-tag">
+                    <span>Secure Escrow Payments</span>
+                </div>
+
+                <h1 class="hero-title">Verified Purchase Trades : Buy & Sell with Confidence</h1>
+
+                <p class="hero-desc">A safe and simple escrow service for Verified Purchase transactions. Your payment is protected until the deal is completed.</p>
+
+                <div class="hero-btns">
+                    <button class="btn-primary" onclick="openAuthModal('signup')">
+                        Get Started
+                        <span style="font-size:15px; margin-left:4px;">→</span>
+                    </button>
+
+                    <button class="btn-secondary" onclick="scrollToHowItWorks()">
+                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        How It Works
+                    </button>
+                </div>
+            </div>
+
+            <!-- Shield + orbiting elements -->
+            <div class="protection-visual" aria-label="DIN AR protection">
+                <div class="orbit-stage">
+
+                    <div class="orbit-ring"></div>
+                    <div class="orbit-ring r2"></div>
+
+                    <div class="shield-wrap">
+                        <svg viewBox="0 0 120 132" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="shieldOuter" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#087fc8"/>
+                                    <stop offset="55%" stop-color="#0064ae"/>
+                                    <stop offset="100%" stop-color="#003f83"/>
+                                </linearGradient>
+                                <linearGradient id="shieldInner" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#19a8ef"/>
+                                    <stop offset="100%" stop-color="#0060ae"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M60 5L108 24V59c0 31-19 54-48 67C31 113 12 90 12 59V24L60 5z"
+                                  fill="url(#shieldOuter)" stroke="#005b9e" stroke-width="2"/>
+                            <path d="M60 14L98 29v29c0 25-14 43-38 55C36 101 22 83 22 58V29L60 14z"
+                                  fill="url(#shieldInner)" opacity=".95"/>
+                            <path d="M60 24L89 36v22c0 18-10 32-29 43C41 90 31 76 31 58V36L60 24z"
+                                  fill="#0874bd" opacity=".72"/>
+                            <path d="M61 45c-7 0-12 5-12 12v5h-5v18h32V62h-5v-5c0-7-4-12-10-12zm0 6c3 0 6 3 6 6v5H55v-5c0-3 3-6 6-6z"
+                                  fill="#ccecff"/>
+                            <circle cx="61" cy="70" r="3" fill="#0062a9"/>
+                            <path d="M61 72v6" stroke="#0062a9" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
+                    <div class="orbit-items">
+                        <div class="orbit-badge badge-safe">
+                            <div class="mini-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div>Safe<small>Transactions</small></div>
+                        </div>
+
+                        <div class="orbit-badge badge-trusted">
+                            <div class="mini-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div>Trusted<small>Platform</small></div>
+                        </div>
+
+                        <div class="orbit-badge badge-fast">
+                            <div class="mini-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            </div>
+                            <div>Fast & Simple</div>
+                        </div>
+
+                        <div class="orbit-badge badge-support">
+                            <div class="mini-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                            </div>
+                            <div>24/7<small>Support</small></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="features-row-3">
+        <div class="feat-col" onclick="showLandingFeature('Secure & Trusted')">
+            <div class="feat-icon-circle">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <strong>Secure & Trusted</strong>
+            <p>Your funds are always protected</p>
+        </div>
+
+        <div class="feat-col" onclick="showLandingFeature('Simple Process')">
+            <div class="feat-icon-circle">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <strong>Simple Process</strong>
+            <p>Easy steps for everyone</p>
+        </div>
+
+        <div class="feat-col" onclick="showLandingFeature('Dispute Support')">
+            <div class="feat-icon-circle">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            </div>
+            <strong>Dispute Support</strong>
+            <p>We're here to help 24/7</p>
+        </div>
+    </div>
+
+    <!-- HOW WE WORKS -->
+    <section id="how-it-works-section" class="how-section">
+        <h2 class="how-title">How We Works</h2>
+        <p class="how-subtitle">A simple and secure process for everyone</p>
+
+        <div class="steps-list">
+            <div class="step-box">
+                <div class="step-number">1</div>
+                <div class="step-ico">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M3 4h2l2.4 11.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 8H6"/></svg>
+                </div>
+                <div class="step-content">
+                    <strong>Seller Places Order</strong>
+                    <p>Seller makes a payment and funds are held securely in our escrow.</p>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">2</div>
+                <div class="step-ico">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6M9 15h6"/></svg>
+                </div>
+                <div class="step-content">
+                    <strong>Buyer Uploads Verification</strong>
+                    <p>Buyer submits confirmation or required order information for verification.</p>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">3</div>
+                <div class="step-ico">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="step-content">
+                    <strong>System/Admin Verification</strong>
+                    <p>We verify the information and confirm the order is received as expected.</p>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">4</div>
+                <div class="step-ico">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                </div>
+                <div class="step-content">
+                    <strong>DIN AR Payout Released</strong>
+                    <p>Funds are released according to the completed trade process.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESCROW SERVICE INFORMATION -->
+    <section id="escrow-service" class="escrow-info-box">
+        <div class="escrow-info-head">
+            <div class="escrow-info-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+                <h3>About DIN AR Escrow Service</h3>
+                <p>Protection throughout the transaction process</p>
+            </div>
+        </div>
+
+        <p>
+            DIN AR provides an escrow-based transaction process designed to keep the payment protected while the agreed purchase or verification steps are completed. The service helps keep both sides organized with a clear process from order placement through verification and payout.
+        </p>
+
+        <div class="escrow-points">
+            <div class="escrow-point">
+                <strong>Payment Protection</strong>
+                Funds remain protected while the trade is being processed.
+            </div>
+            <div class="escrow-point">
+                <strong>Clear Verification</strong>
+                Each required step is presented clearly before completion.
+            </div>
+            <div class="escrow-point">
+                <strong>Order Tracking</strong>
+                Follow the progress of the transaction through its stages.
+            </div>
+            <div class="escrow-point">
+                <strong>Support</strong>
+                Assistance is available when a transaction needs attention.
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE -->
+    <section class="why-section">
+        <div class="landing-section-head">
+            <h2>Why Choose DIN AR?</h2>
+            <button class="text-link" onclick="document.getElementById('escrow-service').scrollIntoView({behavior:'smooth'})">
+                View All →
+            </button>
+        </div>
+
+        <div class="why-grid">
+            <div class="why-card" onclick="showLandingFeature('100% Secure')">
+                <div class="why-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                    <strong>Payment Protection</strong>
+                    <p>Payment handling follows the stated escrow process.</p>
+                </div>
+            </div>
+
+            <div class="why-card" onclick="showLandingFeature('Fast Process')">
+                <div class="why-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <div>
+                    <strong>Clear Process</strong>
+                    <p>Follow each verification and payout step.</p>
+                </div>
+            </div>
+
+            <div class="why-card" onclick="showLandingFeature('Trusted Platform')">
+                <div class="why-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div>
+                    <strong>Organized Platform</strong>
+                    <p>A structured workflow for purchase transactions.</p>
+                </div>
+            </div>
+
+            <div class="why-card" onclick="showLandingFeature('24/7 Support')">
+                <div class="why-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                </div>
+                <div>
+                    <strong>Support</strong>
+                    <p>Contact support when your transaction needs attention.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-strip">
+        <div class="stat-item">
+            <div class="stat-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <strong>Secure</strong>
+            <span>Process</span>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <strong>Clear</strong>
+            <span>Verification</span>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 17l-6.5 4 2-7.8L2 9h7z"/></svg>
+            </div>
+            <strong>Step-by-Step</strong>
+            <span>Workflow</span>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            </div>
+            <strong>Support</strong>
+            <span>Available</span>
+        </div>
+    </div>
+
+    <!-- TESTIMONIAL -->
+    <section class="testimonials-section">
+        <div class="landing-section-head">
+            <h2>What Our Users Say</h2>
+            <button class="text-link" onclick="showLandingFeature('User Reviews')">View More →</button>
+        </div>
+
+        <div class="testimonial-card">
+            <div style="flex:1;">
+                <div class="stars">DIN AR</div>
+                <div class="quote">“Review and testimonial content can be added here from genuine customers with their permission.”</div>
+            </div>
+            <div class="user-avatar">A</div>
+            <div class="user-meta">
+                <strong>Customer Review</strong>
+                <span>Testimonial</span>
+            </div>
+        </div>
+
+        <div class="dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="landing-cta">
+        <div class="cta-copy">
+            <h3>Ready to Trade with Confidence?</h3>
+            <p>Join DIN AR and experience a safer, clearer escrow process.</p>
+        </div>
+        <button class="cta-button" onclick="openAuthModal('signup')">
+            Create Your Account
+            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="landing-footer">
+        <div class="footer-top">
+
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-mark">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <div>
+                        <strong>DIN AR</strong>
+                        <small>Escrow Protection</small>
+                    </div>
+                </div>
+                <p>
+                    A structured escrow platform for secure purchase transactions. We aim to keep the process clear, organized and supported from start to finish.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <button onclick="goHome()">Home</button>
+                <button onclick="scrollToHowItWorks()">How It Works</button>
+                <button onclick="showLandingFeature('Fees')">Fees</button>
+                <button onclick="showLandingFeature('FAQ')">FAQ</button>
+                <button onclick="showLandingFeature('Support')">Support</button>
+                <button onclick="showLandingFeature('Contact Us')">Contact Us</button>
+            </div>
+
+            <div class="footer-col">
+                <h4>Support</h4>
+                <button onclick="showLandingFeature('Help Center')">Help Center</button>
+                <button onclick="showLandingFeature('Submit a Request')">Submit a Request</button>
+                <button onclick="showLandingFeature('Dispute Support')">Dispute Support</button>
+                <button onclick="showLandingFeature('Safety Tips')">Safety Tips</button>
+                <button onclick="showLandingFeature('Community')">Community</button>
+                <button onclick="showLandingFeature('System Status')">System Status</button>
+            </div>
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <button onclick="showLandingFeature('About Us')">About Us</button>
+                <button onclick="showLandingFeature('Terms of Service')">Terms of Service</button>
+                <button onclick="showLandingFeature('Privacy Policy')">Privacy Policy</button>
+                <button onclick="showLandingFeature('Refund Policy')">Refund Policy</button>
+                <button onclick="showLandingFeature('Cookie Policy')">Cookie Policy</button>
+                <button onclick="showLandingFeature('Careers')">Careers</button>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-socials">
+                <button class="social-btn" onclick="showLandingFeature('Facebook')">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v8h4v-8h3l1-4h-4V9c0-.7.3-1 1-1z"/></svg>
+                </button>
+                <button class="social-btn" onclick="showLandingFeature('X')">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.2 3H21l-6.1 7 7.2 11H16.5l-4.4-6.7L6.3 21H3.5l6.5-7.5L3.1 3h5.7l4 6.1L18.2 3zm-1 15.2h1.5L8.1 4.7H6.5l10.7 13.5z"/></svg>
+                </button>
+                <button class="social-btn" onclick="showLandingFeature('LinkedIn')">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 8h4v13H3V8zm6 0h4v2c1-1.5 2.4-2.4 4.3-2.4 3.5 0 4.7 2.2 4.7 6.2V21h-4v-6.1c0-1.7 0-3.9-2.4-3.9S13 12.8 13 15v6H9V8z"/></svg>
+                </button>
+                <button class="social-btn" onclick="showLandingFeature('YouTube')">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M23 12s0-4-1-5-3-1-5-1H7C5 6 3 6 2 7s-1 5-1 5 0 4 1 5 3 1 5 1h10c2 0 4 0 5-1s1-5 1-5zM10 15V9l5 3-5 3z"/></svg>
+                </button>
+            </div>
+
+            <div class="footer-copy">
+                © 2026 DIN AR. All rights reserved.<br>
+                Secure Trades. Stronger Communities.
+            </div>
+        </div>
+    </footer>
+
+</section>
+
+<!-- DASHBOARD PAGE -->
+<section id="dashboard-page" class="page dashboard-page">
+    <div class="dashboard-header-row">
+        <div>
+            <div class="welcome-text">Welcome back</div>
+            <div class="dash-title">Dashboard</div>
+        </div>
+        <div class="secure-badge-pill">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Secure Trading
+        </div>
+    </div>
+
+    <div class="main-balance-card">
+        <div style="font-size:11px; opacity:0.9;">Available Balance</div>
+        <div class="balance-amount">$1,250.00</div>
+        <div class="balance-stats-row">
+            <div class="b-stat"><span>Pending</span><strong>$0.00</strong></div>
+            <div class="b-stat"><span>Completed</span><strong>$0.00</strong></div>
+            <div class="b-stat"><span>Trades</span><strong>0</strong></div>
+        </div>
+    </div>
+
+    <div class="section-header-row">
+        <div class="section-title">Quick Actions</div>
+    </div>
+
+    <div class="quick-actions-grid">
+        <div class="q-action-card" onclick="switchPage('new-trade')">
+            <div class="q-icon-box" style="background:#e1effe; color:#0070ba;">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <span>New Trade</span>
+        </div>
+        <div class="q-action-card" onclick="showToast('Transactions clicked')">
+            <div class="q-icon-box" style="background:#e6fcf5; color:#0ca678;">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
+            </div>
+            <span>History</span>
+        </div>
+        <div class="q-action-card" onclick="showToast('Messages clicked')">
+            <div class="q-icon-box" style="background:#f3f0ff; color:#7950f2;">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <span>Messages</span>
+        </div>
+        <div class="q-action-card" onclick="showToast('Deposit clicked')">
+            <div class="q-icon-box" style="background:#fff3bf; color:#f59f00;">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <span>Deposit</span>
+        </div>
+    </div>
+
+    <div class="section-header-row">
+        <div class="section-title">Active Escrow</div>
+    </div>
+
+    <div class="active-escrow-box">
+        <div style="font-size:11.5px; font-weight:700; color:#1a2b4c; margin-bottom:2px;">No active escrow orders found.</div>
+        <div style="font-size:10px; color:#718096;">Start a new trade to get started.</div>
+    </div>
+</section>
+
+<!-- NEW TRADE PAGE -->
+<section id="new-trade-page" class="page">
+    <div class="nt-header">
+        <div class="nt-back-title">
+            <button class="back-btn" onclick="switchPage('dashboard')">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="nt-title-group">
+                <h2>New Trade</h2>
+                <p>Secure • Simple • Reliable</p>
+            </div>
+        </div>
+        <div class="nt-escrow-brand">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div>
+                <span>DIN AR</span>
+                <small>Escrow</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="nt-protection-box">
+        <div class="nt-prot-row">
+            <div class="nt-prot-shield">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+                <h4 style="font-size:13px; font-weight:800; color:#1a2b4c; margin-bottom:2px;">You’re Protected</h4>
+                <p style="font-size:10px; color:#4a5568; line-height:1.35;">Your trade is secured with DIN AR Escrow. Follow the steps below to get started.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <div class="t-step-item">
+            <div class="t-step-num">1</div>
+            <div class="t-step-content">
+                <h4>Order Place</h4>
+                <p>Submit information to start the trade.</p>
+                <button class="t-action-btn" onclick="openSubmitInfoModal()">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    Submit Information
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:12px;height:12px; margin-left:auto;"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="t-step-item">
+            <div class="t-step-num inactive">2</div>
+            <div class="t-step-content">
+                <h4>Upload Verification</h4>
+                <p>Buyer uploads required documents.</p>
+                <button class="t-action-btn" onclick="openPaymentInvoiceModal()">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    View Payment Invoice
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:12px;height:12px; margin-left:auto;"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="t-step-item">
+            <div class="t-step-num inactive">3</div>
+            <div class="t-step-content">
+                <h4>Under Review</h4>
+                <p>We are verifying the information.</p>
+            </div>
+        </div>
+
+        <div class="t-step-item">
+            <div class="t-step-num inactive">4</div>
+            <div class="t-step-content">
+                <h4>Payment Release</h4>
+                <p>Funds will be released to the buyer.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="rules-card">
+        <div class="rules-header">
+            <div class="rules-title-area">
+                <div class="rules-icon-box">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <span>Trade Rules & Guidelines</span>
+            </div>
+            <div class="buyer-protected-pill">Buyer Protected</div>
+        </div>
+        <div class="rules-sub">Please read and follow these rules carefully.</div>
+
+        <div class="rule-list-item">
+            <div class="rule-num-circle">1</div>
+            <div class="rule-text">
+                <h5>Payment is 100% Secure</h5>
+                <p>Buyer’s payment is fully secured in escrow and will be released after successful verification.</p>
+            </div>
+        </div>
+        <div class="rule-list-item">
+            <div class="rule-num-circle">2</div>
+            <div class="rule-text">
+                <h5>Cancellation Request</h5>
+                <p>If you want to cancel the trade, you must provide full chat records explaining the reason.</p>
+            </div>
+        </div>
+        <div class="rule-list-item">
+            <div class="rule-num-circle">3</div>
+            <div class="rule-text">
+                <h5>Be Honest and Cooperative</h5>
+                <p>Provide valid information and cooperate with the buyer to avoid restrictions.</p>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-continue-full" onclick="showToast('Trade process verified successfully!')">
+        Continue 
+        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:16px;height:16px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+</section>
+
+<!-- BOTTOM NAVIGATION BAR -->
+<nav class="bottom-nav" id="bottomNav" style="display:none;">
+    <button class="nav-item active" onclick="switchPage('dashboard')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+    </button>
+    <button class="nav-item" onclick="showToast('Transactions clicked')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
+        <span>Transactions</span>
+    </button>
+    <button class="nav-item" onclick="switchPage('new-trade')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span>New Trade</span>
+    </button>
+    <button class="nav-item" onclick="showToast('Messages clicked')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Messages</span>
+    </button>
+</nav>
+
+</div>
+
+<!-- SUBMIT INFORMATION MODAL -->
+<div class="custom-modal-backdrop" id="submitInfoModal">
+    <div class="custom-modal">
+        <button class="modal-close-btn" onclick="closeSubmitInfoModal()">✕</button>
+        <h3 style="font-size:15px; font-weight:800; color:#1a2b4c; margin-bottom:14px;">Submit Trade Information</h3>
+
+        <form onsubmit="handleTradeInfoSubmit(event)">
+            <div class="form-field-group">
+                <label>Buyer Name</label>
+                <input type="text" id="formBuyerName" placeholder="Enter buyer name" required>
+            </div>
+            <div class="form-field-group">
+                <label>PayPal Email</label>
+                <input type="email" id="formPaypalEmail" placeholder="buyer@example.com" required>
+            </div>
+            <div class="form-field-group">
+                <label>Products Name</label>
+                <input type="text" id="formProductName" placeholder="e.g. Amazon Gift Card" required>
+            </div>
+            <div class="form-field-group">
+                <label>Product Price ($)</label>
+                <input type="number" id="formProductPrice" placeholder="0.00" required>
+            </div>
+            <div class="form-field-group">
+                <label>Verification Process (E-giftcard Amount)</label>
+                <input type="number" id="formGiftCardAmount" placeholder="0.00" required>
+            </div>
+            <div class="form-field-group">
+                <label>Total Amount ($)</label>
+                <input type="number" id="formTotalAmount" placeholder="0.00" required>
+            </div>
+            <div class="form-field-group">
+                <label>Payment Created Date</label>
+                <input type="date" id="formPaymentDate" required>
+            </div>
+            <div class="form-field-group">
+                <label>Transaction ID</label>
+                <input type="text" id="formTxnId" placeholder="e.g. TXN-9842510" required>
+            </div>
+            <div class="form-field-group">
+                <label>Upload Invoice File</label>
+                <input type="file" id="formInvoiceFile" accept="image/*,.pdf" style="padding:6px; font-size:10px;" required>
+            </div>
+
+            <button type="submit" class="btn-primary" style="margin-top:6px;">Submit Information</button>
+        </form>
+    </div>
+</div>
+
+<!-- VIEW PAYMENT INVOICE MODAL -->
+<div class="custom-modal-backdrop" id="paymentInvoiceModal">
+    <div class="custom-modal">
+        <button class="modal-close-btn" onclick="closePaymentInvoiceModal()">✕</button>
+        <h3 style="font-size:15px; font-weight:800; color:#1a2b4c; margin-bottom:4px;">Payment Invoice</h3>
+        <p style="font-size:10px; color:#718096; margin-bottom:14px;">Review your transaction details and status below.</p>
+
+        <div class="invoice-points-box">
+            <div class="invoice-point-item">1. <strong>Order Number :</strong> <span id="invOrderNum">DIN-88241</span></div>
+            <div class="invoice-point-item">2. <strong>Order Date :</strong> <span id="invDate">2026-09-12</span></div>
+            <div class="invoice-point-item">3. <strong>Payment successfully :</strong> <span id="invStatus" style="color:#0ca678; font-weight:700;">Secure in Escrow ($125.00)</span></div>
+            <div class="invoice-point-item" style="margin-top:10px;">4. <strong>Amazon E-Giftcard Order Confirmation screenshot :</strong><br>
+                <div style="margin-top:6px; padding:10px; background:#fff; border:1px dashed #cbd5e0; border-radius:8px; text-align:center; font-size:10px; color:#0070ba; font-weight:700;" id="invScreenshotName">
+                    📁 No screenshot uploaded yet
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+            <button class="btn-secondary" onclick="showToast('Invoice downloaded successfully')">Download Invoice</button>
+            <button class="btn-primary" onclick="closePaymentInvoiceModal()">Done</button>
+        </div>
+    </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-modal-backdrop" id="authModal">
+    <div class="auth-modal">
+        <button class="close-modal" onclick="closeAuthModal()">✕</button>
+        <h2 id="authTitle" style="font-size:18px; text-align:center;">Login to Account</h2>
+
+        <div class="auth-switcher">
+            <button class="auth-tab active" id="tabLoginBtn" onclick="switchModalTab('login')">Login</button>
+            <button class="auth-tab" id="tabSignupBtn" onclick="switchModalTab('signup')">Sign Up</button>
+        </div>
+
+        <form onsubmit="handleAuthSubmit(event)">
+            <div class="form-group" id="nameFieldGroup" style="display:none; margin-bottom:14px;">
+                <label style="font-size:10px; font-weight:700; color:#4a5568; margin-bottom:5px; display:block;">Full Name</label>
+                <input type="text" placeholder="Your Name" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <label style="font-size:10px; font-weight:700; color:#4a5568; margin-bottom:5px; display:block;">Email Address</label>
+                <input type="email" placeholder="name@example.com" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;" required>
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <label style="font-size:10px; font-weight:700; color:#4a5568; margin-bottom:5px; display:block;">Password</label>
+                <input type="password" placeholder="••••••••" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;" required>
+            </div>
+            <button type="submit" class="btn-primary" id="authSubmitBtn">Login</button>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast">Action completed</div>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = localStorage.getItem('din_ar_logged_in');
+    const currentActivePage = localStorage.getItem('din_ar_active_page') || (isLoggedIn === 'true' ? 'dashboard' : 'landing');
+
+    updateUIState();
+    switchPage(currentActivePage, false);
+});
+
+function updateUIState() {
+    const isLoggedIn = localStorage.getItem('din_ar_logged_in');
+    const headerRight = document.getElementById('headerRightArea');
+    const bottomNav = document.getElementById('bottomNav');
+
+    if (isLoggedIn === 'true') {
+        bottomNav.style.display = 'flex';
+        headerRight.innerHTML = `
+            <button class="icon-btn" onclick="showToast('No new notifications')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </button>
+            <div style="position:relative;">
+                <button class="icon-btn" onclick="toggleProfileDropdown(event)">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </button>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <button class="dropdown-item" onclick="handleLogout()">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        Log Out
+                    </button>
+                </div>
+            </div>
+        `;
+    } else {
+        bottomNav.style.display = 'none';
+        headerRight.innerHTML = `
+            <button class="icon-btn" onclick="openAuthModal('login')" title="Login">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            </button>
+            <button class="icon-btn" onclick="openAuthModal('signup')" title="Sign Up">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
+        `;
+    }
+}
+
+function goHome() {
+    const isLoggedIn = localStorage.getItem('din_ar_logged_in');
+    if (isLoggedIn === 'true') {
+        switchPage('dashboard');
+    } else {
+        switchPage('landing');
+    }
+}
+
+function switchPage(pageName, saveToStorage = true) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    window.scrollTo(0, 0);
+
+    const isLoggedIn = localStorage.getItem('din_ar_logged_in');
+
+    if (pageName === 'dashboard') {
+        if (isLoggedIn === 'true') {
+            document.getElementById('dashboard-page').classList.add('active');
+            if(saveToStorage) localStorage.setItem('din_ar_active_page', 'dashboard');
+        } else {
+            document.getElementById('landing-page').classList.add('active');
+            if(saveToStorage) localStorage.setItem('din_ar_active_page', 'landing');
+        }
+    } else if (pageName === 'new-trade') {
+        if (isLoggedIn === 'true') {
+            document.getElementById('new-trade-page').classList.add('active');
+            if(saveToStorage) localStorage.setItem('din_ar_active_page', 'new-trade');
+        } else {
+            openAuthModal('login');
+        }
+    } else {
+        document.getElementById('landing-page').classList.add('active');
+        if(saveToStorage) localStorage.setItem('din_ar_active_page', 'landing');
+    }
+}
+
+/* LANDING PAGE FUNCTIONS ONLY */
+function scrollToHowItWorks() {
+    const landing = document.getElementById('landing-page');
+    if (!landing.classList.contains('active')) {
+        switchPage('landing');
+        setTimeout(() => {
+            document.getElementById('how-it-works-section').scrollIntoView({behavior:'smooth', block:'start'});
+        }, 50);
+        return;
+    }
+    document.getElementById('how-it-works-section').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function showLandingFeature(name) {
+    showToast(name + ' selected');
+}
+
+function toggleProfileDropdown(e) {
+    e.stopPropagation();
+    const dropdown = document.getElementById('profileDropdown');
+    dropdown.classList.toggle('show');
+}
+
+window.addEventListener('click', () => {
+    const dropdown = document.getElementById('profileDropdown');
+    if (dropdown && dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+    }
+});
+
+function openAuthModal(mode) {
+    document.getElementById('authModal').classList.add('show');
+    switchModalTab(mode);
+}
+
+function closeAuthModal() {
+    document.getElementById('authModal').classList.remove('show');
+}
+
+function switchModalTab(mode) {
+    const loginBtn = document.getElementById('tabLoginBtn');
+    const signupBtn = document.getElementById('tabSignupBtn');
+    const nameField = document.getElementById('nameFieldGroup');
+    const authTitle = document.getElementById('authTitle');
+    const submitBtn = document.getElementById('authSubmitBtn');
+
+    if(mode === 'login') {
+        loginBtn.classList.add('active');
+        signupBtn.classList.remove('active');
+        nameField.style.display = 'none';
+        authTitle.textContent = 'Login to Account';
+        submitBtn.textContent = 'Login';
+    } else {
+        signupBtn.classList.add('active');
+        loginBtn.classList.remove('active');
+        nameField.style.display = 'block';
+        authTitle.textContent = 'Create Account';
+        submitBtn.textContent = 'Sign Up';
+    }
+}
+
+function handleAuthSubmit(e) {
+    e.preventDefault();
+    localStorage.setItem('din_ar_logged_in', 'true');
+    closeAuthModal();
+    showToast('Successfully logged in!');
+    updateUIState();
+    switchPage('dashboard');
+}
+
+function handleLogout() {
+    localStorage.removeItem('din_ar_logged_in');
+    localStorage.setItem('din_ar_active_page', 'landing');
+    updateUIState();
+    switchPage('landing');
+    showToast('Logged out successfully');
+}
+
+/* Modal Controls */
+function openSubmitInfoModal() {
+    document.getElementById('submitInfoModal').classList.add('show');
+}
+
+function closeSubmitInfoModal() {
+    document.getElementById('submitInfoModal').classList.remove('show');
+}
+
+function handleTradeInfoSubmit(e) {
+    e.preventDefault();
+    const totalAmount = document.getElementById('formTotalAmount').value;
+    const dateVal = document.getElementById('formPaymentDate').value;
+    const fileInput = document.getElementById('formInvoiceFile');
+
+    document.getElementById('invDate').textContent = dateVal || '2026-09-12';
+    document.getElementById('invOrderNum').textContent = 'DIN-' + Math.floor(10000 + Math.random() * 90000);
+    document.getElementById('invStatus').textContent = 'Secure in Escrow ($' + parseFloat(totalAmount || 0).toFixed(2) + ')';
+
+    if(fileInput.files && fileInput.files[0]) {
+        document.getElementById('invScreenshotName').innerHTML = '✅ Uploaded: ' + fileInput.files[0].name;
+    }
+
+    closeSubmitInfoModal();
+    showToast('Information submitted successfully!');
+}
+
+function openPaymentInvoiceModal() {
+    document.getElementById('paymentInvoiceModal').classList.add('show');
+}
+
+function closePaymentInvoiceModal() {
+    document.getElementById('paymentInvoiceModal').classList.remove('show');
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+}
+</script>
+
+</body>
+</html>
