@@ -1,590 +1,1828 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DIN AR — Payment Protection</title>
-  <meta name="description" content="DIN AR payment protection and escrow interface demo.">
-  <style>
-    :root{
-      --blue:#0877f9;
-      --blue-dark:#075fd0;
-      --ink:#07152f;
-      --muted:#52627a;
-      --line:#dce7f5;
-      --soft:#eef8ff;
-      --white:#fff;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-      color:var(--ink);
-      background:#fff;
-    }
-    a{text-decoration:none;color:inherit}
-    button{font:inherit}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* Header */
-    .site-header{
-      height:82px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:24px;
-      padding:10px 28px;
-      background:#fff;
-      border-bottom:1px solid #e7edf5;
-      position:sticky;
-      top:0;
-      z-index:100;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      min-width:245px;
-    }
-    .brand img{
-      width:72px;
-      height:58px;
-      object-fit:contain;
-      display:block;
-    }
-    .brand-text{
-      margin-left:9px;
-      line-height:1.02;
-      white-space:nowrap;
-    }
-    .brand-title{
-      font-size:25px;
-      font-weight:800;
-      letter-spacing:-.7px;
-    }
-    .brand-sub{
-      color:#62718a;
-      font-size:13px;
-      margin-top:5px;
-    }
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:28px;
-      flex:1;
-    }
-    .nav a{
-      font-size:14px;
-      font-weight:650;
-      color:#24344e;
-      transition:.2s;
-    }
-    .nav a:hover{color:var(--blue)}
-    .actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .btn{
-      border:0;
-      border-radius:9px;
-      min-height:45px;
-      padding:0 24px;
-      font-weight:750;
-      cursor:pointer;
-      transition:.2s;
-    }
-    .btn-outline{
-      background:#fff;
-      color:#086bdc;
-      border:1.5px solid #8bbcf0;
-    }
-    .btn-primary{
-      color:#fff;
-      background:var(--blue);
-      box-shadow:0 7px 20px rgba(8,119,249,.18);
-    }
-    .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
-    .btn-outline:hover{background:#f3f9ff}
-    .menu{
-      display:none;
-      width:46px;
-      height:42px;
-      border:0;
-      background:transparent;
-      cursor:pointer;
-      padding:7px;
-    }
-    .menu span{
-      display:block;
-      height:4px;
-      margin:5px 0;
-      border-radius:4px;
-      background:#07152f;
-    }
+<title>DIN AR Escrow System</title>
+<meta name="description" content="DIN AR payment protection interface demo">
 
-    /* Hero */
-    .hero{
-      min-height:590px;
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      align-items:center;
-      padding:62px 5.2vw 52px;
-      background:linear-gradient(110deg,#edf9ff 0%,#e8f6ff 52%,#eaf7ff 100%);
-      overflow:hidden;
-    }
-    .hero-copy{max-width:760px}
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      padding:10px 17px;
-      border-radius:999px;
-      background:#d9efff;
-      color:#183b66;
-      font-size:13px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .shield{
-      width:20px;height:20px;display:inline-grid;place-items:center;
-      color:#fff;background:var(--blue);border-radius:6px;
-      font-size:12px;
-    }
-    h1{
-      margin:28px 0 14px;
-      font-size:clamp(42px,4.5vw,67px);
-      line-height:.99;
-      letter-spacing:-2.8px;
-      font-weight:850;
-    }
-    h1 span{display:block}
-    h1 .accent{color:#006cf0}
-    .lead{
-      max-width:760px;
-      font-size:19px;
-      line-height:1.55;
-      color:#33445e;
-      margin:0 0 30px;
-    }
-    .hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
-    .hero-buttons .btn{min-width:210px}
-    .how{
-      background:#fff;
-      color:#142a4a;
-      border:1px solid #d5e2f0;
-      box-shadow:0 5px 18px rgba(25,71,115,.07);
-    }
-    .play{
-      display:inline-grid;
-      place-items:center;
-      width:25px;height:25px;border-radius:50%;
-      color:#fff;background:var(--blue);
-      margin-right:10px;font-size:12px;
-    }
+<style>
+:root{
+  --blue:#087cf5;
+  --blue2:#0b70e8;
+  --navy:#07152f;
+  --text:#243752;
+  --muted:#63748b;
+  --sky:#eaf8ff;
+  --sky2:#dff3ff;
+  --white:#fff;
+  --green:#40bd83;
+  --line:#d8e5f1;
+  --dark:#06345f;
+}
 
-    .hero-visual{
-      position:relative;
-      min-height:420px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .hero-photo{
-      width:min(600px,100%);
-      aspect-ratio:1.22/1;
-      object-fit:cover;
-      border-radius:12px;
-      box-shadow:0 24px 55px rgba(22,60,95,.20);
-      filter:saturate(.94);
-    }
-    .protection-card{
-      position:absolute;
-      left:3%;
-      top:50%;
-      transform:translateY(-50%);
-      width:min(360px,65%);
-      padding:26px;
-      background:rgba(255,255,255,.96);
-      border:1px solid #dbe8f5;
-      border-radius:15px;
-      box-shadow:0 20px 45px rgba(24,61,94,.16);
-    }
-    .protection-card h3{margin:0 0 18px;font-size:20px}
-    .check{
-      display:flex;align-items:center;gap:10px;
-      margin:13px 0;color:#263a56;font-size:14px;font-weight:650;
-    }
-    .check i{
-      width:22px;height:22px;border-radius:50%;
-      background:#35b978;color:#fff;
-      display:grid;place-items:center;font-style:normal;font-size:13px;
-      flex:0 0 22px;
-    }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    /* Feature strip */
-    .features{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:20px;
-      padding:28px 5.2vw 34px;
-      background:#eaf8ff;
-    }
-    .feature{
-      display:flex;align-items:center;gap:14px;
-    }
-    .feature-icon{
-      flex:0 0 58px;height:58px;border-radius:50%;
-      display:grid;place-items:center;background:#d5eeff;color:#0877f9;
-      font-size:27px;
-    }
-    .feature strong{display:block;font-size:16px}
-    .feature small{display:block;color:#5b6a7e;margin-top:4px;font-size:13px}
+html{
+  scroll-behavior:smooth;
+}
 
-    /* Process */
-    .section{
-      padding:75px 5.2vw;
-    }
-    .section-heading{text-align:center;max-width:760px;margin:0 auto 48px}
-    .section-heading h2{
-      font-size:38px;letter-spacing:-1.2px;margin:0 0 10px;
-    }
-    .section-heading p{margin:0;color:#617089;font-size:17px}
-    .steps{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:28px;
-      position:relative;
-    }
-    .step{text-align:center;position:relative}
-    .step-icon{
-      width:76px;height:76px;border-radius:50%;
-      margin:0 auto 18px;background:#e5f4ff;
-      display:grid;place-items:center;color:#0877f9;font-size:30px;
-      border:1px solid #d5eafa;
-    }
-    .step-number{
-      width:25px;height:25px;border-radius:50%;
-      display:grid;place-items:center;background:#0877f9;color:#fff;
-      font-size:12px;font-weight:800;
-      margin:-31px auto 16px;
-      position:relative;
-      border:3px solid #fff;
-    }
-    .step h3{margin:0 0 7px;font-size:18px}
-    .step p{margin:0;color:#68778d;font-size:14px;line-height:1.5}
+body{
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  color:var(--navy);
+  background:#fff;
+  overflow-x:hidden;
+}
 
-    /* Bottom CTA */
-    .cta{
-      margin:0 5.2vw 70px;
-      padding:42px 50px;
-      border-radius:18px;
-      background:linear-gradient(110deg,#0877f9,#075fcf);
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:25px;
-    }
-    .cta h2{margin:0 0 8px;font-size:31px}
-    .cta p{margin:0;color:#dceeff}
-    .cta .btn{background:#fff;color:#086bdc;min-width:160px}
+a{
+  color:inherit;
+  text-decoration:none;
+}
 
-    footer{
-      border-top:1px solid #e5ebf2;
-      padding:35px 5.2vw;
-      color:#66758a;
-      font-size:13px;
-      display:flex;
-      justify-content:space-between;
-      gap:25px;
-    }
+button{
+  font:inherit;
+}
 
-    /* Mobile */
-    @media(max-width:900px){
-      .site-header{
-        height:76px;
-        padding:8px 18px;
-      }
-      .brand{min-width:0}
-      .brand img{width:66px;height:54px}
-      .brand-title{font-size:22px}
-      .brand-sub{font-size:12px}
-      .nav,.actions{display:none}
-      .menu{display:block}
+/* =========================
+   HEADER
+========================= */
 
-      .hero{
-        display:block;
-        min-height:auto;
-        padding:30px 20px 26px;
-      }
-      .hero-copy{max-width:none}
-      .eyebrow{font-size:11px;padding:9px 13px}
-      h1{
-        margin:22px 0 13px;
-        font-size:clamp(39px,11vw,56px);
-        letter-spacing:-2px;
-      }
-      .lead{
-        font-size:17px;
-        line-height:1.52;
-        margin-bottom:23px;
-      }
-      .hero-buttons{display:block}
-      .hero-buttons .btn{
-        width:100%;
-        margin-bottom:10px;
-      }
-      .hero-visual{
-        min-height:350px;
-        margin-top:12px;
-      }
-      .hero-photo{
-        width:100%;
-        height:285px;
-        aspect-ratio:auto;
-        object-fit:cover;
-      }
-      .protection-card{
-        left:4%;
-        top:auto;
-        bottom:-5px;
-        transform:none;
-        width:92%;
-        padding:18px;
-      }
-      .protection-card h3{font-size:17px;margin-bottom:12px}
-      .check{margin:8px 0;font-size:12px}
-      .check i{width:19px;height:19px;flex-basis:19px;font-size:11px}
+.site-header{
+  height:86px;
+  background:#fff;
+  border-bottom:1px solid #e2ebf3;
+  display:flex;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
 
-      .features{
-        grid-template-columns:repeat(3,1fr);
-        gap:8px;
-        padding:24px 13px 30px;
-      }
-      .feature{
-        display:block;
-        text-align:center;
-      }
-      .feature-icon{
-        width:52px;height:52px;
-        margin:0 auto 8px;
-        font-size:23px;
-      }
-      .feature strong{font-size:12px}
-      .feature small{display:none}
+.header-inner{
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+}
 
-      .section{padding:55px 20px}
-      .section-heading{margin-bottom:34px}
-      .section-heading h2{font-size:30px}
-      .section-heading p{font-size:15px}
-      .steps{grid-template-columns:1fr;gap:28px}
-      .step{display:grid;grid-template-columns:72px 1fr;text-align:left;column-gap:15px;align-items:center}
-      .step-icon{grid-row:1 / span 2;width:62px;height:62px;margin:0;font-size:25px}
-      .step-number{position:absolute;left:46px;top:42px;margin:0}
-      .step h3{align-self:end}
-      .step p{align-self:start}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:270px;
+}
 
-      .cta{
-        margin:0 20px 45px;
-        padding:30px 24px;
-        display:block;
-      }
-      .cta h2{font-size:25px}
-      .cta .btn{margin-top:20px;width:100%}
-      footer{padding:28px 20px;display:block}
-      footer div+div{margin-top:10px}
-    }
-  
-    /* Refined mobile process + footer */
-    .process-account{
-      display:block;width:min(100%,520px);margin:34px auto 0;
-      background:var(--blue);color:#fff;text-align:center;padding:17px 20px;
-      border-radius:9px;font-size:18px;font-weight:800;box-shadow:0 7px 18px rgba(8,119,249,.16)
-    }
-    .stats{background:#063b6b;color:#fff;padding:24px 16px}
-    .stats-grid{width:min(100%,760px);margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .stat{text-align:center}.stat-symbol{height:32px;display:grid;place-items:center;color:#09a0ff;font-size:28px;font-weight:800;margin-bottom:5px}
-    .stat strong{display:block;font-size:17px;line-height:1.1;font-weight:850}.stat span{display:block;font-size:12px;margin-top:4px}
-    footer{border-top:0;padding:28px 5.2vw 20px;background:#fff;color:#68778d;font-size:12px;display:block}
-    .footer-wrap{width:min(100%,760px);margin:auto}.footer-top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:18px}
-    .footer-brand{display:flex;align-items:center;gap:9px}.footer-brand img{width:76px;height:52px;object-fit:contain}.footer-brand strong{display:block;color:#12376a;font-size:28px;line-height:1;font-weight:850;letter-spacing:-1px}.footer-brand span{display:block;margin-top:5px;color:#738196;font-size:14px}
-    .footer-socials{display:flex;align-items:center;gap:8px}.footer-socials a{width:31px;height:31px;border-radius:50%;background:#071b3a;color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
-    .footer-line{height:1px;background:#dfe5ec}.footer-bottom{display:flex;justify-content:space-between;gap:16px;padding-top:15px;line-height:1.4}.footer-bottom>div:last-child{text-align:right}.demo-note{text-align:center;font-size:10px;color:#99a3b0;padding-top:10px}
-    .step-icon{font-family:Arial,sans-serif}
-    @media(max-width:900px){
-      .section{padding:54px 20px 34px}.section-heading{margin-bottom:32px}.section-heading h2{font-size:32px}.section-heading p{font-size:15px}
-      .steps{gap:24px}.step{grid-template-columns:68px 1fr;column-gap:14px;align-items:center;text-align:left}.step-icon{grid-row:1 / span 2;width:64px;height:64px;margin:0;font-size:26px}.step-number{left:46px;top:43px}.step h3{font-size:17px;line-height:1.2;margin:0 0 5px}.step p{font-size:13px;line-height:1.4}
-      .process-account{width:100%;margin-top:28px}
-      .stats{padding:22px 9px}.stats-grid{gap:5px}.stat-symbol{font-size:24px;height:28px}.stat strong{font-size:14px}.stat span{font-size:10px}
-      footer{padding:24px 18px 18px}.footer-top{gap:8px}.footer-brand img{width:68px;height:48px}.footer-brand strong{font-size:25px}.footer-brand span{font-size:12px}.footer-socials{gap:5px}.footer-socials a{width:28px;height:28px;font-size:12px}.footer-bottom{font-size:11px}
-    }
+.brand-logo{
+  width:64px;
+  height:58px;
+  object-fit:contain;
+  display:block;
+}
+
+.brand-text{
+  line-height:1.05;
+}
+
+.brand-title{
+  font-size:24px;
+  font-weight:850;
+  letter-spacing:-1px;
+  white-space:nowrap;
+}
+
+.brand-sub{
+  margin-top:6px;
+  color:#718096;
+  font-size:14px;
+}
+
+.desktop-nav{
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+
+.desktop-nav a{
+  font-size:14px;
+  font-weight:650;
+  color:#33445d;
+}
+
+.desktop-nav a:hover{
+  color:var(--blue);
+}
+
+.header-actions{
+  display:flex;
+  gap:9px;
+}
+
+.btn{
+  min-height:46px;
+  padding:0 22px;
+  border-radius:9px;
+  border:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.btn-primary{
+  color:#fff;
+  background:var(--blue);
+  box-shadow:0 8px 20px rgba(8,124,245,.17);
+}
+
+.btn-outline{
+  color:#0871dc;
+  background:#fff;
+  border:1.5px solid #8cbcf0;
+}
+
+.menu-btn{
+  display:none;
+  width:48px;
+  height:46px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+}
+
+.menu-btn span{
+  display:block;
+  width:35px;
+  height:5px;
+  margin:5px auto;
+  border-radius:5px;
+  background:var(--navy);
+}
+
+/* =========================
+   MOBILE NAV
+========================= */
+
+.mobile-nav{
+  display:none;
+  position:absolute;
+  top:86px;
+  left:0;
+  right:0;
+  background:#fff;
+  padding:20px;
+  border-bottom:1px solid var(--line);
+  box-shadow:0 12px 25px rgba(0,0,0,.08);
+}
+
+.mobile-nav.open{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.mobile-nav a{
+  font-weight:700;
+  padding:8px 0;
+}
+
+.mobile-nav .btn{
+  width:100%;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  background:linear-gradient(
+    110deg,
+    #eefaff 0%,
+    #e6f6ff 55%,
+    #edf9ff 100%
+  );
+  padding:70px 0 45px;
+}
+
+.hero-inner{
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr .78fr;
+  gap:45px;
+  align-items:center;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:11px;
+  padding:12px 20px;
+  border-radius:999px;
+  background:#d9efff;
+  color:#21476f;
+  font-size:14px;
+  font-weight:850;
+}
+
+.badge-icon{
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  background:var(--blue);
+  display:grid;
+  place-items:center;
+  color:#fff;
+}
+
+.badge-icon svg{
+  width:18px;
+  height:18px;
+}
+
+.hero h1{
+  margin-top:32px;
+  max-width:760px;
+  font-size:clamp(45px,5.1vw,70px);
+  line-height:.98;
+  letter-spacing:-3.4px;
+  font-weight:900;
+}
+
+.hero h1 .blue{
+  color:#0877ed;
+}
+
+.hero-description{
+  max-width:700px;
+  margin-top:28px;
+  color:#344861;
+  font-size:19px;
+  line-height:1.58;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:14px;
+  margin-top:30px;
+}
+
+.hero-buttons .btn{
+  min-width:210px;
+}
+
+.how-btn{
+  background:#fff;
+  color:#142b4b;
+  border:1px solid #d4e2ef;
+  box-shadow:0 5px 18px rgba(25,71,115,.07);
+}
+
+.play-icon{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--blue);
+  color:#fff;
+  margin-right:10px;
+}
+
+.play-icon svg{
+  width:12px;
+  height:12px;
+}
+
+/* =========================
+   HERO VISUAL
+========================= */
+
+.hero-visual{
+  min-height:410px;
+  border-radius:25px;
+  background:
+    radial-gradient(circle at 50% 45%,#cfeeff 0,#eaf8ff 42%,#eefaff 72%);
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-visual::before{
+  content:"";
+  width:250px;
+  height:250px;
+  border-radius:50%;
+  background:#d9efff;
+  position:absolute;
+  opacity:.75;
+}
+
+.protection-card{
+  position:relative;
+  z-index:2;
+  width:min(370px,82%);
+  padding:30px 27px;
+  background:rgba(255,255,255,.98);
+  border:1px solid #d9e7f3;
+  border-radius:20px;
+  box-shadow:0 22px 45px rgba(24,61,94,.14);
+}
+
+.protection-card h2{
+  font-size:25px;
+  letter-spacing:-.7px;
+  margin-bottom:20px;
+}
+
+.protection-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:14px 0;
+  color:#30445f;
+  font-size:15px;
+  font-weight:700;
+}
+
+.check-icon{
+  flex:0 0 25px;
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:var(--green);
+  display:grid;
+  place-items:center;
+  color:#fff;
+}
+
+.check-icon svg{
+  width:14px;
+  height:14px;
+}
+
+/* =========================
+   FEATURE STRIP
+========================= */
+
+.features{
+  background:#e9f8ff;
+  padding:28px 0 38px;
+}
+
+.features-inner{
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+
+.feature{
+  text-align:center;
+}
+
+.feature-icon{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#d6efff;
+  display:grid;
+  place-items:center;
+  margin:0 auto 12px;
+  color:#0878ed;
+}
+
+.feature-icon svg{
+  width:39px;
+  height:39px;
+  stroke-width:2;
+}
+
+.feature-title{
+  font-size:18px;
+  font-weight:850;
+}
+
+.feature-description{
+  margin-top:5px;
+  color:#61738a;
+  font-size:13px;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.how-section{
+  background:#fff;
+  padding:78px 0 70px;
+}
+
+.section-inner{
+  width:min(1060px,calc(100% - 40px));
+  margin:auto;
+}
+
+.section-heading{
+  text-align:center;
+  margin-bottom:48px;
+}
+
+.section-heading h2{
+  font-size:43px;
+  letter-spacing:-1.8px;
+  font-weight:900;
+}
+
+.section-heading p{
+  margin-top:10px;
+  color:#687990;
+  font-size:17px;
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.step{
+  text-align:center;
+  position:relative;
+}
+
+.step-icon-wrap{
+  width:84px;
+  height:84px;
+  border-radius:50%;
+  background:#e0f3ff;
+  margin:0 auto 17px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  color:#0878ed;
+}
+
+.step-icon-wrap svg{
+  width:43px;
+  height:43px;
+}
+
+.step-number{
+  position:absolute;
+  right:-4px;
+  bottom:-2px;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:#0878ed;
+  color:#fff;
+  border:3px solid #fff;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:900;
+}
+
+.step h3{
+  font-size:18px;
+  line-height:1.2;
+  margin-bottom:8px;
+}
+
+.step p{
+  color:#687990;
+  font-size:14px;
+  line-height:1.48;
+}
+
+/* =========================
+   MOBILE-STYLE PROCESS CARD
+========================= */
+
+.process-box{
+  margin-top:58px;
+  padding:35px;
+  border-radius:25px;
+  background:#eef9ff;
+}
+
+.process-box-title{
+  text-align:center;
+  font-size:30px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.process-box-subtitle{
+  text-align:center;
+  color:#6a7a90;
+  margin-bottom:35px;
+}
+
+.process-list{
+  display:grid;
+  gap:24px;
+}
+
+.process-item{
+  display:grid;
+  grid-template-columns:76px 55px 1fr;
+  align-items:center;
+  gap:14px;
+}
+
+.process-icon{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#d9f0ff;
+  display:grid;
+  place-items:center;
+  color:#0878ed;
+}
+
+.process-icon svg{
+  width:39px;
+  height:39px;
+}
+
+.process-number{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#0878ed;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:17px;
+  font-weight:900;
+}
+
+.process-content h3{
+  font-size:19px;
+  margin-bottom:5px;
+}
+
+.process-content p{
+  color:#65778e;
+  font-size:14px;
+  line-height:1.5;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta{
+  margin:0 auto 65px;
+  width:min(1060px,calc(100% - 40px));
+  padding:38px 45px;
+  border-radius:20px;
+  background:linear-gradient(110deg,#087cf5,#0766d5);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+}
+
+.cta h2{
+  font-size:30px;
+  letter-spacing:-.8px;
+}
+
+.cta p{
+  margin-top:7px;
+  color:#dceeff;
+  font-size:15px;
+}
+
+.cta .btn{
+  min-width:205px;
+  background:#fff;
+  color:#086bdc;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  background:#06365f;
+  padding:30px 0;
+}
+
+.stats-inner{
+  width:min(1060px,calc(100% - 40px));
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.stat{
+  text-align:center;
+  color:#fff;
+}
+
+.stat-icon{
+  width:43px;
+  height:43px;
+  margin:0 auto 8px;
+  color:#1290ff;
+}
+
+.stat-icon svg{
+  width:100%;
+  height:100%;
+}
+
+.stat-value{
+  font-size:24px;
+  font-weight:900;
+}
+
+.stat-label{
+  margin-top:2px;
+  color:#d7e8f7;
+  font-size:13px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  background:#fff;
+  padding:45px 0 22px;
+}
+
+.footer-main{
+  width:min(1060px,calc(100% - 40px));
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;
+  gap:30px;
+}
+
+.footer-brand{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.footer-logo{
+  width:62px;
+  height:55px;
+  object-fit:contain;
+}
+
+.footer-brand-title{
+  font-size:23px;
+  font-weight:900;
+}
+
+.footer-brand-sub{
+  margin-top:4px;
+  color:#748297;
+  font-size:13px;
+}
+
+.footer-column h4{
+  color:#0a1d3b;
+  margin-bottom:13px;
+  font-size:15px;
+}
+
+.footer-column a{
+  display:block;
+  color:#66778d;
+  font-size:13px;
+  margin:9px 0;
+}
+
+.socials{
+  display:flex;
+  gap:8px;
+}
+
+.social{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#081d3b;
+  color:#fff;
+  display:grid;
+  place-items:center;
+}
+
+.social svg{
+  width:17px;
+  height:17px;
+}
+
+.footer-bottom{
+  width:min(1060px,calc(100% - 40px));
+  margin:35px auto 0;
+  padding-top:17px;
+  border-top:1px solid #e3ebf2;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  color:#758398;
+  font-size:12px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
+
+  .desktop-nav,
+  .header-actions{
+    display:none;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .hero-inner{
+    grid-template-columns:1fr;
+  }
+
+  .hero-copy{
+    text-align:left;
+  }
+
+  .hero-visual{
+    min-height:330px;
+  }
+
+  .steps{
+    grid-template-columns:repeat(2,1fr);
+    row-gap:40px;
+  }
+
+  .footer-main{
+    grid-template-columns:1.5fr 1fr 1fr;
+  }
+}
+
+@media(max-width:650px){
+
+  .site-header{
+    height:82px;
+  }
+
+  .header-inner{
+    width:calc(100% - 28px);
+  }
+
+  .brand{
+    min-width:0;
+    gap:7px;
+  }
+
+  .brand-logo{
+    width:61px;
+    height:53px;
+  }
+
+  .brand-title{
+    font-size:21px;
+    letter-spacing:-.8px;
+  }
+
+  .brand-sub{
+    font-size:12px;
+    margin-top:4px;
+  }
+
+  .mobile-nav{
+    top:82px;
+  }
+
+  /* HERO */
+
+  .hero{
+    padding:48px 0 28px;
+  }
+
+  .hero-inner{
+    width:calc(100% - 40px);
+    display:block;
+  }
+
+  .badge{
+    font-size:11px;
+    padding:9px 13px;
+    gap:8px;
+  }
+
+  .badge-icon{
+    width:27px;
+    height:27px;
+  }
+
+  .hero h1{
+    margin-top:27px;
+    font-size:clamp(43px,11.4vw,57px);
+    line-height:.96;
+    letter-spacing:-2.5px;
+  }
+
+  .hero-description{
+    margin-top:29px;
+    font-size:17px;
+    line-height:1.55;
+  }
+
+  .hero-buttons{
+    display:block;
+    margin-top:27px;
+  }
+
+  .hero-buttons .btn{
+    width:100%;
+    min-height:59px;
+    margin-bottom:11px;
+    font-size:17px;
+  }
+
+  .hero-visual{
+    margin-top:14px;
+    min-height:380px;
+    border-radius:20px;
+  }
+
+  .protection-card{
+    width:82%;
+    padding:27px 24px;
+  }
+
+  .protection-card h2{
+    font-size:24px;
+  }
+
+  .protection-row{
+    font-size:14px;
+    margin:14px 0;
+  }
+
+  /* FEATURES */
+
+  .features{
+    padding:25px 0 34px;
+  }
+
+  .features-inner{
+    width:calc(100% - 25px);
+    grid-template-columns:repeat(3,1fr);
+    gap:5px;
+  }
+
+  .feature-icon{
+    width:61px;
+    height:61px;
+    margin-bottom:9px;
+  }
+
+  .feature-icon svg{
+    width:34px;
+    height:34px;
+  }
+
+  .feature-title{
+    font-size:12px;
+    line-height:1.25;
+  }
+
+  .feature-description{
+    display:none;
+  }
+
+  /* HOW */
+
+  .how-section{
+    padding:57px 0 50px;
+  }
+
+  .section-inner{
+    width:calc(100% - 40px);
+  }
+
+  .section-heading{
+    margin-bottom:35px;
+  }
+
+  .section-heading h2{
+    font-size:37px;
+    letter-spacing:-1.7px;
+  }
+
+  .section-heading p{
+    font-size:15px;
+    line-height:1.45;
+  }
+
+  .steps{
+    grid-template-columns:1fr;
+    gap:27px;
+  }
+
+  .step{
+    display:grid;
+    grid-template-columns:76px 1fr;
+    column-gap:15px;
+    text-align:left;
+    align-items:center;
+  }
+
+  .step-icon-wrap{
+    width:68px;
+    height:68px;
+    grid-row:1 / span 2;
+    margin:0;
+  }
+
+  .step-icon-wrap svg{
+    width:37px;
+    height:37px;
+  }
+
+  .step-number{
+    width:26px;
+    height:26px;
+    right:-4px;
+    bottom:-2px;
+  }
+
+  .step h3{
+    font-size:18px;
+    margin:0;
+  }
+
+  .step p{
+    font-size:13px;
+    line-height:1.45;
+  }
+
+  /* PROCESS */
+
+  .process-box{
+    margin-top:45px;
+    padding:28px 18px;
+    border-radius:20px;
+  }
+
+  .process-box-title{
+    font-size:28px;
+  }
+
+  .process-box-subtitle{
+    font-size:14px;
+    line-height:1.4;
+    margin-bottom:30px;
+  }
+
+  .process-item{
+    grid-template-columns:62px 42px 1fr;
+    gap:10px;
+  }
+
+  .process-icon{
+    width:58px;
+    height:58px;
+  }
+
+  .process-icon svg{
+    width:32px;
+    height:32px;
+  }
+
+  .process-number{
+    width:38px;
+    height:38px;
+    font-size:14px;
+  }
+
+  .process-content h3{
+    font-size:16px;
+  }
+
+  .process-content p{
+    font-size:12px;
+  }
+
+  /* CTA */
+
+  .cta{
+    width:calc(100% - 40px);
+    margin-bottom:0;
+    padding:31px 22px;
+    display:block;
+    border-radius:18px;
+  }
+
+  .cta h2{
+    font-size:25px;
+    line-height:1.15;
+  }
+
+  .cta p{
+    font-size:14px;
+    line-height:1.45;
+  }
+
+  .cta .btn{
+    width:100%;
+    margin-top:21px;
+  }
+
+  /* STATS */
+
+  .stats{
+    margin-top:45px;
+    padding:25px 0;
+  }
+
+  .stats-inner{
+    width:calc(100% - 25px);
+    grid-template-columns:repeat(4,1fr);
+    gap:4px;
+  }
+
+  .stat-icon{
+    width:35px;
+    height:35px;
+  }
+
+  .stat-value{
+    font-size:18px;
+  }
+
+  .stat-label{
+    font-size:10px;
+    line-height:1.25;
+  }
+
+  /* FOOTER */
+
+  footer{
+    padding:32px 0 20px;
+  }
+
+  .footer-main{
+    width:calc(100% - 40px);
+    grid-template-columns:1fr 1fr;
+    gap:28px 20px;
+  }
+
+  .footer-brand-area{
+    grid-column:1 / -1;
+  }
+
+  .footer-column h4{
+    font-size:14px;
+  }
+
+  .footer-column a{
+    font-size:12px;
+    margin:8px 0;
+  }
+
+  .footer-bottom{
+    width:calc(100% - 40px);
+    margin-top:28px;
+    display:block;
+    line-height:1.6;
+  }
+
+  .footer-bottom div+div{
+    margin-top:5px;
+  }
+}
 </style>
 </head>
+
 <body>
 
-<header class="site-header">
-  <a class="brand" href="#">
-    <!-- Put logo.png in the same/root directory as this HTML file -->
-    <img src="logo.png" alt="DIN AR logo">
-    <div class="brand-text">
-      <div class="brand-title">DIN AR <span style="font-weight:650">Escrow System</span></div>
-      <div class="brand-sub">Payment Protection</div>
-    </div>
-  </a>
+<!-- =========================
+     HEADER
+========================= -->
 
-  <nav class="nav" aria-label="Main navigation">
+<header class="site-header">
+
+  <div class="header-inner">
+
+    <a href="#home" class="brand">
+      <img src="logo.png" class="brand-logo" alt="DIN AR">
+
+      <div class="brand-text">
+        <div class="brand-title">DIN AR Escrow System</div>
+        <div class="brand-sub">Payment Protection</div>
+      </div>
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="#home">Home</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#buyers">For Buyers</a>
+      <a href="#sellers">For Sellers</a>
+      <a href="#fees">Fees</a>
+      <a href="#help">Help</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#login" class="btn btn-outline">Log In</a>
+      <a href="#signup" class="btn btn-primary">Sign Up</a>
+    </div>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav">
     <a href="#home">Home</a>
     <a href="#how-it-works">How It Works</a>
     <a href="#buyers">For Buyers</a>
     <a href="#sellers">For Sellers</a>
     <a href="#fees">Fees</a>
     <a href="#help">Help</a>
+
+    <a href="#login" class="btn btn-outline">Log In</a>
+    <a href="#signup" class="btn btn-primary">Sign Up</a>
   </nav>
 
-  <div class="actions">
-    <a class="btn btn-outline" href="#login">Log In</a>
-    <a class="btn btn-primary" href="#signup">Sign Up</a>
-  </div>
-
-  <button class="menu" aria-label="Open menu" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
 </header>
 
+
+<!-- =========================
+     HERO
+========================= -->
+
 <main id="home">
-  <section class="hero">
+
+<section class="hero">
+
+  <div class="hero-inner">
+
     <div class="hero-copy">
-      <div class="eyebrow"><span class="shield">✓</span> SECURE ESCROW PAYMENTS</div>
+
+      <div class="badge">
+        <span class="badge-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
+            <path d="M8.5 12l2.2 2.2 4.8-5"/>
+          </svg>
+        </span>
+        SECURE ESCROW PAYMENTS
+      </div>
 
       <h1>
-        <span>Verified Purchase Trades :</span>
-        <span class="accent">Buy &amp; Sell with Confidence</span>
+        Verified Purchase Trades :
+        <span class="blue">Buy &amp; Sell with Confidence</span>
       </h1>
 
-      <p class="lead">
-        A safe and simple escrow service for verified purchase transactions.
-        Your payment is protected until the deal is completed.
+      <p class="hero-description">
+        A safe and simple escrow service for verified purchase
+        transactions. Your payment is protected until the deal
+        is completed.
       </p>
 
       <div class="hero-buttons">
-        <a class="btn btn-primary" href="#signup">Get Started</a>
-        <a class="btn how" href="#how-it-works"><span class="play">▶</span>How It Works</a>
+
+        <a href="#signup" class="btn btn-primary">
+          Get Started
+        </a>
+
+        <a href="#how-it-works" class="btn how-btn">
+          <span class="play-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </span>
+          How It Works
+        </a>
+
       </div>
+
     </div>
+
 
     <div class="hero-visual">
-      <!-- Optional hero image. Replace hero-image.jpg with your own image if desired. -->
-      <img class="hero-photo" src="hero-image.jpg" alt="Payment protection workspace"
-           onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#d9efff,#f8fcff)'">
 
       <div class="protection-card">
-        <h3>Secure Payments</h3>
-        <div class="check"><i>✓</i> Funds held in escrow</div>
-        <div class="check"><i>✓</i> Seller completes order</div>
-        <div class="check"><i>✓</i> Buyer confirms receipt</div>
-        <div class="check"><i>✓</i> Payment released</div>
+
+        <h2>Secure Payments</h2>
+
+        <div class="protection-row">
+          <span class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M5 12l4 4L19 6"/>
+            </svg>
+          </span>
+          Funds held in escrow
+        </div>
+
+        <div class="protection-row">
+          <span class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M5 12l4 4L19 6"/>
+            </svg>
+          </span>
+          Seller completes order
+        </div>
+
+        <div class="protection-row">
+          <span class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M5 12l4 4L19 6"/>
+            </svg>
+          </span>
+          Buyer confirms receipt
+        </div>
+
+        <div class="protection-row">
+          <span class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M5 12l4 4L19 6"/>
+            </svg>
+          </span>
+          Payment released
+        </div>
+
       </div>
-    </div>
-  </section>
 
-  <section class="features">
-    <div class="feature">
-      <div class="feature-icon">✓</div>
-      <div><strong>Secure &amp; Trusted</strong><small>Clear transaction workflow</small></div>
     </div>
-    <div class="feature">
-      <div class="feature-icon">⚙</div>
-      <div><strong>Simple Process</strong><small>Easy for buyers and sellers</small></div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">◉</div>
-      <div><strong>Dispute Support</strong><small>Support when needed</small></div>
-    </div>
-  </section>
 
-  <section class="section" id="how-it-works">
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section class="features">
+
+  <div class="features-inner">
+
+    <div class="feature">
+
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
+          <path d="M8.5 12l2.2 2.2 4.8-5"/>
+        </svg>
+      </div>
+
+      <div class="feature-title">
+        Secure &amp; Trusted
+      </div>
+
+      <div class="feature-description">
+        Protected transaction process
+      </div>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.7 1.7-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V20h-2.4v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1L8 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H6v-2.4h.9a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9L8 8.6l1.7-1.7.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5V5h2.4v.8a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.7 1.7-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.8v2.4h-.8a1.7 1.7 0 0 0-1.5 1z"/>
+        </svg>
+      </div>
+
+      <div class="feature-title">
+        Simple Process
+      </div>
+
+      <div class="feature-description">
+        Easy for buyers and sellers
+      </div>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M4 13a8 8 0 0 1 16 0"/>
+          <path d="M4 13v3a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 1z"/>
+          <path d="M20 13v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 1z"/>
+          <path d="M15 19c-.7 1-1.8 1.5-3 1.5"/>
+        </svg>
+      </div>
+
+      <div class="feature-title">
+        Dispute Support
+      </div>
+
+      <div class="feature-description">
+        Help when a transaction needs review
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
+
+<section class="how-section" id="how-it-works">
+
+  <div class="section-inner">
+
     <div class="section-heading">
-      <h2>How We Works</h2>
-      <p>A simple and secure process for everyone</p>
+
+      <h2>How It Works</h2>
+
+      <p>
+        A simple and secure process for everyone
+      </p>
+
     </div>
+
+
+    <!-- Desktop / general steps -->
 
     <div class="steps">
+
       <article class="step">
-        <div class="step-icon cart-icon">🛒</div>
-        <div class="step-number">1</div>
-        <div><h3>Seller Places Order</h3><p>Seller makes a payment and the funds are held securely in the transaction.</p></div>
+
+        <div class="step-icon-wrap">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="9" cy="20" r="1"/>
+            <circle cx="18" cy="20" r="1"/>
+            <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L20 8H6"/>
+            <path d="M8 8h10"/>
+          </svg>
+
+          <span class="step-number">1</span>
+
+        </div>
+
+        <h3>Seller Places Order</h3>
+
+        <p>
+          Seller makes a payment and funds are held securely
+          in the transaction process.
+        </p>
+
       </article>
+
+
       <article class="step">
-        <div class="step-icon upload-icon">↥</div>
-        <div class="step-number">2</div>
-        <div><h3>Buyer Uploads Verification</h3><p>Buyer submits the confirmation screenshot or completes the verification process.</p></div>
+
+        <div class="step-icon-wrap">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M5 3h10l4 4v14H5z"/>
+            <path d="M15 3v5h4"/>
+            <path d="M12 17V10"/>
+            <path d="M9 13l3-3 3 3"/>
+          </svg>
+
+          <span class="step-number">2</span>
+
+        </div>
+
+        <h3>Buyer Uploads Verification</h3>
+
+        <p>
+          Buyer submits confirmation details or completes
+          the required verification process.
+        </p>
+
       </article>
+
+
       <article class="step">
-        <div class="step-icon shield-icon">✓</div>
-        <div class="step-number">3</div>
-        <div><h3>System / Admin Verification</h3><p>The submitted information is reviewed before the transaction moves forward.</p></div>
+
+        <div class="step-icon-wrap">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
+            <path d="M8.5 12l2.2 2.2 4.8-5"/>
+          </svg>
+
+          <span class="step-number">3</span>
+
+        </div>
+
+        <h3>System/Admin Verification</h3>
+
+        <p>
+          Submitted information is reviewed and the order
+          moves forward after confirmation.
+        </p>
+
       </article>
+
+
       <article class="step">
-        <div class="step-icon wallet-icon">▣</div>
-        <div class="step-number">4</div>
-        <div><h3>DIN AR Payout Released</h3><p>After the required confirmation, the transaction payout can be released.</p></div>
+
+        <div class="step-icon-wrap">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="6" width="18" height="13" rx="2"/>
+            <path d="M3 10h18"/>
+            <path d="M7 15h4"/>
+          </svg>
+
+          <span class="step-number">4</span>
+
+        </div>
+
+        <h3>DIN AR Payout Released</h3>
+
+        <p>
+          Funds are released according to the completed
+          transaction terms.
+        </p>
+
       </article>
+
     </div>
 
-    <a class="process-account" href="#signup">Create Your Account</a>
-  </section>
 
-  <section class="stats" aria-label="Demo statistics">
-    <div class="stats-grid">
-      <div class="stat"><div class="stat-symbol">♙</div><strong>10K+</strong><span>Traders</span></div>
-      <div class="stat"><div class="stat-symbol">$</div><strong>$20M+</strong><span>Secured</span></div>
-      <div class="stat"><div class="stat-symbol">✓</div><strong>99.9%</strong><span>Success</span></div>
-      <div class="stat"><div class="stat-symbol">◡</div><strong>24/7</strong><span>Support</span></div>
-    </div>
-  </section>
+    <!-- Mobile-like detailed flow -->
 
-  <section class="cta" id="signup">
-    <div>
-      <h2>Ready to start a protected transaction?</h2>
-      <p>Use the secure transaction flow and review the terms before proceeding.</p>
+    <div class="process-box">
+
+      <div class="process-box-title">
+        How We Work
+      </div>
+
+      <div class="process-box-subtitle">
+        A clear and secure process from start to completion
+      </div>
+
+
+      <div class="process-list">
+
+        <div class="process-item">
+
+          <div class="process-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="9" cy="20" r="1"/>
+              <circle cx="18" cy="20" r="1"/>
+              <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L20 8H6"/>
+            </svg>
+          </div>
+
+          <div class="process-number">1</div>
+
+          <div class="process-content">
+            <h3>Seller Places Order</h3>
+            <p>
+              Seller makes a payment and the agreed amount
+              enters the transaction workflow.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="process-item">
+
+          <div class="process-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M5 3h10l4 4v14H5z"/>
+              <path d="M15 3v5h4"/>
+              <path d="M12 17V10"/>
+              <path d="M9 13l3-3 3 3"/>
+            </svg>
+          </div>
+
+          <div class="process-number">2</div>
+
+          <div class="process-content">
+            <h3>Buyer Uploads Verification</h3>
+            <p>
+              Buyer submits the required confirmation details
+              or verification information.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="process-item">
+
+          <div class="process-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
+              <path d="M8.5 12l2.2 2.2 4.8-5"/>
+            </svg>
+          </div>
+
+          <div class="process-number">3</div>
+
+          <div class="process-content">
+            <h3>System/Admin Verification</h3>
+            <p>
+              The submitted information is reviewed before
+              the transaction proceeds.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="process-item">
+
+          <div class="process-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="3" y="6" width="18" height="13" rx="2"/>
+              <path d="M3 10h18"/>
+              <path d="M7 15h4"/>
+            </svg>
+          </div>
+
+          <div class="process-number">4</div>
+
+          <div class="process-content">
+            <h3>DIN AR Payout Released</h3>
+            <p>
+              Payment is released after the transaction
+              requirements have been completed.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
-    <a class="btn" href="#login">Create Account</a>
-  </section>
-</main>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta" id="signup">
+
+  <div>
+    <h2>Ready to start?</h2>
+
+    <p>
+      Review the transaction details and continue through
+      the available workflow.
+    </p>
+  </div>
+
+  <a href="#login" class="btn">
+    Create Your Account
+  </a>
+
+</section>
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<section class="stats">
+
+  <div class="stats-inner">
+
+    <div class="stat">
+
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="9" cy="8" r="3"/>
+          <circle cx="17" cy="9" r="2.5"/>
+          <path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/>
+          <path d="M14 15c3 0 5 1.5 5 5"/>
+        </svg>
+      </div>
+
+      <div class="stat-value">10K+</div>
+      <div class="stat-label">Traders</div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 3v18"/>
+          <path d="M16 7.5c0-1.5-1.7-2.5-4-2.5s-4 1-4 2.5 1.2 2.2 4 3c2.8.8 4 1.5 4 3s-1.7 2.5-4 2.5-4-1-4-2.5"/>
+        </svg>
+      </div>
+
+      <div class="stat-value">$20M+</div>
+      <div class="stat-label">Secured</div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
+          <path d="M8.5 12l2.2 2.2 4.8-5"/>
+        </svg>
+      </div>
+
+      <div class="stat-value">99.9%</div>
+      <div class="stat-label">Success</div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M4 13a8 8 0 0 1 16 0"/>
+          <path d="M4 13v3a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 1z"/>
+          <path d="M20 13v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 1z"/>
+        </svg>
+      </div>
+
+      <div class="stat-value">24/7</div>
+      <div class="stat-label">Support</div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer id="help">
-  <div class="footer-wrap">
-    <div class="footer-top">
+
+  <div class="footer-main">
+
+    <div class="footer-brand-area">
+
       <div class="footer-brand">
-        <img src="logo.png" alt="DIN AR logo">
-        <div><strong>DIN AR</strong><span>Payment Protection</span></div>
+
+        <img src="logo.png" class="footer-logo" alt="DIN AR">
+
+        <div>
+          <div class="footer-brand-title">
+            DIN AR
+          </div>
+
+          <div class="footer-brand-sub">
+            Payment Protection
+          </div>
+        </div>
+
       </div>
-      <div class="footer-socials">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="X">X</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-        <a href="#" aria-label="YouTube">▶</a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>Company</h4>
+
+      <a href="#about">About Us</a>
+      <a href="#careers">Careers</a>
+      <a href="#blog">Blog</a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>Support</h4>
+
+      <a href="#help">Help Center</a>
+      <a href="#disputes">Dispute Center</a>
+      <a href="#contact">Contact Us</a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>Legal</h4>
+
+      <a href="#terms">Terms of Service</a>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#cookies">Cookie Policy</a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>Follow Us</h4>
+
+      <div class="socials">
+
+        <a href="#" class="social" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14 8h3V4h-3c-3.3 0-5 1.7-5 5v3H6v4h3v5h4v-5h3l1-4h-4V9c0-.7.3-1 1-1z"/>
+          </svg>
+        </a>
+
+        <a href="#" class="social" aria-label="X">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5 4h4.2l3.2 4.3L16.1 4H19l-5.3 6.1L19.5 20h-4.2l-3.7-4.9L7.9 20H5l5.6-6.6L5 4z"/>
+          </svg>
+        </a>
+
+        <a href="#" class="social" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5 8H2v12h3V8zM3.5 3A1.8 1.8 0 1 0 3.5 6.6 1.8 1.8 0 0 0 3.5 3zM22 13.2c0-3.6-1.9-5.4-4.5-5.4-2.1 0-3.1 1.2-3.6 2v-1.8H11v12h3v-6c0-1.6.3-3.2 2.3-3.2 2 0 2 1.8 2 3.2v6h3v-6.8z"/>
+          </svg>
+        </a>
+
+        <a href="#" class="social" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 8.2a2.8 2.8 0 0 0-2-2C17.2 5.7 12 5.7 12 5.7s-5.2 0-7 .5a2.8 2.8 0 0 0-2 2C2.5 10 2.5 12 2.5 12s0 2 .5 3.8a2.8 2.8 0 0 0 2 2c1.8.5 7 .5 7 .5s5.2 0 7-.5a2.8 2.8 0 0 0 2-2c.5-1.8.5-3.8.5-3.8s0-2-.5-3.8zM10 15.5v-7l6 3.5-6 3.5z"/>
+          </svg>
+        </a>
+
       </div>
+
     </div>
-    <div class="footer-line"></div>
-    <div class="footer-bottom">
-      <div>© 2026 DIN AR Escrow System.<br>All rights reserved.</div>
-      <div>Safer Trades.<br>Stronger Communities.</div>
-    </div>
-    <div class="demo-note">DEMO / SAMPLE INTERFACE</div>
+
   </div>
+
+
+  <div class="footer-bottom">
+
+    <div>
+      © 2026 DIN AR Escrow System. All rights reserved.
+    </div>
+
+    <div>
+      Safer Transactions. Stronger Communities.
+    </div>
+
+  </div>
+
 </footer>
 
+</main>
+
+
 <script>
-  function toggleMenu(){
-    const nav = document.querySelector('.nav');
-    if(!nav) return;
-    const open = nav.dataset.open === '1';
-    nav.dataset.open = open ? '0' : '1';
-    nav.style.cssText = open ? '' :
-      'display:flex;position:absolute;top:76px;left:0;right:0;background:#fff;padding:18px 20px;flex-direction:column;align-items:flex-start;gap:18px;border-bottom:1px solid #e5edf5;box-shadow:0 12px 25px rgba(0,0,0,.08);';
-  }
+const menuBtn = document.getElementById("menuBtn");
+const mobileNav = document.getElementById("mobileNav");
+
+menuBtn.addEventListener("click", function(){
+  mobileNav.classList.toggle("open");
+});
+
+document.querySelectorAll(".mobile-nav a").forEach(function(link){
+  link.addEventListener("click", function(){
+    mobileNav.classList.remove("open");
+  });
+});
 </script>
+
 </body>
 </html>
