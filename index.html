@@ -811,6 +811,15 @@ button{
 <div class="toast" id="toast">Action completed</div>
 
 <script>
+// পেজ লোড হওয়ার সাথে সাথেই চেক করবে ইউজার আগে থেকেই লগইন করা কি না
+window.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = localStorage.getItem('din_ar_logged_in');
+    if (isLoggedIn === 'true') {
+        document.getElementById('landing-page').classList.remove('active');
+        document.getElementById('dashboard-page').classList.add('active');
+    }
+});
+
 function openAuthModal(mode) {
     document.getElementById('authModal').classList.add('show');
     switchModalTab(mode);
@@ -844,13 +853,21 @@ function switchModalTab(mode) {
 
 function handleAuthSubmit(e) {
     e.preventDefault();
+    
+    // লোকাল স্টোরেজে লগইন স্টেট সেভ করে রাখা হচ্ছে যাতে রিফ্রেশ করলে উড়ে না যায়
+    localStorage.setItem('din_ar_logged_in', 'true');
+    
     closeAuthModal();
     showToast('Successfully logged in!');
+    
     document.getElementById('landing-page').classList.remove('active');
     document.getElementById('dashboard-page').classList.add('active');
 }
 
 function handleLogout() {
+    // লগআউট করার সময় লোকাল স্টোরেজ থেকে ডাটা মুছে ফেলা হবে
+    localStorage.removeItem('din_ar_logged_in');
+    
     document.getElementById('dashboard-page').classList.remove('active');
     document.getElementById('landing-page').classList.add('active');
     showToast('Logged out successfully');
