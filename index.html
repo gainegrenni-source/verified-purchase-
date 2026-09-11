@@ -470,7 +470,7 @@ button{
     gap:6px;
 }
 
-/* NEW TRADE STEPS PAGE (Matched to the attached image interface) */
+/* NEW TRADE STEPS PAGE */
 .trade-header{
     display:flex;
     align-items:center;
@@ -586,7 +586,7 @@ button{
     gap:4px;
 }
 
-/* RULES BOX (Matched exactly with 5 points and DIN AR Escrow shield branding as shown in the screenshot) */
+/* RULES BOX */
 .rules-box{
     background:#ffffff;
     border:1px solid #e2e8f0;
@@ -655,54 +655,113 @@ button{
     line-height:1.35;
 }
 
-/* UPLOAD DETAILS & 4 POINTS MODAL/SECTION */
-.upload-detail-container{
-    background:#f8fafc;
-    border:1px solid #cbd5e1;
-    border-radius:16px;
-    padding:16px;
-    margin-bottom:20px;
+/* REDESIGNED UPLOAD VIEW (Matched cleanly with image interface style) */
+.upload-container-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-.upload-detail-container h4{
-    font-size:14px;
-    font-weight:800;
-    color:#0f172a;
-    margin-bottom:12px;
+.upload-heading-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 10px;
 }
 
-.point-row{
-    background:#ffffff;
-    border:1px solid #e2e8f0;
-    border-radius:10px;
-    padding:12px;
-    margin-bottom:10px;
+.upload-heading-icon {
+    width: 36px;
+    height: 36px;
+    background: #e0f2fe;
+    color: #0070ba;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-.point-label{
-    font-size:11px;
-    font-weight:700;
-    color:#475569;
-    margin-bottom:4px;
-    display:block;
+.upload-heading-icon svg {
+    width: 18px;
+    height: 18px;
 }
 
-.point-value{
-    font-size:12px;
-    font-weight:800;
-    color:#0f172a;
+.upload-heading-text h4 {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #0f172a;
 }
 
-.file-input-box{
-    width:100%;
-    padding:10px;
-    background:#f1f5f9;
-    border:1.5px dashed #0070ba;
-    border-radius:8px;
-    font-size:11px;
-    color:#0f172a;
-    cursor:pointer;
-    margin-top:4px;
+.upload-heading-text p {
+    font-size: 10px;
+    color: #64748b;
+}
+
+.upload-fields-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.upload-field-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px 12px;
+}
+
+.upload-field-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 3px;
+    display: block;
+}
+
+.upload-field-val {
+    font-size: 12px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.file-dropzone {
+    border: 2px dashed #0070ba;
+    background: #f0f9ff;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.file-dropzone:hover {
+    background: #e0f2fe;
+}
+
+.file-dropzone svg {
+    width: 24px;
+    height: 24px;
+    color: #0070ba;
+    margin-bottom: 6px;
+}
+
+.file-dropzone p {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0369a1;
+}
+
+.file-dropzone span {
+    font-size: 9.5px;
+    color: #64748b;
+    display: block;
+    margin-top: 2px;
 }
 
 /* BOTTOM NAV */
@@ -1006,7 +1065,7 @@ button{
         </div>
     </section>
 
-    <!-- NEW TRADE STEPS PAGE (Matched perfectly to the attached image interface: DIN AR Escrow title, rules layout, etc.) -->
+    <!-- NEW TRADE STEPS PAGE -->
     <section id="new-trade-page" class="page">
         <div class="trade-header">
             <div class="trade-header-left">
@@ -1031,7 +1090,7 @@ button{
             <p>Your trade is secured with DIN AR Escrow. Follow the steps below to get started.</p>
         </div>
 
-        <!-- DYNAMIC AREA: Either 4 Steps OR Upload View -->
+        <!-- DYNAMIC AREA: Either 4 Steps OR Refined Upload View -->
         <div id="tradeContentArea">
             <!-- STEP 1 -->
             <div class="step-card">
@@ -1084,7 +1143,7 @@ button{
             </div>
         </div>
 
-        <!-- RULES & GUIDELINES (Matched 100% with the image text) -->
+        <!-- RULES & GUIDELINES -->
         <div class="rules-box">
             <div class="rules-title-row">
                 <h4>
@@ -1314,41 +1373,54 @@ function resetTradeView() {
 }
 
 function openUploadForm() {
-    const area = document.getElementById('tradeContentArea');
-    area.innerHTML = `
-        <div class="upload-detail-container">
-            <h4>Submit Order Screenshot & Verification</h4>
+    document.getElementById('tradeContentArea').innerHTML = `
+        <div class="upload-container-box">
+            <div class="upload-heading-row">
+                <div class="upload-heading-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <div class="upload-heading-text">
+                    <h4>Upload Verification Details</h4>
+                    <p>Provide the requested confirmation info below</p>
+                </div>
+            </div>
+
+            <div class="upload-fields-stack">
+                <div class="upload-field-card">
+                    <span class="upload-field-label">1. Order Number</span>
+                    <span class="upload-field-val">PP-TRD-99421</span>
+                </div>
+
+                <div class="upload-field-card">
+                    <span class="upload-field-label">2. Order Date</span>
+                    <span class="upload-field-val">September 12, 2026</span>
+                </div>
+
+                <div class="upload-field-card">
+                    <span class="upload-field-label">3. Payment Status</span>
+                    <span class="upload-field-val" style="color:#16a34a;">Successfully Secured in Escrow ($0.00)</span>
+                </div>
+
+                <div class="upload-field-card">
+                    <span class="upload-field-label">4. Amazon E-Giftcard Order Confirmation Screenshot</span>
+                    <div class="file-dropzone" onclick="document.getElementById('screenshotFile').click()">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <p id="fileStatusText">Click here to choose screenshot</p>
+                        <span>Supports JPG, PNG, WEBP</span>
+                    </div>
+                    <input type="file" id="screenshotFile" accept="image/*" style="display:none;" onchange="fileSelected(event)">
+                </div>
+            </div>
             
-            <div class="point-row">
-                <span class="point-label">1. Order Number :</span>
-                <span class="point-value">PP-TRD-99421</span>
-            </div>
-
-            <div class="point-row">
-                <span class="point-label">2. Order Date :</span>
-                <span class="point-value">September 12, 2026</span>
-            </div>
-
-            <div class="point-row">
-                <span class="point-label">3. Payment Status :</span>
-                <span class="point-value" style="color:#16a34a;">Successfully Secured in Escrow ($0.00)</span>
-            </div>
-
-            <div class="point-row">
-                <span class="point-label">4. Amazon E-Giftcard Order Confirmation screenshot :</span>
-                <input type="file" id="screenshotFile" class="file-input-box" accept="image/*" onchange="fileSelected(event)">
-                <div id="fileStatus" style="font-size:10px; color:#64748b; margin-top:4px; font-weight:600;">No file chosen</div>
-            </div>
+            <button class="btn-main" onclick="submitUploadAction()" style="margin-top:4px;">Submit Confirmation</button>
         </div>
-        <button class="btn-main" onclick="submitUploadAction()">Submit Confirmation</button>
     `;
 }
 
 function fileSelected(e) {
     const file = e.target.files[0];
     if(file) {
-        document.getElementById('fileStatus').textContent = '✅ Selected: ' + file.name;
-        document.getElementById('fileStatus').style.color = '#16a34a';
+        document.getElementById('fileStatusText').textContent = '✅ Selected: ' + file.name;
     }
 }
 
