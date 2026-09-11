@@ -1,753 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="DIN AR Payment Protection">
-<title>DIN AR Escrow System — Payment Protection</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-
-:root{
-  --blue:#0878f9;
-  --blue2:#0667dc;
-  --dark:#07152f;
-  --text:#31425d;
-  --light:#eaf7ff;
-  --border:#d8e5f2;
-}
-
-html{scroll-behavior:smooth}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--dark);
-  background:#fff;
-  overflow-x:hidden;
-}
-
-a{text-decoration:none;color:inherit}
-button{font-family:inherit}
-
-/* ================= HEADER ================= */
-
-.header{
-  width:100%;
-  height:86px;
-  background:#fff;
-  border-bottom:1px solid #e1e8ef;
-  display:flex;
-  align-items:center;
-  padding:0 28px;
-  position:relative;
-  z-index:1000;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  min-width:400px;
-}
-
-.logo{
-  width:74px;
-  height:64px;
-  object-fit:contain;
-  display:block;
-  flex:none;
-}
-
-.brand-info{
-  margin-left:12px;
-  line-height:1;
-}
-
-.brand-title{
-  font-size:29px;
-  font-weight:800;
-  letter-spacing:-1.2px;
-  white-space:nowrap;
-}
-
-.brand-title span{
-  font-weight:700;
-}
-
-.brand-sub{
-  color:#68778c;
-  font-size:16px;
-  margin-top:9px;
-}
-
-.nav{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:27px;
-  flex:1;
-}
-
-.nav a{
-  font-size:14px;
-  font-weight:700;
-  color:#263750;
-}
-
-.nav a:hover{color:var(--blue)}
-
-.header-actions{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.btn{
-  min-height:46px;
-  border-radius:9px;
-  padding:0 24px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-size:14px;
-  font-weight:800;
-  cursor:pointer;
-  border:1px solid transparent;
-}
-
-.btn-outline{
-  color:var(--blue2);
-  background:#fff;
-  border-color:#9bc8f3;
-}
-
-.btn-primary{
-  color:#fff;
-  background:var(--blue);
-  box-shadow:0 7px 18px rgba(8,120,249,.16);
-}
-
-.btn-primary:hover{background:var(--blue2)}
-
-.menu-button{
-  display:none;
-  width:48px;
-  height:44px;
-  background:transparent;
-  border:0;
-  cursor:pointer;
-  padding:7px;
-}
-
-.menu-button span{
-  display:block;
-  height:5px;
-  border-radius:5px;
-  background:#07152f;
-  margin:5px 0;
-}
-
-/* ================= MOBILE MENU ================= */
-
-.mobile-menu{
-  display:none;
-  position:absolute;
-  top:86px;
-  left:0;
-  right:0;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  box-shadow:0 12px 30px rgba(0,0,0,.09);
-  padding:20px;
-}
-
-.mobile-menu a{
-  display:block;
-  padding:13px 4px;
-  font-weight:700;
-  border-bottom:1px solid #edf1f5;
-}
-
-.mobile-menu .mobile-actions{
-  display:flex;
-  gap:10px;
-  margin-top:15px;
-}
-
-.mobile-menu.open{display:block}
-
-/* ================= HERO ================= */
-
-.hero{
-  min-height:590px;
-  background:linear-gradient(120deg,#eaf8ff 0%,#e6f5ff 100%);
-  display:grid;
-  grid-template-columns:1.08fr .92fr;
-  align-items:center;
-  gap:35px;
-  padding:58px 5.2vw 52px;
-}
-
-.hero-left{
-  max-width:780px;
-}
-
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:11px;
-  background:#d7edff;
-  border-radius:999px;
-  padding:11px 19px;
-  color:#21456e;
-  font-size:14px;
-  font-weight:800;
-}
-
-.eyebrow-icon{
-  width:29px;
-  height:29px;
-  border-radius:8px;
-  background:var(--blue);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:17px;
-}
-
-.hero h1{
-  font-size:clamp(45px,5vw,69px);
-  line-height:.99;
-  letter-spacing:-3.2px;
-  margin:28px 0 19px;
-  font-weight:850;
-}
-
-.hero h1 .blue{
-  color:#0875ed;
-}
-
-.hero-description{
-  max-width:750px;
-  color:#354761;
-  font-size:20px;
-  line-height:1.5;
-  margin-bottom:31px;
-}
-
-.hero-buttons{
-  display:flex;
-  gap:14px;
-  align-items:center;
-}
-
-.hero-buttons .btn{
-  min-width:220px;
-  min-height:54px;
-  font-size:16px;
-}
-
-.how-btn{
-  background:#fff;
-  color:#142b4d;
-  border-color:#d7e2ee;
-  box-shadow:0 4px 12px rgba(20,60,100,.06);
-}
-
-.play{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:var(--blue);
-  color:#fff;
-  font-size:12px;
-  margin-right:11px;
-}
-
-/* ================= HERO VISUAL ================= */
-
-.hero-right{
-  min-height:410px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-}
-
-.hero-image{
-  width:100%;
-  max-width:590px;
-  height:365px;
-  object-fit:cover;
-  border-radius:13px;
-  box-shadow:0 22px 45px rgba(24,60,95,.17);
-}
-
-.protection-card{
-  position:absolute;
-  left:-10px;
-  top:50%;
-  transform:translateY(-50%);
-  width:330px;
-  background:rgba(255,255,255,.97);
-  border:1px solid #dce8f4;
-  border-radius:15px;
-  padding:25px;
-  box-shadow:0 18px 45px rgba(20,60,100,.15);
-}
-
-.protection-card h3{
-  font-size:20px;
-  margin-bottom:17px;
-}
-
-.check{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#263b58;
-  font-size:14px;
-  font-weight:700;
-  margin:12px 0;
-}
-
-.check-icon{
-  width:22px;
-  height:22px;
-  flex:none;
-  border-radius:50%;
-  background:#37b878;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:12px;
-}
-
-/* ================= FEATURES ================= */
-
-.features{
-  background:#eaf8ff;
-  padding:29px 5.2vw 34px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:30px;
-}
-
-.feature{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.feature-icon{
-  width:59px;
-  height:59px;
-  flex:none;
-  border-radius:50%;
-  background:#d5eeff;
-  color:var(--blue);
-  display:grid;
-  place-items:center;
-  font-size:27px;
-  font-weight:bold;
-}
-
-.feature strong{
-  display:block;
-  font-size:16px;
-}
-
-.feature small{
-  display:block;
-  color:#607089;
-  margin-top:5px;
-  font-size:13px;
-}
-
-/* ================= HOW IT WORKS ================= */
-
-.section{
-  padding:75px 5.2vw;
-}
-
-.section-title{
-  text-align:center;
-  margin-bottom:48px;
-}
-
-.section-title h2{
-  font-size:39px;
-  letter-spacing:-1.4px;
-  margin-bottom:10px;
-}
-
-.section-title p{
-  color:#65748a;
-  font-size:17px;
-}
-
-.steps{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:28px;
-}
-
-.step{
-  text-align:center;
-}
-
-.step-icon{
-  width:78px;
-  height:78px;
-  border-radius:50%;
-  margin:0 auto 18px;
-  background:#e5f4ff;
-  border:1px solid #d4eafa;
-  display:grid;
-  place-items:center;
-  color:var(--blue);
-  font-size:30px;
-}
-
-.step-number{
-  width:25px;
-  height:25px;
-  border-radius:50%;
-  margin:-31px auto 16px;
-  position:relative;
-  background:var(--blue);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  border:3px solid #fff;
-  font-size:11px;
-  font-weight:800;
-}
-
-.step h3{
-  font-size:18px;
-  margin-bottom:7px;
-}
-
-.step p{
-  color:#68778d;
-  font-size:14px;
-  line-height:1.5;
-}
-
-/* ================= CTA ================= */
-
-.cta{
-  margin:0 5.2vw 70px;
-  border-radius:18px;
-  background:linear-gradient(110deg,#0878f9,#075fcf);
-  color:#fff;
-  padding:42px 48px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:25px;
-}
-
-.cta h2{
-  font-size:30px;
-  margin-bottom:8px;
-}
-
-.cta p{color:#dceeff}
-
-.cta .btn{
-  background:#fff;
-  color:#086bdc;
-  min-width:170px;
-}
-
-/* ================= FOOTER ================= */
-
-.footer{
-  border-top:1px solid #e4eaf0;
-  padding:30px 5.2vw;
-  display:flex;
-  justify-content:space-between;
-  color:#6a788b;
-  font-size:13px;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:900px){
-
-  .header{
-    height:86px;
-    padding:8px 17px;
-  }
-
-  .brand{
-    min-width:0;
-    flex:1;
-  }
-
-  .logo{
-    width:70px;
-    height:62px;
-  }
-
-  .brand-info{
-    margin-left:9px;
-  }
-
-  .brand-title{
-    font-size:25px;
-    letter-spacing:-1.1px;
-  }
-
-  .brand-sub{
-    font-size:15px;
-    margin-top:8px;
-  }
-
-  .nav,
-  .header-actions{
-    display:none;
-  }
-
-  .menu-button{
-    display:block;
-  }
-
-  .hero{
-    display:block;
-    padding:68px 44px 0;
-    min-height:auto;
-  }
-
-  .hero-left{
-    width:100%;
-  }
-
-  .eyebrow{
-    font-size:13px;
-    padding:10px 16px;
-  }
-
-  .eyebrow-icon{
-    width:29px;
-    height:29px;
-  }
-
-  .hero h1{
-    font-size:clamp(45px,11.5vw,66px);
-    line-height:.98;
-    letter-spacing:-2.8px;
-    margin:53px 0 35px;
-  }
-
-  .hero-description{
-    font-size:20px;
-    line-height:1.55;
-    margin-bottom:31px;
-  }
-
-  .hero-buttons{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:12px;
-  }
-
-  .hero-buttons .btn{
-    width:100%;
-    min-width:0;
-    min-height:55px;
-  }
-
-  .hero-right{
-    min-height:355px;
-    margin-top:25px;
-  }
-
-  .hero-image{
-    height:300px;
-    width:100%;
-  }
-
-  .protection-card{
-    width:90%;
-    left:5%;
-    top:auto;
-    bottom:0;
-    transform:none;
-    padding:18px;
-  }
-
-  .protection-card h3{
-    font-size:17px;
-    margin-bottom:12px;
-  }
-
-  .check{
-    font-size:12px;
-    margin:8px 0;
-  }
-
-  .check-icon{
-    width:19px;
-    height:19px;
-    font-size:10px;
-  }
-
-  .features{
-    padding:27px 14px 31px;
-    grid-template-columns:repeat(3,1fr);
-    gap:6px;
-  }
-
-  .feature{
-    display:block;
-    text-align:center;
-  }
-
-  .feature-icon{
-    width:55px;
-    height:55px;
-    margin:0 auto 9px;
-  }
-
-  .feature strong{
-    font-size:12px;
-    line-height:1.25;
-  }
-
-  .feature small{
-    display:none;
-  }
-
-  .section{
-    padding:58px 20px;
-  }
-
-  .section-title h2{
-    font-size:31px;
-  }
-
-  .section-title p{
-    font-size:15px;
-  }
-
-  .steps{
-    grid-template-columns:1fr;
-    gap:30px;
-  }
-
-  .step{
-    display:grid;
-    grid-template-columns:75px 1fr;
-    grid-template-rows:auto auto;
-    column-gap:15px;
-    text-align:left;
-    align-items:center;
-    position:relative;
-  }
-
-  .step-icon{
-    grid-row:1 / span 2;
-    width:65px;
-    height:65px;
-    margin:0;
-  }
-
-  .step-number{
-    position:absolute;
-    left:47px;
-    top:43px;
-    margin:0;
-  }
-
-  .step h3{
-    align-self:end;
-  }
-
-  .step p{
-    align-self:start;
-  }
-
-  .cta{
-    margin:0 20px 45px;
-    padding:30px 23px;
-    display:block;
-  }
-
-  .cta h2{
-    font-size:25px;
-  }
-
-  .cta .btn{
-    width:100%;
-    margin-top:20px;
-  }
-
-  .footer{
-    display:block;
-    padding:28px 20px;
-  }
-
-  .footer div+div{
-    margin-top:10px;
-  }
-}
-
-/* Smaller phones */
-@media(max-width:430px){
-
-  .header{
-    padding-left:12px;
-    padding-right:12px;
-  }
-
-  .logo{
-    width:63px;
-  }
-
-  .brand-title{
-    font-size:22px;
-  }
-
-  .brand-sub{
-    font-size:13px;
-  }
-
-  .hero{
-    padding-left:44px;
-    padding-right:44px;
-  }
-
-  .hero h1{
-    font-size:46px;
-  }
-
-  .hero-description{
-    font-size:18px;
-  }
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIN AR — Payment Protection</title>
+  <meta name="description" content="DIN AR payment protection and escrow interface demo.">
+  <style>
+    :root{
+      --blue:#0877f9;
+      --blue-dark:#075fd0;
+      --ink:#07152f;
+      --muted:#52627a;
+      --line:#dce7f5;
+      --soft:#eef8ff;
+      --white:#fff;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      color:var(--ink);
+      background:#fff;
+    }
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+
+    /* Header */
+    .site-header{
+      height:82px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      padding:10px 28px;
+      background:#fff;
+      border-bottom:1px solid #e7edf5;
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      min-width:245px;
+    }
+    .brand img{
+      width:72px;
+      height:58px;
+      object-fit:contain;
+      display:block;
+    }
+    .brand-text{
+      margin-left:9px;
+      line-height:1.02;
+      white-space:nowrap;
+    }
+    .brand-title{
+      font-size:25px;
+      font-weight:800;
+      letter-spacing:-.7px;
+    }
+    .brand-sub{
+      color:#62718a;
+      font-size:13px;
+      margin-top:5px;
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      flex:1;
+    }
+    .nav a{
+      font-size:14px;
+      font-weight:650;
+      color:#24344e;
+      transition:.2s;
+    }
+    .nav a:hover{color:var(--blue)}
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btn{
+      border:0;
+      border-radius:9px;
+      min-height:45px;
+      padding:0 24px;
+      font-weight:750;
+      cursor:pointer;
+      transition:.2s;
+    }
+    .btn-outline{
+      background:#fff;
+      color:#086bdc;
+      border:1.5px solid #8bbcf0;
+    }
+    .btn-primary{
+      color:#fff;
+      background:var(--blue);
+      box-shadow:0 7px 20px rgba(8,119,249,.18);
+    }
+    .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
+    .btn-outline:hover{background:#f3f9ff}
+    .menu{
+      display:none;
+      width:46px;
+      height:42px;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      padding:7px;
+    }
+    .menu span{
+      display:block;
+      height:4px;
+      margin:5px 0;
+      border-radius:4px;
+      background:#07152f;
+    }
+
+    /* Hero */
+    .hero{
+      min-height:590px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:center;
+      padding:62px 5.2vw 52px;
+      background:linear-gradient(110deg,#edf9ff 0%,#e8f6ff 52%,#eaf7ff 100%);
+      overflow:hidden;
+    }
+    .hero-copy{max-width:760px}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:10px 17px;
+      border-radius:999px;
+      background:#d9efff;
+      color:#183b66;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .shield{
+      width:20px;height:20px;display:inline-grid;place-items:center;
+      color:#fff;background:var(--blue);border-radius:6px;
+      font-size:12px;
+    }
+    h1{
+      margin:28px 0 14px;
+      font-size:clamp(42px,4.5vw,67px);
+      line-height:.99;
+      letter-spacing:-2.8px;
+      font-weight:850;
+    }
+    h1 span{display:block}
+    h1 .accent{color:#006cf0}
+    .lead{
+      max-width:760px;
+      font-size:19px;
+      line-height:1.55;
+      color:#33445e;
+      margin:0 0 30px;
+    }
+    .hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
+    .hero-buttons .btn{min-width:210px}
+    .how{
+      background:#fff;
+      color:#142a4a;
+      border:1px solid #d5e2f0;
+      box-shadow:0 5px 18px rgba(25,71,115,.07);
+    }
+    .play{
+      display:inline-grid;
+      place-items:center;
+      width:25px;height:25px;border-radius:50%;
+      color:#fff;background:var(--blue);
+      margin-right:10px;font-size:12px;
+    }
+
+    .hero-visual{
+      position:relative;
+      min-height:420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-photo{
+      width:min(600px,100%);
+      aspect-ratio:1.22/1;
+      object-fit:cover;
+      border-radius:12px;
+      box-shadow:0 24px 55px rgba(22,60,95,.20);
+      filter:saturate(.94);
+    }
+    .protection-card{
+      position:absolute;
+      left:3%;
+      top:50%;
+      transform:translateY(-50%);
+      width:min(360px,65%);
+      padding:26px;
+      background:rgba(255,255,255,.96);
+      border:1px solid #dbe8f5;
+      border-radius:15px;
+      box-shadow:0 20px 45px rgba(24,61,94,.16);
+    }
+    .protection-card h3{margin:0 0 18px;font-size:20px}
+    .check{
+      display:flex;align-items:center;gap:10px;
+      margin:13px 0;color:#263a56;font-size:14px;font-weight:650;
+    }
+    .check i{
+      width:22px;height:22px;border-radius:50%;
+      background:#35b978;color:#fff;
+      display:grid;place-items:center;font-style:normal;font-size:13px;
+      flex:0 0 22px;
+    }
+
+    /* Feature strip */
+    .features{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+      padding:28px 5.2vw 34px;
+      background:#eaf8ff;
+    }
+    .feature{
+      display:flex;align-items:center;gap:14px;
+    }
+    .feature-icon{
+      flex:0 0 58px;height:58px;border-radius:50%;
+      display:grid;place-items:center;background:#d5eeff;color:#0877f9;
+      font-size:27px;
+    }
+    .feature strong{display:block;font-size:16px}
+    .feature small{display:block;color:#5b6a7e;margin-top:4px;font-size:13px}
+
+    /* Process */
+    .section{
+      padding:75px 5.2vw;
+    }
+    .section-heading{text-align:center;max-width:760px;margin:0 auto 48px}
+    .section-heading h2{
+      font-size:38px;letter-spacing:-1.2px;margin:0 0 10px;
+    }
+    .section-heading p{margin:0;color:#617089;font-size:17px}
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:28px;
+      position:relative;
+    }
+    .step{text-align:center;position:relative}
+    .step-icon{
+      width:76px;height:76px;border-radius:50%;
+      margin:0 auto 18px;background:#e5f4ff;
+      display:grid;place-items:center;color:#0877f9;font-size:30px;
+      border:1px solid #d5eafa;
+    }
+    .step-number{
+      width:25px;height:25px;border-radius:50%;
+      display:grid;place-items:center;background:#0877f9;color:#fff;
+      font-size:12px;font-weight:800;
+      margin:-31px auto 16px;
+      position:relative;
+      border:3px solid #fff;
+    }
+    .step h3{margin:0 0 7px;font-size:18px}
+    .step p{margin:0;color:#68778d;font-size:14px;line-height:1.5}
+
+    /* Bottom CTA */
+    .cta{
+      margin:0 5.2vw 70px;
+      padding:42px 50px;
+      border-radius:18px;
+      background:linear-gradient(110deg,#0877f9,#075fcf);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:25px;
+    }
+    .cta h2{margin:0 0 8px;font-size:31px}
+    .cta p{margin:0;color:#dceeff}
+    .cta .btn{background:#fff;color:#086bdc;min-width:160px}
+
+    footer{
+      border-top:1px solid #e5ebf2;
+      padding:35px 5.2vw;
+      color:#66758a;
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:25px;
+    }
+
+    /* Mobile */
+    @media(max-width:900px){
+      .site-header{
+        height:76px;
+        padding:8px 18px;
+      }
+      .brand{min-width:0}
+      .brand img{width:66px;height:54px}
+      .brand-title{font-size:22px}
+      .brand-sub{font-size:12px}
+      .nav,.actions{display:none}
+      .menu{display:block}
+
+      .hero{
+        display:block;
+        min-height:auto;
+        padding:30px 20px 26px;
+      }
+      .hero-copy{max-width:none}
+      .eyebrow{font-size:11px;padding:9px 13px}
+      h1{
+        margin:22px 0 13px;
+        font-size:clamp(39px,11vw,56px);
+        letter-spacing:-2px;
+      }
+      .lead{
+        font-size:17px;
+        line-height:1.52;
+        margin-bottom:23px;
+      }
+      .hero-buttons{display:block}
+      .hero-buttons .btn{
+        width:100%;
+        margin-bottom:10px;
+      }
+      .hero-visual{
+        min-height:350px;
+        margin-top:12px;
+      }
+      .hero-photo{
+        width:100%;
+        height:285px;
+        aspect-ratio:auto;
+        object-fit:cover;
+      }
+      .protection-card{
+        left:4%;
+        top:auto;
+        bottom:-5px;
+        transform:none;
+        width:92%;
+        padding:18px;
+      }
+      .protection-card h3{font-size:17px;margin-bottom:12px}
+      .check{margin:8px 0;font-size:12px}
+      .check i{width:19px;height:19px;flex-basis:19px;font-size:11px}
+
+      .features{
+        grid-template-columns:repeat(3,1fr);
+        gap:8px;
+        padding:24px 13px 30px;
+      }
+      .feature{
+        display:block;
+        text-align:center;
+      }
+      .feature-icon{
+        width:52px;height:52px;
+        margin:0 auto 8px;
+        font-size:23px;
+      }
+      .feature strong{font-size:12px}
+      .feature small{display:none}
+
+      .section{padding:55px 20px}
+      .section-heading{margin-bottom:34px}
+      .section-heading h2{font-size:30px}
+      .section-heading p{font-size:15px}
+      .steps{grid-template-columns:1fr;gap:28px}
+      .step{display:grid;grid-template-columns:72px 1fr;text-align:left;column-gap:15px;align-items:center}
+      .step-icon{grid-row:1 / span 2;width:62px;height:62px;margin:0;font-size:25px}
+      .step-number{position:absolute;left:46px;top:42px;margin:0}
+      .step h3{align-self:end}
+      .step p{align-self:start}
+
+      .cta{
+        margin:0 20px 45px;
+        padding:30px 24px;
+        display:block;
+      }
+      .cta h2{font-size:25px}
+      .cta .btn{margin-top:20px;width:100%}
+      footer{padding:28px 20px;display:block}
+      footer div+div{margin-top:10px}
+    }
+  
+    /* Refined mobile process + footer */
+    .process-account{
+      display:block;width:min(100%,520px);margin:34px auto 0;
+      background:var(--blue);color:#fff;text-align:center;padding:17px 20px;
+      border-radius:9px;font-size:18px;font-weight:800;box-shadow:0 7px 18px rgba(8,119,249,.16)
+    }
+    .stats{background:#063b6b;color:#fff;padding:24px 16px}
+    .stats-grid{width:min(100%,760px);margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .stat{text-align:center}.stat-symbol{height:32px;display:grid;place-items:center;color:#09a0ff;font-size:28px;font-weight:800;margin-bottom:5px}
+    .stat strong{display:block;font-size:17px;line-height:1.1;font-weight:850}.stat span{display:block;font-size:12px;margin-top:4px}
+    footer{border-top:0;padding:28px 5.2vw 20px;background:#fff;color:#68778d;font-size:12px;display:block}
+    .footer-wrap{width:min(100%,760px);margin:auto}.footer-top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:18px}
+    .footer-brand{display:flex;align-items:center;gap:9px}.footer-brand img{width:76px;height:52px;object-fit:contain}.footer-brand strong{display:block;color:#12376a;font-size:28px;line-height:1;font-weight:850;letter-spacing:-1px}.footer-brand span{display:block;margin-top:5px;color:#738196;font-size:14px}
+    .footer-socials{display:flex;align-items:center;gap:8px}.footer-socials a{width:31px;height:31px;border-radius:50%;background:#071b3a;color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+    .footer-line{height:1px;background:#dfe5ec}.footer-bottom{display:flex;justify-content:space-between;gap:16px;padding-top:15px;line-height:1.4}.footer-bottom>div:last-child{text-align:right}.demo-note{text-align:center;font-size:10px;color:#99a3b0;padding-top:10px}
+    .step-icon{font-family:Arial,sans-serif}
+    @media(max-width:900px){
+      .section{padding:54px 20px 34px}.section-heading{margin-bottom:32px}.section-heading h2{font-size:32px}.section-heading p{font-size:15px}
+      .steps{gap:24px}.step{grid-template-columns:68px 1fr;column-gap:14px;align-items:center;text-align:left}.step-icon{grid-row:1 / span 2;width:64px;height:64px;margin:0;font-size:26px}.step-number{left:46px;top:43px}.step h3{font-size:17px;line-height:1.2;margin:0 0 5px}.step p{font-size:13px;line-height:1.4}
+      .process-account{width:100%;margin-top:28px}
+      .stats{padding:22px 9px}.stats-grid{gap:5px}.stat-symbol{font-size:24px;height:28px}.stat strong{font-size:14px}.stat span{font-size:10px}
+      footer{padding:24px 18px 18px}.footer-top{gap:8px}.footer-brand img{width:68px;height:48px}.footer-brand strong{font-size:25px}.footer-brand span{font-size:12px}.footer-socials{gap:5px}.footer-socials a{width:28px;height:28px;font-size:12px}.footer-bottom{font-size:11px}
+    }
 </style>
 </head>
-
 <body>
 
-<header class="header">
-
-  <a href="#" class="brand">
-    <!-- IMPORTANT: logo.png must be in the same GitHub folder as index.html -->
-    <img src="./logo.png" class="logo" alt="DIN AR Logo">
-
-    <div class="brand-info">
-      <div class="brand-title">DIN AR <span>Escrow System</span></div>
+<header class="site-header">
+  <a class="brand" href="#">
+    <!-- Put logo.png in the same/root directory as this HTML file -->
+    <img src="logo.png" alt="DIN AR logo">
+    <div class="brand-text">
+      <div class="brand-title">DIN AR <span style="font-weight:650">Escrow System</span></div>
       <div class="brand-sub">Payment Protection</div>
     </div>
   </a>
 
-  <nav class="nav">
+  <nav class="nav" aria-label="Main navigation">
     <a href="#home">Home</a>
     <a href="#how-it-works">How It Works</a>
     <a href="#buyers">For Buyers</a>
@@ -756,211 +442,149 @@ button{font-family:inherit}
     <a href="#help">Help</a>
   </nav>
 
-  <div class="header-actions">
+  <div class="actions">
     <a class="btn btn-outline" href="#login">Log In</a>
     <a class="btn btn-primary" href="#signup">Sign Up</a>
   </div>
 
-  <button class="menu-button" onclick="toggleMenu()" aria-label="Open menu">
-    <span></span>
-    <span></span>
-    <span></span>
+  <button class="menu" aria-label="Open menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
   </button>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#home" onclick="closeMenu()">Home</a>
-    <a href="#how-it-works" onclick="closeMenu()">How It Works</a>
-    <a href="#buyers" onclick="closeMenu()">For Buyers</a>
-    <a href="#sellers" onclick="closeMenu()">For Sellers</a>
-    <a href="#fees" onclick="closeMenu()">Fees</a>
-    <a href="#help" onclick="closeMenu()">Help</a>
-
-    <div class="mobile-actions">
-      <a class="btn btn-outline" href="#login">Log In</a>
-      <a class="btn btn-primary" href="#signup">Sign Up</a>
-    </div>
-  </div>
 </header>
 
-
 <main id="home">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="shield">✓</span> SECURE ESCROW PAYMENTS</div>
 
-<section class="hero">
+      <h1>
+        <span>Verified Purchase Trades :</span>
+        <span class="accent">Buy &amp; Sell with Confidence</span>
+      </h1>
 
-  <div class="hero-left">
+      <p class="lead">
+        A safe and simple escrow service for verified purchase transactions.
+        Your payment is protected until the deal is completed.
+      </p>
 
-    <div class="eyebrow">
-      <span class="eyebrow-icon">✓</span>
-      SECURE ESCROW PAYMENTS
-    </div>
-
-    <h1>
-      <span>Verified Purchase</span>
-      <span>Trades :</span>
-      <span class="blue">Buy &amp; Sell with</span>
-      <span class="blue">Confidence</span>
-    </h1>
-
-    <p class="hero-description">
-      A safe and simple escrow service for verified purchase transactions.
-      Your payment is protected until the deal is completed.
-    </p>
-
-    <div class="hero-buttons">
-      <a href="#signup" class="btn btn-primary">Get Started</a>
-
-      <a href="#how-it-works" class="btn how-btn">
-        <span class="play">▶</span>
-        How It Works
-      </a>
-    </div>
-
-  </div>
-
-
-  <div class="hero-right">
-
-    <!-- Optional image. If hero-image.jpg is unavailable, the area remains a clean background. -->
-    <img
-      src="./hero-image.jpg"
-      class="hero-image"
-      alt="Payment protection"
-      onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#d9efff,#f7fcff)';this.parentElement.style.borderRadius='14px';"
-    >
-
-    <div class="protection-card">
-      <h3>Secure Payments</h3>
-
-      <div class="check">
-        <span class="check-icon">✓</span>
-        Funds held in escrow
-      </div>
-
-      <div class="check">
-        <span class="check-icon">✓</span>
-        Seller completes order
-      </div>
-
-      <div class="check">
-        <span class="check-icon">✓</span>
-        Buyer confirms receipt
-      </div>
-
-      <div class="check">
-        <span class="check-icon">✓</span>
-        Payment released
+      <div class="hero-buttons">
+        <a class="btn btn-primary" href="#signup">Get Started</a>
+        <a class="btn how" href="#how-it-works"><span class="play">▶</span>How It Works</a>
       </div>
     </div>
 
-  </div>
+    <div class="hero-visual">
+      <!-- Optional hero image. Replace hero-image.jpg with your own image if desired. -->
+      <img class="hero-photo" src="hero-image.jpg" alt="Payment protection workspace"
+           onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#d9efff,#f8fcff)'">
 
-</section>
+      <div class="protection-card">
+        <h3>Secure Payments</h3>
+        <div class="check"><i>✓</i> Funds held in escrow</div>
+        <div class="check"><i>✓</i> Seller completes order</div>
+        <div class="check"><i>✓</i> Buyer confirms receipt</div>
+        <div class="check"><i>✓</i> Payment released</div>
+      </div>
+    </div>
+  </section>
 
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon">✓</div>
+      <div><strong>Secure &amp; Trusted</strong><small>Clear transaction workflow</small></div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⚙</div>
+      <div><strong>Simple Process</strong><small>Easy for buyers and sellers</small></div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">◉</div>
+      <div><strong>Dispute Support</strong><small>Support when needed</small></div>
+    </div>
+  </section>
 
-<section class="features">
+  <section class="section" id="how-it-works">
+    <div class="section-heading">
+      <h2>How We Works</h2>
+      <p>A simple and secure process for everyone</p>
+    </div>
 
-  <div class="feature">
-    <div class="feature-icon">✓</div>
+    <div class="steps">
+      <article class="step">
+        <div class="step-icon cart-icon">🛒</div>
+        <div class="step-number">1</div>
+        <div><h3>Seller Places Order</h3><p>Seller makes a payment and the funds are held securely in the transaction.</p></div>
+      </article>
+      <article class="step">
+        <div class="step-icon upload-icon">↥</div>
+        <div class="step-number">2</div>
+        <div><h3>Buyer Uploads Verification</h3><p>Buyer submits the confirmation screenshot or completes the verification process.</p></div>
+      </article>
+      <article class="step">
+        <div class="step-icon shield-icon">✓</div>
+        <div class="step-number">3</div>
+        <div><h3>System / Admin Verification</h3><p>The submitted information is reviewed before the transaction moves forward.</p></div>
+      </article>
+      <article class="step">
+        <div class="step-icon wallet-icon">▣</div>
+        <div class="step-number">4</div>
+        <div><h3>DIN AR Payout Released</h3><p>After the required confirmation, the transaction payout can be released.</p></div>
+      </article>
+    </div>
+
+    <a class="process-account" href="#signup">Create Your Account</a>
+  </section>
+
+  <section class="stats" aria-label="Demo statistics">
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-symbol">♙</div><strong>10K+</strong><span>Traders</span></div>
+      <div class="stat"><div class="stat-symbol">$</div><strong>$20M+</strong><span>Secured</span></div>
+      <div class="stat"><div class="stat-symbol">✓</div><strong>99.9%</strong><span>Success</span></div>
+      <div class="stat"><div class="stat-symbol">◡</div><strong>24/7</strong><span>Support</span></div>
+    </div>
+  </section>
+
+  <section class="cta" id="signup">
     <div>
-      <strong>Secure &amp; Trusted</strong>
-      <small>Protected transaction process</small>
+      <h2>Ready to start a protected transaction?</h2>
+      <p>Use the secure transaction flow and review the terms before proceeding.</p>
     </div>
-  </div>
-
-  <div class="feature">
-    <div class="feature-icon">⚙</div>
-    <div>
-      <strong>Simple Process</strong>
-      <small>Easy for buyers and sellers</small>
-    </div>
-  </div>
-
-  <div class="feature">
-    <div class="feature-icon">◉</div>
-    <div>
-      <strong>Dispute Support</strong>
-      <small>Help when a transaction needs review</small>
-    </div>
-  </div>
-
-</section>
-
-
-<section class="section" id="how-it-works">
-
-  <div class="section-title">
-    <h2>How Escrow Works</h2>
-    <p>A simple and transparent process for buyers and sellers.</p>
-  </div>
-
-  <div class="steps">
-
-    <div class="step">
-      <div class="step-icon">🛒</div>
-      <div class="step-number">1</div>
-      <div>
-        <h3>Place an Order</h3>
-        <p>Buyer creates a transaction and funds the agreed amount.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-icon">🔒</div>
-      <div class="step-number">2</div>
-      <div>
-        <h3>Seller Delivers</h3>
-        <p>Seller completes the agreed item or service.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-icon">✓</div>
-      <div class="step-number">3</div>
-      <div>
-        <h3>Confirm Receipt</h3>
-        <p>Buyer reviews the delivery and confirms completion.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-icon">▣</div>
-      <div class="step-number">4</div>
-      <div>
-        <h3>Payment Released</h3>
-        <p>Funds are released according to the transaction terms.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<section class="cta" id="signup">
-  <div>
-    <h2>Ready to start a protected transaction?</h2>
-    <p>Review the transaction terms before proceeding.</p>
-  </div>
-  <a href="#login" class="btn">Create Account</a>
-</section>
-
+    <a class="btn" href="#login">Create Account</a>
+  </section>
 </main>
 
-
-<footer class="footer" id="help">
-  <div>© 2026 DIN AR — Payment Protection</div>
-  <div>Terms · Privacy · Support</div>
+<footer id="help">
+  <div class="footer-wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo.png" alt="DIN AR logo">
+        <div><strong>DIN AR</strong><span>Payment Protection</span></div>
+      </div>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="X">X</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-line"></div>
+    <div class="footer-bottom">
+      <div>© 2026 DIN AR Escrow System.<br>All rights reserved.</div>
+      <div>Safer Trades.<br>Stronger Communities.</div>
+    </div>
+    <div class="demo-note">DEMO / SAMPLE INTERFACE</div>
+  </div>
 </footer>
 
-
 <script>
-function toggleMenu(){
-  document.getElementById("mobileMenu").classList.toggle("open");
-}
-
-function closeMenu(){
-  document.getElementById("mobileMenu").classList.remove("open");
-}
+  function toggleMenu(){
+    const nav = document.querySelector('.nav');
+    if(!nav) return;
+    const open = nav.dataset.open === '1';
+    nav.dataset.open = open ? '0' : '1';
+    nav.style.cssText = open ? '' :
+      'display:flex;position:absolute;top:76px;left:0;right:0;background:#fff;padding:18px 20px;flex-direction:column;align-items:flex-start;gap:18px;border-bottom:1px solid #e5edf5;box-shadow:0 12px 25px rgba(0,0,0,.08);';
+  }
 </script>
-
 </body>
 </html>
