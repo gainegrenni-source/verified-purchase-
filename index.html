@@ -32,7 +32,7 @@ button{
     background:#ffffff;
     position:relative;
     overflow-x:hidden;
-    padding-bottom:70px;
+    padding-bottom:80px;
 }
 
 /* HEADER */
@@ -100,6 +100,7 @@ button{
     align-items:center;
     justify-content:center;
     color:#1a2b4c;
+    position:relative;
 }
 
 .icon-btn svg{
@@ -358,6 +359,7 @@ button{
     color:#fff;
     margin-bottom:16px;
     box-shadow:0 8px 20px rgba(0,112,186,.2);
+    position:relative;
 }
 
 .balance-amount{
@@ -445,29 +447,97 @@ button{
     margin-bottom:20px;
 }
 
-.logout-container {
-    margin-top: 25px;
-    margin-bottom: 20px;
+.protection-card{
+    background:linear-gradient(135deg, #f0f7ff, #e1effe);
+    border:1px solid #cbd5e0;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:20px;
 }
 
-.btn-logout {
-    width: 100%;
-    height: 44px;
-    background: #fff0f0;
-    color: #e53e3e;
-    border: 1px solid #fed7d7;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+/* BOTTOM NAVIGATION BAR */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:480px;
+    height:65px;
+    background:#ffffff;
+    border-top:1px solid #edf0f5;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:90;
+    box-shadow:0 -4px 15px rgba(0,0,0,.05);
 }
 
-.btn-logout svg {
-    width: 16px;
-    height: 16px;
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:transparent;
+    color:#718096;
+    flex:1;
+    height:100%;
+    gap:4px;
+}
+
+.nav-item svg{
+    width:20px;
+    height:20px;
+}
+
+.nav-item span{
+    font-size:9.5px;
+    font-weight:700;
+}
+
+.nav-item.active{
+    color:#0070ba;
+}
+
+/* PROFILE DROPDOWN MENU */
+.profile-dropdown{
+    position:absolute;
+    top:55px;
+    right:16px;
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    width:160px;
+    display:none;
+    z-index:200;
+    padding:6px;
+}
+
+.profile-dropdown.show{
+    display:block;
+}
+
+.dropdown-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    width:100%;
+    padding:10px 12px;
+    background:transparent;
+    font-size:11px;
+    font-weight:700;
+    color:#e53e3e;
+    border-radius:8px;
+}
+
+.dropdown-item:hover{
+    background:#fff5f5;
+}
+
+.dropdown-item svg{
+    width:15px;
+    height:15px;
 }
 
 /* AUTH MODAL */
@@ -563,7 +633,7 @@ button{
 .toast{
     position:fixed;
     left:50%;
-    bottom:30px;
+    bottom:80px;
     transform:translate(-50%,20px);
     opacity:0;
     pointer-events:none;
@@ -599,13 +669,9 @@ button{
         </div>
     </div>
 
-    <div class="header-right">
-        <button class="icon-btn" onclick="openAuthModal('login')">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        </button>
-        <button class="icon-btn" onclick="openAuthModal('signup')">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </button>
+    <!-- Header Right Icons (Dynamic based on login state) -->
+    <div class="header-right" id="headerRightArea">
+        <!-- Will be rendered by JavaScript -->
     </div>
 </header>
 
@@ -768,14 +834,32 @@ button{
         <div style="font-size:10px; color:#718096;">Start a new trade to get started.</div>
     </div>
 
-    <!-- LOGOUT BUTTON -->
-    <div class="logout-container">
-        <button class="btn-logout" onclick="handleLogout()">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Log Out
-        </button>
+    <!-- PROTECTION CARD -->
+    <div class="protection-card">
+        <div style="font-size:12px; font-weight:800; color:#1a2b4c; margin-bottom:4px;">DIN AR Escrow Protection</div>
+        <div style="font-size:10px; color:#4a5568; line-height:1.4;">Your funds are secured with our trusted escrow system and real-time verification.</div>
     </div>
 </section>
+
+<!-- BOTTOM NAVIGATION BAR FOR DASHBOARD -->
+<nav class="bottom-nav" id="bottomNav" style="display:none;">
+    <button class="nav-item active" onclick="showToast('Home clicked')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+    </button>
+    <button class="nav-item" onclick="showToast('Transactions clicked')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span>Transactions</span>
+    </button>
+    <button class="nav-item" onclick="showToast('New Trade clicked')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span>New Trade</span>
+    </button>
+    <button class="nav-item" onclick="showToast('Messages clicked')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Messages</span>
+    </button>
+</nav>
 
 </div>
 
@@ -811,15 +895,65 @@ button{
 <div class="toast" id="toast">Action completed</div>
 
 <script>
-// পেজ লোড হওয়ার সময় চেক করবে আগে লগইন করা ছিল কিনা
 window.addEventListener('DOMContentLoaded', () => {
+    updateUIState();
+});
+
+function updateUIState() {
     const isLoggedIn = localStorage.getItem('din_ar_logged_in');
+    const headerRight = document.getElementById('headerRightArea');
+    const bottomNav = document.getElementById('bottomNav');
+
     if (isLoggedIn === 'true') {
         document.getElementById('landing-page').classList.remove('active');
         document.getElementById('dashboard-page').classList.add('active');
+        bottomNav.style.display = 'flex';
+
+        // Logged in Header: Notification icon + Profile icon with dropdown capability
+        headerRight.innerHTML = `
+            <button class="icon-btn" onclick="showToast('No new notifications')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </button>
+            <div style="position:relative;">
+                <button class="icon-btn" onclick="toggleProfileDropdown(event)">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </button>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <button class="dropdown-item" onclick="handleLogout()">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        Log Out
+                    </button>
+                </div>
+            </div>
+        `;
     } else {
         document.getElementById('landing-page').classList.add('active');
         document.getElementById('dashboard-page').classList.remove('active');
+        bottomNav.style.display = 'none';
+
+        // Logged out Header: Login & Signup icons
+        headerRight.innerHTML = `
+            <button class="icon-btn" onclick="openAuthModal('login')" title="Login">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            </button>
+            <button class="icon-btn" onclick="openAuthModal('signup')" title="Sign Up">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
+        `;
+    }
+}
+
+function toggleProfileDropdown(e) {
+    e.stopPropagation();
+    const dropdown = document.getElementById('profileDropdown');
+    dropdown.classList.toggle('show');
+}
+
+// Close dropdown when clicking outside
+window.addEventListener('click', () => {
+    const dropdown = document.getElementById('profileDropdown');
+    if (dropdown && dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
     }
 });
 
@@ -844,7 +978,7 @@ function switchModalTab(mode) {
         signupBtn.classList.remove('active');
         nameField.style.display = 'none';
         authTitle.textContent = 'Login to Account';
-        submitBtn.textContent, submitBtn.textContent = 'Login';
+        submitBtn.textContent = 'Login';
     } else {
         signupBtn.classList.add('active');
         loginBtn.classList.remove('active');
@@ -856,23 +990,15 @@ function switchModalTab(mode) {
 
 function handleAuthSubmit(e) {
     e.preventDefault();
-    
-    // লগইন সফল হলে স্টোরেজে সেভ হবে এবং ড্যাশবোর্ডে যাবে
     localStorage.setItem('din_ar_logged_in', 'true');
-    
     closeAuthModal();
     showToast('Successfully logged in!');
-    
-    document.getElementById('landing-page').classList.remove('active');
-    document.getElementById('dashboard-page').classList.add('active');
+    updateUIState();
 }
 
 function handleLogout() {
-    // লগআউট করলে স্টোরেজ ক্লিয়ার হয়ে ল্যান্ডিং পেজে ফিরে আসবে
     localStorage.removeItem('din_ar_logged_in');
-    
-    document.getElementById('dashboard-page').classList.remove('active');
-    document.getElementById('landing-page').classList.add('active');
+    updateUIState();
     showToast('Logged out successfully');
 }
 
