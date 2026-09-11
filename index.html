@@ -114,27 +114,22 @@ button{
     display:block;
 }
 
-/* AUTH PAGE (HOME WHEN NOT LOGGED IN) */
+/* AUTH PAGE */
 .auth-hero{
     text-align:center;
-    padding:40px 20px 20px;
-}
-
-.auth-hero img{
-    width:65px;
-    height:65px;
-    margin-bottom:15px;
+    padding:15px 10px 10px;
 }
 
 .auth-hero h1{
     font-size:26px;
-    letter-spacing:-.5px;
-    margin-bottom:8px;
+    letter-spacing:-.7px;
+    color:#172033;
 }
 
 .auth-hero p{
-    font-size:12px;
-    color:#7c8594;
+    font-size:11px;
+    color:#8c94a4;
+    margin-top:6px;
     line-height:1.5;
 }
 
@@ -143,32 +138,74 @@ button{
     border:1px solid #edf0f4;
     border-radius:20px;
     padding:20px;
-    margin-top:20px;
-    box-shadow:0 8px 24px rgba(20,31,50,.06);
+    margin-top:15px;
+    box-shadow:0 10px 25px rgba(20,31,50,.05);
 }
 
-.tab-switcher{
+.auth-switcher{
     display:flex;
-    background:#f0f3f8;
-    border-radius:12px;
+    background:#f4f6fa;
+    border-radius:14px;
     padding:4px;
     margin-bottom:18px;
+    position:relative;
 }
 
-.tab-btn{
+.auth-tab{
     flex:1;
-    height:36px;
-    border-radius:10px;
+    height:38px;
+    border-radius:11px;
     font-size:11px;
     font-weight:700;
     background:transparent;
-    color:#697386;
+    color:#7c8594;
+    transition:.2s;
 }
 
-.tab-btn.active{
+.auth-tab.active{
     background:#fff;
     color:#172033;
-    box-shadow:0 2px 8px rgba(0,0,0,.05);
+    box-shadow:0 3px 10px rgba(0,0,0,.06);
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-group label{
+    display:block;
+    font-size:10px;
+    font-weight:700;
+    color:#354052;
+    margin-bottom:6px;
+}
+
+.form-group input{
+    width:100%;
+    height:45px;
+    border:1px solid #e5e9ef;
+    border-radius:12px;
+    padding:0 14px;
+    outline:none;
+    font-size:12px;
+    background:#fafbfc;
+}
+
+.form-group input:focus{
+    border-color:#202d42;
+    background:#fff;
+}
+
+.primary-btn{
+    width:100%;
+    height:46px;
+    border-radius:12px;
+    background:#182235;
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    margin-top:4px;
+    box-shadow:0 6px 16px rgba(24,34,53,.2);
 }
 
 /* DASHBOARD */
@@ -605,7 +642,7 @@ button{
     color:#a2a9b5;
 }
 
-/* NEW TRADE & FORMS */
+/* NEW TRADE FORM */
 .form-card{
     background:#fff;
     border:1px solid #edf0f4;
@@ -613,19 +650,8 @@ button{
     padding:16px;
 }
 
-.form-group{
-    margin-bottom:13px;
-}
-
-.form-group label{
-    display:block;
-    font-size:10px;
-    font-weight:700;
-    margin-bottom:6px;
-}
-
-.form-group input,
-.form-group select{
+.form-card .form-group input,
+.form-card .form-group select{
     width:100%;
     height:43px;
     border:1px solid #e5e9ef;
@@ -634,16 +660,6 @@ button{
     outline:none;
     font-size:11px;
     background:#fafbfc;
-}
-
-.primary-btn{
-    width:100%;
-    height:45px;
-    border-radius:12px;
-    background:#202d42;
-    color:#fff;
-    font-size:11px;
-    font-weight:700;
 }
 
 /* DETAIL */
@@ -751,7 +767,7 @@ button{
     height:72px;
     background:rgba(255,255,255,.97);
     border-top:1px solid #e9edf2;
-    display:none; /* Logged out অবস্হায় হাইড থাকবে */
+    display:none;
     grid-template-columns:repeat(4,1fr);
     z-index:100;
     padding-bottom:5px;
@@ -805,22 +821,12 @@ button{
     transform:translate(-50%,0);
 }
 
-/* DESKTOP */
 @media(min-width:700px){
-    body{
-        background:#e9edf3;
-    }
-
-    .app{
-        box-shadow:0 0 50px rgba(0,0,0,.08);
-        min-height:100vh;
-    }
+    body{ background:#e9edf3; }
+    .app{ box-shadow:0 0 50px rgba(0,0,0,.08); }
 }
 
-::-webkit-scrollbar{
-    width:0;
-    height:0;
-}
+::-webkit-scrollbar{ width:0; height:0; }
 </style>
 </head>
 
@@ -846,7 +852,7 @@ button{
             <i class="notification-dot"></i>
         </button>
 
-        <button class="icon-btn" onclick="handleLogout()">
+        <button class="icon-btn" onclick="handleLogout()" title="Logout">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
                 <polyline points="16 17 21 12 16 7"/>
@@ -857,17 +863,17 @@ button{
 </header>
 
 
-<!-- HOME / AUTH PAGE (লগইন করা না থাকলে এটি দেখাবে) -->
+<!-- HOME / AUTH PAGE (যাতে আপনার স্ক্রিনশটের মতো সেই ক্লিন লুক থাকে) -->
 <section id="home-auth" class="page active">
     <div class="auth-hero">
         <h1>Welcome to DIN AR</h1>
-        <p>Secure peer-to-peer escrow system with instant buyer and seller protection.</p>
+        <p>Secure peer-to-peer escrow system with instant<br>buyer and seller protection.</p>
     </div>
 
     <div class="auth-card">
-        <div class="tab-switcher">
-            <button class="tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')">Login</button>
-            <button class="tab-btn" id="tab-signup-btn" onclick="switchAuthTab('signup')">Sign Up</button>
+        <div class="auth-switcher">
+            <button class="auth-tab active" id="tab-login-btn" onclick="switchAuthTab('login')">Login</button>
+            <button class="auth-tab" id="tab-signup-btn" onclick="switchAuthTab('signup')">Sign Up</button>
         </div>
 
         <!-- Login Form -->
@@ -903,9 +909,8 @@ button{
 </section>
 
 
-<!-- DASHBOARD (লগইন করার পর দেখাবে) -->
+<!-- DASHBOARD -->
 <section id="dashboard" class="page">
-
     <div class="welcome">
         <small>Welcome back</small>
         <h1>Dashboard</h1>
@@ -992,13 +997,11 @@ button{
             Secure transaction workflow with real-time verification and escrow protection.
         </p>
     </div>
-
 </section>
 
 
 <!-- TRANSACTIONS -->
 <section id="transactions" class="page">
-
     <div class="transaction-head">
         <button class="back-btn" onclick="openPage('dashboard')">
             <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1023,7 +1026,7 @@ button{
     </div>
 
     <div id="transactionList" class="transaction-list">
-        <div id="no-transactions" style="text-align:center; padding:30px; color:#8c94a4; font-size:11px;">
+        <div style="text-align:center; padding:30px; color:#8c94a4; font-size:11px;">
             No transactions available yet.
         </div>
     </div>
@@ -1032,7 +1035,6 @@ button{
 
 <!-- NEW TRADE -->
 <section id="newtrade" class="page">
-
     <div class="transaction-head">
         <button class="back-btn" onclick="openPage('dashboard')">
             <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1056,7 +1058,7 @@ button{
 
             <div class="form-group">
                 <label>Payment Method</label>
-                <select id="tradeMethod">
+                <select id="tradeMethod" style="width:100%; height:43px; border:1px solid #e5e9ef; border-radius:11px; padding:0 12px; outline:none; font-size:11px; background:#fafbfc;">
                     <option value="PayPal">PayPal</option>
                     <option value="Bank Transfer">Bank Transfer</option>
                     <option value="Crypto">Crypto (USDT)</option>
@@ -1066,7 +1068,7 @@ button{
 
             <div class="form-group">
                 <label>Order Type</label>
-                <select id="tradeType">
+                <select id="tradeType" style="width:100%; height:43px; border:1px solid #e5e9ef; border-radius:11px; padding:0 12px; outline:none; font-size:11px; background:#fafbfc;">
                     <option value="Amazon E-Giftcard">Amazon E-Giftcard</option>
                     <option value="Verification Order">Verification Order</option>
                     <option value="Digital Service">Digital Service</option>
@@ -1076,13 +1078,11 @@ button{
             <button type="submit" class="primary-btn">Create Trade</button>
         </form>
     </div>
-
 </section>
 
 
 <!-- MESSAGES -->
 <section id="messages" class="page">
-
     <div class="transaction-head">
         <button class="back-btn" onclick="openPage('dashboard')">
             <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1102,13 +1102,11 @@ button{
             <span class="message-time">Just now</span>
         </div>
     </div>
-
 </section>
 
 
 <!-- TRANSACTION DETAIL -->
 <section id="detail" class="page">
-
     <div class="transaction-head">
         <button class="back-btn" onclick="openTransactions()">
             <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1119,7 +1117,6 @@ button{
     </div>
 
     <div id="detail-content-area"></div>
-
 </section>
 
 
@@ -1325,7 +1322,7 @@ function renderTransactions() {
         const statusText = tx.status === 'completed' ? 'Completed' : 'Processing';
 
         html += `
-            <div class="transaction" data-status="${tx.status}" onclick="viewDetail('${tx.id}')" style="cursor:pointer;">
+            <div class="transaction" onclick="viewDetail('${tx.id}')" style="cursor:pointer;">
                 <div class="transaction-main">
                     <div class="t-left">
                         <div class="t-avatar">${initials}</div>
@@ -1429,9 +1426,7 @@ function viewDetail(id) {
             </div>
             <div class="detail-row">
                 <span>Status</span>
-                <span class="status ${statusClass}">
-                    <i class="dot"></i> ${statusText}
-                </span>
+                <span class="status ${statusClass}"><i class="dot"></i> ${statusText}</span>
             </div>
         </div>
 
@@ -1447,9 +1442,7 @@ function viewDetail(id) {
 
 function completeTransaction(id) {
     transactions = transactions.map(tx => {
-        if(tx.id === id) {
-            tx.status = 'completed';
-        }
+        if(tx.id === id) { tx.status = 'completed'; }
         return tx;
     });
     saveTransactions();
@@ -1460,9 +1453,7 @@ function completeTransaction(id) {
 function getInitials(str) {
     if(!str) return 'DIN';
     const parts = str.split(/[\s@._]+/);
-    if(parts.length >= 2) {
-        return (parts[0][0] + parts[1][0]).toUpperCase();
-    }
+    if(parts.length >= 2) { return (parts[0][0] + parts[1][0]).toUpperCase(); }
     return str.substring(0, 2).toUpperCase();
 }
 
@@ -1482,9 +1473,7 @@ function openPage(page){
 
     document.querySelectorAll(".nav-item").forEach(item => {
         item.classList.remove("active");
-        if(item.dataset.page === page){
-            item.classList.add("active");
-        }
+        if(item.dataset.page === page){ item.classList.add("active"); }
     });
 
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -1498,9 +1487,7 @@ function openTransactions(){
     openPage("transactions");
     document.querySelectorAll(".nav-item").forEach(item => {
         item.classList.remove("active");
-        if(item.dataset.page === "transactions"){
-            item.classList.add("active");
-        }
+        if(item.dataset.page === "transactions"){ item.classList.add("active"); }
     });
     renderTransactions();
 }
@@ -1510,9 +1497,7 @@ function showToast(message){
     toast.textContent = message;
     toast.classList.add("show");
     clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 1800);
+    window.toastTimer = setTimeout(() => { toast.classList.remove("show"); }, 1800);
 }
 
 function setFilter(filter, button){
