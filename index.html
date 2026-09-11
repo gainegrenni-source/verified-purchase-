@@ -32,7 +32,7 @@ button{
     background:#ffffff;
     position:relative;
     overflow-x:hidden;
-    padding-bottom:70px; /* Space for bottom nav */
+    padding-bottom:70px;
 }
 
 /* HEADER */
@@ -117,7 +117,7 @@ button{
     display:block;
 }
 
-/* LANDING PAGE */
+/* LANDING PAGE STYLES */
 .badge-tag{
     text-align:center;
     margin-bottom:12px;
@@ -193,12 +193,12 @@ button{
     fill:#0070ba;
 }
 
-/* THREE ICONS ROW */
+/* 3 ICON ROW */
 .features-row-3{
     display:flex;
     justify-content:space-between;
     margin-top:25px;
-    gap:8px;
+    gap:10px;
     text-align:center;
 }
 
@@ -207,11 +207,15 @@ button{
     display:flex;
     flex-direction:column;
     align-items:center;
+    background:#fff;
+    padding:12px 8px;
+    border-radius:14px;
+    border:1px solid #edf2f7;
 }
 
 .feat-icon-circle{
-    width:42px;
-    height:42px;
+    width:38px;
+    height:38px;
     background:#f0f4f8;
     border:1px solid #e2e8f0;
     border-radius:50%;
@@ -223,12 +227,12 @@ button{
 }
 
 .feat-icon-circle svg{
-    width:20px;
-    height:20px;
+    width:18px;
+    height:18px;
 }
 
 .feat-col span{
-    font-size:10px;
+    font-size:9.5px;
     font-weight:700;
     color:#1a2b4c;
 }
@@ -240,7 +244,7 @@ button{
 
 .how-title{
     text-align:center;
-    font-size:20px;
+    font-size:18px;
     font-weight:800;
     color:#1a2b4c;
 }
@@ -256,7 +260,7 @@ button{
 .steps-list{
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:10px;
 }
 
 .step-box{
@@ -270,8 +274,8 @@ button{
 }
 
 .step-ico{
-    width:40px;
-    height:40px;
+    width:36px;
+    height:36px;
     background:#e1effe;
     color:#0070ba;
     border-radius:10px;
@@ -282,22 +286,8 @@ button{
 }
 
 .step-ico svg{
-    width:20px;
-    height:20px;
-}
-
-.step-number-badge{
-    width:22px;
-    height:22px;
-    background:#0070ba;
-    color:#fff;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:10px;
-    font-weight:bold;
-    flex-shrink:0;
+    width:18px;
+    height:18px;
 }
 
 .step-content{
@@ -311,89 +301,16 @@ button{
 }
 
 .step-content p{
-    font-size:9.5px;
+    font-size:9px;
     color:#718096;
     margin-top:2px;
     line-height:1.35;
 }
 
-/* STATS BAR */
-.stats-bar{
-    background:#0b1e38;
-    color:#fff;
-    padding:20px 10px;
-    display:flex;
-    justify-content:space-around;
-    text-align:center;
-    margin:30px -16px 0 -16px;
-}
-
-.stat-item svg{
-    width:20px;
-    height:20px;
-    fill:#fff;
-    margin-bottom:4px;
-}
-
-.stat-item strong{
-    display:block;
+.step-num{
     font-size:13px;
     font-weight:800;
-}
-
-.stat-item span{
-    font-size:9px;
-    color:#a0aec0;
-}
-
-/* FOOTER */
-.footer{
-    background:#0b1e38;
-    border-top:1px solid rgba(255,255,255,0.1);
-    padding:20px 16px;
-    color:#a0aec0;
-    margin:0 -16px -40px -16px;
-}
-
-.footer-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
-}
-
-.footer-brand{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    color:#fff;
-    font-size:13px;
-    font-weight:800;
-}
-
-.social-icons{
-    display:flex;
-    gap:8px;
-}
-
-.soc-icon{
-    width:24px;
-    height:24px;
-    background:#1a365d;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    font-size:10px;
-}
-
-.footer-copy{
-    font-size:8.5px;
-    line-height:1.4;
-    color:#718096;
-    display:flex;
-    justify-content:space-between;
+    color:#cbd5e0;
 }
 
 /* DASHBOARD STYLES */
@@ -413,7 +330,6 @@ button{
     font-size:22px;
     font-weight:800;
     color:#1a2b4c;
-    letter-spacing:-.4px;
 }
 
 .secure-badge-pill{
@@ -435,31 +351,19 @@ button{
     fill:#0070ba;
 }
 
-/* BALANCE CARD */
 .main-balance-card{
     background:linear-gradient(135deg,#00458e,#0070ba);
     border-radius:18px;
     padding:18px;
     color:#fff;
-    position:relative;
-    overflow:hidden;
     margin-bottom:16px;
     box-shadow:0 8px 20px rgba(0,112,186,.2);
-}
-
-.balance-top-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:11px;
-    opacity:0.9;
 }
 
 .balance-amount{
     font-size:30px;
     font-weight:800;
     margin:8px 0 14px 0;
-    letter-spacing:-.5px;
 }
 
 .balance-stats-row{
@@ -480,7 +384,6 @@ button{
     font-weight:700;
 }
 
-/* QUICK ACTIONS */
 .section-header-row{
     display:flex;
     justify-content:space-between;
@@ -492,13 +395,6 @@ button{
     font-size:14px;
     font-weight:800;
     color:#1a2b4c;
-}
-
-.section-link{
-    font-size:11px;
-    font-weight:700;
-    color:#0070ba;
-    background:none;
 }
 
 .quick-actions-grid{
@@ -518,7 +414,6 @@ button{
     flex-direction:column;
     align-items:center;
     gap:8px;
-    box-shadow:0 2px 6px rgba(0,0,0,.02);
 }
 
 .q-icon-box{
@@ -539,15 +434,8 @@ button{
     font-size:10px;
     font-weight:700;
     color:#1a2b4c;
-    line-height:1.2;
 }
 
-.q-action-sub{
-    font-size:8px;
-    color:#718096;
-}
-
-/* ACTIVE ESCROW BOX */
 .active-escrow-box{
     background:#ffffff;
     border:1px solid #e2e8f0;
@@ -555,87 +443,8 @@ button{
     padding:20px;
     text-align:center;
     margin-bottom:20px;
-    box-shadow:0 2px 6px rgba(0,0,0,.02);
 }
 
-.empty-escrow-ico{
-    width:36px;
-    height:36px;
-    background:#f4f6fa;
-    border-radius:10px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    color:#718096;
-    margin-bottom:8px;
-}
-
-.empty-escrow-ico svg{
-    width:18px;
-    height:18px;
-}
-
-/* PROTECTION CARD */
-.protection-card{
-    background:linear-gradient(135deg,#eef5fc,#e1effe);
-    border:1px solid #d2e4fd;
-    border-radius:16px;
-    padding:16px;
-    margin-bottom:20px;
-}
-
-.prot-top{
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-}
-
-.prot-shield{
-    width:36px;
-    height:36px;
-    background:#0070ba;
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    flex-shrink:0;
-}
-
-.prot-shield svg{
-    width:20px;
-    height:20px;
-}
-
-.prot-checks{
-    margin-top:12px;
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-}
-
-.check-row{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    font-size:10.5px;
-    font-weight:600;
-    color:#2d3748;
-}
-
-.check-dot{
-    width:14px;
-    height:14px;
-    background:#2b8a3e;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    font-size:8px;
-}
-
-/* LOGOUT BUTTON CONTAINER */
 .logout-container {
     margin-top: 25px;
     margin-bottom: 20px;
@@ -659,43 +468,6 @@ button{
 .btn-logout svg {
     width: 16px;
     height: 16px;
-}
-
-/* BOTTOM NAVIGATION BAR */
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:100%;
-    max-width:480px;
-    height:60px;
-    background:#ffffff;
-    border-top:1px solid #edf0f5;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    z-index:150;
-}
-
-.nav-item{
-    background:none;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:3px;
-    color:#718096;
-    font-size:9.5px;
-    font-weight:600;
-}
-
-.nav-item.active{
-    color:#0070ba;
-}
-
-.nav-item svg{
-    width:20px;
-    height:20px;
 }
 
 /* AUTH MODAL */
@@ -791,7 +563,7 @@ button{
 .toast{
     position:fixed;
     left:50%;
-    bottom:75px;
+    bottom:30px;
     transform:translate(-50%,20px);
     opacity:0;
     pointer-events:none;
@@ -828,10 +600,10 @@ button{
     </div>
 
     <div class="header-right">
-        <button class="icon-btn" onclick="showToast('No new notifications')">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <button class="icon-btn" onclick="openAuthModal('login')">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
         </button>
-        <button class="icon-btn" onclick="showToast('Profile clicked')">
+        <button class="icon-btn" onclick="openAuthModal('signup')">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </button>
     </div>
@@ -888,7 +660,7 @@ button{
                     <strong>Seller Places Order</strong>
                     <p>Seller makes a payment and funds are held securely in our escrow.</p>
                 </div>
-                <div class="step-number-badge">1</div>
+                <div class="step-num">01</div>
             </div>
 
             <div class="step-box">
@@ -897,7 +669,7 @@ button{
                     <strong>Buyer Uploads Verification</strong>
                     <p>Buyer submit confirmation order screenshot or completes the verification process.</p>
                 </div>
-                <div class="step-number-badge">2</div>
+                <div class="step-num">02</div>
             </div>
 
             <div class="step-box">
@@ -906,7 +678,7 @@ button{
                     <strong>System/Admin Verification</strong>
                     <p>Seller confirms the order is received as expected.</p>
                 </div>
-                <div class="step-number-badge">3</div>
+                <div class="step-num">03</div>
             </div>
 
             <div class="step-box">
@@ -915,58 +687,10 @@ button{
                     <strong>DIN AR Payout Released</strong>
                     <p>Funds are released to the Buyer.</p>
                 </div>
-                <div class="step-number-badge">4</div>
+                <div class="step-num">04</div>
             </div>
         </div>
     </div>
-
-    <div style="margin-top:25px;">
-        <button class="btn-primary" onclick="openAuthModal('signup')">Create Your Account</button>
-    </div>
-
-    <!-- STATS BAR -->
-    <div class="stats-bar">
-        <div class="stat-item">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-            <strong>10K+</strong>
-            <span>Traders</span>
-        </div>
-        <div class="stat-item">
-            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-            <strong>$20M+</strong>
-            <span>Secured</span>
-        </div>
-        <div class="stat-item">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            <strong>99.9%</strong>
-            <span>Success</span>
-        </div>
-        <div class="stat-item">
-            <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-            <strong>24/7</strong>
-            <span>Support</span>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <div class="brand-icon" style="width:24px; height:24px; border-radius:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px; height:12px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-                DIN AR <span style="font-weight:400; font-size:11px; color:#a0aec0; margin-left:4px;">Escrow System</span>
-            </div>
-            <div class="social-icons">
-                <div class="soc-icon">f</div>
-                <div class="soc-icon">𝕏</div>
-                <div class="soc-icon">in</div>
-                <div class="soc-icon">▶</div>
-            </div>
-        </div>
-        <div class="footer-copy">
-            <div>© 2026 DIN AR Escrow System.<br>All rights reserved.</div>
-            <div style="text-align:right;">Safer Trades.<br>Stronger Communities.</div>
-        </div>
-    </footer>
 </section>
 
 <!-- DASHBOARD PAGE (After Login) -->
@@ -984,13 +708,7 @@ button{
 
     <!-- BALANCE CARD -->
     <div class="main-balance-card">
-        <div class="balance-top-row">
-            <span>Available Balance</span>
-            <div style="display:flex; align-items:center; gap:4px; background:rgba(255,255,255,0.15); padding:3px 8px; border-radius:12px; font-size:9.5px;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Protected
-            </div>
-        </div>
+        <div style="font-size:11px; opacity:0.9;">Available Balance</div>
         <div class="balance-amount">$1,250.00</div>
         <div class="balance-stats-row">
             <div class="b-stat">
@@ -1011,7 +729,6 @@ button{
     <!-- QUICK ACTIONS -->
     <div class="section-header-row">
         <div class="section-title">Quick Actions</div>
-        <button class="section-link" onclick="showToast('All actions')">See all ›</button>
     </div>
 
     <div class="quick-actions-grid">
@@ -1019,77 +736,36 @@ button{
             <div class="q-icon-box" style="background:#e1effe; color:#0070ba;">
                 <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </div>
-            <div>
-                <span>New Trade</span>
-                <div class="q-action-sub">Start a deal</div>
-            </div>
+            <span>New Trade</span>
         </div>
         <div class="q-action-card" onclick="showToast('Transactions clicked')">
             <div class="q-icon-box" style="background:#e6fcf5; color:#0ca678;">
-                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
             </div>
-            <div>
-                <span>Transactions</span>
-                <div class="q-action-sub">View history</div>
-            </div>
+            <span>History</span>
         </div>
         <div class="q-action-card" onclick="showToast('Messages clicked')">
             <div class="q-icon-box" style="background:#f3f0ff; color:#7950f2;">
                 <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             </div>
-            <div>
-                <span>Messages</span>
-                <div class="q-action-sub">Chat with users</div>
-            </div>
+            <span>Messages</span>
         </div>
         <div class="q-action-card" onclick="showToast('Deposit clicked')">
             <div class="q-icon-box" style="background:#fff3bf; color:#f59f00;">
                 <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             </div>
-            <div>
-                <span>Deposit</span>
-                <div class="q-action-sub">Add funds</div>
-            </div>
+            <span>Deposit</span>
         </div>
     </div>
 
     <!-- ACTIVE ESCROW -->
     <div class="section-header-row">
         <div class="section-title">Active Escrow</div>
-        <button class="section-link" onclick="showToast('View all escrow')">View all</button>
     </div>
 
     <div class="active-escrow-box">
-        <div class="empty-escrow-ico">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        </div>
         <div style="font-size:11.5px; font-weight:700; color:#1a2b4c; margin-bottom:2px;">No active escrow orders found.</div>
         <div style="font-size:10px; color:#718096;">Start a new trade to get started.</div>
-    </div>
-
-    <!-- PROTECTION CARD -->
-    <div class="protection-card">
-        <div class="prot-top">
-            <div class="prot-shield">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div>
-                <div style="font-size:13px; font-weight:800; color:#1a2b4c;">DIN AR Escrow Protection</div>
-                <div style="font-size:10px; color:#4a5568; margin-top:2px; line-height:1.4;">Your funds are secured with DIN AR's trusted escrow system and real-time verification.</div>
-            </div>
-        </div>
-        <div class="prot-checks">
-            <div class="check-row">
-                <div class="check-dot">✓</div> Secure Payments
-            </div>
-            <div class="check-row">
-                <div class="check-dot">✓</div> Buyer & Seller Protection
-            </div>
-            <div class="check-row">
-                <div class="check-dot">✓</div> Trusted Worldwide
-            </div>
-        </div>
-        <button style="background:none; color:#0070ba; font-size:11px; font-weight:700; margin-top:12px; padding:0;" onclick="showToast('Learn more clicked')">Learn More ›</button>
     </div>
 
     <!-- LOGOUT BUTTON -->
@@ -1102,26 +778,6 @@ button{
 </section>
 
 </div>
-
-<!-- BOTTOM NAVIGATION BAR -->
-<nav class="bottom-nav">
-    <button class="nav-item active" onclick="showToast('Home')">
-        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-        Home
-    </button>
-    <button class="nav-item" onclick="showToast('Transactions')">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-        Transactions
-    </button>
-    <button class="nav-item" onclick="showToast('New Trade')">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        New Trade
-    </button>
-    <button class="nav-item" onclick="showToast('Messages')">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Messages
-    </button>
-</nav>
 
 <!-- AUTH MODAL -->
 <div class="auth-modal-backdrop" id="authModal">
