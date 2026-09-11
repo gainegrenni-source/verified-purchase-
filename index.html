@@ -12,6 +12,8 @@
     -webkit-tap-highlight-color:transparent;
 }
 
+html{scroll-behavior:smooth;}
+
 body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     background:#f4f6fa;
@@ -119,48 +121,73 @@ button{
     display:block;
 }
 
-/* LANDING PAGE STYLES */
+/* =========================================================
+   LANDING PAGE ONLY
+   ========================================================= */
+
+#landing-page{
+    padding:0 16px 34px;
+    overflow:hidden;
+}
+
+.landing-hero{
+    padding-top:18px;
+}
+
+.hero-main{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-height:250px;
+}
+
+.hero-copy{
+    width:53%;
+    flex-shrink:0;
+}
+
 .badge-tag{
-    text-align:center;
-    margin-bottom:12px;
+    text-align:left;
+    margin-bottom:11px;
 }
 
 .badge-tag span{
-    background:#edf2f7;
+    display:inline-block;
+    background:#edf6ff;
     color:#2b6cb0;
-    font-size:9px;
-    font-weight:700;
+    font-size:8.5px;
+    font-weight:800;
     text-transform:uppercase;
-    padding:5px 12px;
+    padding:5px 10px;
     border-radius:20px;
-    letter-spacing:.5px;
-    border:1px solid #e2e8f0;
+    letter-spacing:.45px;
+    border:1px solid #dcebf7;
 }
 
 .hero-title{
-    font-size:22px;
+    font-size:21px;
     font-weight:800;
-    text-align:center;
-    line-height:1.25;
-    color:#1a2b4c;
-    padding:0 5px;
-    letter-spacing:-.4px;
+    text-align:left;
+    line-height:1.18;
+    color:#102a52;
+    padding:0;
+    letter-spacing:-.55px;
 }
 
 .hero-desc{
-    font-size:11px;
-    color:#4a5568;
-    text-align:center;
-    margin-top:12px;
-    line-height:1.4;
-    padding:0 10px;
+    font-size:10.5px;
+    color:#5b6878;
+    text-align:left;
+    margin-top:10px;
+    line-height:1.42;
+    padding:0;
 }
 
 .hero-btns{
-    margin-top:20px;
+    margin-top:14px;
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:8px;
 }
 
 .btn-primary{
@@ -168,7 +195,7 @@ button{
     height:46px;
     background:#0070ba;
     color:#fff;
-    border-radius:12px;
+    border-radius:10px;
     font-size:13px;
     font-weight:700;
     box-shadow:0 4px 14px rgba(0,112,186,.25);
@@ -176,12 +203,12 @@ button{
 
 .btn-secondary{
     width:100%;
-    height:46px;
+    height:42px;
     background:#ffffff;
     color:#1a2b4c;
-    border:1px solid #cbd5e0;
-    border-radius:12px;
-    font-size:13px;
+    border:1px solid #d7e0e8;
+    border-radius:10px;
+    font-size:12px;
     font-weight:700;
     display:flex;
     align-items:center;
@@ -190,17 +217,135 @@ button{
 }
 
 .btn-secondary svg{
-    width:15px;
-    height:15px;
+    width:14px;
+    height:14px;
     fill:#0070ba;
 }
+
+/* PROTECTION ORBIT */
+.protection-visual{
+    width:47%;
+    height:245px;
+    position:relative;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:visible;
+}
+
+.orbit-stage{
+    width:220px;
+    height:220px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.orbit-ring{
+    position:absolute;
+    width:190px;
+    height:92px;
+    border:2px solid rgba(65,173,239,.30);
+    border-radius:50%;
+    transform:rotate(-18deg);
+    box-shadow:0 0 18px rgba(65,173,239,.07);
+}
+
+.orbit-ring.r2{
+    width:205px;
+    height:105px;
+    transform:rotate(24deg);
+    border-color:rgba(65,173,239,.18);
+}
+
+.shield-wrap{
+    width:105px;
+    height:115px;
+    position:relative;
+    z-index:4;
+    filter:drop-shadow(0 10px 15px rgba(0,112,186,.18));
+}
+
+.shield-wrap svg{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+.orbit-items{
+    position:absolute;
+    inset:0;
+    z-index:5;
+    animation:orbitRotate 15s linear infinite;
+}
+
+@keyframes orbitRotate{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+.orbit-badge{
+    position:absolute;
+    min-width:68px;
+    height:38px;
+    padding:4px 7px;
+    background:rgba(255,255,255,.97);
+    border:1px solid #e4eef7;
+    border-radius:18px;
+    box-shadow:0 5px 16px rgba(33,96,146,.10);
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:7px;
+    font-weight:800;
+    color:#18345b;
+    line-height:1.05;
+    animation:orbitCounter 15s linear infinite;
+}
+
+@keyframes orbitCounter{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(-360deg);}
+}
+
+.orbit-badge small{
+    display:block;
+    font-size:6.5px;
+    color:#718096;
+    font-weight:600;
+    margin-top:2px;
+}
+
+.orbit-badge .mini-icon{
+    width:23px;
+    height:23px;
+    border-radius:50%;
+    background:#edf7ff;
+    color:#0070ba;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.orbit-badge .mini-icon svg{
+    width:13px;
+    height:13px;
+}
+
+.badge-safe{top:16px;left:7px;}
+.badge-trusted{top:30px;right:-1px;}
+.badge-fast{bottom:22px;left:1px;}
+.badge-support{bottom:10px;right:1px;}
 
 /* 3 ICON ROW */
 .features-row-3{
     display:flex;
     justify-content:space-between;
-    margin-top:25px;
-    gap:10px;
+    margin-top:5px;
+    gap:9px;
     text-align:center;
 }
 
@@ -210,16 +355,16 @@ button{
     flex-direction:column;
     align-items:center;
     background:#fff;
-    padding:12px 8px;
+    padding:10px 6px 9px;
     border-radius:14px;
     border:1px solid #edf2f7;
 }
 
 .feat-icon-circle{
-    width:38px;
-    height:38px;
-    background:#f0f4f8;
-    border:1px solid #e2e8f0;
+    width:42px;
+    height:42px;
+    background:#f1f8fe;
+    border:1px solid #e1edf6;
     border-radius:50%;
     display:flex;
     align-items:center;
@@ -229,56 +374,95 @@ button{
 }
 
 .feat-icon-circle svg{
-    width:18px;
-    height:18px;
+    width:19px;
+    height:19px;
 }
 
-.feat-col span{
+.feat-col strong{
     font-size:9.5px;
-    font-weight:700;
+    font-weight:800;
     color:#1a2b4c;
+    line-height:1.15;
 }
 
-/* HOW IT WORKS */
+.feat-col p{
+    font-size:8px;
+    color:#718096;
+    margin-top:3px;
+    line-height:1.25;
+}
+
+/* HOW WE WORKS */
 .how-section{
-    margin-top:30px;
+    margin-top:27px;
+    scroll-margin-top:78px;
 }
 
 .how-title{
     text-align:center;
-    font-size:18px;
+    font-size:19px;
     font-weight:800;
-    color:#1a2b4c;
+    color:#102a52;
 }
 
 .how-subtitle{
     text-align:center;
-    font-size:11px;
+    font-size:10px;
     color:#718096;
     margin-top:3px;
-    margin-bottom:18px;
+    margin-bottom:16px;
 }
 
 .steps-list{
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:9px;
+    position:relative;
+}
+
+.steps-list::before{
+    content:"";
+    position:absolute;
+    left:18px;
+    top:17px;
+    bottom:17px;
+    width:1px;
+    background:#b9d8ee;
 }
 
 .step-box{
     display:flex;
     align-items:center;
-    gap:12px;
-    background:#f8fafc;
-    border:1px solid #edf2f7;
-    border-radius:14px;
-    padding:12px;
+    gap:10px;
+    background:#fff;
+    border:1px solid #e4ebf1;
+    border-radius:11px;
+    padding:10px 10px 10px 6px;
+    box-shadow:0 3px 12px rgba(32,72,108,.035);
+    position:relative;
+    z-index:1;
+}
+
+.step-number{
+    width:27px;
+    height:27px;
+    background:#0879c1;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:800;
+    flex-shrink:0;
+    border:3px solid #fff;
+    box-shadow:0 1px 4px rgba(0,112,186,.12);
 }
 
 .step-ico{
-    width:36px;
-    height:36px;
-    background:#e1effe;
+    width:39px;
+    height:39px;
+    background:#eaf5fe;
     color:#0070ba;
     border-radius:10px;
     display:flex;
@@ -288,8 +472,8 @@ button{
 }
 
 .step-ico svg{
-    width:18px;
-    height:18px;
+    width:19px;
+    height:19px;
 }
 
 .step-content{
@@ -300,19 +484,458 @@ button{
     font-size:11px;
     color:#1a2b4c;
     display:block;
+    line-height:1.15;
 }
 
 .step-content p{
-    font-size:9px;
+    font-size:8.7px;
     color:#718096;
-    margin-top:2px;
+    margin-top:3px;
     line-height:1.35;
 }
 
-.step-num{
+/* ESCROW SERVICE BOX */
+.escrow-info-box{
+    margin-top:22px;
+    background:linear-gradient(135deg,#f4faff,#eaf5fd);
+    border:1px solid #d7eaf7;
+    border-radius:14px;
+    padding:15px;
+    scroll-margin-top:78px;
+}
+
+.escrow-info-head{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:8px;
+}
+
+.escrow-info-icon{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    background:#fff;
+    color:#0070ba;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #dbeaf5;
+    flex-shrink:0;
+}
+
+.escrow-info-icon svg{
+    width:19px;
+    height:19px;
+}
+
+.escrow-info-head h3{
     font-size:13px;
     font-weight:800;
-    color:#cbd5e0;
+    color:#102a52;
+}
+
+.escrow-info-head p{
+    font-size:8.5px;
+    color:#718096;
+    margin-top:2px;
+}
+
+.escrow-info-box > p{
+    font-size:9.5px;
+    line-height:1.5;
+    color:#5b6878;
+}
+
+.escrow-points{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+    margin-top:11px;
+}
+
+.escrow-point{
+    background:#fff;
+    border:1px solid #e2edf5;
+    border-radius:9px;
+    padding:8px;
+    font-size:8.5px;
+    color:#506174;
+    line-height:1.3;
+}
+
+.escrow-point strong{
+    display:block;
+    font-size:9px;
+    color:#1a2b4c;
+    margin-bottom:2px;
+}
+
+/* WHY CHOOSE */
+.why-section{
+    margin-top:24px;
+    scroll-margin-top:78px;
+}
+
+.landing-section-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+
+.landing-section-head h2{
+    font-size:17px;
+    font-weight:800;
+    color:#102a52;
+}
+
+.text-link{
+    background:transparent;
+    color:#1478b8;
+    font-size:9.5px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+.why-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+}
+
+.why-card{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:9px;
+    background:#fff;
+    border:1px solid #e7edf3;
+    border-radius:11px;
+    min-height:61px;
+    cursor:pointer;
+}
+
+.why-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:#eaf5fe;
+    color:#0070ba;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.why-icon svg{
+    width:19px;
+    height:19px;
+}
+
+.why-card strong{
+    display:block;
+    font-size:9.5px;
+    color:#1a2b4c;
+}
+
+.why-card p{
+    font-size:8px;
+    color:#718096;
+    margin-top:2px;
+    line-height:1.3;
+}
+
+/* STATS */
+.stats-strip{
+    margin-top:15px;
+    background:linear-gradient(135deg,#123f69,#075e99);
+    border-radius:12px;
+    padding:12px 5px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    color:#fff;
+    box-shadow:0 8px 20px rgba(8,76,122,.16);
+}
+
+.stat-item{
+    text-align:center;
+    border-right:1px solid rgba(255,255,255,.28);
+}
+
+.stat-item:last-child{
+    border-right:0;
+}
+
+.stat-icon{
+    height:19px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:2px;
+}
+
+.stat-icon svg{
+    width:17px;
+    height:17px;
+}
+
+.stat-item strong{
+    display:block;
+    font-size:12px;
+    font-weight:800;
+}
+
+.stat-item span{
+    display:block;
+    font-size:7px;
+    opacity:.88;
+    margin-top:1px;
+}
+
+/* TESTIMONIAL */
+.testimonials-section{
+    margin-top:21px;
+}
+
+.testimonial-card{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    background:#fff;
+    border:1px solid #e7edf3;
+    border-radius:12px;
+    padding:11px;
+}
+
+.stars{
+    color:#f6b900;
+    font-size:11px;
+    letter-spacing:1px;
+    margin-bottom:4px;
+}
+
+.quote{
+    font-size:9.5px;
+    line-height:1.35;
+    color:#32455e;
+}
+
+.user-avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#dfe6ff;
+    color:#4c5fc2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    font-weight:800;
+    flex-shrink:0;
+    margin-left:auto;
+}
+
+.user-meta{
+    width:64px;
+    flex-shrink:0;
+}
+
+.user-meta strong{
+    display:block;
+    font-size:8.5px;
+    color:#1a2b4c;
+}
+
+.user-meta span{
+    font-size:7px;
+    color:#718096;
+}
+
+.dots{
+    display:flex;
+    justify-content:center;
+    gap:5px;
+    margin-top:8px;
+}
+
+.dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#d5e3ee;
+}
+
+.dot.active{
+    background:#0879c1;
+}
+
+/* CTA */
+.landing-cta{
+    margin-top:16px;
+    background:linear-gradient(135deg,#eff8ff,#e6f4fd);
+    border:1px solid #d9ebf8;
+    border-radius:13px;
+    padding:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.cta-copy{
+    flex:1;
+}
+
+.cta-copy h3{
+    font-size:13px;
+    color:#102a52;
+    font-weight:800;
+}
+
+.cta-copy p{
+    font-size:8.5px;
+    color:#718096;
+    line-height:1.3;
+    margin-top:3px;
+}
+
+.cta-button{
+    min-width:126px;
+    height:42px;
+    background:#0879c1;
+    color:#fff;
+    border-radius:9px;
+    font-size:10px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    box-shadow:0 5px 13px rgba(0,112,186,.18);
+}
+
+.cta-button svg{
+    width:13px;
+    height:13px;
+}
+
+/* LANDING FOOTER */
+.landing-footer{
+    margin:28px -16px -34px;
+    padding:21px 16px 13px;
+    background:#092b4b;
+    color:#fff;
+}
+
+.footer-top{
+    display:grid;
+    grid-template-columns:1.35fr 1fr 1fr 1fr;
+    gap:11px;
+}
+
+.footer-brand{
+    min-width:0;
+}
+
+.footer-logo{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    margin-bottom:7px;
+}
+
+.footer-logo-mark{
+    width:32px;
+    height:32px;
+    border-radius:8px;
+    background:#0070ba;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.footer-logo-mark svg{
+    width:18px;
+    height:18px;
+}
+
+.footer-logo strong{
+    display:block;
+    font-size:12px;
+    font-weight:800;
+}
+
+.footer-logo small{
+    display:block;
+    font-size:6.5px;
+    color:#a9bfd0;
+    margin-top:1px;
+}
+
+.footer-brand > p{
+    font-size:7.8px;
+    line-height:1.45;
+    color:#b8c9d6;
+}
+
+.footer-col h4{
+    font-size:8.5px;
+    margin-bottom:7px;
+    font-weight:800;
+}
+
+.footer-col button{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:transparent;
+    color:#b8c9d6;
+    font-size:7.8px;
+    padding:2px 0;
+}
+
+.footer-col button:hover{
+    color:#fff;
+}
+
+.footer-bottom{
+    margin-top:13px;
+    padding-top:10px;
+    border-top:1px solid rgba(255,255,255,.18);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+}
+
+.footer-socials{
+    display:flex;
+    gap:5px;
+}
+
+.social-btn{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:rgba(255,255,255,.09);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.social-btn svg{
+    width:12px;
+    height:12px;
+}
+
+.footer-copy{
+    text-align:right;
+    font-size:6.8px;
+    line-height:1.35;
+    color:#9fb5c6;
 }
 
 /* DASHBOARD STYLES */
@@ -1021,6 +1644,17 @@ button{
     opacity:1;
     transform:translate(-50%,0);
 }
+
+/* SMALL MOBILE SAFETY */
+@media(max-width:370px){
+    .hero-main{gap:3px;}
+    .hero-copy{width:55%;}
+    .protection-visual{width:45%; transform:scale(.9); transform-origin:center;}
+    .hero-title{font-size:19px;}
+    .footer-top{grid-template-columns:1.25fr 1fr 1fr 1fr;gap:7px;}
+    .footer-col button,.footer-brand > p{font-size:7px;}
+    .cta-button{min-width:112px;font-size:9px;}
+}
 </style>
 </head>
 
@@ -1045,41 +1679,410 @@ button{
 
 <!-- LANDING PAGE -->
 <section id="landing-page" class="page">
-    <div class="badge-tag">
-        <span>Secure Escrow Payments</span>
-    </div>
 
-    <h1 class="hero-title">Verified Purchase Trades : Buy & Sell with Confidence</h1>
-    <p class="hero-desc">A safe and simple escrow service for Verified Purchase transactions. Your payment is protected until the deal is completed.</p>
+    <div class="landing-hero">
+        <div class="hero-main">
 
-    <div class="hero-btns">
-        <button class="btn-primary" onclick="openAuthModal('signup')">Get Started</button>
-        <button class="btn-secondary" onclick="showToast('How it works guide')">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            How It Works
-        </button>
+            <div class="hero-copy">
+                <div class="badge-tag">
+                    <span>Secure Escrow Payments</span>
+                </div>
+
+                <h1 class="hero-title">Verified Purchase Trades : Buy & Sell with Confidence</h1>
+
+                <p class="hero-desc">A safe and simple escrow service for Verified Purchase transactions. Your payment is protected until the deal is completed.</p>
+
+                <div class="hero-btns">
+                    <button class="btn-primary" onclick="openAuthModal('signup')">
+                        Get Started
+                        <span style="font-size:15px; margin-left:4px;">→</span>
+                    </button>
+
+                    <button class="btn-secondary" onclick="scrollToHowItWorks()">
+                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        How It Works
+                    </button>
+                </div>
+            </div>
+
+            <!-- Shield + orbiting elements -->
+            <div class="protection-visual" aria-label="DIN AR protection">
+                <div class="orbit-stage">
+
+                    <div class="orbit-ring"></div>
+                    <div class="orbit-ring r2"></div>
+
+                    <div class="shield-wrap">
+                        <svg viewBox="0 0 120 132" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="shieldOuter" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#087fc8"/>
+                                    <stop offset="55%" stop-color="#0064ae"/>
+                                    <stop offset="100%" stop-color="#003f83"/>
+                                </linearGradient>
+                                <linearGradient id="shieldInner" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#19a8ef"/>
+                                    <stop offset="100%" stop-color="#0060ae"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M60 5L108 24V59c0 31-19 54-48 67C31 113 12 90 12 59V24L60 5z"
+                                  fill="url(#shieldOuter)" stroke="#005b9e" stroke-width="2"/>
+                            <path d="M60 14L98 29v29c0 25-14 43-38 55C36 101 22 83 22 58V29L60 14z"
+                                  fill="url(#shieldInner)" opacity=".95"/>
+                            <path d="M60 24L89 36v22c0 18-10 32-29 43C41 90 31 76 31 58V36L60 24z"
+                                  fill="#0874bd" opacity=".72"/>
+                            <path d="M61 45c-7 0-12 5-12 12v5h-5v18h32V62h-5v-5c0-7-4-12-10-12zm0 6c3 0 6 3 6 6v5H55v-5c0-3 3-6 6-6z"
+                                  fill="#ccecff"/>
+                            <circle cx="61" cy="70" r="3" fill="#0062a9"/>
+                            <path d="M61 72v6" stroke="#0062a9" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
+                    <div class="orbit-items">
+                        <div class="orbit-badge badge-safe">
+                            <div class="mini-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div>Safe<small>Transactions</small></div>
+                        </div>
+
+                        <div class="orbit-badge badge-trusted">
+                            <div class="mini-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div>Trusted<small>Platform</small></div>
+                        </div>
+
+                        <div class="orbit-badge badge-fast">
+                            <div class="mini-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            </div>
+                            <div>Fast & Simple</div>
+                        </div>
+
+                        <div class="orbit-badge badge-support">
+                            <div class="mini-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                            </div>
+                            <div>24/7<small>Support</small></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="features-row-3">
-        <div class="feat-col">
+        <div class="feat-col" onclick="showLandingFeature('Secure & Trusted')">
             <div class="feat-icon-circle">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <span>Secure & Trusted</span>
+            <strong>Secure & Trusted</strong>
+            <p>Your funds are always protected</p>
         </div>
-        <div class="feat-col">
+
+        <div class="feat-col" onclick="showLandingFeature('Simple Process')">
             <div class="feat-icon-circle">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             </div>
-            <span>Simple Process</span>
+            <strong>Simple Process</strong>
+            <p>Easy steps for everyone</p>
         </div>
-        <div class="feat-col">
+
+        <div class="feat-col" onclick="showLandingFeature('Dispute Support')">
             <div class="feat-icon-circle">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
             </div>
-            <span>Dispute Support</span>
+            <strong>Dispute Support</strong>
+            <p>We're here to help 24/7</p>
         </div>
     </div>
+
+    <!-- HOW WE WORKS -->
+    <section id="how-it-works-section" class="how-section">
+        <h2 class="how-title">How We Works</h2>
+        <p class="how-subtitle">A simple and secure process for everyone</p>
+
+        <div class="steps-list">
+            <div class="step-box">
+                <div class="step-number">1</div>
+                <div class="step-ico">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M3 4h2l2.4 11.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 8H6"/></svg>
+                </div>
+                <div class="step-content">
+                    <strong>Seller Places Order</strong>
+                    <p>Seller makes a payment and funds are held securely in our escrow.</p>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">2</div>
+                <div class="step-ico">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6M9 15h6"/></svg>
+                </div>
+                <div class="step-content">
+                    <strong>Buyer Uploads Verification</strong>
+                    <p>Buyer submits confirmation or required order information for verification.</p>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">3</div>
+                <div class="step-ico">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="step-content">
+                    <strong>System/Admin Verification</strong>
+                    <p>We verify the information and confirm the order is received as expected.</p>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">4</div>
+                <div class="step-ico">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                </div>
+                <div class="step-content">
+                    <strong>DIN AR Payout Released</strong>
+                    <p>Funds are released according to the completed trade process.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESCROW SERVICE INFORMATION -->
+    <section id="escrow-service" class="escrow-info-box">
+        <div class="escrow-info-head">
+            <div class="escrow-info-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+                <h3>About DIN AR Escrow Service</h3>
+                <p>Protection throughout the transaction process</p>
+            </div>
+        </div>
+
+        <p>
+            DIN AR provides an escrow-based transaction process designed to keep the payment protected while the agreed purchase or verification steps are completed. The service helps keep both sides organized with a clear process from order placement through verification and payout.
+        </p>
+
+        <div class="escrow-points">
+            <div class="escrow-point">
+                <strong>Payment Protection</strong>
+                Funds remain protected while the trade is being processed.
+            </div>
+            <div class="escrow-point">
+                <strong>Clear Verification</strong>
+                Each required step is presented clearly before completion.
+            </div>
+            <div class="escrow-point">
+                <strong>Order Tracking</strong>
+                Follow the progress of the transaction through its stages.
+            </div>
+            <div class="escrow-point">
+                <strong>Support</strong>
+                Assistance is available when a transaction needs attention.
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE -->
+    <section class="why-section">
+        <div class="landing-section-head">
+            <h2>Why Choose DIN AR?</h2>
+            <button class="text-link" onclick="document.getElementById('escrow-service').scrollIntoView({behavior:'smooth'})">
+                View All →
+            </button>
+        </div>
+
+        <div class="why-grid">
+            <div class="why-card" onclick="showLandingFeature('100% Secure')">
+                <div class="why-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                    <strong>Payment Protection</strong>
+                    <p>Payment handling follows the stated escrow process.</p>
+                </div>
+            </div>
+
+            <div class="why-card" onclick="showLandingFeature('Fast Process')">
+                <div class="why-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <div>
+                    <strong>Clear Process</strong>
+                    <p>Follow each verification and payout step.</p>
+                </div>
+            </div>
+
+            <div class="why-card" onclick="showLandingFeature('Trusted Platform')">
+                <div class="why-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div>
+                    <strong>Organized Platform</strong>
+                    <p>A structured workflow for purchase transactions.</p>
+                </div>
+            </div>
+
+            <div class="why-card" onclick="showLandingFeature('24/7 Support')">
+                <div class="why-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                </div>
+                <div>
+                    <strong>Support</strong>
+                    <p>Contact support when your transaction needs attention.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-strip">
+        <div class="stat-item">
+            <div class="stat-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <strong>Secure</strong>
+            <span>Process</span>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <strong>Clear</strong>
+            <span>Verification</span>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.2L18.5 21 12 17l-6.5 4 2-7.8L2 9h7z"/></svg>
+            </div>
+            <strong>Step-by-Step</strong>
+            <span>Workflow</span>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            </div>
+            <strong>Support</strong>
+            <span>Available</span>
+        </div>
+    </div>
+
+    <!-- TESTIMONIAL -->
+    <section class="testimonials-section">
+        <div class="landing-section-head">
+            <h2>What Our Users Say</h2>
+            <button class="text-link" onclick="showLandingFeature('User Reviews')">View More →</button>
+        </div>
+
+        <div class="testimonial-card">
+            <div style="flex:1;">
+                <div class="stars">DIN AR</div>
+                <div class="quote">“Review and testimonial content can be added here from genuine customers with their permission.”</div>
+            </div>
+            <div class="user-avatar">A</div>
+            <div class="user-meta">
+                <strong>Customer Review</strong>
+                <span>Testimonial</span>
+            </div>
+        </div>
+
+        <div class="dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="landing-cta">
+        <div class="cta-copy">
+            <h3>Ready to Trade with Confidence?</h3>
+            <p>Join DIN AR and experience a safer, clearer escrow process.</p>
+        </div>
+        <button class="cta-button" onclick="openAuthModal('signup')">
+            Create Your Account
+            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="landing-footer">
+        <div class="footer-top">
+
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-mark">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <div>
+                        <strong>DIN AR</strong>
+                        <small>Escrow Protection</small>
+                    </div>
+                </div>
+                <p>
+                    A structured escrow platform for secure purchase transactions. We aim to keep the process clear, organized and supported from start to finish.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <button onclick="goHome()">Home</button>
+                <button onclick="scrollToHowItWorks()">How It Works</button>
+                <button onclick="showLandingFeature('Fees')">Fees</button>
+                <button onclick="showLandingFeature('FAQ')">FAQ</button>
+                <button onclick="showLandingFeature('Support')">Support</button>
+                <button onclick="showLandingFeature('Contact Us')">Contact Us</button>
+            </div>
+
+            <div class="footer-col">
+                <h4>Support</h4>
+                <button onclick="showLandingFeature('Help Center')">Help Center</button>
+                <button onclick="showLandingFeature('Submit a Request')">Submit a Request</button>
+                <button onclick="showLandingFeature('Dispute Support')">Dispute Support</button>
+                <button onclick="showLandingFeature('Safety Tips')">Safety Tips</button>
+                <button onclick="showLandingFeature('Community')">Community</button>
+                <button onclick="showLandingFeature('System Status')">System Status</button>
+            </div>
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <button onclick="showLandingFeature('About Us')">About Us</button>
+                <button onclick="showLandingFeature('Terms of Service')">Terms of Service</button>
+                <button onclick="showLandingFeature('Privacy Policy')">Privacy Policy</button>
+                <button onclick="showLandingFeature('Refund Policy')">Refund Policy</button>
+                <button onclick="showLandingFeature('Cookie Policy')">Cookie Policy</button>
+                <button onclick="showLandingFeature('Careers')">Careers</button>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-socials">
+                <button class="social-btn" onclick="showLandingFeature('Facebook')">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v8h4v-8h3l1-4h-4V9c0-.7.3-1 1-1z"/></svg>
+                </button>
+                <button class="social-btn" onclick="showLandingFeature('X')">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.2 3H21l-6.1 7 7.2 11H16.5l-4.4-6.7L6.3 21H3.5l6.5-7.5L3.1 3h5.7l4 6.1L18.2 3zm-1 15.2h1.5L8.1 4.7H6.5l10.7 13.5z"/></svg>
+                </button>
+                <button class="social-btn" onclick="showLandingFeature('LinkedIn')">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 8h4v13H3V8zm6 0h4v2c1-1.5 2.4-2.4 4.3-2.4 3.5 0 4.7 2.2 4.7 6.2V21h-4v-6.1c0-1.7 0-3.9-2.4-3.9S13 12.8 13 15v6H9V8z"/></svg>
+                </button>
+                <button class="social-btn" onclick="showLandingFeature('YouTube')">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M23 12s0-4-1-5-3-1-5-1H7C5 6 3 6 2 7s-1 5-1 5 0 4 1 5 3 1 5 1h10c2 0 4 0 5-1s1-5 1-5zM10 15V9l5 3-5 3z"/></svg>
+                </button>
+            </div>
+
+            <div class="footer-copy">
+                © 2026 DIN AR. All rights reserved.<br>
+                Secure Trades. Stronger Communities.
+            </div>
+        </div>
+    </footer>
+
 </section>
 
 <!-- DASHBOARD PAGE -->
@@ -1179,9 +2182,7 @@ button{
         </div>
     </div>
 
-    <!-- Timeline steps -->
     <div class="timeline-container">
-        <!-- Step 1 -->
         <div class="t-step-item">
             <div class="t-step-num">1</div>
             <div class="t-step-content">
@@ -1195,7 +2196,6 @@ button{
             </div>
         </div>
 
-        <!-- Step 2 -->
         <div class="t-step-item">
             <div class="t-step-num inactive">2</div>
             <div class="t-step-content">
@@ -1209,7 +2209,6 @@ button{
             </div>
         </div>
 
-        <!-- Step 3 -->
         <div class="t-step-item">
             <div class="t-step-num inactive">3</div>
             <div class="t-step-content">
@@ -1218,7 +2217,6 @@ button{
             </div>
         </div>
 
-        <!-- Step 4 -->
         <div class="t-step-item">
             <div class="t-step-num inactive">4</div>
             <div class="t-step-content">
@@ -1228,7 +2226,6 @@ button{
         </div>
     </div>
 
-    <!-- Trade Rules & Guidelines -->
     <div class="rules-card">
         <div class="rules-header">
             <div class="rules-title-area">
@@ -1297,7 +2294,7 @@ button{
     <div class="custom-modal">
         <button class="modal-close-btn" onclick="closeSubmitInfoModal()">✕</button>
         <h3 style="font-size:15px; font-weight:800; color:#1a2b4c; margin-bottom:14px;">Submit Trade Information</h3>
-        
+
         <form onsubmit="handleTradeInfoSubmit(event)">
             <div class="form-field-group">
                 <label>Buyer Name</label>
@@ -1341,7 +2338,7 @@ button{
     </div>
 </div>
 
-<!-- VIEW PAYMENT INVOICE MODAL (POINT AKARE) -->
+<!-- VIEW PAYMENT INVOICE MODAL -->
 <div class="custom-modal-backdrop" id="paymentInvoiceModal">
     <div class="custom-modal">
         <button class="modal-close-btn" onclick="closePaymentInvoiceModal()">✕</button>
@@ -1371,7 +2368,7 @@ button{
     <div class="auth-modal">
         <button class="close-modal" onclick="closeAuthModal()">✕</button>
         <h2 id="authTitle" style="font-size:18px; text-align:center;">Login to Account</h2>
-        
+
         <div class="auth-switcher">
             <button class="auth-tab active" id="tabLoginBtn" onclick="switchModalTab('login')">Login</button>
             <button class="auth-tab" id="tabSignupBtn" onclick="switchModalTab('signup')">Sign Up</button>
@@ -1399,10 +2396,9 @@ button{
 
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-    // Check initial active page from storage or default to landing/dashboard
     const isLoggedIn = localStorage.getItem('din_ar_logged_in');
     const currentActivePage = localStorage.getItem('din_ar_active_page') || (isLoggedIn === 'true' ? 'dashboard' : 'landing');
-    
+
     updateUIState();
     switchPage(currentActivePage, false);
 });
@@ -1477,6 +2473,23 @@ function switchPage(pageName, saveToStorage = true) {
         document.getElementById('landing-page').classList.add('active');
         if(saveToStorage) localStorage.setItem('din_ar_active_page', 'landing');
     }
+}
+
+/* LANDING PAGE FUNCTIONS ONLY */
+function scrollToHowItWorks() {
+    const landing = document.getElementById('landing-page');
+    if (!landing.classList.contains('active')) {
+        switchPage('landing');
+        setTimeout(() => {
+            document.getElementById('how-it-works-section').scrollIntoView({behavior:'smooth', block:'start'});
+        }, 50);
+        return;
+    }
+    document.getElementById('how-it-works-section').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function showLandingFeature(name) {
+    showToast(name + ' selected');
 }
 
 function toggleProfileDropdown(e) {
@@ -1554,8 +2567,7 @@ function handleTradeInfoSubmit(e) {
     const totalAmount = document.getElementById('formTotalAmount').value;
     const dateVal = document.getElementById('formPaymentDate').value;
     const fileInput = document.getElementById('formInvoiceFile');
-    
-    // Update invoice details dynamically
+
     document.getElementById('invDate').textContent = dateVal || '2026-09-12';
     document.getElementById('invOrderNum').textContent = 'DIN-' + Math.floor(10000 + Math.random() * 90000);
     document.getElementById('invStatus').textContent = 'Secure in Escrow ($' + parseFloat(totalAmount || 0).toFixed(2) + ')';
