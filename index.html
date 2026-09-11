@@ -1,1683 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>DIN AR Escrow System</title>
-<meta name="description" content="DIN AR payment protection interface demo">
-
-<style>
-:root{
-  --blue:#087cf5;
-  --blue2:#0b70e8;
-  --navy:#07152f;
-  --text:#243752;
-  --muted:#63748b;
-  --sky:#eaf8ff;
-  --sky2:#dff3ff;
-  --white:#fff;
-  --green:#40bd83;
-  --line:#d8e5f1;
-  --dark:#06345f;
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Arial,
-    sans-serif;
-  color:var(--navy);
-  background:#fff;
-  overflow-x:hidden;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-button{
-  font:inherit;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.site-header{
-  height:86px;
-  background:#fff;
-  border-bottom:1px solid #e2ebf3;
-  display:flex;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-
-.header-inner{
-  width:min(1180px,calc(100% - 40px));
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:270px;
-}
-
-.brand-logo{
-  width:64px;
-  height:58px;
-  object-fit:contain;
-  display:block;
-}
-
-.brand-text{
-  line-height:1.05;
-}
-
-.brand-title{
-  font-size:24px;
-  font-weight:850;
-  letter-spacing:-1px;
-  white-space:nowrap;
-}
-
-.brand-sub{
-  margin-top:6px;
-  color:#718096;
-  font-size:14px;
-}
-
-.desktop-nav{
-  display:flex;
-  align-items:center;
-  gap:25px;
-}
-
-.desktop-nav a{
-  font-size:14px;
-  font-weight:650;
-  color:#33445d;
-  cursor:pointer;
-}
-
-.desktop-nav a:hover{
-  color:var(--blue);
-}
-
-.header-actions{
-  display:flex;
-  gap:9px;
-}
-
-.btn{
-  min-height:46px;
-  padding:0 22px;
-  border-radius:9px;
-  border:0;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.btn-primary{
-  color:#fff;
-  background:var(--blue);
-  box-shadow:0 8px 20px rgba(8,124,245,.17);
-}
-
-.btn-outline{
-  color:#0871dc;
-  background:#fff;
-  border:1.5px solid #8cbcf0;
-}
-
-.menu-btn{
-  display:none;
-  width:48px;
-  height:46px;
-  border:0;
-  background:transparent;
-  cursor:pointer;
-}
-
-.menu-btn span{
-  display:block;
-  width:35px;
-  height:5px;
-  margin:5px auto;
-  border-radius:5px;
-  background:var(--navy);
-}
-
-/* =========================
-   MOBILE NAV
-========================= */
-
-.mobile-nav{
-  display:none;
-  position:absolute;
-  top:86px;
-  left:0;
-  right:0;
-  background:#fff;
-  padding:20px;
-  border-bottom:1px solid var(--line);
-  box-shadow:0 12px 25px rgba(0,0,0,.08);
-}
-
-.mobile-nav.open{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-.mobile-nav a{
-  font-weight:700;
-  padding:8px 0;
-  cursor:pointer;
-}
-
-.mobile-nav .btn{
-  width:100%;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-  background:linear-gradient(
-    110deg,
-    #eefaff 0%,
-    #e6f6ff 55%,
-    #edf9ff 100%
-  );
-  padding:70px 0 50px;
-}
-
-.hero-inner{
-  width:min(900px,calc(100% - 40px));
-  margin:auto;
-  text-align:center;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:11px;
-  padding:12px 20px;
-  border-radius:999px;
-  background:#d9efff;
-  color:#21476f;
-  font-size:14px;
-  font-weight:850;
-  margin:0 auto;
-}
-
-.badge-icon{
-  width:30px;
-  height:30px;
-  border-radius:8px;
-  background:var(--blue);
-  display:grid;
-  place-items:center;
-  color:#fff;
-}
-
-.badge-icon svg{
-  width:18px;
-  height:18px;
-}
-
-.hero h1{
-  margin-top:25px;
-  font-size:clamp(40px,5vw,60px);
-  line-height:1.05;
-  letter-spacing:-2px;
-  font-weight:900;
-}
-
-.hero h1 .blue{
-  color:#0877ed;
-}
-
-.hero-description{
-  max-width:700px;
-  margin:20px auto 0;
-  color:#344861;
-  font-size:18px;
-  line-height:1.58;
-}
-
-.hero-buttons{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:14px;
-  margin-top:30px;
-}
-
-.hero-buttons .btn{
-  width:min(380px, 100%);
-  min-height:52px;
-  font-size:16px;
-  border-radius:12px;
-}
-
-.btn-how{
-  background:#fff;
-  color:#07152f;
-  border:1px solid #d8e5f1;
-  box-shadow:0 4px 12px rgba(0,0,0,.04);
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-weight:800;
-}
-
-.btn-how svg{
-  width:20px;
-  height:20px;
-  fill:var(--blue);
-}
-
-/* =========================
-   HOW IT WORKS
-========================= */
-
-.how-section{
-  background:#fff;
-  padding:78px 0 50px;
-}
-
-.section-inner{
-  width:min(1060px,calc(100% - 40px));
-  margin:auto;
-}
-
-.process-box{
-  padding:40px;
-  border-radius:25px;
-  background:#eef9ff;
-}
-
-.process-box-title{
-  text-align:center;
-  font-size:38px;
-  font-weight:900;
-  margin-bottom:8px;
-  letter-spacing:-1px;
-}
-
-.process-box-subtitle{
-  text-align:center;
-  color:#6a7a90;
-  font-size:17px;
-  margin-bottom:40px;
-}
-
-.process-list{
-  display:grid;
-  gap:24px;
-}
-
-.process-item{
-  display:grid;
-  grid-template-columns:76px 55px 1fr;
-  align-items:center;
-  gap:14px;
-  background:#fff;
-  padding:20px;
-  border-radius:16px;
-  border:1px solid #d9e7f3;
-}
-
-.process-icon{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#d9f0ff;
-  display:grid;
-  place-items:center;
-  color:#0878ed;
-}
-
-.process-icon svg{
-  width:39px;
-  height:39px;
-}
-
-.process-number{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  background:#0878ed;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:17px;
-  font-weight:900;
-}
-
-.process-content h3{
-  font-size:19px;
-  margin-bottom:5px;
-}
-
-.process-content p{
-  color:#65778e;
-  font-size:14px;
-  line-height:1.5;
-}
-
-/* =========================
-   FEATURE STRIP (NOW AFTER HOW IT WORKS)
-========================= */
-
-.features{
-  background:#fff;
-  padding:10px 0 60px;
-}
-
-.features-inner{
-  width:min(1060px,calc(100% - 40px));
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
-}
-
-.feature{
-  text-align:center;
-  background:#f4fbff;
-  border:1px solid #d1e7fd;
-  padding:30px 20px;
-  border-radius:20px;
-  cursor:pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.feature:hover{
-  transform: translateY(-4px);
-  box-shadow:0 10px 25px rgba(8,124,245,0.1);
-}
-
-.feature-icon{
-  width:68px;
-  height:68px;
-  border-radius:50%;
-  background:#d6efff;
-  display:grid;
-  place-items:center;
-  margin:0 auto 15px;
-  color:#0878ed;
-}
-
-.feature-icon svg{
-  width:34px;
-  height:34px;
-  stroke-width:2;
-}
-
-.feature-title{
-  font-size:18px;
-  font-weight:900;
-  color:#07152f;
-}
-
-/* =========================
-   CTA
-========================= */
-
-.cta{
-  margin:0 auto 65px;
-  width:min(1060px,calc(100% - 40px));
-  padding:38px 45px;
-  border-radius:20px;
-  background:linear-gradient(110deg,#087cf5,#0766d5);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-}
-
-.cta h2{
-  font-size:30px;
-  letter-spacing:-.8px;
-}
-
-.cta p{
-  margin-top:7px;
-  color:#dceeff;
-  font-size:15px;
-}
-
-.cta .btn{
-  min-width:205px;
-  background:#fff;
-  color:#086bdc;
-}
-
-/* =========================
-   STATS
-========================= */
-
-.stats{
-  background:#071b3a;
-  padding:35px 0;
-}
-
-.stats-inner{
-  width:min(1060px,calc(100% - 40px));
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-}
-
-.stat{
-  text-align:center;
-  color:#fff;
-}
-
-.stat-icon{
-  width:42px;
-  height:42px;
-  margin:0 auto 10px;
-  color:#1e90ff;
-}
-
-.stat-icon svg{
-  width:100%;
-  height:100%;
-  display: block;
-}
-
-.stat-value{
-  font-size:26px;
-  font-weight:900;
-}
-
-.stat-label{
-  margin-top:4px;
-  color:#cbd5e1;
-  font-size:14px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-  background:#fff;
-  padding:60px 0 30px;
-  border-top:1px solid #e2ebf3;
-}
-
-.footer-container{
-  width:min(1060px,calc(100% - 40px));
-  margin:auto;
-  display:grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
-  gap:30px;
-}
-
-.footer-col .brand-footer{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:15px;
-}
-
-.footer-col .brand-footer img{
-  width:45px;
-  height:40px;
-  object-fit:contain;
-}
-
-.footer-col .brand-footer span{
-  font-size:20px;
-  font-weight:900;
-  color:#07152f;
-}
-
-.footer-col p.brand-desc{
-  color:#64748b;
-  font-size:13.5px;
-  line-height:1.5;
-}
-
-.footer-col h4{
-  font-size:16px;
-  font-weight:800;
-  color:#07152f;
-  margin-bottom:18px;
-}
-
-.footer-links{
-  list-style:none;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.footer-links a{
-  color:#64748b;
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
-  transition: color 0.2s;
-}
-
-.footer-links a:hover{
-  color:var(--blue);
-}
-
-.footer-socials{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.f-social{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#07152f;
-  color:#ffffff;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.f-social:hover {
-  background: var(--blue);
-  transform: translateY(-2px);
-}
-
-.f-social svg{
-  width:18px;
-  height:18px;
-  fill: currentColor;
-  display: block;
-}
-
-.footer-bottom{
-  width:min(1060px,calc(100% - 40px));
-  margin:40px auto 0;
-  padding-top:20px;
-  border-top:1px solid #eaeaea;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  color:#64748b;
-  font-size:13px;
-  flex-wrap:wrap;
-}
-
-/* =========================
-   AUTHENTIC DASHBOARD MODAL STYLES
-========================= */
-
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(7,21,47,0.65);
-  backdrop-filter:blur(6px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:2000;
-  opacity:0;
-  pointer-events:none;
-  transition: opacity 0.3s ease;
-}
-
-.modal-overlay.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.dash-modal-box{
-  background:#f8fafc;
-  width:min(780px, calc(100% - 24px));
-  border-radius:20px;
-  box-shadow:0 25px 50px rgba(0,0,0,0.25);
-  transform: translateY(20px);
-  transition: transform 0.3s ease;
-  position:relative;
-  max-height:90vh;
-  overflow-y:auto;
-  border:1px solid #e2e8f0;
-}
-
-.modal-overlay.active .dash-modal-box{
-  transform: translateY(0);
-}
-
-.dash-header{
-  background:#071b3a;
-  color:#fff;
-  padding:22px 25px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-top-left-radius:20px;
-  border-top-right-radius:20px;
-}
-
-.dash-header-left h3{
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:-.5px;
-}
-
-.dash-header-left span{
-  font-size:13px;
-  color:#94a3b8;
-}
-
-.modal-close{
-  background:rgba(255,255,255,0.1);
-  border:0;
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  font-weight:900;
-  cursor:pointer;
-  display:grid;
-  place-items:center;
-  color:#fff;
-  transition: background 0.2s;
-}
-
-.modal-close:hover{
-  background:rgba(255,255,255,0.2);
-}
-
-.dash-body{
-  padding:25px;
-}
-
-.dash-stats-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-bottom:25px;
-}
-
-.dash-card{
-  background:#fff;
-  padding:18px;
-  border-radius:14px;
-  border:1px solid #e2e8f0;
-  box-shadow:0 2px 5px rgba(0,0,0,0.02);
-}
-
-.dash-card-title{
-  font-size:12.5px;
-  font-weight:700;
-  color:#64748b;
-  text-transform:uppercase;
-  letter-spacing:.5px;
-}
-
-.dash-card-value{
-  font-size:22px;
-  font-weight:900;
-  color:#07152f;
-  margin-top:6px;
-}
-
-.dash-card-sub{
-  font-size:12px;
-  color:#10b981;
-  margin-top:4px;
-  font-weight:600;
-}
-
-.dash-section-title{
-  font-size:16px;
-  font-weight:800;
-  color:#07152f;
-  margin-bottom:12px;
-}
-
-.dash-table-wrapper{
-  background:#fff;
-  border-radius:14px;
-  border:1px solid #e2e8f0;
-  overflow:hidden;
-}
-
-.dash-table{
-  width:100%;
-  border-collapse:collapse;
-  text-align:left;
-  font-size:14px;
-}
-
-.dash-table th{
-  background:#f1f5f9;
-  color:#475569;
-  padding:12px 16px;
-  font-weight:700;
-  font-size:13px;
-}
-
-.dash-table td{
-  padding:14px 16px;
-  border-top:1px solid #e2e8f0;
-  color:#334155;
-}
-
-.status-badge{
-  display:inline-block;
-  padding:4px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.status-success{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.status-pending{
-  background:#fef9c3;
-  color:#854d0e;
-}
-
-.modal-form-group{
-  margin-top:15px;
-}
-
-.modal-form-group label{
-  display:block;
-  font-size:13.5px;
-  font-weight:700;
-  color:#334155;
-  margin-bottom:6px;
-}
-
-.modal-form-group input,
-.modal-form-group textarea{
-  width:100%;
-  padding:12px 14px;
-  border:1px solid #cbd5e1;
-  border-radius:8px;
-  font-size:14px;
-  outline:none;
-  background:#fff;
-  transition: border-color 0.2s;
-}
-
-.modal-form-group input:focus,
-.modal-form-group textarea:focus{
-  border-color:var(--blue);
-}
-
-.modal-btn{
-  width:100%;
-  margin-top:20px;
-  min-height:48px;
-  background:var(--blue);
-  color:#fff;
-  border:0;
-  border-radius:9px;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:0 6px 15px rgba(8,124,245,0.2);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:1000px){
-  .desktop-nav,
-  .header-actions{
-    display:none;
-  }
-
-  .menu-btn{
-    display:block;
-  }
-
-  .footer-container{
-    grid-template-columns: repeat(2, 1fr);
-    gap:35px;
-  }
-}
-
-@media(max-width:768px){
-  .dash-stats-grid{
-    grid-template-columns:1fr;
-    gap:10px;
-  }
-}
-
-@media(max-width:650px){
-  .site-header{
-    height:82px;
-  }
-
-  .header-inner{
-    width:calc(100% - 28px);
-  }
-
-  .brand{
-    min-width:0;
-    gap:7px;
-  }
-
-  .brand-logo{
-    width:61px;
-    height:53px;
-  }
-
-  .brand-title{
-    font-size:21px;
-    letter-spacing:-.8px;
-  }
-
-  .brand-sub{
-    font-size:12px;
-    margin-top:4px;
-  }
-
-  .mobile-nav{
-    top:82px;
-  }
-
-  .hero{
-    padding:50px 0;
-  }
-
-  .hero h1{
-    font-size:36px;
-    letter-spacing:-1.5px;
-  }
-
-  .hero-description{
-    font-size:16px;
-  }
-
-  .hero-buttons{
-    width:100%;
-  }
-
-  .hero-buttons .btn{
-    width:100%;
-    min-height:50px;
-  }
-
-  .features-inner{
-    grid-template-columns:1fr;
-    gap:15px;
-  }
-
-  .process-box{
-    padding:20px 15px;
-  }
-
-  .process-box-title{
-    font-size:28px;
-  }
-
-  .process-item{
-    grid-template-columns:50px 35px 1fr;
-    gap:10px;
-    padding:12px;
-  }
-
-  .process-icon{
-    width:48px;
-    height:48px;
-  }
-
-  .process-icon svg{
-    width:24px;
-    height:24px;
-  }
-
-  .process-number{
-    width:30px;
-    height:30px;
-    font-size:12px;
-  }
-
-  .cta{
-    width:calc(100% - 40px);
-    padding:25px 20px;
-    display:block;
-  }
-
-  .cta .btn{
-    width:100%;
-    margin-top:15px;
-  }
-
-  .stats-inner{
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-  }
-
-  .footer-container{
-    grid-template-columns:1fr;
-    gap:30px;
-  }
-
-  .footer-bottom{
-    width:calc(100% - 40px);
-    flex-direction:column;
-    text-align:center;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIN AR Escrow System</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
+<body class="bg-gray-50 text-gray-800 antialiased selection:bg-blue-600 selection:text-white">
 
-<body>
+    <!-- TOP HEADER NAVBAR -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-40">
+        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="bg-blue-600 text-white font-bold p-1.5 rounded-lg flex items-center justify-center shadow-md shadow-blue-200">
+                    <i class="fa-solid fa-shield-halved text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-tight text-gray-900 block leading-tight">DIN AR Escrow</span>
+                    <span class="text-[10px] text-gray-400 font-medium tracking-wide uppercase block">Payment Protection</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <div id="authBadge" class="hidden text-xs bg-blue-50 text-blue-700 font-medium px-2.5 py-1 rounded-full border border-blue-100 items-center gap-1.5">
+                    <span id="userRoleBadge" class="capitalize">Buyer</span>
+                </div>
+                <button onclick="toggleSidebar()" class="text-gray-700 hover:text-blue-600 focus:outline-none p-1 transition-colors">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-<!-- =========================
-     HEADER
-========================= -->
+    <!-- SIDEBAR DRAWER OVERLAY -->
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity"></div>
 
-<header class="site-header">
-  <div class="header-inner">
-    <a href="#home" class="brand">
-      <img src="logo.png" class="brand-logo" alt="DIN AR">
-      <div class="brand-text">
-        <div class="brand-title">DIN AR Escrow System</div>
-        <div class="brand-sub">Payment Protection</div>
-      </div>
-    </a>
+    <!-- SIDEBAR DRAWER CONTENT -->
+    <div id="sidebar" class="fixed top-0 right-0 w-72 h-full bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div>
+            <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+                <span class="font-bold text-gray-900 text-base">Menu</span>
+                <button onclick="toggleSidebar()" class="text-gray-400 hover:text-gray-600 p-2">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <nav class="p-4 space-y-1">
+                <a href="#" onclick="toggleSidebar()" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">Home</a>
+                <a href="#" onclick="toggleSidebar()" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">How It Works</a>
+                <a href="#" onclick="toggleSidebar()" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">For Buyers</a>
+                <a href="#" onclick="toggleSidebar()" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">For Sellers</a>
+                <a href="#" onclick="toggleSidebar()" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">Fees</a>
+                <a href="#" onclick="toggleSidebar()" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">Help</a>
+            </nav>
+        </div>
 
-    <nav class="desktop-nav">
-      <a data-target="home">Home</a>
-      <a data-target="how-it-works">How It Works</a>
-      <a data-modal="buyersModal">For Buyers</a>
-      <a data-modal="sellersModal">For Sellers</a>
-      <a data-modal="feesModal">Fees</a>
-      <a data-target="help">Help</a>
+        <div class="p-4 border-t border-gray-100 space-y-2">
+            <!-- Dynamic Buttons inside Drawer based on Auth State -->
+            <div id="drawerAuthButtons">
+                <button onclick="openModal('loginModal'); toggleSidebar();" class="w-full py-2.5 px-4 rounded-xl border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-all text-center mb-2">
+                    Log In
+                </button>
+                <button onclick="openModal('signupModal'); toggleSidebar();" class="w-full py-2.5 px-4 rounded-xl bg-blue-600 text-sm font-semibold text-white hover:bg-blue-700 shadow-md shadow-blue-200 transition-all text-center">
+                    Sign Up
+                </button>
+            </div>
+            <div id="drawerLogoutContainer" class="hidden">
+                <button onclick="handleLogout()" class="w-full py-2.5 px-4 rounded-xl bg-red-50 border border-red-100 text-sm font-semibold text-red-600 hover:bg-red-100 transition-all text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP VIEW CONTAINER -->
+    <main class="max-w-md mx-auto pb-24 min-h-[calc(100vh-60px)]">
+
+        <!-- PUBLIC VIEW (Shown when NOT logged in) -->
+        <div id="publicView" class="p-4 space-y-6">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-6 text-white shadow-lg shadow-blue-200 relative overflow-hidden">
+                <div class="relative z-10 space-y-3">
+                    <span class="bg-white/20 text-[11px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full backdrop-blur-sm">Secure Platform</span>
+                    <h1 class="text-2xl font-bold tracking-tight">Secure Transactions for a Safer Tomorrow</h1>
+                    <p class="text-xs text-blue-100 leading-relaxed">Buy and sell with confidence. Your funds are protected in escrow until the deal is completed.</p>
+                    <div class="pt-2 flex gap-3">
+                        <button onclick="openModal('signupModal')" class="bg-white text-blue-600 text-xs font-bold px-4 py-2.5 rounded-xl shadow hover:bg-blue-50 transition-colors">Get Started</button>
+                        <button onclick="openModal('loginModal')" class="bg-blue-800/50 border border-blue-400/30 text-white text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-blue-800 transition-colors">Log In</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-shield-dog"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-900">100% Protection</h3>
+                    <p class="text-[11px] text-gray-500">Funds are locked securely until both parties fulfill terms.</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-900">Fast Resolution</h3>
+                    <p class="text-[11px] text-gray-500">Quick dispute management and transaction tracking.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUTHENTICATED HOME VIEW (Shown when LOGGED IN) -->
+        <div id="authHomeView" class="hidden p-4 space-y-5">
+            <!-- Welcome Header Card -->
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-5 text-white shadow-lg shadow-blue-100 flex items-center justify-between relative overflow-hidden">
+                <div class="space-y-1 z-10">
+                    <span class="text-[11px] text-blue-200 uppercase tracking-wider font-medium">Welcome Back,</span>
+                    <h2 id="userNameDisplay" class="text-xl font-bold tracking-tight">Dinar</h2>
+                    <p class="text-xs text-blue-100">Manage your secure trades & escrow wallet.</p>
+                </div>
+                <div class="w-16 h-16 bg-white/10 rounded-2xl backdrop-blur-md flex items-center justify-center text-3xl z-10 border border-white/20">
+                    <i class="fa-brands fa-paypal text-white"></i>
+                </div>
+            </div>
+
+            <!-- Quick Action Hub Cards -->
+            <div class="grid grid-cols-4 gap-2.5">
+                <div class="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm text-center flex flex-col items-center justify-center space-y-2 hover:border-blue-200 transition-colors cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm shadow-inner">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                    <span class="text-[11px] font-semibold text-gray-700 leading-tight">New Trade</span>
+                </div>
+                <div class="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm text-center flex flex-col items-center justify-center space-y-2 hover:border-blue-200 transition-colors cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm shadow-inner">
+                        <i class="fa-solid fa-file-invoice"></i>
+                    </div>
+                    <span class="text-[11px] font-semibold text-gray-700 leading-tight">Transactions</span>
+                </div>
+                <div class="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm text-center flex flex-col items-center justify-center space-y-2 hover:border-blue-200 transition-colors cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm shadow-inner">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <span class="text-[11px] font-semibold text-gray-700 leading-tight">Deposit</span>
+                </div>
+                <div class="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm text-center flex flex-col items-center justify-center space-y-2 hover:border-blue-200 transition-colors cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm shadow-inner">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <span class="text-[11px] font-semibold text-gray-700 leading-tight">Seller Hub</span>
+                </div>
+            </div>
+
+            <!-- Financial Metrics Overview -->
+            <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm space-y-3">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400">Account Overview</h3>
+                    <span class="text-xs text-blue-600 font-semibold cursor-pointer">View All</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-blue-50/50 p-3 rounded-xl border border-blue-100/50 space-y-1">
+                        <span class="text-[10px] text-gray-500 font-medium block">Total Balance</span>
+                        <span class="text-base font-bold text-gray-900">$1,250.00</span>
+                    </div>
+                    <div class="bg-amber-50/50 p-3 rounded-xl border border-amber-100/50 space-y-1">
+                        <span class="text-[10px] text-gray-500 font-medium block">In Escrow</span>
+                        <span class="text-base font-bold text-amber-700">$850.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent PayPal Transactions (Exactly 5: 3 Completed, 2 Processing) -->
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400">Recent Transactions (PayPal)</h3>
+                    <span class="text-xs text-blue-600 font-semibold cursor-pointer">View All</span>
+                </div>
+
+                <div class="space-y-2.5">
+                    <!-- Transaction 1: Processing -->
+                    <div class="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                                <i class="fa-brands fa-paypal"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs font-bold text-gray-900">TRX-10284</span>
+                                    <span class="text-[10px] bg-amber-50 text-amber-700 font-semibold px-2 py-0.5 rounded-full border border-amber-200">Processing</span>
+                                </div>
+                                <span class="text-[11px] text-gray-500 block mt-0.5">PayPal Secure Escrow</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-gray-900 block">$250.00</span>
+                            <span class="text-[10px] text-gray-400">Sep 10, 2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Transaction 2: Processing -->
+                    <div class="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                                <i class="fa-brands fa-paypal"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs font-bold text-gray-900">TRX-10283</span>
+                                    <span class="text-[10px] bg-amber-50 text-amber-700 font-semibold px-2 py-0.5 rounded-full border border-amber-200">Processing</span>
+                                </div>
+                                <span class="text-[11px] text-gray-500 block mt-0.5">PayPal Balance Transfer</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-gray-900 block">$180.00</span>
+                            <span class="text-[10px] text-gray-400">Sep 09, 2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Transaction 3: Completed -->
+                    <div class="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                                <i class="fa-brands fa-paypal"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs font-bold text-gray-900">TRX-10282</span>
+                                    <span class="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-full border border-emerald-200">Completed</span>
+                                </div>
+                                <span class="text-[11px] text-gray-500 block mt-0.5">PayPal Escrow Release</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-emerald-600 block">+$320.00</span>
+                            <span class="text-[10px] text-gray-400">Sep 08, 2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Transaction 4: Completed -->
+                    <div class="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                                <i class="fa-brands fa-paypal"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs font-bold text-gray-900">TRX-10281</span>
+                                    <span class="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-full border border-emerald-200">Completed</span>
+                                </div>
+                                <span class="text-[11px] text-gray-500 block mt-0.5">PayPal Checkout Protection</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-emerald-600 block">+$100.00</span>
+                            <span class="text-[10px] text-gray-400">Sep 07, 2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Transaction 5: Completed -->
+                    <div class="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                                <i class="fa-brands fa-paypal"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs font-bold text-gray-900">TRX-10280</span>
+                                    <span class="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-full border border-emerald-200">Completed</span>
+                                </div>
+                                <span class="text-[11px] text-gray-500 block mt-0.5">PayPal Deposit Gateway</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-emerald-600 block">+$400.00</span>
+                            <span class="text-[10px] text-gray-400">Sep 06, 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MOBILE BOTTOM APP NAVIGATION BAR (Visible when Logged In) -->
+    <nav id="bottomNav" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-40 max-w-md mx-auto px-4 py-2 flex items-center justify-around shadow-lg">
+        <button class="flex flex-col items-center text-blue-600 space-y-0.5">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px] font-semibold">Home</span>
+        </button>
+        <button class="flex flex-col items-center text-gray-400 hover:text-blue-600 space-y-0.5 transition-colors">
+            <i class="fa-solid fa-arrow-right-arrow-left text-lg"></i>
+            <span class="text-[10px] font-medium">Trades</span>
+        </button>
+        <div class="relative -top-3">
+            <button class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-blue-300 hover:bg-blue-700 transition-transform active:scale-95">
+                <i class="fa-solid fa-plus text-lg"></i>
+            </button>
+        </div>
+        <button class="flex flex-col items-center text-gray-400 hover:text-blue-600 space-y-0.5 transition-colors">
+            <i class="fa-solid fa-comment-dots text-lg"></i>
+            <span class="text-[10px] font-medium">Messages</span>
+        </button>
+        <button onclick="handleLogout()" class="flex flex-col items-center text-gray-400 hover:text-red-600 space-y-0.5 transition-colors" title="Log Out">
+            <i class="fa-solid fa-power-off text-lg"></i>
+            <span class="text-[10px] font-medium">Log Out</span>
+        </button>
     </nav>
 
-    <div class="header-actions">
-      <button class="btn btn-outline" data-modal="loginModal">Log In</button>
-      <button class="btn btn-primary" data-modal="signupModal">Sign Up</button>
-    </div>
 
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
+    <!-- ================= MODALS ================= -->
 
-  <nav class="mobile-nav" id="mobileNav">
-    <a data-target="home">Home</a>
-    <a data-target="how-it-works">How It Works</a>
-    <a data-modal="buyersModal">For Buyers</a>
-    <a data-modal="sellersModal">For Sellers</a>
-    <a data-modal="feesModal">Fees</a>
-    <a data-target="help">Help</a>
-
-    <button class="btn btn-outline" data-modal="loginModal">Log In</button>
-    <button class="btn btn-primary" data-modal="signupModal">Sign Up</button>
-  </nav>
-</header>
-
-
-<!-- =========================
-     HERO
-========================= -->
-
-<main id="home">
-<section class="hero">
-  <div class="hero-inner">
-    <div class="badge">
-      <span class="badge-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
-          <path d="M8.5 12l2.2 2.2 4.8-5"/>
-        </svg>
-      </span>
-      SECURE ESCROW PAYMENTS
-    </div>
-
-    <h1>
-      Verified Purchase Trades :
-      <span class="blue">Buy &amp; Sell with Confidence</span>
-    </h1>
-
-    <p class="hero-description">
-      A safe and simple escrow service for verified purchase
-      transactions. Your payment is protected until the deal
-      is completed.
-    </p>
-
-    <div class="hero-buttons">
-      <button class="btn btn-primary" data-modal="signupModal">
-        Get Started
-      </button>
-      <button class="btn btn-how" data-target="how-it-works">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        How It Works
-      </button>
-    </div>
-  </div>
-</section>
-
-
-<!-- =========================
-     HOW IT WORKS
-========================= -->
-
-<section class="how-section" id="how-it-works">
-  <div class="section-inner">
-    <div class="process-box">
-      <div class="process-box-title">How It Works</div>
-      <div class="process-box-subtitle">A clear and secure process from start to completion</div>
-
-      <div class="process-list">
-        <div class="process-item">
-          <div class="process-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/>
-              <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L20 8H6"/>
-            </svg>
-          </div>
-          <div class="process-number">1</div>
-          <div class="process-content">
-            <h3>Seller Places Order</h3>
-            <p>Seller makes a payment and the agreed amount enters the transaction workflow.</p>
-          </div>
-        </div>
-
-        <div class="process-item">
-          <div class="process-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M5 3h10l4 4v14H5z"/><path d="M15 3v5h4"/><path d="M12 17V10"/><path d="M9 13l3-3 3 3"/>
-            </svg>
-          </div>
-          <div class="process-number">2</div>
-          <div class="process-content">
-            <h3>Buyer Uploads Verification</h3>
-            <p>Buyer submits the required confirmation details or verification information.</p>
-          </div>
-        </div>
-
-        <div class="process-item">
-          <div class="process-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
-              <path d="M8.5 12l2.2 2.2 4.8-5"/>
-            </svg>
-          </div>
-          <div class="process-number">3</div>
-          <div class="process-content">
-            <h3>System/Admin Verification</h3>
-            <p>The submitted information is thoroughly cross-checked and reviewed by administration before the transaction proceeds further.</p>
-          </div>
-        </div>
-
-        <div class="process-item">
-          <div class="process-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/>
-            </svg>
-          </div>
-          <div class="process-number">4</div>
-          <div class="process-content">
-            <h3>DIN AR Payout Released</h3>
-            <p>Payment is released after the transaction requirements have been completed.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- =========================
-     FEATURE STRIP (NOW PLACED RIGHT AFTER HOW IT WORKS)
-========================= -->
-
-<section class="features">
-  <div class="features-inner">
-    <div class="feature" data-dash="secure">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
-          <path d="M8.5 12l2.2 2.2 4.8-5"/>
-        </svg>
-      </div>
-      <div class="feature-title">Secure &amp; Trusted</div>
-    </div>
-
-    <div class="feature" data-dash="simple">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.7 1.7-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V20h-2.4v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1L8 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H6v-2.4h.9a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9L8 8.6l1.7-1.7.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5V5h2.4v.8a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.7 1.7-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.8v2.4h-.8a1.7 1.7 0 0 0-1.5 1z"/>
-        </svg>
-      </div>
-      <div class="feature-title">Simple Process</div>
-    </div>
-
-    <div class="feature" data-dash="dispute">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M4 13a8 8 0 0 1 16 0"/>
-          <path d="M4 13v3a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 1 z"/>
-          <path d="M20 13v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 1z"/>
-          <path d="M15 19c-.7 1-1.8 1.5-3 1.5"/>
-        </svg>
-      </div>
-      <div class="feature-title">Dispute Support</div>
-    </div>
-  </div>
-</section>
-
-
-<!-- =========================
-     CTA
-========================= -->
-
-<section class="cta" id="signup">
-  <div>
-    <h2>Ready to start?</h2>
-    <p>Review the transaction details and continue through the available workflow.</p>
-  </div>
-  <button class="btn" data-modal="signupModal">Create Your Account</button>
-</section>
-
-
-<!-- =========================
-     STATS
-========================= -->
-
-<section class="stats">
-  <div class="stats-inner">
-    <div class="stat">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-      </div>
-      <div class="stat-value">10K+</div>
-      <div class="stat-label">Traders</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="6" width="20" height="12" rx="2"></rect>
-          <circle cx="12" cy="12" r="2"></circle>
-          <path d="M6 12h.01M18 12h.01"></path>
-        </svg>
-      </div>
-      <div class="stat-value">$20M+</div>
-      <div class="stat-label">Secured</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          <polyline points="9 12 11 14 15 10"></polyline>
-        </svg>
-      </div>
-      <div class="stat-value">99.9%</div>
-      <div class="stat-label">Success</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
-        </svg>
-      </div>
-      <div class="stat-value">24/7</div>
-      <div class="stat-label">Support</div>
-    </div>
-  </div>
-</section>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer id="help">
-  <div class="footer-container">
-    <div class="footer-col">
-      <div class="brand-footer">
-        <img src="logo.png" alt="DIN AR">
-        <span>DIN AR</span>
-      </div>
-      <p class="brand-desc">Payment Protection System designed for safe and secure trade interactions.</p>
-    </div>
-
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul class="footer-links">
-        <li><a data-info="about">About Us</a></li>
-        <li><a data-info="careers">Careers</a></li>
-        <li><a data-info="blog">Blog</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>Support</h4>
-      <ul class="footer-links">
-        <li><a data-info="help">Help Center</a></li>
-        <li><a data-info="dispute">Dispute Center</a></li>
-        <li><a data-info="contact">Contact Us</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <ul class="footer-links">
-        <li><a data-info="terms">Terms of Service</a></li>
-        <li><a data-info="privacy">Privacy Policy</a></li>
-        <li><a data-info="cookie">Cookie Policy</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>Follow Us</h4>
-      <div class="footer-socials">
-        <div class="f-social" data-social="Facebook" aria-label="Facebook">
-          <svg viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1 .3-1.5 1.5-1.5H18V5.2c-.3 0-1.2-.2-2.3-.2-2.3 0-3.8 1.4-3.8 4.1v2.4H9.5v4h2.4V22h4.1v-8.5z"/></svg>
-        </div>
-        <div class="f-social" data-social="X (Twitter)" aria-label="X">
-          <svg viewBox="0 0 24 24"><path d="M18.2 3h2.6l-5.7 6.5L22 21h-5.2l-4-5.2-4.7 5.2H5.5l6-6.8L3 3h5.3l3.6 4.8L18.2 3zm-.9 15.9h1.4L8.1 4.9H6.6l10.7 14z"/></svg>
-        </div>
-        <div class="f-social" data-social="LinkedIn" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-        </div>
-        <div class="f-social" data-social="YouTube" aria-label="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M23.5 6.2c-.3-1-1-1.8-2-2C19.8 3.8 12 3.8 12 3.8s-7.8 0-9.5.4c-1 .2-1.7 1-2 2C0 8 0 12 0 12s0 4 .5 5.8c.3 1 1 1.8 2 2 1.7.4 9.5.4 9.5.4s7.8 0 9.5-.4c1-.2 1.7-1 2-2 .5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <div>© 2026 DIN AR Escrow System. All rights reserved.</div>
-    <div>Safer Transactions. Stronger Communities.</div>
-  </div>
-</footer>
-</main>
-
-
-<!-- =========================
-     AUTHENTIC DASHBOARD MODAL CONTAINER
-========================= -->
-
-<div class="modal-overlay" id="dashboardModal">
-  <div class="dash-modal-box">
-    <div class="dash-header">
-      <div class="dash-header-left">
-        <h3 id="dashTitle">Dashboard Panel</h3>
-        <span id="dashSubtitle">Live System Overview</span>
-      </div>
-      <button class="modal-close" id="dashClose">&times;</button>
-    </div>
-    <div class="dash-body" id="dashContent">
-      <!-- Dynamic content injected via JS -->
-    </div>
-  </div>
-</div>
-
-
-<!-- =========================
-     JAVASCRIPT INTERACTION
-========================= -->
-
-<script>
-// Mobile Navigation Toggle
-const menuBtn = document.getElementById("menuBtn");
-const mobileNav = document.getElementById("mobileNav");
-
-menuBtn.addEventListener("click", function(){
-  mobileNav.classList.toggle("open");
-});
-
-document.querySelectorAll(".mobile-nav a, .mobile-nav button").forEach(function(link){
-  link.addEventListener("click", function(){
-    mobileNav.classList.remove("open");
-  });
-});
-
-// Modal Elements
-const dashOverlay = document.getElementById("dashboardModal");
-const dashClose = document.getElementById("dashClose");
-const dashTitle = document.getElementById("dashTitle");
-const dashSubtitle = document.getElementById("dashSubtitle");
-const dashContent = document.getElementById("dashContent");
-
-function openDashboard(title, subtitle, htmlContent){
-  dashTitle.innerText = title;
-  dashSubtitle.innerText = subtitle;
-  dashContent.innerHTML = htmlContent;
-  dashOverlay.classList.add("active");
-}
-
-function closeDashboard(){
-  dashOverlay.classList.remove("active");
-}
-
-dashClose.addEventListener("click", closeDashboard);
-dashOverlay.addEventListener("click", function(e){
-  if(e.target === dashOverlay) closeDashboard();
-});
-
-// 1. Feature Cards Click (Authentic Dashboards)
-const dashboardData = {
-  secure: {
-    title: "Secure & Trusted Dashboard",
-    subtitle: "Encryption & Security Compliance Monitor",
-    html: `
-      <div class="dash-stats-grid">
-        <div class="dash-card">
-          <div class="dash-card-title">Encryption Status</div>
-          <div class="dash-card-value">AES-256</div>
-          <div class="dash-card-sub">Active &amp; Secured</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-title">Escrow Protection</div>
-          <div class="dash-card-value">100%</div>
-          <div class="dash-card-sub">Zero Breach Rate</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-title">Admin Audits</div>
-          <div class="dash-card-value">Passed</div>
-          <div class="dash-card-sub">Real-time Check</div>
-        </div>
-      </div>
-      <div class="dash-section-title">Recent Protected Transactions</div>
-      <div class="dash-table-wrapper">
-        <table class="dash-table">
-          <thead>
-            <tr>
-              <th>Trade ID</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>#TRX-98421</td>
-              <td>$1,250.00</td>
-              <td><span class="status-badge status-success">Protected</span></td>
-            </tr>
-            <tr>
-              <td>#TRX-98422</td>
-              <td>$450.00</td>
-              <td><span class="status-badge status-success">Protected</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    `
-  },
-  simple: {
-    title: "Simple Process Dashboard",
-    subtitle: "Automated Workflow Manager",
-    html: `
-      <div class="dash-stats-grid">
-        <div class="dash-card">
-          <div class="dash-card-title">Avg Setup Time</div>
-          <div class="dash-card-value">45 Sec</div>
-          <div class="dash-card-sub">Ultra Fast</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-title">Active Workflows</div>
-          <div class="dash-card-value">1,420</div>
-          <div class="dash-card-sub">Running Smoothly</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-title">Success Rate</div>
-          <div class="dash-card-value">99.8%</div>
-          <div class="dash-card-sub">Automated Check</div>
-        </div>
-      </div>
-      <div class="dash-section-title">Quick Action Panel</div>
-      <div class="dash-table-wrapper" style="padding:20px;">
-        <form onsubmit="event.preventDefault(); alert('New workflow initialized successfully!'); closeDashboard();">
-          <div class="modal-form-group" style="margin-top:0;">
-            <label>Trade Partner Username / Email</label>
-            <input type="text" placeholder="e.g. partner@example.com" required>
-          </div>
-          <div class="modal-form-group">
-            <label>Escrow Amount (USD)</label>
-            <input type="number" placeholder="Enter amount" required>
-          </div>
-          <button type="submit" class="modal-btn">Start Quick Escrow</button>
-        </form>
-      </div>
-    `
-  },
-  dispute: {
-    title: "Dispute Support Dashboard",
-    subtitle: "Resolution & Mediation Center",
-    html: `
-      <div class="dash-stats-grid">
-        <div class="dash-card">
-          <div class="dash-card-title">Support Status</div>
-          <div class="dash-card-value">24/7 Live</div>
-          <div class="dash-card-sub">Agents Online</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-title">Avg Resolution</div>
-          <div class="dash-card-value">12 Mins</div>
-          <div class="dash-card-sub">Fast Response</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-title">Open Tickets</div>
-          <div class="dash-card-value">03</div>
-          <div class="dash-card-sub">Under Review</div>
-        </div>
-      </div>
-      <div class="dash-section-title">Raise or Check Dispute Ticket</div>
-      <div class="dash-table-wrapper" style="padding:20px;">
-        <form onsubmit="event.preventDefault(); alert('Dispute ticket submitted successfully. Admin will review shortly!'); closeDashboard();">
-          <div class="modal-form-group" style="margin-top:0;">
-            <label>Transaction ID Reference</label>
-            <input type="text" placeholder="#TRX-XXXXX" required>
-          </div>
-          <div class="modal-form-group">
-            <label>Describe Issue</label>
-            <textarea rows="3" placeholder="Provide details of the dispute..." required></textarea>
-          </div>
-          <button type="submit" class="modal-btn">Submit Dispute Ticket</button>
-        </form>
-      </div>
-    `
-  }
-};
-
-document.querySelectorAll("[data-dash]").forEach(card => {
-  card.addEventListener("click", () => {
-    const key = card.getAttribute("data-dash");
-    const data = dashboardData[key];
-    if(data){
-      openDashboard(data.title, data.subtitle, data.html);
-    }
-  });
-});
-
-// 2. Header & Modal Actions for Login, Signup, Buyers, Sellers, Fees
-document.querySelectorAll("[data-modal]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const type = btn.getAttribute("data-modal");
-    if(type === 'loginModal'){
-      openDashboard("Log In to DIN AR", "Authentication Gateway", `
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #e2ebf3;">
-          <form onsubmit="event.preventDefault(); alert('Login successful!'); closeDashboard();">
-            <div class="modal-form-group" style="margin-top:0;">
-              <label>Email Address</label>
-              <input type="email" placeholder="Enter your email" required>
+    <!-- 1. LOGIN MODAL -->
+    <div id="loginModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-2xl p-6 space-y-5 shadow-2xl transform transition-transform animate-in fade-in slide-in-from-bottom duration-200">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-gray-900">Welcome Back</h3>
+                    <p class="text-[11px] text-gray-400">Log in to access your secure dashboard</p>
+                </div>
+                <button onclick="closeModal('loginModal')" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-            <div class="modal-form-group">
-              <label>Password</label>
-              <input type="password" placeholder="Enter password" required>
+
+            <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Email or Number</label>
+                    <input type="text" id="loginIdentifier" required placeholder="Enter email or phone number" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-600 bg-gray-50/50">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Password</label>
+                    <input type="password" required placeholder="Enter password" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-600 bg-gray-50/50">
+                </div>
+                <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 shadow-md shadow-blue-200 transition-all">
+                    Log In
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- 2. SIGN UP MODAL -->
+    <div id="signupModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4 backdrop-blur-sm overflow-y-auto">
+        <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-2xl p-6 space-y-4 shadow-2xl my-auto">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-gray-900">Create Account</h3>
+                    <p class="text-[11px] text-gray-400">Secure Registration</p>
+                </div>
+                <button onclick="closeModal('signupModal')" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-            <button type="submit" class="modal-btn">Log In</button>
-          </form>
+
+            <form onsubmit="handleSignupSubmit(event)" class="space-y-3.5">
+                <!-- Email or Phone with Country Code Dropdown -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Email or Number</label>
+                    <div class="flex gap-2">
+                        <!-- Country Code Select (Restricted Codes: European, China, Japan, Russia) -->
+                        <select id="countryCodeSelect" class="w-28 px-2 py-2.5 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-600 bg-gray-50 font-medium">
+                            <option value="+44">UK (+44)</option>
+                            <option value="+49">Germany (+49)</option>
+                            <option value="+33">France (+33)</option>
+                            <option value="+39">Italy (+39)</option>
+                            <option value="+34">Spain (+34)</option>
+                            <option value="+86">China (+86)</option>
+                            <option value="+81">Japan (+81)</option>
+                            <option value="+7">Russia (+7)</option>
+                        </select>
+                        <input type="text" id="signupIdentifier" required placeholder="Email or phone number" class="flex-1 px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-600 bg-gray-50/50">
+                    </div>
+                </div>
+
+                <!-- Referral Code (Optional) -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Referral Code <span class="text-gray-400 font-normal">(Optional)</span></label>
+                    <input type="text" placeholder="Enter referral code if any" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-600 bg-gray-50/50">
+                </div>
+
+                <!-- First Name & Last Name -->
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">First Name</label>
+                        <input type="text" id="firstNameInput" required placeholder="First name" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-600 bg-gray-50/50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Last Name</label>
+                        <input type="text" required placeholder="Last name" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-600 bg-gray-50/50">
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Password</label>
+                    <input type="password" required placeholder="Create password" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-600 bg-gray-50/50">
+                </div>
+
+                <!-- Buyer or Seller Option Selector -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Account Role</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="flex items-center justify-center px-3 py-2.5 rounded-xl border border-gray-200 cursor-pointer hover:border-blue-600 transition-all bg-gray-50/50">
+                            <input type="radio" name="userRole" value="Buyer" checked class="mr-2 text-blue-600 focus:ring-blue-500">
+                            <span class="text-xs font-semibold text-gray-700">Buyer</span>
+                        </label>
+                        <label class="flex items-center justify-center px-3 py-2.5 rounded-xl border border-gray-200 cursor-pointer hover:border-blue-600 transition-all bg-gray-50/50">
+                            <input type="radio" name="userRole" value="Seller" class="mr-2 text-blue-600 focus:ring-blue-500">
+                            <span class="text-xs font-semibold text-gray-700">Seller</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 shadow-md shadow-blue-200 transition-all mt-2">
+                    Sign Up
+                </button>
+            </form>
         </div>
-      `);
-    } else if(type === 'signupModal'){
-      openDashboard("Create Account", "Secure Registration", `
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #e2ebf3;">
-          <form onsubmit="event.preventDefault(); alert('Account created successfully!'); closeDashboard();">
-            <div class="modal-form-group" style="margin-top:0;">
-              <label>Full Name</label>
-              <input type="text" placeholder="Enter your full name" required>
+    </div>
+
+
+    <!-- 3. VERIFICATION NEEDED POPUP MODAL -->
+    <div id="verificationModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-sm rounded-2xl p-6 space-y-4 text-center shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <div class="w-14 h-14 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <div class="modal-form-group">
-              <label>Email Address</label>
-              <input type="email" placeholder="Enter your email" required>
+            <div class="space-y-1">
+                <h3 class="text-base font-bold text-gray-900">Verification Needed</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">Your account has been successfully created without needing a code, but additional identity verification is required to unlock full trading limits.</p>
             </div>
-            <div class="modal-form-group">
-              <label>Password</label>
-              <input type="password" placeholder="Create password" required>
-            </div>
-            <button type="submit" class="modal-btn">Sign Up</button>
-          </form>
+            <button onclick="proceedToHomeFromVerification()" class="w-full py-3 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 shadow-md shadow-blue-200 transition-all">
+                Continue to Dashboard
+            </button>
         </div>
-      `);
-    } else if(type === 'buyersModal'){
-      openDashboard("For Buyers Dashboard", "Buyer Protection Overview", `
-        <div class="dash-stats-grid">
-          <div class="dash-card"><div class="dash-card-title">Buyer Protection</div><div class="dash-card-value">100%</div><div class="dash-card-sub">Guaranteed</div></div>
-          <div class="dash-card"><div class="dash-card-title">Active Escrows</div><div class="dash-card-value">4</div><div class="dash-card-sub">In Progress</div></div>
-          <div class="dash-card"><div class="dash-card-title">Completed Trades</div><div class="dash-card-value">38</div><div class="dash-card-sub">Successful</div></div>
-        </div>
-        <div class="dash-section-title">Buyer Protection Guidelines</div>
-        <div style="background:#fff; padding:18px; border-radius:12px; border:1px solid #e2ebf3; font-size:14px; color:#475569; line-height:1.6;">
-          Your funds remain completely secure in escrow until you verify and confirm your completed purchase safely. No payouts are released to sellers without direct buyer verification or admin validation.
-        </div>
-      `);
-    } else if(type === 'sellersModal'){
-      openDashboard("For Sellers Dashboard", "Merchant Payout Overview", `
-        <div class="dash-stats-grid">
-          <div class="dash-card"><div class="dash-card-title">Merchant Status</div><div class="dash-card-value">Verified</div><div class="dash-card-sub">Tier 1 Active</div></div>
-          <div class="dash-card"><div class="dash-card-title">Pending Payouts</div><div class="dash-card-value">$850</div><div class="dash-card-sub">Ready Soon</div></div>
-          <div class="dash-card"><div class="dash-card-title">Total Earned</div><div class="dash-card-value">$14,200</div><div class="dash-card-sub">All-time</div></div>
-        </div>
-        <div class="dash-section-title">Seller Guarantee</div>
-        <div style="background:#fff; padding:18px; border-radius:12px; border:1px solid #e2ebf3; font-size:14px; color:#475569; line-height:1.6;">
-          Sell with absolute peace of mind. Funds are securely locked in escrow before you deliver fulfillment details, ensuring guaranteed payouts upon successful order completion.
-        </div>
-      `);
-    } else if(type === 'feesModal'){
-      openDashboard("Transaction Fees Calculator", "Transparent Pricing Structure", `
-        <div class="dash-stats-grid">
-          <div class="dash-card"><div class="dash-card-title">Standard Fee</div><div class="dash-card-value">1.5%</div><div class="dash-card-sub">Lowest in market</div></div>
-          <div class="dash-card"><div class="dash-card-title">Hidden Charges</div><div class="dash-card-value">$0.00</div><div class="dash-card-sub">Transparent</div></div>
-          <div class="dash-card"><div class="dash-card-title">Crypto / USDT</div><div class="dash-card-value">Free</div><div class="dash-card-sub">Zero Gas Markup</div></div>
-        </div>
-        <div class="dash-section-title">Fee Breakdown Table</div>
-        <div class="dash-table-wrapper">
-          <table class="dash-table">
-            <thead>
-              <tr><th>Transaction Volume</th><th>Escrow Fee</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>$10 - $500</td><td>1.5%</td></tr>
-              <tr><td>$501 - $5,000</td><td>1.2%</td></tr>
-              <tr><td>$5,001+</td><td>1.0% (Negotiable)</td></tr>
-            </tbody>
-          </table>
-        </div>
-      `);
-    }
-  });
-});
+    </div>
 
-// 3. Navigation Scroll Targets
-document.querySelectorAll("[data-target]").forEach(item => {
-  item.addEventListener("click", () => {
-    const targetId = item.getAttribute("data-target");
-    if(targetId === 'home'){
-      window.scrollTo({top:0, behavior:'smooth'});
-    } else {
-      const el = document.getElementById(targetId);
-      if(el) el.scrollIntoView({behavior:'smooth'});
-    }
-  });
-});
 
-// 4. Footer Info Links Popups
-const infoData = {
-  about: { title: "About Us", text: "DIN AR Escrow System is a secure payment protection platform designed to facilitate trusted transactions between buyers and sellers globally." },
-  careers: { title: "Careers at DIN AR", text: "We are always looking for talented professionals. Currently, all positions are filled, but you can send your CV to our support email." },
-  blog: { title: "Latest Blog Posts", text: "Stay updated with secure payment tips, e-commerce trends, and updates from the DIN AR team. Check back soon for new articles!" },
-  help: { title: "Help Center", text: "Need assistance? Our support team is available 24/7 to resolve any transaction queries or technical issues you might face." },
-  dispute: { title: "Dispute Center", text: "If you encounter any issues with a transaction, raise a ticket here. Our administration reviews evidence and ensures fair resolution." },
-  contact: { title: "Contact Us", text: "Email us at support@dinar-escrow.com or reach out via our official social media channels for immediate assistance." },
-  terms: { title: "Terms of Service", text: "By using DIN AR, you agree to abide by our safe trade guidelines, secure escrow rules, and policy frameworks." },
-  privacy: { title: "Privacy Policy", text: "We respect your data privacy. All verification documents and personal credentials are encrypted and stored securely." },
-  cookie: { title: "Cookie Policy", text: "We use essential cookies to maintain your session security and improve your browsing experience on our platform." }
-};
+    <!-- JAVASCRIPT CONTROLLER -->
+    <script>
+        // Toggle Sidebar Drawer
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
 
-document.querySelectorAll("[data-info]").forEach(link => {
-  link.addEventListener("click", () => {
-    const key = link.getAttribute("data-info");
-    const data = infoData[key];
-    if(data){
-      openDashboard(data.title, "Information Portal", `<div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #e2ebf3; color:#475569; font-size:15px; line-height:1.6;">${data.text}</div>`);
-    }
-  });
-});
+        // Modal Controls
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
 
-// 5. Social Media Links
-document.querySelectorAll("[data-social]").forEach(social => {
-  social.addEventListener("click", () => {
-    const name = social.getAttribute("data-social");
-    openDashboard(name + " Portal", "Official Social Media Channel", `<div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #e2ebf3; color:#475569; font-size:15px; line-height:1.6;">You are about to visit our official <b>${name}</b> page. Stay connected with us for community updates and announcements!</div>`);
-  });
-});
-</script>
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
 
+        // Handle Login Submission
+        function handleLoginSubmit(event) {
+            event.preventDefault();
+            const identifier = document.getElementById('loginIdentifier').value || 'Dinar';
+            
+            // Set user name display
+            document.getElementById('userNameDisplay').innerText = identifier.split('@')[0];
+            
+            closeModal('loginModal');
+            setLoggedInState(true, 'Buyer');
+        }
+
+        // Handle Signup Submission
+        function handleSignupSubmit(event) {
+            event.preventDefault();
+            const firstName = document.getElementById('firstNameInput').value || 'Dinar';
+            const selectedRole = document.querySelector('input[name="userRole"]:checked').value;
+
+            document.getElementById('userNameDisplay').innerText = firstName;
+            document.getElementById('userRoleBadge').innerText = selectedRole;
+
+            closeModal('signupModal');
+            // Show verification needed popup without code
+            openModal('verificationModal');
+        }
+
+        // Proceed from Verification Needed to Home Dashboard
+        function proceedToHomeFromVerification() {
+            closeModal('verificationModal');
+            const selectedRole = document.querySelector('input[name="userRole"]:checked').value;
+            setLoggedInState(true, selectedRole);
+        }
+
+        // Set Application Authenticated UI State
+        function setLoggedInState(isLoggedIn, role = 'Buyer') {
+            const publicView = document.getElementById('publicView');
+            const authHomeView = document.getElementById('authHomeView');
+            const bottomNav = document.getElementById('bottomNav');
+            const authBadge = document.getElementById('authBadge');
+            const drawerAuthButtons = document.getElementById('drawerAuthButtons');
+            const drawerLogoutContainer = document.getElementById('drawerLogoutContainer');
+
+            document.getElementById('userRoleBadge').innerText = role;
+
+            if (isLoggedIn) {
+                publicView.classList.add('hidden');
+                authHomeView.classList.remove('hidden');
+                bottomNav.classList.remove('hidden');
+                authBadge.classList.remove('hidden');
+                authBadge.classList.add('flex');
+                drawerAuthButtons.classList.add('hidden');
+                drawerLogoutContainer.classList.remove('hidden');
+            } else {
+                publicView.classList.remove('hidden');
+                authHomeView.classList.add('hidden');
+                bottomNav.classList.add('hidden');
+                authBadge.classList.add('hidden');
+                authBadge.classList.remove('flex');
+                drawerAuthButtons.classList.remove('hidden');
+                drawerLogoutContainer.classList.add('hidden');
+            }
+        }
+
+        // Handle Logout Action (Returns back to public homepage view)
+        function handleLogout() {
+            setLoggedInState(false);
+            // Close sidebar if open
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (!sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>
+
