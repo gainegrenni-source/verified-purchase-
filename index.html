@@ -114,7 +114,64 @@ button{
     display:block;
 }
 
-/* HOME */
+/* AUTH PAGE (HOME WHEN NOT LOGGED IN) */
+.auth-hero{
+    text-align:center;
+    padding:40px 20px 20px;
+}
+
+.auth-hero img{
+    width:65px;
+    height:65px;
+    margin-bottom:15px;
+}
+
+.auth-hero h1{
+    font-size:26px;
+    letter-spacing:-.5px;
+    margin-bottom:8px;
+}
+
+.auth-hero p{
+    font-size:12px;
+    color:#7c8594;
+    line-height:1.5;
+}
+
+.auth-card{
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:20px;
+    padding:20px;
+    margin-top:20px;
+    box-shadow:0 8px 24px rgba(20,31,50,.06);
+}
+
+.tab-switcher{
+    display:flex;
+    background:#f0f3f8;
+    border-radius:12px;
+    padding:4px;
+    margin-bottom:18px;
+}
+
+.tab-btn{
+    flex:1;
+    height:36px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:700;
+    background:transparent;
+    color:#697386;
+}
+
+.tab-btn.active{
+    background:#fff;
+    color:#172033;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+/* DASHBOARD */
 .welcome{
     margin:6px 2px 18px;
 }
@@ -310,11 +367,6 @@ button{
 .status.processing{
     background:#fff4dc;
     color:#ad7500;
-}
-
-.status.cancelled{
-    background:#fdeceb;
-    color:#c54843;
 }
 
 .dot{
@@ -553,7 +605,7 @@ button{
     color:#a2a9b5;
 }
 
-/* NEW TRADE */
+/* NEW TRADE & FORMS */
 .form-card{
     background:#fff;
     border:1px solid #edf0f4;
@@ -699,10 +751,14 @@ button{
     height:72px;
     background:rgba(255,255,255,.97);
     border-top:1px solid #e9edf2;
-    display:grid;
+    display:none; /* Logged out অবস্হায় হাইড থাকবে */
     grid-template-columns:repeat(4,1fr);
     z-index:100;
     padding-bottom:5px;
+}
+
+.bottom-nav.visible{
+    display:grid;
 }
 
 .nav-item{
@@ -761,7 +817,6 @@ button{
     }
 }
 
-/* SCROLLBAR */
 ::-webkit-scrollbar{
     width:0;
     height:0;
@@ -782,7 +837,7 @@ button{
         </div>
     </div>
 
-    <div class="header-actions">
+    <div class="header-actions" id="header-actions" style="display:none;">
         <button class="icon-btn" onclick="showToast('Notifications')">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                 <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
@@ -791,18 +846,65 @@ button{
             <i class="notification-dot"></i>
         </button>
 
-        <button class="icon-btn" onclick="showToast('Profile settings')">
+        <button class="icon-btn" onclick="handleLogout()">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                <circle cx="12" cy="8" r="3.5"/>
-                <path d="M5 21c.7-4 3-6 7-6s6.3 2 7 6"/>
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
             </svg>
         </button>
     </div>
 </header>
 
 
-<!-- HOME -->
-<section id="home" class="page active">
+<!-- HOME / AUTH PAGE (লগইন করা না থাকলে এটি দেখাবে) -->
+<section id="home-auth" class="page active">
+    <div class="auth-hero">
+        <h1>Welcome to DIN AR</h1>
+        <p>Secure peer-to-peer escrow system with instant buyer and seller protection.</p>
+    </div>
+
+    <div class="auth-card">
+        <div class="tab-switcher">
+            <button class="tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')">Login</button>
+            <button class="tab-btn" id="tab-signup-btn" onclick="switchAuthTab('signup')">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="loginEmail" placeholder="admin@dinar.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="primary-btn">Login to Dashboard</button>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signupForm" style="display:none;" onsubmit="handleSignup(event)">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="signupName" placeholder="Md Dinar" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="signupEmail" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="signupPassword" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="primary-btn">Create Account & Login</button>
+        </form>
+    </div>
+</section>
+
+
+<!-- DASHBOARD (লগইন করার পর দেখাবে) -->
+<section id="dashboard" class="page">
 
     <div class="welcome">
         <small>Welcome back</small>
@@ -839,7 +941,6 @@ button{
     </div>
 
     <div class="quick-grid">
-
         <button class="quick" onclick="openPage('newtrade')">
             <div class="quick-icon">
                 <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -866,9 +967,7 @@ button{
             </div>
             <p>Messages</p>
         </button>
-
     </div>
-
 
     <div class="section-title">
         <h3>Active Escrow</h3>
@@ -876,7 +975,6 @@ button{
     </div>
 
     <div id="active-escrow-container">
-        <!-- Dynamically populated or empty state -->
         <div class="order-card" style="text-align:center; padding:25px; color:#8c94a4; font-size:11px;">
             No active escrow orders found.
         </div>
@@ -890,14 +988,9 @@ button{
         <div style="font-size:12px;font-weight:800;">
             DIN AR Payment Protection
         </div>
-
         <p style="font-size:9px;color:#8992a1;line-height:1.6;margin-top:6px;">
             Secure transaction workflow with real-time verification and escrow protection.
         </p>
-
-        <div style="margin-top:10px;font-size:9px;font-weight:700;">
-            Direct DIN AR Integration for Fast Payouts
-        </div>
     </div>
 
 </section>
@@ -907,12 +1000,11 @@ button{
 <section id="transactions" class="page">
 
     <div class="transaction-head">
-        <button class="back-btn" onclick="openPage('home')">
+        <button class="back-btn" onclick="openPage('dashboard')">
             <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M15 18l-6-6 6-6"/>
             </svg>
         </button>
-
         <h2>Transactions</h2>
     </div>
 
@@ -921,10 +1013,7 @@ button{
             <circle cx="11" cy="11" r="6.5"/>
             <path d="m16 16 5 5"/>
         </svg>
-
-        <input id="transactionSearch" type="text"
-               placeholder="Find Transaction..."
-               oninput="filterTransactions()">
+        <input id="transactionSearch" type="text" placeholder="Find Transaction..." oninput="filterTransactions()">
     </div>
 
     <div class="transaction-filter">
@@ -934,9 +1023,8 @@ button{
     </div>
 
     <div id="transactionList" class="transaction-list">
-        <!-- Dynamically populated transaction items from storage/backend -->
         <div id="no-transactions" style="text-align:center; padding:30px; color:#8c94a4; font-size:11px;">
-            No transactions available yet. Create a new trade to get started.
+            No transactions available yet.
         </div>
     </div>
 </section>
@@ -946,17 +1034,15 @@ button{
 <section id="newtrade" class="page">
 
     <div class="transaction-head">
-        <button class="back-btn" onclick="openPage('home')">
+        <button class="back-btn" onclick="openPage('dashboard')">
             <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M15 18l-6-6 6-6"/>
             </svg>
         </button>
-
         <h2>New Trade</h2>
     </div>
 
     <div class="form-card">
-
         <form id="tradeForm" onsubmit="handleCreateTrade(event)">
             <div class="form-group">
                 <label>Buyer Email / Identifier</label>
@@ -987,11 +1073,8 @@ button{
                 </select>
             </div>
 
-            <button type="submit" class="primary-btn">
-                Create Trade
-            </button>
+            <button type="submit" class="primary-btn">Create Trade</button>
         </form>
-
     </div>
 
 </section>
@@ -1001,12 +1084,11 @@ button{
 <section id="messages" class="page">
 
     <div class="transaction-head">
-        <button class="back-btn" onclick="openPage('home')">
+        <button class="back-btn" onclick="openPage('dashboard')">
             <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M15 18l-6-6 6-6"/>
             </svg>
         </button>
-
         <h2>Messages</h2>
     </div>
 
@@ -1033,21 +1115,17 @@ button{
                 <path d="M15 18l-6-6 6-6"/>
             </svg>
         </button>
-
         <h2>Transaction Details</h2>
     </div>
 
-    <div id="detail-content-area">
-        <!-- Dynamically rendered detailed info for selected transaction -->
-    </div>
+    <div id="detail-content-area"></div>
 
 </section>
 
 
 <!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-
-    <button class="nav-item active" data-page="home" onclick="openPage('home')">
+<nav class="bottom-nav" id="bottom-nav">
+    <button class="nav-item active" data-page="dashboard" onclick="openPage('dashboard')">
         <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
             <path d="M3 11.5 12 4l9 7.5"/>
             <path d="M5 10v10h14V10"/>
@@ -1077,24 +1155,79 @@ button{
         </svg>
         Messages
     </button>
-
 </nav>
 
 </div>
 
-
 <div id="toast" class="toast"></div>
 
-
 <script>
-// Core Application State & Storage Handling
 let transactions = JSON.parse(localStorage.getItem('dinar_escrow_txs')) || [];
+let isLoggedIn = localStorage.getItem('dinar_logged_in') === 'true';
 let currentFilter = "all";
 
 function saveTransactions() {
     localStorage.setItem('dinar_escrow_txs', JSON.stringify(transactions));
     updateDashboard();
     renderTransactions();
+}
+
+function switchAuthTab(tab) {
+    const loginBtn = document.getElementById('tab-login-btn');
+    const signupBtn = document.getElementById('tab-signup-btn');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+
+    if(tab === 'login') {
+        loginBtn.classList.add('active');
+        signupBtn.classList.remove('active');
+        loginForm.style.display = 'block';
+        signupForm.style.display = 'none';
+    } else {
+        signupBtn.classList.add('active');
+        loginBtn.classList.remove('active');
+        signupForm.style.display = 'block';
+        loginForm.style.display = 'none';
+    }
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    isLoggedIn = true;
+    localStorage.setItem('dinar_logged_in', 'true');
+    showToast('Logged in successfully');
+    checkAuthState();
+    openPage('dashboard');
+}
+
+function handleSignup(e) {
+    e.preventDefault();
+    isLoggedIn = true;
+    localStorage.setItem('dinar_logged_in', 'true');
+    showToast('Account created successfully');
+    checkAuthState();
+    openPage('dashboard');
+}
+
+function handleLogout() {
+    isLoggedIn = false;
+    localStorage.removeItem('dinar_logged_in');
+    showToast('Logged out successfully');
+    checkAuthState();
+    openPage('home-auth');
+}
+
+function checkAuthState() {
+    const bottomNav = document.getElementById('bottom-nav');
+    const headerActions = document.getElementById('header-actions');
+
+    if(isLoggedIn) {
+        bottomNav.classList.add('visible');
+        headerActions.style.display = 'flex';
+    } else {
+        bottomNav.classList.remove('visible');
+        headerActions.style.display = 'none';
+    }
 }
 
 function updateDashboard() {
@@ -1117,7 +1250,6 @@ function updateDashboard() {
     document.getElementById('dash-completed').textContent = `$${completed.toFixed(2)}`;
     document.getElementById('dash-count').textContent = transactions.length;
 
-    // Update Active Escrow Widget on Home
     const activeContainer = document.getElementById('active-escrow-container');
     const activeTx = transactions.find(tx => tx.status === 'processing');
 
@@ -1187,7 +1319,6 @@ function renderTransactions() {
     }
 
     let html = '';
-    // Display in reverse chronological order (newest first)
     [...filtered].reverse().forEach(tx => {
         const initials = getInitials(tx.buyer);
         const statusClass = tx.status === 'completed' ? 'completed' : 'processing';
@@ -1336,17 +1467,15 @@ function getInitials(str) {
 }
 
 function escapeHtml(text) {
-    const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
     return text.replace(/[&<>"']/g, m => map[m]);
 }
 
 function openPage(page){
+    if(!isLoggedIn && page !== 'home-auth') {
+        page = 'home-auth';
+    }
+
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     const target = document.getElementById(page);
     if(target) target.classList.add("active");
@@ -1362,6 +1491,10 @@ function openPage(page){
 }
 
 function openTransactions(){
+    if(!isLoggedIn) {
+        openPage('home-auth');
+        return;
+    }
     openPage("transactions");
     document.querySelectorAll(".nav-item").forEach(item => {
         item.classList.remove("active");
@@ -1393,8 +1526,13 @@ function filterTransactions(){
     renderTransactions();
 }
 
-// Initial App Launch Binding
 window.addEventListener('DOMContentLoaded', () => {
+    checkAuthState();
+    if(isLoggedIn) {
+        openPage('dashboard');
+    } else {
+        openPage('home-auth');
+    }
     updateDashboard();
     renderTransactions();
 });
