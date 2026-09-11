@@ -391,6 +391,7 @@ button{
     justify-content:space-between;
     align-items:center;
     margin-bottom:12px;
+    margin-top:16px;
 }
 
 .section-title{
@@ -403,7 +404,7 @@ button{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
     gap:8px;
-    margin-bottom:20px;
+    margin-bottom:10px;
 }
 
 .q-action-card{
@@ -444,7 +445,19 @@ button{
     border-radius:14px;
     padding:20px;
     text-align:center;
-    margin-bottom:20px;
+    margin-bottom:10px;
+}
+
+/* PROTECTION CARD STYLING (Matching 2nd image perfectly) */
+.protection-card-wrapper{
+    margin-top:20px;
+}
+
+.protection-card-title{
+    font-size:15px;
+    font-weight:800;
+    color:#1a2b4c;
+    margin-bottom:10px;
 }
 
 .protection-card{
@@ -452,10 +465,88 @@ button{
     border:1px solid #cbd5e0;
     border-radius:16px;
     padding:16px;
-    margin-bottom:20px;
+    position:relative;
+    overflow:hidden;
 }
 
-/* BOTTOM NAVIGATION BAR */
+.protection-flex{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    position:relative;
+    z-index:2;
+}
+
+.shield-icon{
+    width:40px;
+    height:48px;
+    background:#0070ba;
+    border-radius:0 0 8px 8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    flex-shrink:0;
+    box-shadow:0 4px 10px rgba(0,112,186,0.3);
+}
+
+.shield-icon svg{
+    width:22px;
+    height:22px;
+}
+
+.prot-heading{
+    font-size:13px;
+    font-weight:800;
+    color:#1a2b4c;
+    margin-bottom:3px;
+}
+
+.prot-desc{
+    font-size:10px;
+    color:#4a5568;
+    line-height:1.4;
+    margin-bottom:10px;
+}
+
+.prot-checklist{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:14px;
+}
+
+.check-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:10.5px;
+    font-weight:700;
+    color:#1a2b4c;
+}
+
+.check-item svg{
+    width:14px;
+    height:14px;
+    fill:#0ca678;
+    flex-shrink:0;
+}
+
+.learn-more-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    background:#fff;
+    border:1px solid #cbd5e0;
+    color:#0070ba;
+    font-size:10.5px;
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:8px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.03);
+}
+
+/* BOTTOM NAVIGATION BAR FOR DASHBOARD */
 .bottom-nav{
     position:fixed;
     bottom:0;
@@ -834,10 +925,40 @@ button{
         <div style="font-size:10px; color:#718096;">Start a new trade to get started.</div>
     </div>
 
-    <!-- PROTECTION CARD -->
-    <div class="protection-card">
-        <div style="font-size:12px; font-weight:800; color:#1a2b4c; margin-bottom:4px;">DIN AR Escrow Protection</div>
-        <div style="font-size:10px; color:#4a5568; line-height:1.4;">Your funds are secured with our trusted escrow system and real-time verification.</div>
+    <!-- PROTECTION CARD (Matching 2nd image style) -->
+    <div class="protection-card-wrapper">
+        <div class="protection-card-title">DIN AR Protection</div>
+        <div class="protection-card">
+            <div class="protection-flex">
+                <div class="shield-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                    <div class="prot-heading">DIN AR Escrow Protection</div>
+                    <div class="prot-desc">Your funds are secured with our trusted escrow system and real-time verification.</div>
+                </div>
+            </div>
+            
+            <div class="prot-checklist" style="margin-top:12px;">
+                <div class="check-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Secure Payments
+                </div>
+                <div class="check-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Buyer & Seller Protection
+                </div>
+                <div class="check-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Trusted Worldwide
+                </div>
+            </div>
+
+            <button class="learn-more-btn" onclick="showToast('Learn more clicked')">
+                Learn More 
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:12px;height:12px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+        </div>
     </div>
 </section>
 
@@ -909,7 +1030,6 @@ function updateUIState() {
         document.getElementById('dashboard-page').classList.add('active');
         bottomNav.style.display = 'flex';
 
-        // Logged in Header: Notification icon + Profile icon with dropdown capability
         headerRight.innerHTML = `
             <button class="icon-btn" onclick="showToast('No new notifications')">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -931,7 +1051,6 @@ function updateUIState() {
         document.getElementById('dashboard-page').classList.remove('active');
         bottomNav.style.display = 'none';
 
-        // Logged out Header: Login & Signup icons
         headerRight.innerHTML = `
             <button class="icon-btn" onclick="openAuthModal('login')" title="Login">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
@@ -949,7 +1068,6 @@ function toggleProfileDropdown(e) {
     dropdown.classList.toggle('show');
 }
 
-// Close dropdown when clicking outside
 window.addEventListener('click', () => {
     const dropdown = document.getElementById('profileDropdown');
     if (dropdown && dropdown.classList.contains('show')) {
