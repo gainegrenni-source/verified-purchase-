@@ -1,135 +1,966 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIN AR - Escrow System</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DIN AR Payment Protection">
+<title>DIN AR Escrow System — Payment Protection</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --blue:#0878f9;
+  --blue2:#0667dc;
+  --dark:#07152f;
+  --text:#31425d;
+  --light:#eaf7ff;
+  --border:#d8e5f2;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--dark);
+  background:#fff;
+  overflow-x:hidden;
+}
+
+a{text-decoration:none;color:inherit}
+button{font-family:inherit}
+
+/* ================= HEADER ================= */
+
+.header{
+  width:100%;
+  height:86px;
+  background:#fff;
+  border-bottom:1px solid #e1e8ef;
+  display:flex;
+  align-items:center;
+  padding:0 28px;
+  position:relative;
+  z-index:1000;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  min-width:400px;
+}
+
+.logo{
+  width:74px;
+  height:64px;
+  object-fit:contain;
+  display:block;
+  flex:none;
+}
+
+.brand-info{
+  margin-left:12px;
+  line-height:1;
+}
+
+.brand-title{
+  font-size:29px;
+  font-weight:800;
+  letter-spacing:-1.2px;
+  white-space:nowrap;
+}
+
+.brand-title span{
+  font-weight:700;
+}
+
+.brand-sub{
+  color:#68778c;
+  font-size:16px;
+  margin-top:9px;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:27px;
+  flex:1;
+}
+
+.nav a{
+  font-size:14px;
+  font-weight:700;
+  color:#263750;
+}
+
+.nav a:hover{color:var(--blue)}
+
+.header-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.btn{
+  min-height:46px;
+  border-radius:9px;
+  padding:0 24px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+  border:1px solid transparent;
+}
+
+.btn-outline{
+  color:var(--blue2);
+  background:#fff;
+  border-color:#9bc8f3;
+}
+
+.btn-primary{
+  color:#fff;
+  background:var(--blue);
+  box-shadow:0 7px 18px rgba(8,120,249,.16);
+}
+
+.btn-primary:hover{background:var(--blue2)}
+
+.menu-button{
+  display:none;
+  width:48px;
+  height:44px;
+  background:transparent;
+  border:0;
+  cursor:pointer;
+  padding:7px;
+}
+
+.menu-button span{
+  display:block;
+  height:5px;
+  border-radius:5px;
+  background:#07152f;
+  margin:5px 0;
+}
+
+/* ================= MOBILE MENU ================= */
+
+.mobile-menu{
+  display:none;
+  position:absolute;
+  top:86px;
+  left:0;
+  right:0;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 12px 30px rgba(0,0,0,.09);
+  padding:20px;
+}
+
+.mobile-menu a{
+  display:block;
+  padding:13px 4px;
+  font-weight:700;
+  border-bottom:1px solid #edf1f5;
+}
+
+.mobile-menu .mobile-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.mobile-menu.open{display:block}
+
+/* ================= HERO ================= */
+
+.hero{
+  min-height:590px;
+  background:linear-gradient(120deg,#eaf8ff 0%,#e6f5ff 100%);
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  align-items:center;
+  gap:35px;
+  padding:58px 5.2vw 52px;
+}
+
+.hero-left{
+  max-width:780px;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:11px;
+  background:#d7edff;
+  border-radius:999px;
+  padding:11px 19px;
+  color:#21456e;
+  font-size:14px;
+  font-weight:800;
+}
+
+.eyebrow-icon{
+  width:29px;
+  height:29px;
+  border-radius:8px;
+  background:var(--blue);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:17px;
+}
+
+.hero h1{
+  font-size:clamp(45px,5vw,69px);
+  line-height:.99;
+  letter-spacing:-3.2px;
+  margin:28px 0 19px;
+  font-weight:850;
+}
+
+.hero h1 .blue{
+  color:#0875ed;
+}
+
+.hero-description{
+  max-width:750px;
+  color:#354761;
+  font-size:20px;
+  line-height:1.5;
+  margin-bottom:31px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.hero-buttons .btn{
+  min-width:220px;
+  min-height:54px;
+  font-size:16px;
+}
+
+.how-btn{
+  background:#fff;
+  color:#142b4d;
+  border-color:#d7e2ee;
+  box-shadow:0 4px 12px rgba(20,60,100,.06);
+}
+
+.play{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--blue);
+  color:#fff;
+  font-size:12px;
+  margin-right:11px;
+}
+
+/* ================= HERO VISUAL ================= */
+
+.hero-right{
+  min-height:410px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.hero-image{
+  width:100%;
+  max-width:590px;
+  height:365px;
+  object-fit:cover;
+  border-radius:13px;
+  box-shadow:0 22px 45px rgba(24,60,95,.17);
+}
+
+.protection-card{
+  position:absolute;
+  left:-10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:330px;
+  background:rgba(255,255,255,.97);
+  border:1px solid #dce8f4;
+  border-radius:15px;
+  padding:25px;
+  box-shadow:0 18px 45px rgba(20,60,100,.15);
+}
+
+.protection-card h3{
+  font-size:20px;
+  margin-bottom:17px;
+}
+
+.check{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#263b58;
+  font-size:14px;
+  font-weight:700;
+  margin:12px 0;
+}
+
+.check-icon{
+  width:22px;
+  height:22px;
+  flex:none;
+  border-radius:50%;
+  background:#37b878;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+  background:#eaf8ff;
+  padding:29px 5.2vw 34px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+}
+
+.feature{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.feature-icon{
+  width:59px;
+  height:59px;
+  flex:none;
+  border-radius:50%;
+  background:#d5eeff;
+  color:var(--blue);
+  display:grid;
+  place-items:center;
+  font-size:27px;
+  font-weight:bold;
+}
+
+.feature strong{
+  display:block;
+  font-size:16px;
+}
+
+.feature small{
+  display:block;
+  color:#607089;
+  margin-top:5px;
+  font-size:13px;
+}
+
+/* ================= HOW IT WORKS ================= */
+
+.section{
+  padding:75px 5.2vw;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:48px;
+}
+
+.section-title h2{
+  font-size:39px;
+  letter-spacing:-1.4px;
+  margin-bottom:10px;
+}
+
+.section-title p{
+  color:#65748a;
+  font-size:17px;
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:28px;
+}
+
+.step{
+  text-align:center;
+}
+
+.step-icon{
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  margin:0 auto 18px;
+  background:#e5f4ff;
+  border:1px solid #d4eafa;
+  display:grid;
+  place-items:center;
+  color:var(--blue);
+  font-size:30px;
+}
+
+.step-number{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  margin:-31px auto 16px;
+  position:relative;
+  background:var(--blue);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  border:3px solid #fff;
+  font-size:11px;
+  font-weight:800;
+}
+
+.step h3{
+  font-size:18px;
+  margin-bottom:7px;
+}
+
+.step p{
+  color:#68778d;
+  font-size:14px;
+  line-height:1.5;
+}
+
+/* ================= CTA ================= */
+
+.cta{
+  margin:0 5.2vw 70px;
+  border-radius:18px;
+  background:linear-gradient(110deg,#0878f9,#075fcf);
+  color:#fff;
+  padding:42px 48px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:25px;
+}
+
+.cta h2{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.cta p{color:#dceeff}
+
+.cta .btn{
+  background:#fff;
+  color:#086bdc;
+  min-width:170px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+  border-top:1px solid #e4eaf0;
+  padding:30px 5.2vw;
+  display:flex;
+  justify-content:space-between;
+  color:#6a788b;
+  font-size:13px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+  .header{
+    height:86px;
+    padding:8px 17px;
+  }
+
+  .brand{
+    min-width:0;
+    flex:1;
+  }
+
+  .logo{
+    width:70px;
+    height:62px;
+  }
+
+  .brand-info{
+    margin-left:9px;
+  }
+
+  .brand-title{
+    font-size:25px;
+    letter-spacing:-1.1px;
+  }
+
+  .brand-sub{
+    font-size:15px;
+    margin-top:8px;
+  }
+
+  .nav,
+  .header-actions{
+    display:none;
+  }
+
+  .menu-button{
+    display:block;
+  }
+
+  .hero{
+    display:block;
+    padding:68px 44px 0;
+    min-height:auto;
+  }
+
+  .hero-left{
+    width:100%;
+  }
+
+  .eyebrow{
+    font-size:13px;
+    padding:10px 16px;
+  }
+
+  .eyebrow-icon{
+    width:29px;
+    height:29px;
+  }
+
+  .hero h1{
+    font-size:clamp(45px,11.5vw,66px);
+    line-height:.98;
+    letter-spacing:-2.8px;
+    margin:53px 0 35px;
+  }
+
+  .hero-description{
+    font-size:20px;
+    line-height:1.55;
+    margin-bottom:31px;
+  }
+
+  .hero-buttons{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .hero-buttons .btn{
+    width:100%;
+    min-width:0;
+    min-height:55px;
+  }
+
+  .hero-right{
+    min-height:355px;
+    margin-top:25px;
+  }
+
+  .hero-image{
+    height:300px;
+    width:100%;
+  }
+
+  .protection-card{
+    width:90%;
+    left:5%;
+    top:auto;
+    bottom:0;
+    transform:none;
+    padding:18px;
+  }
+
+  .protection-card h3{
+    font-size:17px;
+    margin-bottom:12px;
+  }
+
+  .check{
+    font-size:12px;
+    margin:8px 0;
+  }
+
+  .check-icon{
+    width:19px;
+    height:19px;
+    font-size:10px;
+  }
+
+  .features{
+    padding:27px 14px 31px;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+  }
+
+  .feature{
+    display:block;
+    text-align:center;
+  }
+
+  .feature-icon{
+    width:55px;
+    height:55px;
+    margin:0 auto 9px;
+  }
+
+  .feature strong{
+    font-size:12px;
+    line-height:1.25;
+  }
+
+  .feature small{
+    display:none;
+  }
+
+  .section{
+    padding:58px 20px;
+  }
+
+  .section-title h2{
+    font-size:31px;
+  }
+
+  .section-title p{
+    font-size:15px;
+  }
+
+  .steps{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .step{
+    display:grid;
+    grid-template-columns:75px 1fr;
+    grid-template-rows:auto auto;
+    column-gap:15px;
+    text-align:left;
+    align-items:center;
+    position:relative;
+  }
+
+  .step-icon{
+    grid-row:1 / span 2;
+    width:65px;
+    height:65px;
+    margin:0;
+  }
+
+  .step-number{
+    position:absolute;
+    left:47px;
+    top:43px;
+    margin:0;
+  }
+
+  .step h3{
+    align-self:end;
+  }
+
+  .step p{
+    align-self:start;
+  }
+
+  .cta{
+    margin:0 20px 45px;
+    padding:30px 23px;
+    display:block;
+  }
+
+  .cta h2{
+    font-size:25px;
+  }
+
+  .cta .btn{
+    width:100%;
+    margin-top:20px;
+  }
+
+  .footer{
+    display:block;
+    padding:28px 20px;
+  }
+
+  .footer div+div{
+    margin-top:10px;
+  }
+}
+
+/* Smaller phones */
+@media(max-width:430px){
+
+  .header{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .logo{
+    width:63px;
+  }
+
+  .brand-title{
+    font-size:22px;
+  }
+
+  .brand-sub{
+    font-size:13px;
+  }
+
+  .hero{
+    padding-left:44px;
+    padding-right:44px;
+  }
+
+  .hero h1{
+    font-size:46px;
+  }
+
+  .hero-description{
+    font-size:18px;
+  }
+}
+</style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
 
-    <!-- Navbar -->
-    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
-            <!-- Logo -->
-            <div class="flex items-center space-x-2">
-                <div class="bg-blue-600 text-white font-bold text-sm sm:text-xl px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg flex items-center shadow-md">
-                    <i class="fa-solid fa-shield-halved text-lg sm:text-2xl mr-1"><span>DIN AR</span></i>
-                </div>
-                <div class="hidden sm:block text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                    Payment Protection
-                </div>
-            </div>
+<body>
 
-            <!-- Nav Links -->
-            <nav class="hidden lg:flex items-center space-x-6 font-medium text-gray-600 text-sm">
-                <a href="#" class="text-blue-600">Home</a>
-                <a href="#" class="hover:text-blue-600 transition">How It Works</a>
-                <a href="#" class="hover:text-blue-600 transition">For Buyers</a>
-                <a href="#" class="hover:text-blue-600 transition">For Sellers</a>
-                <a href="#" class="hover:text-blue-600 transition">Fees</a>
-                <a href="#" class="hover:text-blue-600 transition">Help</a>
-            </nav>
+<header class="header">
 
-            <!-- Auth Buttons -->
-            <div class="flex items-center space-x-2 sm:space-x-4">
-                <a href="#" class="text-blue-600 font-semibold text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-blue-600 hover:bg-blue-50 transition">Log In</a>
-                <a href="#" class="bg-blue-600 text-white font-semibold text-xs sm:text-sm px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-lg shadow-md hover:bg-blue-700 transition">Sign Up</a>
-            </div>
-        </div>
-    </header>
+  <a href="#" class="brand">
+    <!-- IMPORTANT: logo.png must be in the same GitHub folder as index.html -->
+    <img src="./logo.png" class="logo" alt="DIN AR Logo">
 
-    <!-- Hero Section -->
-    <section class="py-10 sm:py-16 bg-gradient-to-b from-white to-gray-100 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            <!-- Hero Left Content -->
-            <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
-                <div class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs sm:text-sm font-medium border border-blue-100 mx-auto lg:mx-0">
-                    <i class="fa-solid fa-shield-check"></i>
-                    <span>SECURE ESCROW PAYMENTS</span>
-                </div>
-                
-                <h1 class="text-3xl sm:text-5xl font-extrabold text-gray-900 leading-tight">
-                    Verified Purchase Trades : <br class="hidden sm:inline">
-                    <span class="text-blue-600">Buy & Sell with Confidence</span>
-                </h1>
-                
-                <p class="text-sm sm:text-lg text-gray-600 max-w-xl mx-auto lg:mx-0">
-                    A safe and simple escrow service for Verified Purchase transactions. Your payment is protected until the deal is completed.
-                </p>
+    <div class="brand-info">
+      <div class="brand-title">DIN AR <span>Escrow System</span></div>
+      <div class="brand-sub">Payment Protection</div>
+    </div>
+  </a>
 
-                <!-- Action Buttons -->
-                <div class="flex flex-row items-center justify-center lg:justify-start space-x-3 pt-2">
-                    <a href="#" class="w-1/2 sm:w-auto text-center bg-blue-600 text-white font-bold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg hover:bg-blue-700 transition">
-                        Get Started
-                    </a>
-                    <a href="#" class="w-1/2 sm:w-auto text-center bg-white text-gray-800 font-bold text-sm sm:text-base px-5 sm:px-8 py-3 sm:py-4 rounded-xl border border-gray-300 shadow-sm hover:bg-gray-50 transition flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-circle-play text-blue-600 text-lg sm:text-xl"></i>
-                        <span>How It Works</span>
-                    </a>
-                </div>
+  <nav class="nav">
+    <a href="#home">Home</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#buyers">For Buyers</a>
+    <a href="#sellers">For Sellers</a>
+    <a href="#fees">Fees</a>
+    <a href="#help">Help</a>
+  </nav>
 
-                <!-- Trust Badges -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 sm:pt-8 border-t border-gray-200 text-left">
-                    <div class="flex items-center space-x-3 justify-center sm:justify-start">
-                        <div class="text-blue-600 bg-blue-50 p-2.5 rounded-lg">
-                            <i class="fa-solid fa-shield-halved text-lg sm:text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm text-gray-900">Secure & Trusted</h4>
-                            <p class="text-xs text-gray-500">Your funds are safe with us</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3 justify-center sm:justify-start">
-                        <div class="text-blue-600 bg-blue-50 p-2.5 rounded-lg">
-                            <i class="fa-solid fa-gears text-lg sm:text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm text-gray-900">Simple Process</h4>
-                            <p class="text-xs text-gray-500">Easy for buyers and sellers</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3 justify-center sm:justify-start">
-                        <div class="text-blue-600 bg-blue-50 p-2.5 rounded-lg">
-                            <i class="fa-solid fa-headset text-lg sm:text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm text-gray-900">Dispute Support</h4>
-                            <p class="text-xs text-gray-500">We're here to help</p>
-                        </div>
-                    </div>
-                </div>
+  <div class="header-actions">
+    <a class="btn btn-outline" href="#login">Log In</a>
+    <a class="btn btn-primary" href="#signup">Sign Up</a>
+  </div>
 
-            </div>
+  <button class="menu-button" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 
-            <!-- Hero Right Mockup / Image Area -->
-            <div class="lg:col-span-5 relative flex justify-center mt-6 lg:mt-0">
-                <div class="bg-blue-600 rounded-3xl p-5 sm:p-6 shadow-2xl text-white w-full max-w-md relative overflow-hidden">
-                    <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
-                        <i class="fa-solid fa-shield"></i>
-                    </div>
-                    <div class="text-right font-semibold text-xs sm:text-sm italic mb-4">Trade with Trust &rarr;</div>
-                    <div class="bg-white text-gray-900 rounded-2xl p-4 sm:p-6 shadow-inner space-y-3 sm:space-y-4">
-                        <div class="flex items-center space-x-2 text-blue-600 font-bold text-sm sm:text-base">
-                            <i class="fa-solid fa-shield-halved"></i>
-                            <span>Secure Payments</span>
-                        </div>
-                        <ul class="space-y-2 text-xs sm:text-sm text-gray-600">
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Funds held in escrow</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Seller completes order</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> You confirm receipt</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Payment released</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#how-it-works" onclick="closeMenu()">How It Works</a>
+    <a href="#buyers" onclick="closeMenu()">For Buyers</a>
+    <a href="#sellers" onclick="closeMenu()">For Sellers</a>
+    <a href="#fees" onclick="closeMenu()">Fees</a>
+    <a href="#help" onclick="closeMenu()">Help</a>
 
-        </div>
-    </section>
+    <div class="mobile-actions">
+      <a class="btn btn-outline" href="#login">Log In</a>
+      <a class="btn btn-primary" href="#signup">Sign Up</a>
+    </div>
+  </div>
+</header>
+
+
+<main id="home">
+
+<section class="hero">
+
+  <div class="hero-left">
+
+    <div class="eyebrow">
+      <span class="eyebrow-icon">✓</span>
+      SECURE ESCROW PAYMENTS
+    </div>
+
+    <h1>
+      <span>Verified Purchase</span>
+      <span>Trades :</span>
+      <span class="blue">Buy &amp; Sell with</span>
+      <span class="blue">Confidence</span>
+    </h1>
+
+    <p class="hero-description">
+      A safe and simple escrow service for verified purchase transactions.
+      Your payment is protected until the deal is completed.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#signup" class="btn btn-primary">Get Started</a>
+
+      <a href="#how-it-works" class="btn how-btn">
+        <span class="play">▶</span>
+        How It Works
+      </a>
+    </div>
+
+  </div>
+
+
+  <div class="hero-right">
+
+    <!-- Optional image. If hero-image.jpg is unavailable, the area remains a clean background. -->
+    <img
+      src="./hero-image.jpg"
+      class="hero-image"
+      alt="Payment protection"
+      onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#d9efff,#f7fcff)';this.parentElement.style.borderRadius='14px';"
+    >
+
+    <div class="protection-card">
+      <h3>Secure Payments</h3>
+
+      <div class="check">
+        <span class="check-icon">✓</span>
+        Funds held in escrow
+      </div>
+
+      <div class="check">
+        <span class="check-icon">✓</span>
+        Seller completes order
+      </div>
+
+      <div class="check">
+        <span class="check-icon">✓</span>
+        Buyer confirms receipt
+      </div>
+
+      <div class="check">
+        <span class="check-icon">✓</span>
+        Payment released
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="features">
+
+  <div class="feature">
+    <div class="feature-icon">✓</div>
+    <div>
+      <strong>Secure &amp; Trusted</strong>
+      <small>Protected transaction process</small>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="feature-icon">⚙</div>
+    <div>
+      <strong>Simple Process</strong>
+      <small>Easy for buyers and sellers</small>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="feature-icon">◉</div>
+    <div>
+      <strong>Dispute Support</strong>
+      <small>Help when a transaction needs review</small>
+    </div>
+  </div>
+
+</section>
+
+
+<section class="section" id="how-it-works">
+
+  <div class="section-title">
+    <h2>How Escrow Works</h2>
+    <p>A simple and transparent process for buyers and sellers.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-icon">🛒</div>
+      <div class="step-number">1</div>
+      <div>
+        <h3>Place an Order</h3>
+        <p>Buyer creates a transaction and funds the agreed amount.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">🔒</div>
+      <div class="step-number">2</div>
+      <div>
+        <h3>Seller Delivers</h3>
+        <p>Seller completes the agreed item or service.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">✓</div>
+      <div class="step-number">3</div>
+      <div>
+        <h3>Confirm Receipt</h3>
+        <p>Buyer reviews the delivery and confirms completion.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">▣</div>
+      <div class="step-number">4</div>
+      <div>
+        <h3>Payment Released</h3>
+        <p>Funds are released according to the transaction terms.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="cta" id="signup">
+  <div>
+    <h2>Ready to start a protected transaction?</h2>
+    <p>Review the transaction terms before proceeding.</p>
+  </div>
+  <a href="#login" class="btn">Create Account</a>
+</section>
+
+</main>
+
+
+<footer class="footer" id="help">
+  <div>© 2026 DIN AR — Payment Protection</div>
+  <div>Terms · Privacy · Support</div>
+</footer>
+
+
+<script>
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("open");
+}
+
+function closeMenu(){
+  document.getElementById("mobileMenu").classList.remove("open");
+}
+</script>
 
 </body>
 </html>
