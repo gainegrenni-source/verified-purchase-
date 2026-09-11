@@ -2,2075 +2,1904 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>DIN AR Escrow System</title>
-<meta name="description" content="DIN AR payment protection interface demo">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DIN AR — Escrow Demo</title>
 
 <style>
-:root{
-  --blue:#087cf5;
-  --blue2:#0b70e8;
-  --navy:#07152f;
-  --text:#243752;
-  --muted:#63748b;
-  --sky:#eaf8ff;
-  --sky2:#dff3ff;
-  --white:#fff;
-  --green:#40bd83;
-  --line:#d8e5f1;
-  --dark:#06345f;
-}
-
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 body{
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Arial,
-    sans-serif;
-  color:var(--navy);
-  background:#fff;
-  overflow-x:hidden;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
 }
 
 button{
-  font:inherit;
+    font-family:inherit;
+    cursor:pointer;
+    border:0;
 }
 
-/* =========================
-   HEADER
-========================= */
-
-.site-header{
-  height:86px;
-  background:#fff;
-  border-bottom:1px solid #e2ebf3;
-  display:flex;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:1000;
+.app{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    margin:auto;
+    background:#f5f7fb;
+    position:relative;
+    overflow:hidden;
 }
 
-.header-inner{
-  width:min(1180px,calc(100% - 40px));
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
+/* DEMO LABEL */
+.demo-label{
+    position:fixed;
+    top:10px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:9999;
+    background:#fff4d6;
+    color:#8a6200;
+    border:1px solid #f1d58a;
+    border-radius:20px;
+    padding:5px 12px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+/* HEADER */
+.header{
+    height:70px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px 18px;
+    border-bottom:1px solid #edf0f5;
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:270px;
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
-.brand-logo{
-  width:64px;
-  height:58px;
-  object-fit:contain;
-  display:block;
+.brand img{
+    width:38px;
+    height:38px;
+    object-fit:contain;
+    border-radius:10px;
 }
 
 .brand-text{
-  line-height:1.05;
-}
-
-.brand-title{
-  font-size:24px;
-  font-weight:850;
-  letter-spacing:-1px;
-  white-space:nowrap;
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:-.3px;
 }
 
 .brand-sub{
-  margin-top:6px;
-  color:#718096;
-  font-size:14px;
-}
-
-.desktop-nav{
-  display:flex;
-  align-items:center;
-  gap:25px;
-}
-
-.desktop-nav a{
-  font-size:14px;
-  font-weight:650;
-  color:#33445d;
-  cursor:pointer;
-}
-
-.desktop-nav a:hover{
-  color:var(--blue);
+    font-size:9px;
+    color:#8c94a4;
+    margin-top:2px;
 }
 
 .header-actions{
-  display:flex;
-  gap:9px;
-}
-
-.btn{
-  min-height:46px;
-  padding:0 22px;
-  border-radius:9px;
-  border:0;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.btn-primary{
-  color:#fff;
-  background:var(--blue);
-  box-shadow:0 8px 20px rgba(8,124,245,.17);
-}
-
-.btn-outline{
-  color:#0871dc;
-  background:#fff;
-  border:1.5px solid #8cbcf0;
-}
-
-.menu-btn{
-  display:none;
-  width:48px;
-  height:46px;
-  border:0;
-  background:transparent;
-  cursor:pointer;
-}
-
-.menu-btn span{
-  display:block;
-  width:35px;
-  height:5px;
-  margin:5px auto;
-  border-radius:5px;
-  background:var(--navy);
-}
-
-/* =========================
-   MOBILE NAV
-========================= */
-
-.mobile-nav{
-  display:none;
-  position:absolute;
-  top:86px;
-  left:0;
-  right:0;
-  background:#fff;
-  padding:20px;
-  border-bottom:1px solid var(--line);
-  box-shadow:0 12px 25px rgba(0,0,0,.08);
-  z-index: 1100;
-}
-
-.mobile-nav.open{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-.mobile-nav a{
-  font-weight:700;
-  padding:8px 0;
-  cursor:pointer;
-}
-
-.mobile-nav .btn{
-  width:100%;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-  background:linear-gradient(
-    110deg,
-    #eefaff 0%,
-    #e6f6ff 55%,
-    #edf9ff 100%
-  );
-  padding:70px 0 50px;
-}
-
-.hero-inner{
-  width:min(900px,calc(100% - 40px));
-  margin:auto;
-  text-align:center;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:11px;
-  padding:12px 20px;
-  border-radius:999px;
-  background:#d9efff;
-  color:#21476f;
-  font-size:14px;
-  font-weight:850;
-  margin:0 auto;
-}
-
-.badge-icon{
-  width:30px;
-  height:30px;
-  border-radius:8px;
-  background:var(--blue);
-  display:grid;
-  place-items:center;
-  color:#fff;
-}
-
-.badge-icon svg{
-  width:18px;
-  height:18px;
-}
-
-.hero h1{
-  margin-top:25px;
-  font-size:clamp(40px,5vw,60px);
-  line-height:1.05;
-  letter-spacing:-2px;
-  font-weight:900;
-}
-
-.hero h1 .blue{
-  color:#0877ed;
-}
-
-.hero-description{
-  max-width:700px;
-  margin:20px auto 0;
-  color:#344861;
-  font-size:18px;
-  line-height:1.58;
-}
-
-.hero-buttons{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:14px;
-  margin-top:30px;
-}
-
-.hero-buttons .btn{
-  width:min(380px, 100%);
-  min-height:52px;
-  font-size:16px;
-  border-radius:12px;
-}
-
-.btn-how{
-  background:#fff;
-  color:#07152f;
-  border:1px solid #d8e5f1;
-  box-shadow:0 4px 12px rgba(0,0,0,.04);
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-weight:800;
-}
-
-.btn-how svg{
-  width:20px;
-  height:20px;
-  fill:var(--blue);
-}
-
-/* =========================
-   HOW IT WORKS
-========================= */
-
-.how-section{
-  background:#fff;
-  padding:78px 0 50px;
-}
-
-.section-inner{
-  width:min(1060px,calc(100% - 40px));
-  margin:auto;
-}
-
-.process-box{
-  padding:40px;
-  border-radius:25px;
-  background:#eef9ff;
-}
-
-.process-box-title{
-  text-align:center;
-  font-size:38px;
-  font-weight:900;
-  margin-bottom:8px;
-  letter-spacing:-1px;
-}
-
-.process-box-subtitle{
-  text-align:center;
-  color:#6a7a90;
-  font-size:17px;
-  margin-bottom:40px;
-}
-
-.process-list{
-  display:grid;
-  gap:24px;
-}
-
-.process-item{
-  display:grid;
-  grid-template-columns:76px 55px 1fr;
-  align-items:center;
-  gap:14px;
-  background:#fff;
-  padding:20px;
-  border-radius:16px;
-  border:1px solid #d9e7f3;
-}
-
-.process-icon{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#d9f0ff;
-  display:grid;
-  place-items:center;
-  color:#0878ed;
-}
-
-.process-icon svg{
-  width:39px;
-  height:39px;
-}
-
-.process-number{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  background:#0878ed;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:17px;
-  font-weight:900;
-}
-
-.process-content h3{
-  font-size:19px;
-  margin-bottom:5px;
-}
-
-.process-content p{
-  color:#65778e;
-  font-size:14px;
-  line-height:1.5;
-}
-
-/* =========================
-   FEATURE STRIP
-========================= */
-
-.features{
-  background:#fff;
-  padding:10px 0 60px;
-}
-
-.features-inner{
-  width:min(1060px,calc(100% - 40px));
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
-}
-
-.feature{
-  text-align:center;
-  background:#f4fbff;
-  border:1px solid #d1e7fd;
-  padding:30px 20px;
-  border-radius:20px;
-  cursor:pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.feature:hover{
-  transform: translateY(-4px);
-  box-shadow:0 10px 25px rgba(8,124,245,0.1);
-}
-
-.feature-icon{
-  width:68px;
-  height:68px;
-  border-radius:50%;
-  background:#d6efff;
-  display:grid;
-  place-items:center;
-  margin:0 auto 15px;
-  color:#0878ed;
-}
-
-.feature-icon svg{
-  width:34px;
-  height:34px;
-  stroke-width:2;
-}
-
-.feature-title{
-  font-size:18px;
-  font-weight:900;
-  color:#07152f;
-}
-
-/* =========================
-   CTA
-========================= */
-
-.cta{
-  margin:0 auto 65px;
-  width:min(1060px,calc(100% - 40px));
-  padding:38px 45px;
-  border-radius:20px;
-  background:linear-gradient(110deg,#087cf5,#0766d5);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-}
-
-.cta h2{
-  font-size:30px;
-  letter-spacing:-.8px;
-}
-
-.cta p{
-  margin-top:7px;
-  color:#dceeff;
-  font-size:15px;
-}
-
-.cta .btn{
-  min-width:205px;
-  background:#fff;
-  color:#086bdc;
-}
-
-/* =========================
-   STATS
-========================= */
-
-.stats{
-  background:#071b3a;
-  padding:35px 0;
-}
-
-.stats-inner{
-  width:min(1060px,calc(100% - 40px));
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-}
-
-.stat{
-  text-align:center;
-  color:#fff;
-}
-
-.stat-icon{
-  width:42px;
-  height:42px;
-  margin:0 auto 10px;
-  color:#1e90ff;
-}
-
-.stat-icon svg{
-  width:100%;
-  height:100%;
-  display: block;
-}
-
-.stat-value{
-  font-size:26px;
-  font-weight:900;
-}
-
-.stat-label{
-  margin-top:4px;
-  color:#cbd5e1;
-  font-size:14px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-  background:#fff;
-  padding:60px 0 30px;
-  border-top:1px solid #e2ebf3;
-}
-
-.footer-container{
-  width:min(1060px,calc(100% - 40px));
-  margin:auto;
-  display:grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
-  gap:30px;
-}
-
-.footer-col .brand-footer{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:15px;
-}
-
-.footer-col .brand-footer img{
-  width:45px;
-  height:40px;
-  object-fit:contain;
-}
-
-.footer-col .brand-footer span{
-  font-size:20px;
-  font-weight:900;
-  color:#07152f;
-}
-
-.footer-col p.brand-desc{
-  color:#64748b;
-  font-size:13.5px;
-  line-height:1.5;
-}
-
-.footer-col h4{
-  font-size:16px;
-  font-weight:800;
-  color:#07152f;
-  margin-bottom:18px;
-}
-
-.footer-links{
-  list-style:none;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.footer-links a{
-  color:#64748b;
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
-  transition: color 0.2s;
-}
-
-.footer-links a:hover{
-  color:var(--blue);
-}
-
-.footer-socials{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.f-social{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:#07152f;
-  color:#ffffff;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.f-social:hover {
-  background: var(--blue);
-  transform: translateY(-2px);
-}
-
-.f-social svg{
-  width:18px;
-  height:18px;
-  fill: currentColor;
-  display: block;
-}
-
-.footer-bottom{
-  width:min(1060px,calc(100% - 40px));
-  margin:40px auto 0;
-  padding-top:20px;
-  border-top:1px solid #eaeaea;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  color:#64748b;
-  font-size:13px;
-  flex-wrap:wrap;
-}
-
-/* =========================
-   MODAL STYLES
-========================= */
-
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(7,21,47,0.65);
-  backdrop-filter:blur(6px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:2000;
-  opacity:0;
-  pointer-events:none;
-  transition: opacity 0.3s ease;
-}
-
-.modal-overlay.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.dash-modal-box{
-  background:#f8fafc;
-  width:min(780px, calc(100% - 24px));
-  border-radius:20px;
-  box-shadow:0 25px 50px rgba(0,0,0,0.25);
-  transform: translateY(20px);
-  transition: transform 0.3s ease;
-  position:relative;
-  max-height:90vh;
-  overflow-y:auto;
-  border:1px solid #e2e8f0;
-}
-
-.modal-overlay.active .dash-modal-box{
-  transform: translateY(0);
-}
-
-.dash-header{
-  background:#071b3a;
-  color:#fff;
-  padding:22px 25px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-top-left-radius:20px;
-  border-top-right-radius:20px;
-}
-
-.dash-header-left h3{
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:-.5px;
-}
-
-.dash-header-left span{
-  font-size:13px;
-  color:#94a3b8;
-}
-
-.modal-close{
-  background:rgba(255,255,255,0.1);
-  border:0;
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  font-weight:900;
-  cursor:pointer;
-  display:grid;
-  place-items:center;
-  color:#fff;
-  transition: background 0.2s;
-}
-
-.modal-close:hover{
-  background:rgba(255,255,255,0.2);
-}
-
-.dash-body{
-  padding:25px;
-}
-
-.dash-stats-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-bottom:25px;
-}
-
-.dash-card{
-  background:#fff;
-  padding:18px;
-  border-radius:14px;
-  border:1px solid #e2e8f0;
-  box-shadow:0 2px 5px rgba(0,0,0,0.02);
-}
-
-.dash-card-title{
-  font-size:12.5px;
-  font-weight:700;
-  color:#64748b;
-  text-transform:uppercase;
-  letter-spacing:.5px;
-}
-
-.dash-card-value{
-  font-size:22px;
-  font-weight:900;
-  color:#07152f;
-  margin-top:6px;
-}
-
-.dash-card-sub{
-  font-size:12px;
-  color:#10b981;
-  margin-top:4px;
-  font-weight:600;
-}
-
-.dash-section-title{
-  font-size:16px;
-  font-weight:800;
-  color:#07152f;
-  margin-bottom:12px;
-}
-
-.dash-table-wrapper{
-  background:#fff;
-  border-radius:14px;
-  border:1px solid #e2e8f0;
-  overflow:hidden;
-}
-
-.dash-table{
-  width:100%;
-  border-collapse:collapse;
-  text-align:left;
-  font-size:14px;
-}
-
-.dash-table th{
-  background:#f1f5f9;
-  color:#475569;
-  padding:12px 16px;
-  font-weight:700;
-  font-size:13px;
-}
-
-.dash-table td{
-  padding:14px 16px;
-  border-top:1px solid #e2e8f0;
-  color:#334155;
-}
-
-.status-badge{
-  display:inline-block;
-  padding:4px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.status-success{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.status-pending{
-  background:#fef9c3;
-  color:#854d0e;
-}
-
-.status-processing{
-  background:#fef3c7;
-  color:#b45309;
-}
-
-.status-under-review{
-  background:#e0f2fe;
-  color:#0369a1;
-}
-
-.status-cancelled{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.modal-form-group{
-  margin-top:15px;
-}
-
-.modal-form-group label{
-  display:block;
-  font-size:13.5px;
-  font-weight:700;
-  color:#334155;
-  margin-bottom:6px;
-}
-
-.modal-form-group input,
-.modal-form-group textarea,
-.modal-form-group select{
-  width:100%;
-  padding:12px 14px;
-  border:1px solid #cbd5e1;
-  border-radius:8px;
-  font-size:14px;
-  outline:none;
-  background:#fff;
-  transition: border-color 0.2s;
-}
-
-.modal-form-group input:focus,
-.modal-form-group textarea:focus,
-.modal-form-group select:focus{
-  border-color:var(--blue);
-}
-
-.modal-btn{
-  width:100%;
-  margin-top:20px;
-  min-height:48px;
-  background:var(--blue);
-  color:#fff;
-  border:0;
-  border-radius:9px;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:0 6px 15px rgba(8,124,245,0.2);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:1000px){
-  .desktop-nav,
-  .header-actions{
+    display:flex;
+    gap:9px;
+}
+
+.icon-btn{
+    width:39px;
+    height:39px;
+    background:#f5f7fa;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#354052;
+    position:relative;
+}
+
+.icon-btn svg{
+    width:19px;
+    height:19px;
+}
+
+.notification-dot{
+    width:7px;
+    height:7px;
+    background:#ef5350;
+    border-radius:50%;
+    position:absolute;
+    right:8px;
+    top:7px;
+    border:2px solid #f5f7fa;
+}
+
+/* PAGES */
+.page{
     display:none;
-  }
+    padding:18px 16px 100px;
+}
 
-  .menu-btn{
+.page.active{
     display:block;
-  }
-
-  .footer-container{
-    grid-template-columns: repeat(2, 1fr);
-    gap:35px;
-  }
 }
 
-@media(max-width:768px){
-  .dash-stats-grid{
-    grid-template-columns:1fr;
-    gap:10px;
-  }
+/* HOME */
+.welcome{
+    margin:6px 2px 18px;
 }
 
-@media(max-width:650px){
-  .site-header{
-    height:82px;
-  }
-
-  .header-inner{
-    width:calc(100% - 28px);
-  }
-
-  .brand{
-    min-width:0;
-    gap:7px;
-  }
-
-  .brand-logo{
-    width:61px;
-    height:53px;
-  }
-
-  .brand-title{
-    font-size:21px;
-    letter-spacing:-.8px;
-  }
-
-  .brand-sub{
+.welcome small{
+    color:#8c94a4;
     font-size:12px;
+}
+
+.welcome h1{
+    font-size:25px;
     margin-top:4px;
-  }
+    letter-spacing:-.7px;
+}
 
-  .mobile-nav{
-    top:82px;
-  }
+.balance-card{
+    background:linear-gradient(135deg,#182235,#273650);
+    border-radius:20px;
+    padding:20px;
+    color:#fff;
+    box-shadow:0 12px 28px rgba(20,31,50,.16);
+}
 
-  .hero{
-    padding:50px 0;
-  }
+.balance-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-  .hero h1{
-    font-size:36px;
-    letter-spacing:-1.5px;
-  }
-
-  .hero-description{
-    font-size:16px;
-  }
-
-  .hero-buttons{
-    width:100%;
-  }
-
-  .hero-buttons .btn{
-    width:100%;
-    min-height:50px;
-  }
-
-  .features-inner{
-    grid-template-columns:1fr;
-    gap:15px;
-  }
-
-  .process-box{
-    padding:20px 15px;
-  }
-
-  .process-box-title{
-    font-size:28px;
-  }
-
-  .process-item{
-    grid-template-columns:50px 35px 1fr;
-    gap:10px;
-    padding:12px;
-  }
-
-  .process-icon{
-    width:48px;
-    height:48px;
-  }
-
-  .process-icon svg{
-    width:24px;
-    height:24px;
-  }
-
-  .process-number{
-    width:30px;
-    height:30px;
+.balance-label{
     font-size:12px;
-  }
+    color:#bfc7d5;
+}
 
-  .cta{
-    width:calc(100% - 40px);
-    padding:25px 20px;
+.balance{
+    font-size:30px;
+    font-weight:800;
+    margin-top:5px;
+}
+
+.balance-status{
+    font-size:10px;
+    padding:6px 9px;
+    border-radius:20px;
+    background:rgba(255,255,255,.12);
+    color:#dfe6f2;
+}
+
+.balance-bottom{
+    display:flex;
+    justify-content:space-between;
+    margin-top:22px;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.1);
+}
+
+.balance-bottom span{
+    font-size:10px;
+    color:#aeb8c8;
+}
+
+.balance-bottom strong{
     display:block;
-  }
+    font-size:13px;
+    color:#fff;
+    margin-top:3px;
+}
 
-  .cta .btn{
-    width:100%;
-    margin-top:15px;
-  }
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:22px 2px 11px;
+}
 
-  .stats-inner{
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-  }
+.section-title h3{
+    font-size:15px;
+}
 
-  .footer-container{
-    grid-template-columns:1fr;
-    gap:30px;
-  }
+.section-title span{
+    font-size:11px;
+    color:#697386;
+}
 
-  .footer-bottom{
-    width:calc(100% - 40px);
-    flex-direction:column;
+/* QUICK ACTIONS */
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
+}
+
+.quick{
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:15px;
+    padding:14px 7px;
     text-align:center;
-  }
+}
+
+.quick-icon{
+    width:37px;
+    height:37px;
+    border-radius:11px;
+    background:#f0f3f8;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#273650;
+}
+
+.quick-icon svg{
+    width:18px;
+}
+
+.quick p{
+    margin-top:8px;
+    font-size:10px;
+    font-weight:700;
+}
+
+/* ORDER CARD */
+.order-card{
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:17px;
+    padding:15px;
+}
+
+.order-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.order-user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.avatar{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:#e9edf4;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:800;
+}
+
+.order-user strong{
+    display:block;
+    font-size:12px;
+}
+
+.order-user small{
+    color:#8c94a4;
+    font-size:10px;
+}
+
+.amount{
+    text-align:right;
+}
+
+.amount strong{
+    font-size:14px;
+}
+
+.amount small{
+    display:block;
+    color:#8c94a4;
+    font-size:9px;
+}
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:5px 8px;
+    border-radius:20px;
+    font-size:9px;
+    font-weight:700;
+}
+
+.status.completed{
+    background:#eaf8f0;
+    color:#218653;
+}
+
+.status.processing{
+    background:#fff4dc;
+    color:#ad7500;
+}
+
+.status.cancelled{
+    background:#fdeceb;
+    color:#c54843;
+}
+
+.dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:currentColor;
+}
+
+.order-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:14px;
+}
+
+.info-box{
+    background:#f7f8fa;
+    border-radius:10px;
+    padding:9px;
+}
+
+.info-box span{
+    display:block;
+    font-size:8px;
+    color:#9299a7;
+}
+
+.info-box strong{
+    font-size:10px;
+    display:block;
+    margin-top:3px;
+}
+
+/* TRANSACTIONS */
+.transaction-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.back-btn{
+    width:37px;
+    height:37px;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:11px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.transaction-head h2{
+    font-size:20px;
+}
+
+.find-box{
+    background:#fff;
+    border:1px solid #e9edf3;
+    border-radius:14px;
+    height:47px;
+    display:flex;
+    align-items:center;
+    padding:0 13px;
+    gap:9px;
+    margin-bottom:14px;
+}
+
+.find-box svg{
+    width:18px;
+    color:#8b94a4;
+}
+
+.find-box input{
+    border:0;
+    outline:0;
+    flex:1;
+    font-size:12px;
+    background:transparent;
+}
+
+.transaction-filter{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    padding-bottom:3px;
+    margin-bottom:13px;
+}
+
+.filter{
+    white-space:nowrap;
+    background:#fff;
+    border:1px solid #e8ecf2;
+    border-radius:20px;
+    padding:7px 12px;
+    font-size:9px;
+    font-weight:700;
+    color:#687285;
+}
+
+.filter.active{
+    background:#202d42;
+    color:#fff;
+    border-color:#202d42;
+}
+
+.transaction-list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.transaction{
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:15px;
+    padding:12px;
+}
+
+.transaction-main{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.t-left{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    min-width:0;
+}
+
+.t-avatar{
+    width:35px;
+    height:35px;
+    flex-shrink:0;
+    border-radius:10px;
+    background:#edf1f6;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10px;
+    font-weight:800;
+}
+
+.t-name{
+    min-width:0;
+}
+
+.t-name strong{
+    display:block;
+    font-size:10px;
+    max-width:170px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.t-name small{
+    display:block;
+    color:#9299a7;
+    font-size:8px;
+    margin-top:2px;
+}
+
+.t-right{
+    text-align:right;
+}
+
+.t-right strong{
+    display:block;
+    font-size:11px;
+}
+
+.t-right small{
+    display:block;
+    color:#a0a7b4;
+    font-size:8px;
+    margin-top:2px;
+}
+
+.transaction-status{
+    margin-top:9px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid #f0f2f5;
+    padding-top:8px;
+}
+
+.transaction-status span{
+    font-size:8px;
+    color:#9aa1ae;
+}
+
+/* MESSAGES */
+.message-card{
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:15px;
+    padding:13px;
+    margin-bottom:9px;
+    display:flex;
+    gap:10px;
+}
+
+.message-avatar{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:#e9edf4;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:11px;
+}
+
+.message-content{
+    flex:1;
+}
+
+.message-content strong{
+    font-size:11px;
+}
+
+.message-content p{
+    color:#858e9e;
+    font-size:9px;
+    margin-top:4px;
+}
+
+.message-time{
+    font-size:8px;
+    color:#a2a9b5;
+}
+
+/* NEW TRADE */
+.form-card{
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:17px;
+    padding:16px;
+}
+
+.form-group{
+    margin-bottom:13px;
+}
+
+.form-group label{
+    display:block;
+    font-size:10px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    height:43px;
+    border:1px solid #e5e9ef;
+    border-radius:11px;
+    padding:0 12px;
+    outline:none;
+    font-size:11px;
+    background:#fafbfc;
+}
+
+.primary-btn{
+    width:100%;
+    height:45px;
+    border-radius:12px;
+    background:#202d42;
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+}
+
+/* DETAIL */
+.detail-card{
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:17px;
+    padding:16px;
+    margin-bottom:11px;
+}
+
+.detail-top{
+    text-align:center;
+}
+
+.detail-icon{
+    width:50px;
+    height:50px;
+    border-radius:16px;
+    background:#edf8f2;
+    color:#218653;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+}
+
+.detail-top h2{
+    font-size:17px;
+    margin-top:9px;
+}
+
+.detail-top p{
+    color:#8d95a3;
+    font-size:9px;
+    margin-top:3px;
+}
+
+.progress{
+    margin:20px 0 5px;
+}
+
+.progress-line{
+    height:5px;
+    border-radius:5px;
+    background:#e9edf2;
+    position:relative;
+}
+
+.progress-line:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    height:100%;
+    width:82%;
+    border-radius:5px;
+    background:#273650;
+}
+
+.steps{
+    display:flex;
+    justify-content:space-between;
+    margin-top:7px;
+}
+
+.steps span{
+    font-size:7px;
+    color:#8c94a4;
+}
+
+.steps span.active{
+    color:#26354c;
+    font-weight:700;
+}
+
+.detail-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #f0f2f5;
+}
+
+.detail-row:last-child{
+    border-bottom:0;
+}
+
+.detail-row span{
+    font-size:9px;
+    color:#9098a6;
+}
+
+.detail-row strong{
+    font-size:10px;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:480px;
+    height:72px;
+    background:rgba(255,255,255,.97);
+    border-top:1px solid #e9edf2;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    z-index:100;
+    padding-bottom:5px;
+}
+
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    color:#9aa1ad;
+    font-size:8px;
+    font-weight:600;
+    background:none;
+}
+
+.nav-item svg{
+    width:19px;
+    height:19px;
+}
+
+.nav-item.active{
+    color:#202d42;
+}
+
+/* TOAST */
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:88px;
+    transform:translate(-50%,20px);
+    opacity:0;
+    pointer-events:none;
+    background:#202d42;
+    color:#fff;
+    border-radius:12px;
+    padding:10px 15px;
+    font-size:10px;
+    transition:.25s;
+    z-index:500;
+    white-space:nowrap;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* DESKTOP */
+@media(min-width:700px){
+    body{
+        background:#e9edf3;
+    }
+
+    .app{
+        box-shadow:0 0 50px rgba(0,0,0,.08);
+        min-height:100vh;
+    }
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{
+    width:0;
+    height:0;
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
+<div class="demo-label">DEMO / SAMPLE</div>
 
-<header class="site-header">
-  <div class="header-inner">
-    <a href="#home" class="brand">
-      <img src="logo.png" class="brand-logo" alt="DIN AR">
-      <div class="brand-text">
-        <div class="brand-title">DIN AR Escrow System</div>
-        <div class="brand-sub">Payment Protection</div>
-      </div>
-    </a>
+<div class="app">
 
-    <nav class="desktop-nav" id="desktopNav">
-      <!-- Dynamic header links updated via JS login state -->
-    </nav>
-
-    <div class="header-actions" id="headerActions">
-      <!-- Dynamic header actions (Log In / Sign Up or Logout) updated via JS -->
+<header class="header">
+    <div class="brand">
+        <img src="logo.png" alt="DIN AR" onerror="this.style.display='none'">
+        <div>
+            <div class="brand-text">DIN AR</div>
+            <div class="brand-sub">Escrow System</div>
+        </div>
     </div>
 
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
+    <div class="header-actions">
+        <button class="icon-btn" onclick="showToast('Notifications demo')">
+            <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                <path d="M10 21h4"/>
+            </svg>
+            <i class="notification-dot"></i>
+        </button>
 
-  <nav class="mobile-nav" id="mobileNav">
-    <!-- Dynamic mobile nav updated via JS login state -->
-  </nav>
+        <button class="icon-btn" onclick="showToast('Profile demo')">
+            <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="3.5"/>
+                <path d="M5 21c.7-4 3-6 7-6s6.3 2 7 6"/>
+            </svg>
+        </button>
+    </div>
 </header>
 
 
-<!-- =========================
-     MAIN CONTAINER / VIEW SWITCHER
-========================= -->
+<!-- HOME -->
+<section id="home" class="page active">
 
-<div id="appContainer">
-  <!-- Default Public View (Landing Page) -->
-  <main id="publicView">
-    <section class="hero" id="home">
-      <div class="hero-inner">
-        <div class="badge">
-          <span class="badge-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
-              <path d="M8.5 12l2.2 2.2 4.8-5"/>
-            </svg>
-          </span>
-          SECURE ESCROW PAYMENTS
+    <div class="welcome">
+        <small>Welcome back</small>
+        <h1>Dashboard</h1>
+    </div>
+
+    <div class="balance-card">
+        <div class="balance-top">
+            <div>
+                <div class="balance-label">Available Balance</div>
+                <div class="balance">$2,845.60</div>
+            </div>
+            <div class="balance-status">Protected</div>
         </div>
 
-        <h1>
-          Verified Purchase Trades :
-          <span class="blue">Buy &amp; Sell with Confidence</span>
-        </h1>
+        <div class="balance-bottom">
+            <div>
+                <span>Pending</span>
+                <strong>$486.25</strong>
+            </div>
+            <div>
+                <span>Completed</span>
+                <strong>$8,421.90</strong>
+            </div>
+            <div>
+                <span>Trades</span>
+                <strong>128</strong>
+            </div>
+        </div>
+    </div>
 
-        <p class="hero-description">
-          A safe and simple escrow service for verified purchase
-          transactions. Your payment is protected until the deal
-          is completed.
+    <div class="section-title">
+        <h3>Quick Actions</h3>
+    </div>
+
+    <div class="quick-grid">
+
+        <button class="quick" onclick="openPage('newtrade')">
+            <div class="quick-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+            </div>
+            <p>New Trade</p>
+        </button>
+
+        <button class="quick" onclick="openTransactions()">
+            <div class="quick-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path d="M4 7h16M4 12h16M4 17h16"/>
+                </svg>
+            </div>
+            <p>Transactions</p>
+        </button>
+
+        <button class="quick" onclick="openPage('messages')">
+            <div class="quick-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path d="M4 5h16v11H8l-4 4V5z"/>
+                </svg>
+            </div>
+            <p>Messages</p>
+        </button>
+
+    </div>
+
+
+    <div class="section-title">
+        <h3>Active Escrow</h3>
+        <span>View all</span>
+    </div>
+
+    <div class="order-card">
+
+        <div class="order-row">
+            <div class="order-user">
+                <div class="avatar">AM</div>
+                <div>
+                    <strong>Amazon E-Giftcard Order</strong>
+                    <small>DIN AR Verification</small>
+                </div>
+            </div>
+
+            <div class="amount">
+                <strong>$257.98</strong>
+                <small>USD</small>
+            </div>
+        </div>
+
+        <div style="margin-top:11px;">
+            <span class="status processing">
+                <i class="dot"></i> Processing
+            </span>
+        </div>
+
+        <div class="order-info">
+            <div class="info-box">
+                <span>Buyer</span>
+                <strong>Verified Buyer</strong>
+            </div>
+
+            <div class="info-box">
+                <span>Protection</span>
+                <strong>DIN AR Protected</strong>
+            </div>
+        </div>
+
+        <button class="primary-btn" style="margin-top:12px;" onclick="openDetail()">
+            View Transaction
+        </button>
+
+    </div>
+
+    <div class="section-title">
+        <h3>DIN AR Protection</h3>
+    </div>
+
+    <div class="order-card">
+        <div style="font-size:12px;font-weight:800;">
+            DIN AR Payment Protection
+        </div>
+
+        <p style="font-size:9px;color:#8992a1;line-height:1.6;margin-top:6px;">
+            Secure transaction workflow with verification and escrow-style protection.
         </p>
 
-        <div class="hero-buttons">
-          <button class="btn btn-primary" onclick="openSignupModal()">
-            Get Started
-          </button>
-          <button class="btn btn-how" onclick="scrollToSection('how-it-works')">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            How It Works
-          </button>
+        <div style="margin-top:10px;font-size:9px;font-weight:700;">
+            Direct DIN AR Integration for Fast Payouts
         </div>
-      </div>
-    </section>
+    </div>
 
-    <section class="how-section" id="how-it-works">
-      <div class="section-inner">
-        <div class="process-box">
-          <div class="process-box-title">How It Works</div>
-          <div class="process-box-subtitle">A clear and secure process from start to completion</div>
+</section>
 
-          <div class="process-list">
-            <div class="process-item">
-              <div class="process-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/>
-                  <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L20 8H6"/>
-                </svg>
-              </div>
-              <div class="process-number">1</div>
-              <div class="process-content">
-                <h3>Seller Places Order</h3>
-                <p>Seller makes a payment and the agreed amount enters the transaction workflow.</p>
-              </div>
-            </div>
 
-            <div class="process-item">
-              <div class="process-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M5 3h10l4 4v14H5z"/><path d="M15 3v5h4"/><path d="M12 17V10"/><path d="M9 13l3-3 3 3"/>
-                </svg>
-              </div>
-              <div class="process-number">2</div>
-              <div class="process-content">
-                <h3>Buyer Uploads Verification</h3>
-                <p>Buyer submits the required confirmation details or verification information.</p>
-              </div>
-            </div>
+<!-- TRANSACTIONS -->
+<section id="transactions" class="page">
 
-            <div class="process-item">
-              <div class="process-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
-                  <path d="M8.5 12l2.2 2.2 4.8-5"/>
-                </svg>
-              </div>
-              <div class="process-number">3</div>
-              <div class="process-content">
-                <h3>System/Admin Verification</h3>
-                <p>The submitted information is thoroughly cross-checked and reviewed by administration before the transaction proceeds further.</p>
-              </div>
-            </div>
-
-            <div class="process-item">
-              <div class="process-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/>
-                </svg>
-              </div>
-              <div class="process-number">4</div>
-              <div class="process-content">
-                <h3>DIN AR Payout Released</h3>
-                <p>Payment is released after the transaction requirements have been completed.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="features">
-      <div class="features-inner">
-        <div class="feature" data-dash="secure">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
-              <path d="M8.5 12l2.2 2.2 4.8-5"/>
+    <div class="transaction-head">
+        <button class="back-btn" onclick="openPage('home')">
+            <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 18l-6-6 6-6"/>
             </svg>
-          </div>
-          <div class="feature-title">Secure &amp; Trusted</div>
+        </button>
+
+        <h2>Transactions</h2>
+    </div>
+
+    <div class="find-box">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="6.5"/>
+            <path d="m16 16 5 5"/>
+        </svg>
+
+        <input id="transactionSearch" type="text"
+               placeholder="Find Transaction..."
+               oninput="filterTransactions()">
+    </div>
+
+    <div class="transaction-filter">
+        <button class="filter active" onclick="setFilter('all',this)">All</button>
+        <button class="filter" onclick="setFilter('processing',this)">Processing</button>
+        <button class="filter" onclick="setFilter('completed',this)">Completed</button>
+    </div>
+
+    <div id="transactionList" class="transaction-list">
+
+        <div class="transaction" data-status="processing" data-search="buyer 01 amazon">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">AB</div>
+                    <div class="t-name">
+                        <strong>buyer01@samplemail.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$255.58</strong>
+                    <small>Today</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>DIN AR Verification</span>
+                <span class="status processing"><i class="dot"></i> Processing</span>
+            </div>
         </div>
 
-        <div class="feature" data-dash="simple">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.7 1.7-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V20h-2.4v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1L8 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H6v-2.4h.9a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9L8 8.6l1.7-1.7.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5V5h2.4v.8a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.7 1.7-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.8v2.4h-.8a1.7 1.7 0 0 0-1.5 1z"/>
+
+        <div class="transaction" data-status="processing" data-search="buyer 02 amazon">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">RS</div>
+                    <div class="t-name">
+                        <strong>rafa.sample@icloud.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$257.98</strong>
+                    <small>Today</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Verification Pending</span>
+                <span class="status processing"><i class="dot"></i> Processing</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="processing" data-search="buyer 03 amazon">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">MK</div>
+                    <div class="t-name">
+                        <strong>mike.sample@gmail.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$189.40</strong>
+                    <small>Today</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Payment Protection</span>
+                <span class="status processing"><i class="dot"></i> Processing</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="processing" data-search="buyer 04">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">JL</div>
+                    <div class="t-name">
+                        <strong>julia.sample@mail.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$312.75</strong>
+                    <small>Today</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Order Verification</span>
+                <span class="status processing"><i class="dot"></i> Processing</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="processing" data-search="buyer 05">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">DK</div>
+                    <div class="t-name">
+                        <strong>daniel.sample@outlook.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$225.10</strong>
+                    <small>Today</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Escrow Protection</span>
+                <span class="status processing"><i class="dot"></i> Processing</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 06">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">SM</div>
+                    <div class="t-name">
+                        <strong>sarah.sample@gmail.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$126.50</strong>
+                    <small>Today</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Order Completed</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 07">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">JW</div>
+                    <div class="t-name">
+                        <strong>jason.sample@mail.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$305.00</strong>
+                    <small>Today</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Payout Completed</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 08">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">AM</div>
+                    <div class="t-name">
+                        <strong>alex.sample@icloud.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$221.90</strong>
+                    <small>Yesterday</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>DIN AR Verified</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 09">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">CR</div>
+                    <div class="t-name">
+                        <strong>chris.sample@gmail.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$410.25</strong>
+                    <small>Yesterday</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Payment Released</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 10">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">NL</div>
+                    <div class="t-name">
+                        <strong>natalie.sample@mail.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$175.80</strong>
+                    <small>Yesterday</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Order Completed</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 11">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">TG</div>
+                    <div class="t-name">
+                        <strong>tom.sample@outlook.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$285.70</strong>
+                    <small>Yesterday</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Payout Released</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 12">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">KB</div>
+                    <div class="t-name">
+                        <strong>kevin.sample@gmail.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$198.35</strong>
+                    <small>Yesterday</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>DIN AR Verified</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 13">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">EP</div>
+                    <div class="t-name">
+                        <strong>emma.sample@icloud.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$367.15</strong>
+                    <small>Sep 10</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Payment Released</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 14">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">RH</div>
+                    <div class="t-name">
+                        <strong>ryan.sample@mail.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$245.90</strong>
+                    <small>Sep 10</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Order Completed</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 15">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">LS</div>
+                    <div class="t-name">
+                        <strong>lisa.sample@gmail.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$152.40</strong>
+                    <small>Sep 10</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Payout Released</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 16">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">BD</div>
+                    <div class="t-name">
+                        <strong>ben.sample@outlook.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$330.00</strong>
+                    <small>Sep 10</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>DIN AR Verified</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 17">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">OS</div>
+                    <div class="t-name">
+                        <strong>olivia.sample@mail.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$275.45</strong>
+                    <small>Sep 9</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Payment Released</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 18">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">HM</div>
+                    <div class="t-name">
+                        <strong>henry.sample@gmail.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$184.20</strong>
+                    <small>Sep 9</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Order Completed</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 19">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">SC</div>
+                    <div class="t-name">
+                        <strong>sophia.sample@icloud.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$299.99</strong>
+                    <small>Sep 9</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Payout Released</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 20">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">WM</div>
+                    <div class="t-name">
+                        <strong>william.sample@mail.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$215.65</strong>
+                    <small>Sep 9</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>DIN AR Verified</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 21">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">AM</div>
+                    <div class="t-name">
+                        <strong>anna.sample@gmail.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$142.80</strong>
+                    <small>Sep 8</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Order Completed</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 22">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">GB</div>
+                    <div class="t-name">
+                        <strong>george.sample@outlook.com</strong>
+                        <small>Verification Order</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$321.35</strong>
+                    <small>Sep 8</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>Payment Released</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+
+        <div class="transaction" data-status="completed" data-search="buyer 23">
+            <div class="transaction-main">
+                <div class="t-left">
+                    <div class="t-avatar">MC</div>
+                    <div class="t-name">
+                        <strong>maria.sample@mail.com</strong>
+                        <small>Amazon E-Giftcard</small>
+                    </div>
+                </div>
+
+                <div class="t-right">
+                    <strong>$267.75</strong>
+                    <small>Sep 8</small>
+                </div>
+            </div>
+
+            <div class="transaction-status">
+                <span>DIN AR Verified</span>
+                <span class="status completed"><i class="dot"></i> Completed</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- NEW TRADE -->
+<section id="newtrade" class="page">
+
+    <div class="transaction-head">
+        <button class="back-btn" onclick="openPage('home')">
+            <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 18l-6-6 6-6"/>
             </svg>
-          </div>
-          <div class="feature-title">Simple Process</div>
+        </button>
+
+        <h2>New Trade</h2>
+    </div>
+
+    <div class="form-card">
+
+        <div class="form-group">
+            <label>Buyer Email</label>
+            <input type="email" placeholder="buyer@example.com">
         </div>
 
-        <div class="feature" data-dash="dispute">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M4 13a8 8 0 0 1 16 0"/>
-              <path d="M4 13v3a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 1 z"/>
-              <path d="M20 13v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 1z"/>
-              <path d="M15 19c-.7 1-1.8 1.5-3 1.5"/>
-            </svg>
-          </div>
-          <div class="feature-title">Dispute Support</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta" id="signup">
-      <div>
-        <h2>Ready to start?</h2>
-        <p>Review the transaction details and continue through the available workflow.</p>
-      </div>
-      <button class="btn" onclick="openSignupModal()">Create Your Account</button>
-    </section>
-
-    <section class="stats">
-      <div class="stats-inner">
-        <div class="stat">
-          <div class="stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-          </div>
-          <div class="stat-value">10K+</div>
-          <div class="stat-label">Traders</div>
+        <div class="form-group">
+            <label>Trade Amount</label>
+            <input type="number" placeholder="0.00">
         </div>
 
-        <div class="stat">
-          <div class="stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="6" width="20" height="12" rx="2"></rect>
-              <circle cx="12" cy="12" r="2"></circle>
-              <path d="M6 12h.01M18 12h.01"></path>
-            </svg>
-          </div>
-          <div class="stat-value">$20M+</div>
-          <div class="stat-label">Secured</div>
+        <div class="form-group">
+            <label>Payment Method</label>
+            <select>
+                <option>PayPal</option>
+                <option>Bank Transfer</option>
+                <option>Other</option>
+            </select>
         </div>
 
-        <div class="stat">
-          <div class="stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              <polyline points="9 12 11 14 15 10"></polyline>
-            </svg>
-          </div>
-          <div class="stat-value">99.9%</div>
-          <div class="stat-label">Success</div>
+        <div class="form-group">
+            <label>Order Type</label>
+            <select>
+                <option>Amazon E-Giftcard</option>
+                <option>Verification Order</option>
+            </select>
         </div>
 
-        <div class="stat">
-          <div class="stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
-            </svg>
-          </div>
-          <div class="stat-value">24/7</div>
-          <div class="stat-label">Support</div>
-        </div>
-      </div>
-    </section>
-
-    <footer id="help">
-      <div class="footer-container">
-        <div class="footer-col">
-          <div class="brand-footer">
-            <img src="logo.png" alt="DIN AR">
-            <span>DIN AR</span>
-          </div>
-          <p class="brand-desc">Payment Protection System designed for safe and secure trade interactions.</p>
-        </div>
-
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul class="footer-links">
-            <li><a data-info="about">About Us</a></li>
-            <li><a data-info="careers">Careers</a></li>
-            <li><a data-info="blog">Blog</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Support</h4>
-          <ul class="footer-links">
-            <li><a data-info="help">Help Center</a></li>
-            <li><a data-info="dispute">Dispute Center</a></li>
-            <li><a data-info="contact">Contact Us</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <ul class="footer-links">
-            <li><a data-info="terms">Terms of Service</a></li>
-            <li><a data-info="privacy">Privacy Policy</a></li>
-            <li><a data-info="cookie">Cookie Policy</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Follow Us</h4>
-          <div class="footer-socials">
-            <div class="f-social" data-social="Facebook"><svg viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1 .3-1.5 1.5-1.5H18V5.2c-.3 0-1.2-.2-2.3-.2-2.3 0-3.8 1.4-3.8 4.1v2.4H9.5v4h2.4V22h4.1v-8.5z"/></svg></div>
-            <div class="f-social" data-social="X (Twitter)"><svg viewBox="0 0 24 24"><path d="M18.2 3h2.6l-5.7 6.5L22 21h-5.2l-4-5.2-4.7 5.2H5.5l6-6.8L3 3h5.3l3.6 4.8L18.2 3zm-.9 15.9h1.4L8.1 4.9H6.6l10.7 14z"/></svg></div>
-            <div class="f-social" data-social="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></div>
-            <div class="f-social" data-social="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2c-.3-1-1-1.8-2-2C19.8 3.8 12 3.8 12 3.8s-7.8 0-9.5.4c-1 .2-1.7 1-2 2C0 8 0 12 0 12s0 4 .5 5.8c.3 1 1 1.8 2 2 1.7.4 9.5.4 9.5.4s7.8 0 9.5-.4c1-.2 1.7-1 2-2 .5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"/></svg></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© 2026 DIN AR Escrow System. All rights reserved.</div>
-        <div>Safer Transactions. Stronger Communities.</div>
-      </div>
-    </footer>
-  </main>
-
-  <!-- Logged-In User Interface with Bottom Navigation Bar -->
-  <div id="loggedInView" style="display:none; max-width:640px; margin:20px auto 90px auto; background:#f8fafc; border-radius:24px; box-shadow:0 15px 35px rgba(0,0,0,0.08); overflow:hidden; border:1px solid #e2e8f0; position:relative;">
-    
-    <!-- Scrollable Body Content -->
-    <div style="padding:22px; max-height:calc(100vh - 120px); overflow-y:auto; padding-bottom:90px;">
-      
-      <!-- Dynamic Tab Content Views -->
-      <div id="tabHome" class="app-tab-content">
-        <!-- Hero Banner -->
-        <div style="background:linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%); border-radius:18px; padding:22px; display:flex; justify-content:space-between; align-items:center; border:1px solid #bfdbfe;">
-          <div>
-            <div style="font-size:12px; font-weight:700; color:#1e40af; text-transform:uppercase; letter-spacing:0.5px;">Welcome Back,</div>
-            <div style="font-size:22px; font-weight:900; color:#07152f; margin-top:4px; line-height:1.2;">Secure Transactions<br>for a Safer Tomorrow</div>
-            <p style="font-size:12.5px; color:#475569; margin-top:8px; line-height:1.4;">Buy and sell with confidence. Your funds are protected in escrow until the deal is completed.</p>
-            <button onclick="switchTab('newTrade')" style="margin-top:14px; background:var(--blue); color:#fff; border:0; padding:10px 18px; border-radius:10px; font-weight:800; font-size:13px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(8,124,245,0.25); cursor:pointer;">
-              <span>+</span> New Trade
-            </button>
-          </div>
-          <div style="width:110px; height:110px; background:#ffffffaa; border-radius:50%; display:grid; place-items:center; flex-shrink:0; border:2px dashed #93c5fd;">
-            <svg viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="#087cf5" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          </div>
-        </div>
-
-        <!-- Quick Action Cards Grid -->
-        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-top:18px;">
-          <div onclick="switchTab('newTrade')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
-            <div style="width:36px; height:36px; background:#e0f2fe; color:#0284c7; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
-            <div style="font-size:12px; font-weight:800; color:#07152f;">New Trade</div>
-            <div style="font-size:10px; color:#64748b; margin-top:2px;">Create escrow</div>
-          </div>
-          <div onclick="switchTab('transactions')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
-            <div style="width:36px; height:36px; background:#f3e8ff; color:#9333ea; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
-            <div style="font-size:12px; font-weight:800; color:#07152f;">Transactions</div>
-            <div style="font-size:10px; color:#64748b; margin-top:2px;">View all history</div>
-          </div>
-          <div onclick="alert('Deposit Funds')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
-            <div style="width:36px; height:36px; background:#dcfce7; color:#16a34a; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg></div>
-            <div style="font-size:12px; font-weight:800; color:#07152f;">Deposit</div>
-            <div style="font-size:10px; color:#64748b; margin-top:2px;">Add funds</div>
-          </div>
-          <div onclick="alert('Become a Seller')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
-            <div style="width:36px; height:36px; background:#ffedd5; color:#ea580c; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div>
-            <div style="font-size:12px; font-weight:800; color:#07152f;">Seller Mode</div>
-            <div style="font-size:10px; color:#64748b; margin-top:2px;">Start selling</div>
-          </div>
-        </div>
-
-        <!-- Account Overview Section -->
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:22px; margin-bottom:10px;">
-          <div style="font-size:15px; font-weight:900; color:#07152f;">Account Overview</div>
-          <div style="font-size:12px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="switchTab('transactions')">View All &gt;</div>
-        </div>
-        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;">
-          <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
-            <div style="font-size:10.5px; font-weight:700; color:#64748b;">TOTAL BALANCE</div>
-            <div style="font-size:16px; font-weight:900; color:#07152f; margin-top:4px;">$1,250.00</div>
-          </div>
-          <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
-            <div style="font-size:10.5px; font-weight:700; color:#64748b;">IN ESCROW</div>
-            <div style="font-size:16px; font-weight:900; color:#07152f; margin-top:4px;">$850.00</div>
-          </div>
-          <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
-            <div style="font-size:10.5px; font-weight:700; color:#64748b;">COMPLETED</div>
-            <div style="font-size:16px; font-weight:900; color:#16a34a; margin-top:4px;">12</div>
-          </div>
-          <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
-            <div style="font-size:10.5px; font-weight:700; color:#64748b;">PENDING</div>
-            <div style="font-size:16px; font-weight:900; color:#d97706; margin-top:4px;">3</div>
-          </div>
-        </div>
-
-        <!-- Recent Transactions Section -->
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:22px; margin-bottom:10px;">
-          <div style="font-size:15px; font-weight:900; color:#07152f;">Recent Transactions</div>
-          <div style="font-size:12px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="switchTab('transactions')">View All &gt;</div>
-        </div>
-
-        <div style="background:#fff; border-radius:14px; border:1px solid #e2e8f0; overflow:hidden;">
-          <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
-              <div>
-                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10284 &nbsp;🇺🇸</div>
-                <div style="font-size:11.5px; color:#64748b;">Amazon Gift Card (US) • Sep 10, 2026</div>
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$250.00 USD</div>
-              <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
-            </div>
-          </div>
-          <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
-              <div>
-                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10285 &nbsp;🇮🇹</div>
-                <div style="font-size:11.5px; color:#64748b;">Eurozone Escrow • Sep 10, 2026</div>
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$400.00 USD</div>
-              <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
-            </div>
-          </div>
-          <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
-              <div>
-                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10283 &nbsp;🇺🇸</div>
-                <div style="font-size:11.5px; color:#64748b;">PayPal Balance • Sep 09, 2026</div>
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$180.00 USD</div>
-              <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Transactions Tab View -->
-      <div id="tabTransactions" class="app-tab-content" style="display:none;">
-        <div style="font-size:18px; font-weight:900; color:#07152f; margin-bottom:15px;">All Transactions History</div>
-        <div style="background:#fff; border-radius:14px; border:1px solid #e2e8f0; overflow:hidden;">
-          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
-              <div>
-                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10284 &nbsp;🇺🇸</div>
-                <div style="font-size:11.5px; color:#64748b;">Amazon Gift Card (US) • Sep 10, 2026</div>
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$250.00 USD</div>
-              <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
-            </div>
-          </div>
-          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
-              <div>
-                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10285 &nbsp;🇮🇹</div>
-                <div style="font-size:11.5px; color:#64748b;">Eurozone Escrow • Sep 10, 2026</div>
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$400.00 USD</div>
-              <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
-            </div>
-          </div>
-          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="width:36px; height:36px; border-radius:50%; background:#e0f2fe; color:#0369a1; display:grid; place-items:center; font-weight:800;">🔄</div>
-              <div>
-                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10286 &nbsp;🇬🇧</div>
-                <div style="font-size:11.5px; color:#64748b;">UK Digital Transfer • Sep 09, 2026</div>
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$310.00 USD</div>
-              <span class="status-badge status-under-review" style="font-size:10px; padding:2px 8px; margin-top:2px;">On-going</span>
-            </div>
-          </div>
-          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
-              <div>
-                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10283 &nbsp;🇺🇸</div>
-                <div style="font-size:11.5px; color:#64748b;">PayPal Balance • Sep 09, 2026</div>
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$180.00 USD</div>
-              <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
-            </div>
-          </div>
-          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
-              <div>
-                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10282 &nbsp;🇺🇸</div>
-                <div style="font-size:11.5px; color:#64748b;">USDT (TRC20) • Sep 08, 2026</div>
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$320.00 USD</div>
-              <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
-            </div>
-          </div>
-          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
-              <div>
-                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10281 &nbsp;🇺🇸</div>
-                <div style="font-size:11.5px; color:#64748b;">Steam Gift Card • Sep 07, 2026</div>
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$100.00 USD</div>
-              <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- New Trade Tab View -->
-      <div id="tabNewTrade" class="app-tab-content" style="display:none;">
-        <div style="font-size:18px; font-weight:900; color:#07152f; margin-bottom:15px;">Create New Escrow Trade</div>
-        <div style="background:#fff; padding:20px; border-radius:14px; border:1px solid #e2e8f0;">
-          <form onsubmit="event.preventDefault(); alert('New trade escrow successfully created!'); switchTab('home');">
-            <div class="modal-form-group" style="margin-top:0;">
-              <label>Trade Partner Email or Username</label>
-              <input type="text" placeholder="Enter partner account identifier" required>
-            </div>
-            <div class="modal-form-group">
-              <label>Escrow Category</label>
-              <select required style="width:100%; padding:12px 14px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff; outline:none;">
-                <option value="" disabled selected>Select category</option>
-                <option value="GiftCard">Gift Card (US/Global)</option>
-                <option value="Crypto">Crypto / USDT</option>
-                <option value="Digital">Digital Service / Transfer</option>
-              </select>
-            </div>
-            <div class="modal-form-group">
-              <label>Amount (USD)</label>
-              <input type="number" placeholder="Enter trade amount" required>
-            </div>
-            <div class="modal-form-group">
-              <label>Trade Notes / Terms</label>
-              <textarea rows="3" placeholder="Enter item details or trade requirements..."></textarea>
-            </div>
-            <button type="submit" class="modal-btn">Initialize Trade Escrow</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- Messages Tab View -->
-      <div id="tabMessages" class="app-tab-content" style="display:none;">
-        <div style="font-size:18px; font-weight:900; color:#07152f; margin-bottom:15px;">Messages &amp; Support</div>
-        <div style="background:#fff; border-radius:14px; border:1px solid #e2e8f0; overflow:hidden;">
-          <div style="padding:16px; border-bottom:1px solid #f1f5f9; display:flex; align-items:center; gap:12px; cursor:pointer;" onclick="alert('Opening chat with DIN AR Support')">
-            <div style="width:40px; height:40px; background:#e0f2fe; color:var(--blue); border-radius:50%; display:grid; place-items:center; font-weight:900;">🛡️</div>
-            <div style="flex:1;">
-              <div style="display:flex; justify-content:space-between;"><span style="font-weight:800; font-size:14px; color:#07152f;">DIN AR Support Agent</span><span style="font-size:11px; color:#64748b;">10:45 AM</span></div>
-              <div style="font-size:12.5px; color:#64748b; margin-top:2px;">Your transaction #TRX-10284 is currently under verification...</div>
-            </div>
-          </div>
-          <div style="padding:16px; display:flex; align-items:center; gap:12px; cursor:pointer;" onclick="alert('Opening chat with Trade Partner')">
-            <div style="width:40px; height:40px; background:#f3e8ff; color:#9333ea; border-radius:50%; display:grid; place-items:center; font-weight:900;">👤</div>
-            <div style="flex:1;">
-              <div style="display:flex; justify-content:space-between;"><span style="font-weight:800; font-size:14px; color:#07152f;">Merchant Partner #892</span><span style="font-size:11px; color:#64748b;">Yesterday</span></div>
-              <div style="font-size:12.5px; color:#64748b; margin-top:2px;">Code sent successfully. Please confirm receipt.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Profile Tab View -->
-      <div id="tabProfile" class="app-tab-content" style="display:none;">
-        <div style="font-size:18px; font-weight:900; color:#07152f; margin-bottom:15px;">User Profile &amp; Settings</div>
-        <div style="background:#fff; padding:20px; border-radius:14px; border:1px solid #e2e8f0; text-align:center;">
-          <div style="width:70px; height:70px; background:#e0f2fe; color:var(--blue); border-radius:50%; display:grid; place-items:center; font-size:28px; font-weight:900; margin:0 auto 12px;">DA</div>
-          <div style="font-size:16px; font-weight:900; color:#07152f;">Md Ahsanul Habib Dinar</div>
-          <div style="font-size:12px; color:#64748b; margin-top:2px;">Rangpur, Bangladesh 🇧🇩</div>
-          <div style="display:inline-block; margin-top:8px; padding:4px 12px; background:#dcfce7; color:#166534; border-radius:20px; font-size:12px; font-weight:700;">Verified Account</div>
-          
-          <div style="margin-top:20px; text-align:left; border-top:1px solid #f1f5f9; padding-top:15px;">
-            <div style="font-size:13px; font-weight:800; color:#07152f; margin-bottom:10px;">Account Security</div>
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#475569; padding:8px 0; border-bottom:1px solid #f8fafc;">
-              <span>Two-Factor Authentication</span>
-              <span style="color:#16a34a; font-weight:700;">Enabled</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#475569; padding:8px 0;">
-              <span>KYC Level</span>
-              <span style="color:var(--blue); font-weight:700;">Level 2 Verified</span>
-            </div>
-          </div>
-          
-          <button onclick="handleLogout()" style="width:100%; margin-top:20px; background:#fee2e2; color:#991b1b; border:0; padding:12px; border-radius:10px; font-weight:800; font-size:14px; cursor:pointer;">Log Out</button>
-        </div>
-      </div>
+        <button class="primary-btn" onclick="showToast('Demo order created')">
+            Create Demo Trade
+        </button>
 
     </div>
 
-    <!-- Bottom Navigation Bar -->
-    <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #e2ebf3; display:grid; grid-template-columns:repeat(5, 1fr); padding:8px 0; z-index:100; border-bottom-left-radius:24px; border-bottom-right-radius:24px;">
-      <div id="navHome" onclick="switchTab('home')" style="text-align:center; cursor:pointer; color:var(--blue);">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        <div style="font-size:10px; font-weight:800; margin-top:2px;">Home</div>
-      </div>
-      <div id="navTransactions" onclick="switchTab('transactions')" style="text-align:center; cursor:pointer; color:#64748b;">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-        <div style="font-size:10px; font-weight:700; margin-top:2px;">Transactions</div>
-      </div>
-      <div id="navNewTrade" onclick="switchTab('newTrade')" style="text-align:center; cursor:pointer; margin-top:-18px;">
-        <div style="width:42px; height:42px; background:var(--blue); color:#fff; border-radius:50%; display:grid; place-items:center; margin:0 auto; box-shadow:0 4px 10px rgba(8,124,245,0.4);">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-        </div>
-        <div style="font-size:10px; font-weight:800; margin-top:2px; color:var(--blue);">New Trade</div>
-      </div>
-      <div id="navMessages" onclick="switchTab('messages')" style="text-align:center; cursor:pointer; color:#64748b; position:relative;">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-        <span style="position:absolute; top:2px; right:32%; width:6px; height:6px; background:#ef4444; border-radius:50%;"></span>
-        <div style="font-size:10px; font-weight:700; margin-top:2px;">Messages</div>
-      </div>
-      <div id="navProfile" onclick="switchTab('profile')" style="text-align:center; cursor:pointer; color:#64748b;">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        <div style="font-size:10px; font-weight:700; margin-top:2px;">Profile</div>
-      </div>
+</section>
+
+
+<!-- MESSAGES -->
+<section id="messages" class="page">
+
+    <div class="transaction-head">
+        <button class="back-btn" onclick="openPage('home')">
+            <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+
+        <h2>Messages</h2>
     </div>
-  </div>
+
+    <div class="message-card">
+        <div class="message-avatar">DA</div>
+        <div class="message-content">
+            <strong>DIN AR Support</strong>
+            <p>Your verification order has been updated.</p>
+        </div>
+        <span class="message-time">2m</span>
+    </div>
+
+    <div class="message-card">
+        <div class="message-avatar">AB</div>
+        <div class="message-content">
+            <strong>Buyer — Demo</strong>
+            <p>Transaction information received.</p>
+        </div>
+        <span class="message-time">18m</span>
+    </div>
+
+    <div class="message-card">
+        <div class="message-avatar">RS</div>
+        <div class="message-content">
+            <strong>Buyer — Demo</strong>
+            <p>Order verification is in progress.</p>
+        </div>
+        <span class="message-time">1h</span>
+    </div>
+
+</section>
+
+
+<!-- TRANSACTION DETAIL -->
+<section id="detail" class="page">
+
+    <div class="transaction-head">
+        <button class="back-btn" onclick="openTransactions()">
+            <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+
+        <h2>Transaction</h2>
+    </div>
+
+    <div class="detail-card">
+
+        <div class="detail-top">
+
+            <div class="detail-icon">
+                <svg width="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path d="M20 7l-9 10-4-4"/>
+                </svg>
+            </div>
+
+            <h2>Verification Order</h2>
+            <p>Demo transaction reference #DINAR-25798</p>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-line"></div>
+
+            <div class="steps">
+                <span class="active">Created</span>
+                <span class="active">Verified</span>
+                <span class="active">Protected</span>
+                <span>Completed</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="detail-card">
+
+        <div class="detail-row">
+            <span>Buyer</span>
+            <strong>buyer01@samplemail.com</strong>
+        </div>
+
+        <div class="detail-row">
+            <span>Amount</span>
+            <strong>$257.98 USD</strong>
+        </div>
+
+        <div class="detail-row">
+            <span>Fees</span>
+            <strong>$6.44</strong>
+        </div>
+
+        <div class="detail-row">
+            <span>Order Type</span>
+            <strong>Amazon E-Giftcard</strong>
+        </div>
+
+        <div class="detail-row">
+            <span>Protection</span>
+            <strong>DIN AR Payment Protection</strong>
+        </div>
+
+        <div class="detail-row">
+            <span>Status</span>
+            <span class="status processing">
+                <i class="dot"></i> Processing
+            </span>
+        </div>
+
+    </div>
+
+
+    <div class="detail-card">
+
+        <strong style="font-size:12px;">
+            Verified Order Process
+        </strong>
+
+        <p style="font-size:9px;color:#8d95a3;line-height:1.6;margin-top:7px;">
+            Secure Your Verification Order Process by DIN AR.
+        </p>
+
+        <div style="margin-top:13px;">
+            <div style="font-size:9px;font-weight:700;margin-bottom:7px;">
+                Order Progress
+            </div>
+
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <span class="status completed"><i class="dot"></i></span>
+                <span style="font-size:9px;">Order created</span>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <span class="status completed"><i class="dot"></i></span>
+                <span style="font-size:9px;">Payment protection enabled</span>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:8px;">
+                <span class="status processing"><i class="dot"></i></span>
+                <span style="font-size:9px;">Verification in progress</span>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+
+    <button class="nav-item active" data-page="home" onclick="openPage('home')">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M3 11.5 12 4l9 7.5"/>
+            <path d="M5 10v10h14V10"/>
+            <path d="M9 20v-6h6v6"/>
+        </svg>
+        Home
+    </button>
+
+    <button class="nav-item" data-page="transactions" onclick="openTransactions()">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+        Transactions
+    </button>
+
+    <button class="nav-item" data-page="newtrade" onclick="openPage('newtrade')">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="8"/>
+            <path d="M12 8v8M8 12h8"/>
+        </svg>
+        New Trade
+    </button>
+
+    <button class="nav-item" data-page="messages" onclick="openPage('messages')">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M4 5h16v11H8l-4 4V5z"/>
+        </svg>
+        Messages
+    </button>
+
+</nav>
+
 </div>
 
 
-<!-- =========================
-     MODAL CONTAINER
-========================= -->
+<div id="toast" class="toast"></div>
 
-<div class="modal-overlay" id="dashboardModal">
-  <div class="dash-modal-box">
-    <div class="dash-header">
-      <div class="dash-header-left">
-        <h3 id="dashTitle">Dashboard Panel</h3>
-        <span id="dashSubtitle">Live System Overview</span>
-      </div>
-      <button class="modal-close" id="dashClose">&times;</button>
-    </div>
-    <div class="dash-body" id="dashContent">
-      <!-- Dynamic content injected via JS -->
-    </div>
-  </div>
-</div>
-
-
-<!-- =========================
-     JAVASCRIPT INTERACTION
-========================= -->
 
 <script>
-// Authentication & UI State Management
-let isLoggedIn = localStorage.getItem("dinar_logged_in") === "true";
 
-function updateHeaderAndUI(){
-  const desktopNav = document.getElementById("desktopNav");
-  const headerActions = document.getElementById("headerActions");
-  const mobileNav = document.getElementById("mobileNav");
-  const publicView = document.getElementById("publicView");
-  const loggedInView = document.getElementById("loggedInView");
+let currentFilter = "all";
 
-  if(isLoggedIn){
-    publicView.style.display = "none";
-    loggedInView.style.display = "block";
-    switchTab('home');
 
-    desktopNav.innerHTML = `
-      <a onclick="scrollToSection('home')">Home</a>
-      <a onclick="scrollToSection('how-it-works')">How It Works</a>
-      <a data-modal="buyersModal">For Buyers</a>
-      <a data-modal="sellersModal">For Sellers</a>
-      <a data-modal="feesModal">Fees</a>
-      <a onclick="scrollToSection('help')">Help</a>
-    `;
+function openPage(page){
 
-    headerActions.innerHTML = `
-      <button class="btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="handleLogout()">Log Out</button>
-    `;
-
-    mobileNav.innerHTML = `
-      <a onclick="scrollToSection('home')">Home</a>
-      <a onclick="scrollToSection('how-it-works')">How It Works</a>
-      <a data-modal="buyersModal">For Buyers</a>
-      <a data-modal="sellersModal">For Sellers</a>
-      <a data-modal="feesModal">Fees</a>
-      <a onclick="scrollToSection('help')">Help</a>
-      <button class="btn btn-outline" style="border-color:#ef4444; color:#ef4444;" onclick="handleLogout()">Log Out</button>
-    `;
-  } else {
-    publicView.style.display = "block";
-    loggedInView.style.display = "none";
-
-    desktopNav.innerHTML = `
-      <a onclick="scrollToSection('home')">Home</a>
-      <a onclick="scrollToSection('how-it-works')">How It Works</a>
-      <a data-modal="buyersModal">For Buyers</a>
-      <a data-modal="sellersModal">For Sellers</a>
-      <a data-modal="feesModal">Fees</a>
-      <a onclick="scrollToSection('help')">Help</a>
-    `;
-
-    headerActions.innerHTML = `
-      <button class="btn btn-outline" data-modal="loginModal">Log In</button>
-      <button class="btn btn-primary" data-modal="signupModal">Sign Up</button>
-    `;
-
-    mobileNav.innerHTML = `
-      <a onclick="scrollToSection('home')">Home</a>
-      <a onclick="scrollToSection('how-it-works')">How It Works</a>
-      <a data-modal="buyersModal">For Buyers</a>
-      <a data-modal="sellersModal">For Sellers</a>
-      <a data-modal="feesModal">Fees</a>
-      <a onclick="scrollToSection('help')">Help</a>
-      <button class="btn btn-outline" data-modal="loginModal">Log In</button>
-      <button class="btn btn-primary" data-modal="signupModal">Sign Up</button>
-    `;
-  }
-  mobileNav.classList.remove("open");
-  bindDynamicEvents();
-}
-
-function switchTab(tabName) {
-  document.querySelectorAll('.app-tab-content').forEach(el => el.style.display = 'none');
-  
-  const targetTab = document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
-  if(targetTab) targetTab.style.display = 'block';
-
-  const navIds = ['navHome', 'navTransactions', 'navNewTrade', 'navMessages', 'navProfile'];
-  navIds.forEach(id => {
-    const item = document.getElementById(id);
-    if(item) {
-      if(id === 'navNewTrade') {
-        item.querySelector('div:last-child').style.color = '#64748b';
-      } else {
-        item.style.color = '#64748b';
-        const label = item.querySelector('div:last-child');
-        if(label) label.style.fontWeight = '700';
-      }
-    }
-  });
-
-  const activeNavItem = document.getElementById('nav' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
-  if(activeNavItem) {
-    if(tabName === 'newTrade') {
-      activeNavItem.querySelector('div:last-child').style.color = 'var(--blue)';
-    } else {
-      activeNavItem.style.color = 'var(--blue)';
-      const label = activeNavItem.querySelector('div:last-child');
-      if(label) label.style.fontWeight = '800';
-    }
-  }
-}
-
-function handleLogout(){
-  localStorage.setItem("dinar_logged_in", "false");
-  isLoggedIn = false;
-  updateHeaderAndUI();
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function scrollToSection(id){
-  const el = document.getElementById(id);
-  if(el) {
-    el.scrollIntoView({behavior:'smooth'});
-    mobileNav.classList.remove("open");
-  }
-}
-
-// Mobile Navigation Toggle
-const menuBtn = document.getElementById("menuBtn");
-const mobileNav = document.getElementById("mobileNav");
-
-menuBtn.addEventListener("click", function(){
-  mobileNav.classList.toggle("open");
-});
-
-// Modal Elements
-const dashOverlay = document.getElementById("dashboardModal");
-const dashClose = document.getElementById("dashClose");
-const dashTitle = document.getElementById("dashTitle");
-const dashSubtitle = document.getElementById("dashSubtitle");
-const dashContent = document.getElementById("dashContent");
-
-function openDashboard(title, subtitle, htmlContent){
-  dashTitle.innerText = title;
-  dashSubtitle.innerText = subtitle;
-  dashContent.innerHTML = htmlContent;
-  dashOverlay.classList.add("active");
-}
-
-function closeDashboard(){
-  dashOverlay.classList.remove("active");
-}
-
-dashClose.addEventListener("click", closeDashboard);
-dashOverlay.addEventListener("click", function(e){
-  if(e.target === dashOverlay) closeDashboard();
-});
-
-function openSignupModal(){
-  openDashboard("Create Account", "Secure Registration", `
-    <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #e2ebf3;">
-      <form id="signupForm" onsubmit="handleSignupSubmit(event)">
-        <div class="modal-form-group" style="margin-top:0;">
-          <label>Email or Number</label>
-          <div style="position:relative;">
-            <input type="text" id="emailOrPhone" placeholder="Enter email or phone number" required oninput="checkInputType(this.value)">
-            <div id="countryCodeDropdown" style="display:none; position:absolute; top:100%; left:0; right:0; background:#fff; border:1px solid #cbd5e1; border-radius:8px; margin-top:4px; box-shadow:0 10px 25px rgba(0,0,0,0.1); z-index:50; max-height:160px; overflow-y:auto;">
-              <div onclick="selectCountry('+33', 'France 🇫🇷')" style="padding:10px 14px; cursor:pointer; font-size:13.5px; border-bottom:1px solid #f1f5f9;">France (+33) 🇫🇷</div>
-              <div onclick="selectCountry('+49', 'Germany 🇩🇪')" style="padding:10px 14px; cursor:pointer; font-size:13.5px; border-bottom:1px solid #f1f5f9;">Germany (+49) 🇩🇪</div>
-              <div onclick="selectCountry('+39', 'Italy 🇮🇹')" style="padding:10px 14px; cursor:pointer; font-size:13.5px; border-bottom:1px solid #f1f5f9;">Italy (+39) 🇮🇹</div>
-              <div onclick="selectCountry('+34', 'Spain 🇪🇸')" style="padding:10px 14px; cursor:pointer; font-size:13.5px; border-bottom:1px solid #f1f5f9;">Spain (+34) 🇪🇸</div>
-              <div onclick="selectCountry('+44', 'United Kingdom 🇬🇧')" style="padding:10px 14px; cursor:pointer; font-size:13.5px; border-bottom:1px solid #f1f5f9;">United Kingdom (+44) 🇬🇧</div>
-              <div onclick="selectCountry('+86', 'China 🇨🇳')" style="padding:10px 14px; cursor:pointer; font-size:13.5px; border-bottom:1px solid #f1f5f9;">China (+86) 🇨🇳</div>
-              <div onclick="selectCountry('+81', 'Japan 🇯🇵')" style="padding:10px 14px; cursor:pointer; font-size:13.5px; border-bottom:1px solid #f1f5f9;">Japan (+81) 🇯🇵</div>
-              <div onclick="selectCountry('+7', 'Russia 🇷🇺')" style="padding:10px 14px; cursor:pointer; font-size:13.5px;">Russia (+7) 🇷🇺</div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-form-group">
-          <label>Referral Code (Optional)</label>
-          <input type="text" placeholder="Enter referral code if any">
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div class="modal-form-group">
-            <label>First Name</label>
-            <input type="text" placeholder="First name" required>
-          </div>
-          <div class="modal-form-group">
-            <label>Last Name</label>
-            <input type="text" placeholder="Last name" required>
-          </div>
-        </div>
-        <div class="modal-form-group">
-          <label>Account Role</label>
-          <select required style="width:100%; padding:12px 14px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff; outline:none;">
-            <option value="" disabled selected>Select Buyer or Seller</option>
-            <option value="Buyer">Buyer</option>
-            <option value="Seller">Seller</option>
-          </select>
-        </div>
-        <button type="submit" class="modal-btn">Sign Up</button>
-      </form>
-    </div>
-  `);
-}
-
-function checkInputType(val){
-  const dropdown = document.getElementById("countryCodeDropdown");
-  const isNumber = /^[0-9+\s]+$/.test(val) && val.length > 0;
-  if(isNumber){
-    dropdown.style.display = "block";
-  } else {
-    dropdown.style.display = "none";
-  }
-}
-
-function selectCountry(code, name){
-  const input = document.getElementById("emailOrPhone");
-  input.value = code + " ";
-  document.getElementById("countryCodeDropdown").style.display = "none";
-  input.focus();
-}
-
-function handleSignupSubmit(e){
-  e.preventDefault();
-  closeDashboard();
-  localStorage.setItem("dinar_logged_in", "true");
-  isLoggedIn = true;
-  updateHeaderAndUI();
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function handleLoginSubmit(e){
-  e.preventDefault();
-  closeDashboard();
-  localStorage.setItem("dinar_logged_in", "true");
-  isLoggedIn = true;
-  updateHeaderAndUI();
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function bindDynamicEvents(){
-  document.querySelectorAll("[data-modal]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const type = btn.getAttribute("data-modal");
-      if(type === 'loginModal'){
-        openDashboard("Log In to DIN AR", "Authentication Gateway", `
-          <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #e2ebf3;">
-            <form onsubmit="handleLoginSubmit(event)">
-              <div class="modal-form-group" style="margin-top:0;">
-                <label>Email Address</label>
-                <input type="email" placeholder="Enter your email" required>
-              </div>
-              <div class="modal-form-group">
-                <label>Password</label>
-                <input type="password" placeholder="Enter password" required>
-              </div>
-              <button type="submit" class="modal-btn">Log In</button>
-            </form>
-          </div>
-        `);
-      } else if(type === 'signupModal'){
-        openSignupModal();
-      } else if(type === 'buyersModal'){
-        openDashboard("For Buyers Dashboard", "Buyer Protection Overview", `
-          <div class="dash-stats-grid">
-            <div class="dash-card"><div class="dash-card-title">Buyer Protection</div><div class="dash-card-value">100%</div><div class="dash-card-sub">Guaranteed</div></div>
-            <div class="dash-card"><div class="dash-card-title">Active Escrows</div><div class="dash-card-value">4</div><div class="dash-card-sub">In Progress</div></div>
-            <div class="dash-card"><div class="dash-card-title">Completed Trades</div><div class="dash-card-value">38</div><div class="dash-card-sub">Successful</div></div>
-          </div>
-          <div class="dash-section-title">Buyer Protection Guidelines</div>
-          <div style="background:#fff; padding:18px; border-radius:12px; border:1px solid #e2ebf3; font-size:14px; color:#475569; line-height:1.6;">
-            Your funds remain completely secure in escrow until you verify and confirm your completed purchase safely. No payouts are released to sellers without direct buyer verification or admin validation.
-          </div>
-        `);
-      } else if(type === 'sellersModal'){
-        openDashboard("For Sellers Dashboard", "Merchant Payout Overview", `
-          <div class="dash-stats-grid">
-            <div class="dash-card"><div class="dash-card-title">Merchant Status</div><div class="dash-card-value">Verified</div><div class="dash-card-sub">Tier 1 Active</div></div>
-            <div class="dash-card"><div class="dash-card-title">Pending Payouts</div><div class="dash-card-value">$850</div><div class="dash-card-sub">Ready Soon</div></div>
-            <div class="dash-card"><div class="dash-card-title">Total Earned</div><div class="dash-card-value">$14,200</div><div class="dash-card-sub">All-time</div></div>
-          </div>
-          <div class="dash-section-title">Seller Guarantee</div>
-          <div style="background:#fff; padding:18px; border-radius:12px; border:1px solid #e2ebf3; font-size:14px; color:#475569; line-height:1.6;">
-            Sell with absolute peace of mind. Funds are securely locked in escrow before you deliver fulfillment details, ensuring guaranteed payouts upon successful order completion.
-          </div>
-        `);
-      } else if(type === 'feesModal'){
-        openDashboard("Transaction Fees Calculator", "Transparent Pricing Structure", `
-          <div class="dash-stats-grid">
-            <div class="dash-card"><div class="dash-card-title">Standard Fee</div><div class="dash-card-value">1.5%</div><div class="dash-card-sub">Lowest in market</div></div>
-            <div class="dash-card"><div class="dash-card-title">Hidden Charges</div><div class="dash-card-value">$0.00</div><div class="dash-card-sub">Transparent</div></div>
-            <div class="dash-card"><div class="dash-card-title">Crypto / USDT</div><div class="dash-card-value">Free</div><div class="dash-card-sub">Zero Gas Markup</div></div>
-          </div>
-          <div class="dash-section-title">Fee Breakdown Table</div>
-          <div class="dash-table-wrapper">
-            <table class="dash-table">
-              <thead>
-                <tr><th>Transaction Volume</th><th>Escrow Fee</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>$10 - $500</td><td>1.5%</td></tr>
-                <tr><td>$501 - $5,000</td><td>1.2%</td></tr>
-                <tr><td>$5,001+</td><td>1.0% (Negotiable)</td></tr>
-              </tbody>
-            </table>
-          </div>
-        `);
-      }
+    document.querySelectorAll(".page").forEach(function(p){
+        p.classList.remove("active");
     });
-  });
 
-  document.querySelectorAll("[data-dash]").forEach(card => {
-    card.addEventListener("click", () => {
-      const key = card.getAttribute("data-dash");
-      const dashboardData = {
-        secure: {
-          title: "Secure & Trusted Dashboard",
-          subtitle: "Encryption & Security Compliance Monitor",
-          html: `
-            <div class="dash-stats-grid">
-              <div class="dash-card"><div class="dash-card-title">Encryption Status</div><div class="dash-card-value">AES-256</div><div class="dash-card-sub">Active &amp; Secured</div></div>
-              <div class="dash-card"><div class="dash-card-title">Escrow Protection</div><div class="dash-card-value">100%</div><div class="dash-card-sub">Zero Breach Rate</div></div>
-              <div class="dash-card"><div class="dash-card-title">Admin Audits</div><div class="dash-card-value">Passed</div><div class="dash-card-sub">Real-time Check</div></div>
-            </div>
-            <div class="dash-section-title">Recent Protected Transactions</div>
-            <div class="dash-table-wrapper">
-              <table class="dash-table">
-                <thead><tr><th>Trade ID</th><th>Amount</th><th>Status</th></tr></thead>
-                <tbody>
-                  <tr><td>#TRX-98421</td><td>$1,250.00</td><td><span class="status-badge status-success">Protected</span></td></tr>
-                  <tr><td>#TRX-98422</td><td>$450.00</td><td><span class="status-badge status-success">Protected</span></td></tr>
-                </tbody>
-              </table>
-            </div>
-          `
-        },
-        simple: {
-          title: "Simple Process Dashboard",
-          subtitle: "Automated Workflow Manager",
-          html: `
-            <div class="dash-stats-grid">
-              <div class="dash-card"><div class="dash-card-title">Avg Setup Time</div><div class="dash-card-value">45 Sec</div><div class="dash-card-sub">Ultra Fast</div></div>
-              <div class="dash-card"><div class="dash-card-title">Active Workflows</div><div class="dash-card-value">1,420</div><div class="dash-card-sub">Running Smoothly</div></div>
-              <div class="dash-card"><div class="dash-card-title">Success Rate</div><div class="dash-card-value">99.8%</div><div class="dash-card-sub">Automated Check</div></div>
-            </div>
-            <div class="dash-section-title">Quick Action Panel</div>
-            <div class="dash-table-wrapper" style="padding:20px;">
-              <form onsubmit="event.preventDefault(); alert('New workflow initialized successfully!'); closeDashboard();">
-                <div class="modal-form-group" style="margin-top:0;">
-                  <label>Trade Partner Username / Email</label>
-                  <input type="text" placeholder="e.g. partner@example.com" required>
-                </div>
-                <div class="modal-form-group">
-                  <label>Escrow Amount (USD)</label>
-                  <input type="number" placeholder="Enter amount" required>
-                </div>
-                <button type="submit" class="modal-btn">Start Quick Escrow</button>
-              </form>
-            </div>
-          `
-        },
-        dispute: {
-          title: "Dispute Support Dashboard",
-          subtitle: "Resolution & Mediation Center",
-          html: `
-            <div class="dash-stats-grid">
-              <div class="dash-card"><div class="dash-card-title">Support Status</div><div class="dash-card-value">24/7 Live</div><div class="dash-card-sub">Agents Online</div></div>
-              <div class="dash-card"><div class="dash-card-title">Avg Resolution</div><div class="dash-card-value">12 Mins</div><div class="dash-card-sub">Fast Response</div></div>
-              <div class="dash-card"><div class="dash-card-title">Open Tickets</div><div class="dash-card-value">03</div><div class="dash-card-sub">Under Review</div></div>
-            </div>
-            <div class="dash-section-title">Raise or Check Dispute Ticket</div>
-            <div class="dash-table-wrapper" style="padding:20px;">
-              <form onsubmit="event.preventDefault(); alert('Dispute ticket submitted successfully. Admin will review shortly!'); closeDashboard();">
-                <div class="modal-form-group" style="margin-top:0;">
-                  <label>Transaction ID Reference</label>
-                  <input type="text" placeholder="#TRX-XXXXX" required>
-                </div>
-                <div class="modal-form-group">
-                  <label>Describe Issue</label>
-                  <textarea rows="3" placeholder="Provide details of the dispute..." required></textarea>
-                </div>
-                <button type="submit" class="modal-btn">Submit Dispute Ticket</button>
-              </form>
-            </div>
-          `
+    const target = document.getElementById(page);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-item").forEach(function(item){
+        item.classList.remove("active");
+
+        if(item.dataset.page === page){
+            item.classList.add("active");
         }
-      };
-      const data = dashboardData[key];
-      if(data) openDashboard(data.title, data.subtitle, data.html);
     });
-  });
 
-  document.querySelectorAll("[data-info]").forEach(link => {
-    link.addEventListener("click", () => {
-      const key = link.getAttribute("data-info");
-      const infoData = {
-        about: { title: "About Us", text: "DIN AR Escrow System is a secure payment protection platform designed to facilitate trusted transactions between buyers and sellers globally." },
-        careers: { title: "Careers at DIN AR", text: "We are always looking for talented professionals. Currently, all positions are filled, but you can send your CV to our support email." },
-        blog: { title: "Latest Blog Posts", text: "Stay updated with secure payment tips, e-commerce trends, and updates from the DIN AR team. Check back soon for new articles!" },
-        help: { title: "Help Center", text: "Need assistance? Our support team is available 24/7 to resolve any transaction queries or technical issues you might face." },
-        dispute: { title: "Dispute Center", text: "If you encounter any issues with a transaction, raise a ticket here. Our administration reviews evidence and ensures fair resolution." },
-        contact: { title: "Contact Us", text: "Email us at support@dinar-escrow.com or reach out via our official social media channels for immediate assistance." },
-        terms: { title: "Terms of Service", text: "By using DIN AR, you agree to abide by our safe trade guidelines, secure escrow rules, and policy frameworks." },
-        privacy: { title: "Privacy Policy", text: "We respect your data privacy. All verification documents and personal credentials are encrypted and stored securely." },
-        cookie: { title: "Cookie Policy", text: "We use essential cookies to maintain your session security and improve your browsing experience on our platform." }
-      };
-      const data = infoData[key];
-      if(data) openDashboard(data.title, "Information Portal", `<div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #e2ebf3; color:#475569; font-size:15px; line-height:1.6;">${data.text}</div>`);
+    window.scrollTo({
+        top:0,
+        behavior:"instant"
     });
-  });
-
-  document.querySelectorAll("[data-social]").forEach(social => {
-    social.addEventListener("click", () => {
-      const name = social.getAttribute("data-social");
-      openDashboard(name + " Portal", "Official Social Media Channel", `<div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #e2ebf3; color:#475569; font-size:15px; line-height:1.6;">You are about to visit our official <b>${name}</b> page. Stay connected with us for community updates and announcements!</div>`);
-    });
-  });
 }
 
-// Initial Setup on Page Load
-updateHeaderAndUI();
+
+function openTransactions(){
+
+    openPage("transactions");
+
+    document.querySelectorAll(".nav-item").forEach(function(item){
+        item.classList.remove("active");
+
+        if(item.dataset.page === "transactions"){
+            item.classList.add("active");
+        }
+    });
+}
+
+
+function openDetail(){
+
+    openPage("detail");
+
+    document.querySelectorAll(".nav-item").forEach(function(item){
+        item.classList.remove("active");
+    });
+}
+
+
+function showToast(message){
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer = setTimeout(function(){
+        toast.classList.remove("show");
+    },1800);
+}
+
+
+function setFilter(filter,button){
+
+    currentFilter = filter;
+
+    document.querySelectorAll(".filter").forEach(function(item){
+        item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    filterTransactions();
+}
+
+
+function filterTransactions(){
+
+    const search = document
+        .getElementById("transactionSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    document.querySelectorAll(".transaction").forEach(function(item){
+
+        const status = item.dataset.status;
+        const text = item.dataset.search;
+
+        const statusMatch =
+            currentFilter === "all" ||
+            status === currentFilter;
+
+        const searchMatch =
+            text.includes(search);
+
+        item.style.display =
+            statusMatch && searchMatch
+            ? "block"
+            : "none";
+    });
+}
+
+
+/* Demo button behaviour */
+
+document.querySelectorAll(".quick").forEach(function(btn){
+
+    btn.addEventListener("click",function(){
+        window.scrollTo({
+            top:0,
+            behavior:"instant"
+        });
+    });
+
+});
+
+
 </script>
 
 </body>
