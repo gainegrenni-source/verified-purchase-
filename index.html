@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>DIN AR — Escrow Demo</title>
+<title>DIN AR — Escrow System</title>
 
 <style>
 *{
@@ -33,23 +33,6 @@ button{
     background:#f5f7fb;
     position:relative;
     overflow:hidden;
-}
-
-/* DEMO LABEL */
-.demo-label{
-    position:fixed;
-    top:10px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:9999;
-    background:#fff4d6;
-    color:#8a6200;
-    border:1px solid #f1d58a;
-    border-radius:20px;
-    padding:5px 12px;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.5px;
 }
 
 /* HEADER */
@@ -788,8 +771,6 @@ button{
 
 <body>
 
-<div class="demo-label">DEMO / SAMPLE</div>
-
 <div class="app">
 
 <header class="header">
@@ -802,7 +783,7 @@ button{
     </div>
 
     <div class="header-actions">
-        <button class="icon-btn" onclick="showToast('Notifications demo')">
+        <button class="icon-btn" onclick="showToast('Notifications')">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                 <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
                 <path d="M10 21h4"/>
@@ -810,7 +791,7 @@ button{
             <i class="notification-dot"></i>
         </button>
 
-        <button class="icon-btn" onclick="showToast('Profile demo')">
+        <button class="icon-btn" onclick="showToast('Profile settings')">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                 <circle cx="12" cy="8" r="3.5"/>
                 <path d="M5 21c.7-4 3-6 7-6s6.3 2 7 6"/>
@@ -832,7 +813,7 @@ button{
         <div class="balance-top">
             <div>
                 <div class="balance-label">Available Balance</div>
-                <div class="balance">$2,845.60</div>
+                <div class="balance" id="dash-available">$0.00</div>
             </div>
             <div class="balance-status">Protected</div>
         </div>
@@ -840,15 +821,15 @@ button{
         <div class="balance-bottom">
             <div>
                 <span>Pending</span>
-                <strong>$486.25</strong>
+                <strong id="dash-pending">$0.00</strong>
             </div>
             <div>
                 <span>Completed</span>
-                <strong>$8,421.90</strong>
+                <strong id="dash-completed">$0.00</strong>
             </div>
             <div>
                 <span>Trades</span>
-                <strong>128</strong>
+                <strong id="dash-count">0</strong>
             </div>
         </div>
     </div>
@@ -891,48 +872,14 @@ button{
 
     <div class="section-title">
         <h3>Active Escrow</h3>
-        <span>View all</span>
+        <span onclick="openTransactions()" style="cursor:pointer;">View all</span>
     </div>
 
-    <div class="order-card">
-
-        <div class="order-row">
-            <div class="order-user">
-                <div class="avatar">AM</div>
-                <div>
-                    <strong>Amazon E-Giftcard Order</strong>
-                    <small>DIN AR Verification</small>
-                </div>
-            </div>
-
-            <div class="amount">
-                <strong>$257.98</strong>
-                <small>USD</small>
-            </div>
+    <div id="active-escrow-container">
+        <!-- Dynamically populated or empty state -->
+        <div class="order-card" style="text-align:center; padding:25px; color:#8c94a4; font-size:11px;">
+            No active escrow orders found.
         </div>
-
-        <div style="margin-top:11px;">
-            <span class="status processing">
-                <i class="dot"></i> Processing
-            </span>
-        </div>
-
-        <div class="order-info">
-            <div class="info-box">
-                <span>Buyer</span>
-                <strong>Verified Buyer</strong>
-            </div>
-
-            <div class="info-box">
-                <span>Protection</span>
-                <strong>DIN AR Protected</strong>
-            </div>
-        </div>
-
-        <button class="primary-btn" style="margin-top:12px;" onclick="openDetail()">
-            View Transaction
-        </button>
-
     </div>
 
     <div class="section-title">
@@ -945,7 +892,7 @@ button{
         </div>
 
         <p style="font-size:9px;color:#8992a1;line-height:1.6;margin-top:6px;">
-            Secure transaction workflow with verification and escrow-style protection.
+            Secure transaction workflow with real-time verification and escrow protection.
         </p>
 
         <div style="margin-top:10px;font-size:9px;font-weight:700;">
@@ -987,535 +934,10 @@ button{
     </div>
 
     <div id="transactionList" class="transaction-list">
-
-        <div class="transaction" data-status="processing" data-search="buyer 01 amazon">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">AB</div>
-                    <div class="t-name">
-                        <strong>buyer01@samplemail.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$255.58</strong>
-                    <small>Today</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>DIN AR Verification</span>
-                <span class="status processing"><i class="dot"></i> Processing</span>
-            </div>
+        <!-- Dynamically populated transaction items from storage/backend -->
+        <div id="no-transactions" style="text-align:center; padding:30px; color:#8c94a4; font-size:11px;">
+            No transactions available yet. Create a new trade to get started.
         </div>
-
-
-        <div class="transaction" data-status="processing" data-search="buyer 02 amazon">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">RS</div>
-                    <div class="t-name">
-                        <strong>rafa.sample@icloud.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$257.98</strong>
-                    <small>Today</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Verification Pending</span>
-                <span class="status processing"><i class="dot"></i> Processing</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="processing" data-search="buyer 03 amazon">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">MK</div>
-                    <div class="t-name">
-                        <strong>mike.sample@gmail.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$189.40</strong>
-                    <small>Today</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Payment Protection</span>
-                <span class="status processing"><i class="dot"></i> Processing</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="processing" data-search="buyer 04">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">JL</div>
-                    <div class="t-name">
-                        <strong>julia.sample@mail.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$312.75</strong>
-                    <small>Today</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Order Verification</span>
-                <span class="status processing"><i class="dot"></i> Processing</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="processing" data-search="buyer 05">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">DK</div>
-                    <div class="t-name">
-                        <strong>daniel.sample@outlook.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$225.10</strong>
-                    <small>Today</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Escrow Protection</span>
-                <span class="status processing"><i class="dot"></i> Processing</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 06">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">SM</div>
-                    <div class="t-name">
-                        <strong>sarah.sample@gmail.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$126.50</strong>
-                    <small>Today</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Order Completed</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 07">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">JW</div>
-                    <div class="t-name">
-                        <strong>jason.sample@mail.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$305.00</strong>
-                    <small>Today</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Payout Completed</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 08">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">AM</div>
-                    <div class="t-name">
-                        <strong>alex.sample@icloud.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$221.90</strong>
-                    <small>Yesterday</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>DIN AR Verified</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 09">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">CR</div>
-                    <div class="t-name">
-                        <strong>chris.sample@gmail.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$410.25</strong>
-                    <small>Yesterday</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Payment Released</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 10">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">NL</div>
-                    <div class="t-name">
-                        <strong>natalie.sample@mail.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$175.80</strong>
-                    <small>Yesterday</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Order Completed</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 11">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">TG</div>
-                    <div class="t-name">
-                        <strong>tom.sample@outlook.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$285.70</strong>
-                    <small>Yesterday</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Payout Released</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 12">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">KB</div>
-                    <div class="t-name">
-                        <strong>kevin.sample@gmail.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$198.35</strong>
-                    <small>Yesterday</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>DIN AR Verified</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 13">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">EP</div>
-                    <div class="t-name">
-                        <strong>emma.sample@icloud.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$367.15</strong>
-                    <small>Sep 10</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Payment Released</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 14">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">RH</div>
-                    <div class="t-name">
-                        <strong>ryan.sample@mail.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$245.90</strong>
-                    <small>Sep 10</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Order Completed</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 15">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">LS</div>
-                    <div class="t-name">
-                        <strong>lisa.sample@gmail.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$152.40</strong>
-                    <small>Sep 10</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Payout Released</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 16">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">BD</div>
-                    <div class="t-name">
-                        <strong>ben.sample@outlook.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$330.00</strong>
-                    <small>Sep 10</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>DIN AR Verified</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 17">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">OS</div>
-                    <div class="t-name">
-                        <strong>olivia.sample@mail.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$275.45</strong>
-                    <small>Sep 9</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Payment Released</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 18">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">HM</div>
-                    <div class="t-name">
-                        <strong>henry.sample@gmail.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$184.20</strong>
-                    <small>Sep 9</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Order Completed</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 19">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">SC</div>
-                    <div class="t-name">
-                        <strong>sophia.sample@icloud.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$299.99</strong>
-                    <small>Sep 9</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Payout Released</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 20">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">WM</div>
-                    <div class="t-name">
-                        <strong>william.sample@mail.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$215.65</strong>
-                    <small>Sep 9</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>DIN AR Verified</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 21">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">AM</div>
-                    <div class="t-name">
-                        <strong>anna.sample@gmail.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$142.80</strong>
-                    <small>Sep 8</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Order Completed</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 22">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">GB</div>
-                    <div class="t-name">
-                        <strong>george.sample@outlook.com</strong>
-                        <small>Verification Order</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$321.35</strong>
-                    <small>Sep 8</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>Payment Released</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
-
-        <div class="transaction" data-status="completed" data-search="buyer 23">
-            <div class="transaction-main">
-                <div class="t-left">
-                    <div class="t-avatar">MC</div>
-                    <div class="t-name">
-                        <strong>maria.sample@mail.com</strong>
-                        <small>Amazon E-Giftcard</small>
-                    </div>
-                </div>
-
-                <div class="t-right">
-                    <strong>$267.75</strong>
-                    <small>Sep 8</small>
-                </div>
-            </div>
-
-            <div class="transaction-status">
-                <span>DIN AR Verified</span>
-                <span class="status completed"><i class="dot"></i> Completed</span>
-            </div>
-        </div>
-
     </div>
 </section>
 
@@ -1535,36 +957,40 @@ button{
 
     <div class="form-card">
 
-        <div class="form-group">
-            <label>Buyer Email</label>
-            <input type="email" placeholder="buyer@example.com">
-        </div>
+        <form id="tradeForm" onsubmit="handleCreateTrade(event)">
+            <div class="form-group">
+                <label>Buyer Email / Identifier</label>
+                <input type="text" id="tradeBuyer" placeholder="buyer@example.com" required>
+            </div>
 
-        <div class="form-group">
-            <label>Trade Amount</label>
-            <input type="number" placeholder="0.00">
-        </div>
+            <div class="form-group">
+                <label>Trade Amount ($)</label>
+                <input type="number" step="0.01" id="tradeAmount" placeholder="0.00" required>
+            </div>
 
-        <div class="form-group">
-            <label>Payment Method</label>
-            <select>
-                <option>PayPal</option>
-                <option>Bank Transfer</option>
-                <option>Other</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label>Payment Method</label>
+                <select id="tradeMethod">
+                    <option value="PayPal">PayPal</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="Crypto">Crypto (USDT)</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label>Order Type</label>
-            <select>
-                <option>Amazon E-Giftcard</option>
-                <option>Verification Order</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label>Order Type</label>
+                <select id="tradeType">
+                    <option value="Amazon E-Giftcard">Amazon E-Giftcard</option>
+                    <option value="Verification Order">Verification Order</option>
+                    <option value="Digital Service">Digital Service</option>
+                </select>
+            </div>
 
-        <button class="primary-btn" onclick="showToast('Demo order created')">
-            Create Demo Trade
-        </button>
+            <button type="submit" class="primary-btn">
+                Create Trade
+            </button>
+        </form>
 
     </div>
 
@@ -1584,31 +1010,15 @@ button{
         <h2>Messages</h2>
     </div>
 
-    <div class="message-card">
-        <div class="message-avatar">DA</div>
-        <div class="message-content">
-            <strong>DIN AR Support</strong>
-            <p>Your verification order has been updated.</p>
+    <div id="messages-container">
+        <div class="message-card">
+            <div class="message-avatar">DA</div>
+            <div class="message-content">
+                <strong>DIN AR Support</strong>
+                <p>System initialized and ready for live activity.</p>
+            </div>
+            <span class="message-time">Just now</span>
         </div>
-        <span class="message-time">2m</span>
-    </div>
-
-    <div class="message-card">
-        <div class="message-avatar">AB</div>
-        <div class="message-content">
-            <strong>Buyer — Demo</strong>
-            <p>Transaction information received.</p>
-        </div>
-        <span class="message-time">18m</span>
-    </div>
-
-    <div class="message-card">
-        <div class="message-avatar">RS</div>
-        <div class="message-content">
-            <strong>Buyer — Demo</strong>
-            <p>Order verification is in progress.</p>
-        </div>
-        <span class="message-time">1h</span>
     </div>
 
 </section>
@@ -1624,108 +1034,11 @@ button{
             </svg>
         </button>
 
-        <h2>Transaction</h2>
+        <h2>Transaction Details</h2>
     </div>
 
-    <div class="detail-card">
-
-        <div class="detail-top">
-
-            <div class="detail-icon">
-                <svg width="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                    <path d="M20 7l-9 10-4-4"/>
-                </svg>
-            </div>
-
-            <h2>Verification Order</h2>
-            <p>Demo transaction reference #DINAR-25798</p>
-
-        </div>
-
-        <div class="progress">
-
-            <div class="progress-line"></div>
-
-            <div class="steps">
-                <span class="active">Created</span>
-                <span class="active">Verified</span>
-                <span class="active">Protected</span>
-                <span>Completed</span>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="detail-card">
-
-        <div class="detail-row">
-            <span>Buyer</span>
-            <strong>buyer01@samplemail.com</strong>
-        </div>
-
-        <div class="detail-row">
-            <span>Amount</span>
-            <strong>$257.98 USD</strong>
-        </div>
-
-        <div class="detail-row">
-            <span>Fees</span>
-            <strong>$6.44</strong>
-        </div>
-
-        <div class="detail-row">
-            <span>Order Type</span>
-            <strong>Amazon E-Giftcard</strong>
-        </div>
-
-        <div class="detail-row">
-            <span>Protection</span>
-            <strong>DIN AR Payment Protection</strong>
-        </div>
-
-        <div class="detail-row">
-            <span>Status</span>
-            <span class="status processing">
-                <i class="dot"></i> Processing
-            </span>
-        </div>
-
-    </div>
-
-
-    <div class="detail-card">
-
-        <strong style="font-size:12px;">
-            Verified Order Process
-        </strong>
-
-        <p style="font-size:9px;color:#8d95a3;line-height:1.6;margin-top:7px;">
-            Secure Your Verification Order Process by DIN AR.
-        </p>
-
-        <div style="margin-top:13px;">
-            <div style="font-size:9px;font-weight:700;margin-bottom:7px;">
-                Order Progress
-            </div>
-
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-                <span class="status completed"><i class="dot"></i></span>
-                <span style="font-size:9px;">Order created</span>
-            </div>
-
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-                <span class="status completed"><i class="dot"></i></span>
-                <span style="font-size:9px;">Payment protection enabled</span>
-            </div>
-
-            <div style="display:flex;align-items:center;gap:8px;">
-                <span class="status processing"><i class="dot"></i></span>
-                <span style="font-size:9px;">Verification in progress</span>
-            </div>
-        </div>
-
+    <div id="detail-content-area">
+        <!-- Dynamically rendered detailed info for selected transaction -->
     </div>
 
 </section>
@@ -1774,132 +1087,317 @@ button{
 
 
 <script>
-
+// Core Application State & Storage Handling
+let transactions = JSON.parse(localStorage.getItem('dinar_escrow_txs')) || [];
 let currentFilter = "all";
 
+function saveTransactions() {
+    localStorage.setItem('dinar_escrow_txs', JSON.stringify(transactions));
+    updateDashboard();
+    renderTransactions();
+}
 
-function openPage(page){
+function updateDashboard() {
+    let available = 0;
+    let pending = 0;
+    let completed = 0;
 
-    document.querySelectorAll(".page").forEach(function(p){
-        p.classList.remove("active");
+    transactions.forEach(tx => {
+        const amt = parseFloat(tx.amount) || 0;
+        if(tx.status === 'completed') {
+            completed += amt;
+            available += amt;
+        } else if(tx.status === 'processing') {
+            pending += amt;
+        }
     });
 
-    const target = document.getElementById(page);
+    document.getElementById('dash-available').textContent = `$${available.toFixed(2)}`;
+    document.getElementById('dash-pending').textContent = `$${pending.toFixed(2)}`;
+    document.getElementById('dash-completed').textContent = `$${completed.toFixed(2)}`;
+    document.getElementById('dash-count').textContent = transactions.length;
 
-    if(target){
-        target.classList.add("active");
+    // Update Active Escrow Widget on Home
+    const activeContainer = document.getElementById('active-escrow-container');
+    const activeTx = transactions.find(tx => tx.status === 'processing');
+
+    if(activeTx) {
+        const initials = getInitials(activeTx.buyer);
+        activeContainer.innerHTML = `
+            <div class="order-card">
+                <div class="order-row">
+                    <div class="order-user">
+                        <div class="avatar">${initials}</div>
+                        <div>
+                            <strong>${escapeHtml(activeTx.type)}</strong>
+                            <small>${escapeHtml(activeTx.buyer)}</small>
+                        </div>
+                    </div>
+                    <div class="amount">
+                        <strong>$${parseFloat(activeTx.amount).toFixed(2)}</strong>
+                        <small>USD</small>
+                    </div>
+                </div>
+                <div style="margin-top:11px;">
+                    <span class="status processing">
+                        <i class="dot"></i> Processing
+                    </span>
+                </div>
+                <div class="order-info">
+                    <div class="info-box">
+                        <span>Method</span>
+                        <strong>${escapeHtml(activeTx.method)}</strong>
+                    </div>
+                    <div class="info-box">
+                        <span>Protection</span>
+                        <strong>DIN AR Protected</strong>
+                    </div>
+                </div>
+                <button class="primary-btn" style="margin-top:12px;" onclick="viewDetail('${activeTx.id}')">
+                    View Transaction
+                </button>
+            </div>
+        `;
+    } else {
+        activeContainer.innerHTML = `
+            <div class="order-card" style="text-align:center; padding:25px; color:#8c94a4; font-size:11px;">
+                No active escrow orders found.
+            </div>
+        `;
+    }
+}
+
+function renderTransactions() {
+    const listContainer = document.getElementById('transactionList');
+    const searchVal = document.getElementById('transactionSearch').value.toLowerCase().trim();
+
+    const filtered = transactions.filter(tx => {
+        const matchesStatus = (currentFilter === 'all' || tx.status === currentFilter);
+        const matchesSearch = tx.buyer.toLowerCase().includes(searchVal) || tx.type.toLowerCase().includes(searchVal) || tx.id.toLowerCase().includes(searchVal);
+        return matchesStatus && matchesSearch;
+    });
+
+    if(filtered.length === 0) {
+        listContainer.innerHTML = `
+            <div style="text-align:center; padding:30px; color:#8c94a4; font-size:11px;">
+                No matching transactions found.
+            </div>
+        `;
+        return;
     }
 
-    document.querySelectorAll(".nav-item").forEach(function(item){
-        item.classList.remove("active");
+    let html = '';
+    // Display in reverse chronological order (newest first)
+    [...filtered].reverse().forEach(tx => {
+        const initials = getInitials(tx.buyer);
+        const statusClass = tx.status === 'completed' ? 'completed' : 'processing';
+        const statusText = tx.status === 'completed' ? 'Completed' : 'Processing';
 
+        html += `
+            <div class="transaction" data-status="${tx.status}" onclick="viewDetail('${tx.id}')" style="cursor:pointer;">
+                <div class="transaction-main">
+                    <div class="t-left">
+                        <div class="t-avatar">${initials}</div>
+                        <div class="t-name">
+                            <strong>${escapeHtml(tx.buyer)}</strong>
+                            <small>${escapeHtml(tx.type)}</small>
+                        </div>
+                    </div>
+                    <div class="t-right">
+                        <strong>$${parseFloat(tx.amount).toFixed(2)}</strong>
+                        <small>${escapeHtml(tx.date)}</small>
+                    </div>
+                </div>
+                <div class="transaction-status">
+                    <span>Ref: #${escapeHtml(tx.id)}</span>
+                    <span class="status ${statusClass}"><i class="dot"></i> ${statusText}</span>
+                </div>
+            </div>
+        `;
+    });
+
+    listContainer.innerHTML = html;
+}
+
+function handleCreateTrade(e) {
+    e.preventDefault();
+    const buyer = document.getElementById('tradeBuyer').value.trim();
+    const amount = document.getElementById('tradeAmount').value;
+    const method = document.getElementById('tradeMethod').value;
+    const type = document.getElementById('tradeType').value;
+
+    const newTx = {
+        id: Math.floor(10000 + Math.random() * 90000).toString(),
+        buyer: buyer,
+        amount: amount,
+        method: method,
+        type: type,
+        status: 'processing',
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    };
+
+    transactions.push(newTx);
+    saveTransactions();
+
+    document.getElementById('tradeForm').reset();
+    showToast('Trade created successfully');
+    openTransactions();
+}
+
+function viewDetail(id) {
+    const tx = transactions.find(t => t.id === id);
+    if(!tx) return;
+
+    const detailArea = document.getElementById('detail-content-area');
+    const statusClass = tx.status === 'completed' ? 'completed' : 'processing';
+    const statusText = tx.status === 'completed' ? 'Completed' : 'Processing';
+    const fee = (parseFloat(tx.amount) * 0.025).toFixed(2);
+
+    detailArea.innerHTML = `
+        <div class="detail-card">
+            <div class="detail-top">
+                <div class="detail-icon">
+                    <svg width="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <path d="M20 7l-9 10-4-4"/>
+                    </svg>
+                </div>
+                <h2>${escapeHtml(tx.type)}</h2>
+                <p>Transaction reference #${escapeHtml(tx.id)}</p>
+            </div>
+            <div class="progress">
+                <div class="progress-line"></div>
+                <div class="steps">
+                    <span class="active">Created</span>
+                    <span class="${tx.status === 'completed' ? 'active' : ''}">Verified</span>
+                    <span class="${tx.status === 'completed' ? 'active' : ''}">Protected</span>
+                    <span class="${tx.status === 'completed' ? 'active' : ''}">Completed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-card">
+            <div class="detail-row">
+                <span>Buyer</span>
+                <strong>${escapeHtml(tx.buyer)}</strong>
+            </div>
+            <div class="detail-row">
+                <span>Amount</span>
+                <strong>$${parseFloat(tx.amount).toFixed(2)} USD</strong>
+            </div>
+            <div class="detail-row">
+                <span>Platform Fees</span>
+                <strong>$${fee}</strong>
+            </div>
+            <div class="detail-row">
+                <span>Payment Method</span>
+                <strong>${escapeHtml(tx.method)}</strong>
+            </div>
+            <div class="detail-row">
+                <span>Protection</span>
+                <strong>DIN AR Payment Protection</strong>
+            </div>
+            <div class="detail-row">
+                <span>Status</span>
+                <span class="status ${statusClass}">
+                    <i class="dot"></i> ${statusText}
+                </span>
+            </div>
+        </div>
+
+        ${tx.status === 'processing' ? `
+            <button class="primary-btn" onclick="completeTransaction('${tx.id}')">
+                Mark as Completed / Release Funds
+            </button>
+        ` : ''}
+    `;
+
+    openPage('detail');
+}
+
+function completeTransaction(id) {
+    transactions = transactions.map(tx => {
+        if(tx.id === id) {
+            tx.status = 'completed';
+        }
+        return tx;
+    });
+    saveTransactions();
+    showToast('Funds released successfully');
+    viewDetail(id);
+}
+
+function getInitials(str) {
+    if(!str) return 'DIN';
+    const parts = str.split(/[\s@._]+/);
+    if(parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return str.substring(0, 2).toUpperCase();
+}
+
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+function openPage(page){
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    const target = document.getElementById(page);
+    if(target) target.classList.add("active");
+
+    document.querySelectorAll(".nav-item").forEach(item => {
+        item.classList.remove("active");
         if(item.dataset.page === page){
             item.classList.add("active");
         }
     });
 
-    window.scrollTo({
-        top:0,
-        behavior:"instant"
-    });
+    window.scrollTo({ top: 0, behavior: "instant" });
 }
 
-
 function openTransactions(){
-
     openPage("transactions");
-
-    document.querySelectorAll(".nav-item").forEach(function(item){
+    document.querySelectorAll(".nav-item").forEach(item => {
         item.classList.remove("active");
-
         if(item.dataset.page === "transactions"){
             item.classList.add("active");
         }
     });
+    renderTransactions();
 }
-
-
-function openDetail(){
-
-    openPage("detail");
-
-    document.querySelectorAll(".nav-item").forEach(function(item){
-        item.classList.remove("active");
-    });
-}
-
 
 function showToast(message){
-
     const toast = document.getElementById("toast");
-
     toast.textContent = message;
     toast.classList.add("show");
-
     clearTimeout(window.toastTimer);
-
-    window.toastTimer = setTimeout(function(){
+    window.toastTimer = setTimeout(() => {
         toast.classList.remove("show");
-    },1800);
+    }, 1800);
 }
 
-
-function setFilter(filter,button){
-
+function setFilter(filter, button){
     currentFilter = filter;
-
-    document.querySelectorAll(".filter").forEach(function(item){
-        item.classList.remove("active");
-    });
-
+    document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
     button.classList.add("active");
-
-    filterTransactions();
+    renderTransactions();
 }
-
 
 function filterTransactions(){
-
-    const search = document
-        .getElementById("transactionSearch")
-        .value
-        .toLowerCase()
-        .trim();
-
-    document.querySelectorAll(".transaction").forEach(function(item){
-
-        const status = item.dataset.status;
-        const text = item.dataset.search;
-
-        const statusMatch =
-            currentFilter === "all" ||
-            status === currentFilter;
-
-        const searchMatch =
-            text.includes(search);
-
-        item.style.display =
-            statusMatch && searchMatch
-            ? "block"
-            : "none";
-    });
+    renderTransactions();
 }
 
-
-/* Demo button behaviour */
-
-document.querySelectorAll(".quick").forEach(function(btn){
-
-    btn.addEventListener("click",function(){
-        window.scrollTo({
-            top:0,
-            behavior:"instant"
-        });
-    });
-
+// Initial App Launch Binding
+window.addEventListener('DOMContentLoaded', () => {
+    updateDashboard();
+    renderTransactions();
 });
-
-
 </script>
 
 </body>
