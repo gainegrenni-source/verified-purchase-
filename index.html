@@ -216,7 +216,7 @@ button{
     #e6f6ff 55%,
     #edf9ff 100%
   );
-  padding:80px 0;
+  padding:70px 0 50px;
 }
 
 .hero-inner{
@@ -275,30 +275,52 @@ button{
 
 .hero-buttons{
   display:flex;
-  justify-content:center;
+  flex-direction:column;
+  align-items:center;
   gap:14px;
   margin-top:30px;
 }
 
 .hero-buttons .btn{
-  min-width:210px;
+  width:min(380px, 100%);
+  min-height:52px;
+  font-size:16px;
+  border-radius:12px;
+}
+
+.btn-how{
+  background:#fff;
+  color:#07152f;
+  border:1px solid #d8e5f1;
+  box-shadow:0 4px 12px rgba(0,0,0,.04);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-weight:800;
+}
+
+.btn-how svg{
+  width:20px;
+  height:20px;
+  fill:var(--blue);
 }
 
 /* =========================
-   FEATURE STRIP
+   FEATURE STRIP (Inline as requested)
 ========================= */
 
 .features{
   background:#e9f8ff;
-  padding:28px 0 38px;
+  padding:30px 0 40px;
 }
 
 .features-inner{
-  width:min(1180px,calc(100% - 40px));
+  width:min(900px,calc(100% - 40px));
   margin:auto;
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:25px;
+  gap:20px;
 }
 
 .feature{
@@ -306,31 +328,26 @@ button{
 }
 
 .feature-icon{
-  width:70px;
-  height:70px;
+  width:64px;
+  height:64px;
   border-radius:50%;
   background:#d6efff;
   display:grid;
   place-items:center;
-  margin:0 auto 12px;
+  margin:0 auto 10px;
   color:#0878ed;
 }
 
 .feature-icon svg{
-  width:39px;
-  height:39px;
+  width:32px;
+  height:32px;
   stroke-width:2;
 }
 
 .feature-title{
-  font-size:18px;
-  font-weight:850;
-}
-
-.feature-description{
-  margin-top:5px;
-  color:#61738a;
-  font-size:13px;
+  font-size:15px;
+  font-weight:800;
+  color:#07152f;
 }
 
 /* =========================
@@ -680,7 +697,7 @@ footer{
   }
 
   .hero-buttons{
-    display:block;
+    width:100%;
   }
 
   .hero-buttons .btn{
@@ -691,10 +708,6 @@ footer{
   .features-inner{
     grid-template-columns:1fr;
     gap:20px;
-  }
-
-  .feature-description{
-    display:block;
   }
 
   .process-box{
@@ -840,13 +853,17 @@ footer{
       <a href="#signup" class="btn btn-primary">
         Get Started
       </a>
+      <a href="#how-it-works" class="btn btn-how">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        How It Works
+      </a>
     </div>
   </div>
 </section>
 
 
 <!-- =========================
-     FEATURES
+     FEATURE STRIP (Inline as requested)
 ========================= -->
 
 <section class="features">
@@ -859,7 +876,6 @@ footer{
         </svg>
       </div>
       <div class="feature-title">Secure &amp; Trusted</div>
-      <div class="feature-description">Protected transaction process</div>
     </div>
 
     <div class="feature">
@@ -870,7 +886,6 @@ footer{
         </svg>
       </div>
       <div class="feature-title">Simple Process</div>
-      <div class="feature-description">Easy for buyers and sellers</div>
     </div>
 
     <div class="feature">
@@ -883,7 +898,6 @@ footer{
         </svg>
       </div>
       <div class="feature-title">Dispute Support</div>
-      <div class="feature-description">Help when a transaction needs review</div>
     </div>
   </div>
 </section>
