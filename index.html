@@ -216,16 +216,13 @@ button{
     #e6f6ff 55%,
     #edf9ff 100%
   );
-  padding:70px 0 45px;
+  padding:80px 0;
 }
 
 .hero-inner{
-  width:min(1180px,calc(100% - 40px));
+  width:min(900px,calc(100% - 40px));
   margin:auto;
-  display:grid;
-  grid-template-columns:1fr .78fr;
-  gap:45px;
-  align-items:center;
+  text-align:center;
 }
 
 .badge{
@@ -238,6 +235,7 @@ button{
   color:#21476f;
   font-size:14px;
   font-weight:850;
+  margin:0 auto;
 }
 
 .badge-icon{
@@ -256,11 +254,10 @@ button{
 }
 
 .hero h1{
-  margin-top:32px;
-  max-width:760px;
-  font-size:clamp(45px,5.1vw,70px);
-  line-height:.98;
-  letter-spacing:-3.4px;
+  margin-top:25px;
+  font-size:clamp(40px,5vw,60px);
+  line-height:1.05;
+  letter-spacing:-2px;
   font-weight:900;
 }
 
@@ -270,111 +267,21 @@ button{
 
 .hero-description{
   max-width:700px;
-  margin-top:28px;
+  margin:20px auto 0;
   color:#344861;
-  font-size:19px;
+  font-size:18px;
   line-height:1.58;
 }
 
 .hero-buttons{
   display:flex;
+  justify-content:center;
   gap:14px;
   margin-top:30px;
 }
 
 .hero-buttons .btn{
   min-width:210px;
-}
-
-.how-btn{
-  background:#fff;
-  color:#142b4b;
-  border:1px solid #d4e2ef;
-  box-shadow:0 5px 18px rgba(25,71,115,.07);
-}
-
-.play-icon{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:var(--blue);
-  color:#fff;
-  margin-right:10px;
-}
-
-.play-icon svg{
-  width:12px;
-  height:12px;
-}
-
-/* =========================
-   HERO VISUAL
-========================= */
-
-.hero-visual{
-  min-height:410px;
-  border-radius:25px;
-  background:
-    radial-gradient(circle at 50% 45%,#cfeeff 0,#eaf8ff 42%,#eefaff 72%);
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.hero-visual::before{
-  content:"";
-  width:250px;
-  height:250px;
-  border-radius:50%;
-  background:#d9efff;
-  position:absolute;
-  opacity:.75;
-}
-
-.protection-card{
-  position:relative;
-  z-index:2;
-  width:min(370px,82%);
-  padding:30px 27px;
-  background:rgba(255,255,255,.98);
-  border:1px solid #d9e7f3;
-  border-radius:20px;
-  box-shadow:0 22px 45px rgba(24,61,94,.14);
-}
-
-.protection-card h2{
-  font-size:25px;
-  letter-spacing:-.7px;
-  margin-bottom:20px;
-}
-
-.protection-row{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin:14px 0;
-  color:#30445f;
-  font-size:15px;
-  font-weight:700;
-}
-
-.check-icon{
-  flex:0 0 25px;
-  width:25px;
-  height:25px;
-  border-radius:50%;
-  background:var(--green);
-  display:grid;
-  place-items:center;
-  color:#fff;
-}
-
-.check-icon svg{
-  width:14px;
-  height:14px;
 }
 
 /* =========================
@@ -440,101 +347,25 @@ button{
   margin:auto;
 }
 
-.section-heading{
-  text-align:center;
-  margin-bottom:48px;
-}
-
-.section-heading h2{
-  font-size:43px;
-  letter-spacing:-1.8px;
-  font-weight:900;
-}
-
-.section-heading p{
-  margin-top:10px;
-  color:#687990;
-  font-size:17px;
-}
-
-.steps{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-}
-
-.step{
-  text-align:center;
-  position:relative;
-}
-
-.step-icon-wrap{
-  width:84px;
-  height:84px;
-  border-radius:50%;
-  background:#e0f3ff;
-  margin:0 auto 17px;
-  display:grid;
-  place-items:center;
-  position:relative;
-  color:#0878ed;
-}
-
-.step-icon-wrap svg{
-  width:43px;
-  height:43px;
-}
-
-.step-number{
-  position:absolute;
-  right:-4px;
-  bottom:-2px;
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  background:#0878ed;
-  color:#fff;
-  border:3px solid #fff;
-  display:grid;
-  place-items:center;
-  font-size:12px;
-  font-weight:900;
-}
-
-.step h3{
-  font-size:18px;
-  line-height:1.2;
-  margin-bottom:8px;
-}
-
-.step p{
-  color:#687990;
-  font-size:14px;
-  line-height:1.48;
-}
-
-/* =========================
-   MOBILE-STYLE PROCESS CARD
-========================= */
-
 .process-box{
-  margin-top:58px;
-  padding:35px;
+  padding:40px;
   border-radius:25px;
   background:#eef9ff;
 }
 
 .process-box-title{
   text-align:center;
-  font-size:30px;
+  font-size:38px;
   font-weight:900;
   margin-bottom:8px;
+  letter-spacing:-1px;
 }
 
 .process-box-subtitle{
   text-align:center;
   color:#6a7a90;
-  margin-bottom:35px;
+  font-size:17px;
+  margin-bottom:40px;
 }
 
 .process-list{
@@ -547,6 +378,10 @@ button{
   grid-template-columns:76px 55px 1fr;
   align-items:center;
   gap:14px;
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  border:1px solid #d9e7f3;
 }
 
 .process-icon{
@@ -622,7 +457,7 @@ button{
 }
 
 /* =========================
-   STATS (Fixed & Clean Icons)
+   STATS
 ========================= */
 
 .stats{
@@ -668,79 +503,105 @@ button{
 }
 
 /* =========================
-   FOOTER (Updated Style)
+   FOOTER
 ========================= */
 
 footer{
   background:#fff;
-  padding:45px 0 25px;
+  padding:60px 0 30px;
   border-top:1px solid #e2ebf3;
 }
 
-.footer-main{
+.footer-container{
   width:min(1060px,calc(100% - 40px));
   margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:25px;
+  display:grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
+  gap:30px;
 }
 
-.footer-brand{
+.footer-col .brand-footer{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
+  margin-bottom:15px;
 }
 
-.footer-logo{
-  width:58px;
-  height:52px;
+.footer-col .brand-footer img{
+  width:45px;
+  height:40px;
   object-fit:contain;
 }
 
-.footer-brand-title{
-  font-size:22px;
+.footer-col .brand-footer span{
+  font-size:20px;
   font-weight:900;
   color:#07152f;
 }
 
-.footer-brand-sub{
-  margin-top:2px;
+.footer-col p.brand-desc{
   color:#64748b;
-  font-size:13px;
+  font-size:13.5px;
+  line-height:1.5;
 }
 
-/* Perfect Circular Social Icons */
-.socials{
+.footer-col h4{
+  font-size:16px;
+  font-weight:800;
+  color:#07152f;
+  margin-bottom:18px;
+}
+
+.footer-links{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.footer-links a{
+  color:#64748b;
+  font-size:14px;
+  font-weight:600;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover{
+  color:var(--blue);
+}
+
+.footer-socials{
   display:flex;
   gap:10px;
+  flex-wrap:wrap;
 }
 
-.social{
-  width:38px;
-  height:38px;
+.f-social{
+  width:40px;
+  height:40px;
   border-radius:50%;
   background:#07152f;
-  color:#fff;
+  color:#ffffff;
   display:grid;
   place-items:center;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.social:hover {
+.f-social:hover {
   background: var(--blue);
+  transform: translateY(-2px);
 }
 
-.social svg{
-  width:16px;
-  height:16px;
+.f-social svg{
+  width:18px;
+  height:18px;
+  fill: currentColor;
   display: block;
 }
 
 .footer-bottom{
   width:min(1060px,calc(100% - 40px));
-  margin:30px auto 0;
+  margin:40px auto 0;
   padding-top:20px;
   border-top:1px solid #eaeaea;
   display:flex;
@@ -757,7 +618,6 @@ footer{
 ========================= */
 
 @media(max-width:1000px){
-
   .desktop-nav,
   .header-actions{
     display:none;
@@ -767,26 +627,13 @@ footer{
     display:block;
   }
 
-  .hero-inner{
-    grid-template-columns:1fr;
-  }
-
-  .hero-copy{
-    text-align:left;
-  }
-
-  .hero-visual{
-    min-height:330px;
-  }
-
-  .steps{
-    grid-template-columns:repeat(2,1fr);
-    row-gap:40px;
+  .footer-container{
+    grid-template-columns: repeat(2, 1fr);
+    gap:35px;
   }
 }
 
 @media(max-width:650px){
-
   .site-header{
     height:82px;
   }
@@ -819,288 +666,92 @@ footer{
     top:82px;
   }
 
-  /* HERO */
-
   .hero{
-    padding:48px 0 28px;
-  }
-
-  .hero-inner{
-    width:calc(100% - 40px);
-    display:block;
-  }
-
-  .badge{
-    font-size:11px;
-    padding:9px 13px;
-    gap:8px;
-  }
-
-  .badge-icon{
-    width:27px;
-    height:27px;
+    padding:50px 0;
   }
 
   .hero h1{
-    margin-top:27px;
-    font-size:clamp(43px,11.4vw,57px);
-    line-height:.96;
-    letter-spacing:-2.5px;
+    font-size:36px;
+    letter-spacing:-1.5px;
   }
 
   .hero-description{
-    margin-top:29px;
-    font-size:17px;
-    line-height:1.55;
+    font-size:16px;
   }
 
   .hero-buttons{
     display:block;
-    margin-top:27px;
   }
 
   .hero-buttons .btn{
     width:100%;
-    min-height:59px;
-    margin-bottom:11px;
-    font-size:17px;
-  }
-
-  .hero-visual{
-    margin-top:14px;
-    min-height:380px;
-    border-radius:20px;
-  }
-
-  .protection-card{
-    width:82%;
-    padding:27px 24px;
-  }
-
-  .protection-card h2{
-    font-size:24px;
-  }
-
-  .protection-row{
-    font-size:14px;
-    margin:14px 0;
-  }
-
-  /* FEATURES */
-
-  .features{
-    padding:25px 0 34px;
+    min-height:50px;
   }
 
   .features-inner{
-    width:calc(100% - 25px);
-    grid-template-columns:repeat(3,1fr);
-    gap:5px;
-  }
-
-  .feature-icon{
-    width:61px;
-    height:61px;
-    margin-bottom:9px;
-  }
-
-  .feature-icon svg{
-    width:34px;
-    height:34px;
-  }
-
-  .feature-title{
-    font-size:12px;
-    line-height:1.25;
+    grid-template-columns:1fr;
+    gap:20px;
   }
 
   .feature-description{
-    display:none;
+    display:block;
   }
-
-  /* HOW */
-
-  .how-section{
-    padding:57px 0 50px;
-  }
-
-  .section-inner{
-    width:calc(100% - 40px);
-  }
-
-  .section-heading{
-    margin-bottom:35px;
-  }
-
-  .section-heading h2{
-    font-size:37px;
-    letter-spacing:-1.7px;
-  }
-
-  .section-heading p{
-    font-size:15px;
-    line-height:1.45;
-  }
-
-  .steps{
-    grid-template-columns:1fr;
-    gap:27px;
-  }
-
-  .step{
-    display:grid;
-    grid-template-columns:76px 1fr;
-    column-gap:15px;
-    text-align:left;
-    align-items:center;
-  }
-
-  .step-icon-wrap{
-    width:68px;
-    height:68px;
-    grid-row:1 / span 2;
-    margin:0;
-  }
-
-  .step-icon-wrap svg{
-    width:37px;
-    height:37px;
-  }
-
-  .step-number{
-    width:26px;
-    height:26px;
-    right:-4px;
-    bottom:-2px;
-  }
-
-  .step h3{
-    font-size:18px;
-    margin:0;
-  }
-
-  .step p{
-    font-size:13px;
-    line-height:1.45;
-  }
-
-  /* PROCESS */
 
   .process-box{
-    margin-top:45px;
-    padding:28px 18px;
-    border-radius:20px;
+    padding:20px 15px;
   }
 
   .process-box-title{
     font-size:28px;
   }
 
-  .process-box-subtitle{
-    font-size:14px;
-    line-height:1.4;
-    margin-bottom:30px;
-  }
-
   .process-item{
-    grid-template-columns:62px 42px 1fr;
+    grid-template-columns:50px 35px 1fr;
     gap:10px;
+    padding:12px;
   }
 
   .process-icon{
-    width:58px;
-    height:58px;
+    width:48px;
+    height:48px;
   }
 
   .process-icon svg{
-    width:32px;
-    height:32px;
+    width:24px;
+    height:24px;
   }
 
   .process-number{
-    width:38px;
-    height:38px;
-    font-size:14px;
-  }
-
-  .process-content h3{
-    font-size:16px;
-  }
-
-  .process-content p{
+    width:30px;
+    height:30px;
     font-size:12px;
   }
 
-  /* CTA */
-
   .cta{
     width:calc(100% - 40px);
-    margin-bottom:0;
-    padding:31px 22px;
+    padding:25px 20px;
     display:block;
-    border-radius:18px;
-  }
-
-  .cta h2{
-    font-size:25px;
-    line-height:1.15;
-  }
-
-  .cta p{
-    font-size:14px;
-    line-height:1.45;
   }
 
   .cta .btn{
     width:100%;
-    margin-top:21px;
-  }
-
-  /* STATS */
-
-  .stats{
-    margin-top:45px;
-    padding:25px 0;
+    margin-top:15px;
   }
 
   .stats-inner{
-    width:calc(100% - 25px);
-    grid-template-columns:repeat(4,1fr);
-    gap:8px;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
   }
 
-  .stat-icon{
-    width:32px;
-    height:32px;
-  }
-
-  .stat-value{
-    font-size:18px;
-  }
-
-  .stat-label{
-    font-size:11px;
-  }
-
-  /* FOOTER */
-
-  footer{
-    padding:32px 0 20px;
-  }
-
-  .footer-main{
-    width:calc(100% - 40px);
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
+  .footer-container{
+    grid-template-columns:1fr;
+    gap:30px;
   }
 
   .footer-bottom{
     width:calc(100% - 40px);
-    margin-top:25px;
     flex-direction:column;
     text-align:center;
-    line-height:1.6;
   }
 }
 </style>
@@ -1113,12 +764,9 @@ footer{
 ========================= -->
 
 <header class="site-header">
-
   <div class="header-inner">
-
     <a href="#home" class="brand">
       <img src="logo.png" class="brand-logo" alt="DIN AR">
-
       <div class="brand-text">
         <div class="brand-title">DIN AR Escrow System</div>
         <div class="brand-sub">Payment Protection</div>
@@ -1144,7 +792,6 @@ footer{
       <span></span>
       <span></span>
     </button>
-
   </div>
 
   <nav class="mobile-nav" id="mobileNav">
@@ -1158,7 +805,6 @@ footer{
     <a href="#login" class="btn btn-outline">Log In</a>
     <a href="#signup" class="btn btn-primary">Sign Up</a>
   </nav>
-
 </header>
 
 
@@ -1167,102 +813,35 @@ footer{
 ========================= -->
 
 <main id="home">
-
 <section class="hero">
-
   <div class="hero-inner">
-
-    <div class="hero-copy">
-
-      <div class="badge">
-        <span class="badge-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
-            <path d="M8.5 12l2.2 2.2 4.8-5"/>
-          </svg>
-        </span>
-        SECURE ESCROW PAYMENTS
-      </div>
-
-      <h1>
-        Verified Purchase Trades :
-        <span class="blue">Buy &amp; Sell with Confidence</span>
-      </h1>
-
-      <p class="hero-description">
-        A safe and simple escrow service for verified purchase
-        transactions. Your payment is protected until the deal
-        is completed.
-      </p>
-
-      <div class="hero-buttons">
-
-        <a href="#signup" class="btn btn-primary">
-          Get Started
-        </a>
-
-        <a href="#how-it-works" class="btn how-btn">
-          <span class="play-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          </span>
-          How It Works
-        </a>
-
-      </div>
-
+    <div class="badge">
+      <span class="badge-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
+          <path d="M8.5 12l2.2 2.2 4.8-5"/>
+        </svg>
+      </span>
+      SECURE ESCROW PAYMENTS
     </div>
 
+    <h1>
+      Verified Purchase Trades :
+      <span class="blue">Buy &amp; Sell with Confidence</span>
+    </h1>
 
-    <div class="hero-visual">
+    <p class="hero-description">
+      A safe and simple escrow service for verified purchase
+      transactions. Your payment is protected until the deal
+      is completed.
+    </p>
 
-      <div class="protection-card">
-
-        <h2>Secure Payments</h2>
-
-        <div class="protection-row">
-          <span class="check-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M5 12l4 4L19 6"/>
-            </svg>
-          </span>
-          Funds held in escrow
-        </div>
-
-        <div class="protection-row">
-          <span class="check-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M5 12l4 4L19 6"/>
-            </svg>
-          </span>
-          Seller completes order
-        </div>
-
-        <div class="protection-row">
-          <span class="check-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M5 12l4 4L19 6"/>
-            </svg>
-          </span>
-          Buyer confirms receipt
-        </div>
-
-        <div class="protection-row">
-          <span class="check-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M5 12l4 4L19 6"/>
-            </svg>
-          </span>
-          Payment released
-        </div>
-
-      </div>
-
+    <div class="hero-buttons">
+      <a href="#signup" class="btn btn-primary">
+        Get Started
+      </a>
     </div>
-
   </div>
-
 </section>
 
 
@@ -1271,51 +850,30 @@ footer{
 ========================= -->
 
 <section class="features">
-
   <div class="features-inner">
-
     <div class="feature">
-
       <div class="feature-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
           <path d="M8.5 12l2.2 2.2 4.8-5"/>
         </svg>
       </div>
-
-      <div class="feature-title">
-        Secure &amp; Trusted
-      </div>
-
-      <div class="feature-description">
-        Protected transaction process
-      </div>
-
+      <div class="feature-title">Secure &amp; Trusted</div>
+      <div class="feature-description">Protected transaction process</div>
     </div>
 
-
     <div class="feature">
-
       <div class="feature-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <circle cx="12" cy="12" r="3"/>
           <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.7 1.7-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V20h-2.4v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1L8 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H6v-2.4h.9a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9L8 8.6l1.7-1.7.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5V5h2.4v.8a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.7 1.7-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.8v2.4h-.8a1.7 1.7 0 0 0-1.5 1z"/>
         </svg>
       </div>
-
-      <div class="feature-title">
-        Simple Process
-      </div>
-
-      <div class="feature-description">
-        Easy for buyers and sellers
-      </div>
-
+      <div class="feature-title">Simple Process</div>
+      <div class="feature-description">Easy for buyers and sellers</div>
     </div>
 
-
     <div class="feature">
-
       <div class="feature-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M4 13a8 8 0 0 1 16 0"/>
@@ -1324,19 +882,10 @@ footer{
           <path d="M15 19c-.7 1-1.8 1.5-3 1.5"/>
         </svg>
       </div>
-
-      <div class="feature-title">
-        Dispute Support
-      </div>
-
-      <div class="feature-description">
-        Help when a transaction needs review
-      </div>
-
+      <div class="feature-title">Dispute Support</div>
+      <div class="feature-description">Help when a transaction needs review</div>
     </div>
-
   </div>
-
 </section>
 
 
@@ -1345,235 +894,68 @@ footer{
 ========================= -->
 
 <section class="how-section" id="how-it-works">
-
   <div class="section-inner">
-
-    <div class="section-heading">
-
-      <h2>How It Works</h2>
-
-      <p>
-        A simple and secure process for everyone
-      </p>
-
-    </div>
-
-
-    <!-- Desktop / general steps -->
-
-    <div class="steps">
-
-      <article class="step">
-
-        <div class="step-icon-wrap">
-
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <circle cx="9" cy="20" r="1"/>
-            <circle cx="18" cy="20" r="1"/>
-            <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L20 8H6"/>
-            <path d="M8 8h10"/>
-          </svg>
-
-          <span class="step-number">1</span>
-
-        </div>
-
-        <h3>Seller Places Order</h3>
-
-        <p>
-          Seller makes a payment and funds are held securely
-          in the transaction process.
-        </p>
-
-      </article>
-
-
-      <article class="step">
-
-        <div class="step-icon-wrap">
-
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M5 3h10l4 4v14H5z"/>
-            <path d="M15 3v5h4"/>
-            <path d="M12 17V10"/>
-            <path d="M9 13l3-3 3 3"/>
-          </svg>
-
-          <span class="step-number">2</span>
-
-        </div>
-
-        <h3>Buyer Uploads Verification</h3>
-
-        <p>
-          Buyer submits confirmation details or completes
-          the required verification process.
-        </p>
-
-      </article>
-
-
-      <article class="step">
-
-        <div class="step-icon-wrap">
-
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
-            <path d="M8.5 12l2.2 2.2 4.8-5"/>
-          </svg>
-
-          <span class="step-number">3</span>
-
-        </div>
-
-        <h3>System/Admin Verification</h3>
-
-        <p>
-          Submitted information is reviewed and the order
-          moves forward after confirmation.
-        </p>
-
-      </article>
-
-
-      <article class="step">
-
-        <div class="step-icon-wrap">
-
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <rect x="3" y="6" width="18" height="13" rx="2"/>
-            <path d="M3 10h18"/>
-            <path d="M7 15h4"/>
-          </svg>
-
-          <span class="step-number">4</span>
-
-        </div>
-
-        <h3>DIN AR Payout Released</h3>
-
-        <p>
-          Funds are released according to the completed
-          transaction terms.
-        </p>
-
-      </article>
-
-    </div>
-
-
-    <!-- Mobile-like detailed flow -->
-
     <div class="process-box">
-
-      <div class="process-box-title">
-        How We Work
-      </div>
-
-      <div class="process-box-subtitle">
-        A clear and secure process from start to completion
-      </div>
-
+      <div class="process-box-title">How It Works</div>
+      <div class="process-box-subtitle">A clear and secure process from start to completion</div>
 
       <div class="process-list">
-
         <div class="process-item">
-
           <div class="process-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <circle cx="9" cy="20" r="1"/>
-              <circle cx="18" cy="20" r="1"/>
+              <circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/>
               <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L20 8H6"/>
             </svg>
           </div>
-
           <div class="process-number">1</div>
-
           <div class="process-content">
             <h3>Seller Places Order</h3>
-            <p>
-              Seller makes a payment and the agreed amount
-              enters the transaction workflow.
-            </p>
+            <p>Seller makes a payment and the agreed amount enters the transaction workflow.</p>
           </div>
-
         </div>
 
-
         <div class="process-item">
-
           <div class="process-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M5 3h10l4 4v14H5z"/>
-              <path d="M15 3v5h4"/>
-              <path d="M12 17V10"/>
-              <path d="M9 13l3-3 3 3"/>
+              <path d="M5 3h10l4 4v14H5z"/><path d="M15 3v5h4"/><path d="M12 17V10"/><path d="M9 13l3-3 3 3"/>
             </svg>
           </div>
-
           <div class="process-number">2</div>
-
           <div class="process-content">
             <h3>Buyer Uploads Verification</h3>
-            <p>
-              Buyer submits the required confirmation details
-              or verification information.
-            </p>
+            <p>Buyer submits the required confirmation details or verification information.</p>
           </div>
-
         </div>
 
-
         <div class="process-item">
-
           <div class="process-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/>
               <path d="M8.5 12l2.2 2.2 4.8-5"/>
             </svg>
           </div>
-
           <div class="process-number">3</div>
-
           <div class="process-content">
             <h3>System/Admin Verification</h3>
-            <p>
-              The submitted information is reviewed before
-              the transaction proceeds.
-            </p>
+            <p>The submitted information is reviewed before the transaction proceeds.</p>
           </div>
-
         </div>
-
 
         <div class="process-item">
-
           <div class="process-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <rect x="3" y="6" width="18" height="13" rx="2"/>
-              <path d="M3 10h18"/>
-              <path d="M7 15h4"/>
+              <rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/>
             </svg>
           </div>
-
           <div class="process-number">4</div>
-
           <div class="process-content">
             <h3>DIN AR Payout Released</h3>
-            <p>
-              Payment is released after the transaction
-              requirements have been completed.
-            </p>
+            <p>Payment is released after the transaction requirements have been completed.</p>
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </section>
 
 
@@ -1582,33 +964,21 @@ footer{
 ========================= -->
 
 <section class="cta" id="signup">
-
   <div>
     <h2>Ready to start?</h2>
-
-    <p>
-      Review the transaction details and continue through
-      the available workflow.
-    </p>
+    <p>Review the transaction details and continue through the available workflow.</p>
   </div>
-
-  <a href="#login" class="btn">
-    Create Your Account
-  </a>
-
+  <a href="#login" class="btn">Create Your Account</a>
 </section>
 
 
 <!-- =========================
-     STATS (Fixed Icons)
+     STATS
 ========================= -->
 
 <section class="stats">
-
   <div class="stats-inner">
-
     <div class="stat">
-
       <div class="stat-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -1617,15 +987,11 @@ footer{
           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
         </svg>
       </div>
-
       <div class="stat-value">10K+</div>
       <div class="stat-label">Traders</div>
-
     </div>
 
-
     <div class="stat">
-
       <div class="stat-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="2" y="6" width="20" height="12" rx="2"></rect>
@@ -1633,110 +999,101 @@ footer{
           <path d="M6 12h.01M18 12h.01"></path>
         </svg>
       </div>
-
       <div class="stat-value">$20M+</div>
       <div class="stat-label">Secured</div>
-
     </div>
 
-
     <div class="stat">
-
       <div class="stat-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
           <polyline points="9 12 11 14 15 10"></polyline>
         </svg>
       </div>
-
       <div class="stat-value">99.9%</div>
       <div class="stat-label">Success</div>
-
     </div>
 
-
     <div class="stat">
-
       <div class="stat-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
           <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
         </svg>
       </div>
-
       <div class="stat-value">24/7</div>
       <div class="stat-label">Support</div>
-
     </div>
-
   </div>
-
 </section>
 
 
 <!-- =========================
-     FOOTER (Matched Layout)
+     FOOTER
 ========================= -->
 
 <footer id="help">
+  <div class="footer-container">
+    <div class="footer-col">
+      <div class="brand-footer">
+        <img src="logo.png" alt="DIN AR">
+        <span>DIN AR</span>
+      </div>
+      <p class="brand-desc">Payment Protection System designed for safe and secure trade interactions.</p>
+    </div>
 
-  <div class="footer-main">
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#careers">Careers</a></li>
+        <li><a href="#blog">Blog</a></li>
+      </ul>
+    </div>
 
-    <div class="footer-brand">
-      <img src="logo.png" class="footer-logo" alt="DIN AR">
-      <div>
-        <div class="footer-brand-title">DIN AR</div>
-        <div class="footer-brand-sub">Payment Protection</div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul class="footer-links">
+        <li><a href="#help">Help Center</a></li>
+        <li><a href="#dispute">Dispute Center</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul class="footer-links">
+        <li><a href="#terms">Terms of Service</a></li>
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#cookie">Cookie Policy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <div class="footer-socials">
+        <a href="#" class="f-social" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1 .3-1.5 1.5-1.5H18V5.2c-.3 0-1.2-.2-2.3-.2-2.3 0-3.8 1.4-3.8 4.1v2.4H9.5v4h2.4V22h4.1v-8.5z"/></svg>
+        </a>
+        <a href="#" class="f-social" aria-label="X">
+          <svg viewBox="0 0 24 24"><path d="M18.2 3h2.6l-5.7 6.5L22 21h-5.2l-4-5.2-4.7 5.2H5.5l6-6.8L3 3h5.3l3.6 4.8L18.2 3zm-.9 15.9h1.4L8.1 4.9H6.6l10.7 14z"/></svg>
+        </a>
+        <a href="#" class="f-social" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+        <a href="#" class="f-social" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.5 6.2c-.3-1-1-1.8-2-2C19.8 3.8 12 3.8 12 3.8s-7.8 0-9.5.4c-1 .2-1.7 1-2 2C0 8 0 12 0 12s0 4 .5 5.8c.3 1 1 1.8 2 2 1.7.4 9.5.4 9.5.4s7.8 0 9.5-.4c1-.2 1.7-1 2-2 .5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+        </a>
       </div>
     </div>
-
-    <div class="socials">
-
-      <a href="#" class="social" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M14 8h3V4h-3c-3.3 0-5 1.7-5 5v3H6v4h3v5h4v-5h3l1-4h-4V9c0-.7.3-1 1-1z"/>
-        </svg>
-      </a>
-
-      <a href="#" class="social" aria-label="X">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M5 4h4.2l3.2 4.3L16.1 4H19l-5.3 6.1L19.5 20h-4.2l-3.7-4.9L7.9 20H5l5.6-6.6L5 4z"/>
-        </svg>
-      </a>
-
-      <a href="#" class="social" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M5 8H2v12h3V8zM3.5 3A1.8 1.8 0 1 0 3.5 6.6 1.8 1.8 0 0 0 3.5 3zM22 13.2c0-3.6-1.9-5.4-4.5-5.4-2.1 0-3.1 1.2-3.6 2v-1.8H11v12h3v-6c0-1.6.3-3.2 2.3-3.2 2 0 2 1.8 2 3.2v6h3v-6.8z"/>
-        </svg>
-      </a>
-
-      <a href="#" class="social" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M21 8.2a2.8 2.8 0 0 0-2-2C17.2 5.7 12 5.7 12 5.7s-5.2 0-7 .5a2.8 2.8 0 0 0-2 2C2.5 10 2.5 12 2.5 12s0 2 .5 3.8a2.8 2.8 0 0 0 2 2c1.8.5 7 .5 7 .5s5.2 0 7-.5a2.8 2.8 0 0 0 2-2c.5-1.8.5-3.8.5-3.8s0-2-.5-3.8zM10 15.5v-7l6 3.5-6 3.5z"/>
-        </svg>
-      </a>
-
-    </div>
-
   </div>
-
 
   <div class="footer-bottom">
-
-    <div>
-      © 2026 DIN AR Escrow System. All rights reserved.
-    </div>
-
-    <div>
-      Safer Trades. Stronger Communities.
-    </div>
-
+    <div>© 2026 DIN AR Escrow System. All rights reserved.</div>
+    <div>Safer Transactions. Stronger Communities.</div>
   </div>
-
 </footer>
-
 </main>
-
 
 <script>
 const menuBtn = document.getElementById("menuBtn");
