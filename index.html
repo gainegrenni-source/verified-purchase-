@@ -118,7 +118,7 @@ button{
     display:block;
 }
 
-/* LANDING PAGE (Screen 1 matched) */
+/* LANDING PAGE */
 .landing-hero{
     text-align:center;
     padding:10px 0 30px 0;
@@ -290,7 +290,7 @@ button{
     color:#94a3b8;
 }
 
-/* DASHBOARD PAGE (Screen 2 matched) */
+/* DASHBOARD PAGE */
 .dash-header{
     display:flex;
     justify-content:space-between;
@@ -470,7 +470,7 @@ button{
     gap:6px;
 }
 
-/* NEW TRADE STEP PAGE (Screen 3 matched) */
+/* NEW TRADE STEPS PAGE (Matched to the attached image interface) */
 .trade-header{
     display:flex;
     align-items:center;
@@ -586,7 +586,7 @@ button{
     gap:4px;
 }
 
-/* RULES BOX */
+/* RULES BOX (Matched exactly with 5 points and DIN AR Escrow shield branding as shown in the screenshot) */
 .rules-box{
     background:#ffffff;
     border:1px solid #e2e8f0;
@@ -624,7 +624,7 @@ button{
 .rule-row-item{
     display:flex;
     gap:10px;
-    margin-bottom:10px;
+    margin-bottom:12px;
     align-items:flex-start;
 }
 
@@ -854,7 +854,7 @@ button{
         <div class="header-right" id="headerRightArea"></div>
     </header>
 
-    <!-- LANDING PAGE (Screen 1) -->
+    <!-- LANDING PAGE -->
     <section id="landing-page" class="page">
         <div class="landing-hero">
             <div class="landing-badge">Secure Escrow Payments</div>
@@ -917,7 +917,7 @@ button{
         </div>
     </section>
 
-    <!-- DASHBOARD PAGE (Screen 2) -->
+    <!-- DASHBOARD PAGE -->
     <section id="dashboard-page" class="page">
         <div class="dash-header">
             <div class="dash-user-info">
@@ -1006,7 +1006,7 @@ button{
         </div>
     </section>
 
-    <!-- NEW TRADE STEPS PAGE (Screen 3 matched) -->
+    <!-- NEW TRADE STEPS PAGE (Matched perfectly to the attached image interface: DIN AR Escrow title, rules layout, etc.) -->
     <section id="new-trade-page" class="page">
         <div class="trade-header">
             <div class="trade-header-left">
@@ -1019,16 +1019,19 @@ button{
                 </div>
             </div>
             <div style="display:flex; align-items:center; gap:6px;">
-                <div class="paypal-logo" style="font-size:16px;">PayPal</div>
+                <div class="secure-badge-pill" style="background:#003087; color:#fff; padding:5px 10px;">
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:12px;height:12px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    DIN AR <span style="font-weight:400; font-size:9px; margin-left:2px;">Escrow</span>
+                </div>
             </div>
         </div>
 
-        <div class="protected-banner">
+        <div class="protected-banner" style="background:#eff6ff; border-color:#dbeafe;">
             <h4>You're Protected</h4>
-            <p>Your trade is secured with PayPal Escrow. Follow the steps below to get started.</p>
+            <p>Your trade is secured with DIN AR Escrow. Follow the steps below to get started.</p>
         </div>
 
-        <!-- DYNAMIC AREA: Either 4 Steps OR 4 Points + File Upload -->
+        <!-- DYNAMIC AREA: Either 4 Steps OR Upload View -->
         <div id="tradeContentArea">
             <!-- STEP 1 -->
             <div class="step-card">
@@ -1044,7 +1047,7 @@ button{
                 </button>
             </div>
 
-            <!-- STEP 2 (Clicking Upload Now opens the Seller 4 Points & File Upload) -->
+            <!-- STEP 2 -->
             <div class="step-card">
                 <div class="step-left">
                     <div class="step-number-circle active-step">2</div>
@@ -1081,7 +1084,7 @@ button{
             </div>
         </div>
 
-        <!-- RULES & GUIDELINES -->
+        <!-- RULES & GUIDELINES (Matched 100% with the image text) -->
         <div class="rules-box">
             <div class="rules-title-row">
                 <h4>
@@ -1102,35 +1105,35 @@ button{
                 <div class="rule-num">2</div>
                 <div class="rule-text">
                     <h6>Cancellation Request</h6>
-                    <p>If you want to cancel the trade, you must provide full chat records explaining the reason.</p>
+                    <p>If you want to cancel the trade, you must provide full chat records (complete verification process) explaining the reason. If the buyer does not agree, you still need to provide a chat record.</p>
                 </div>
             </div>
             <div class="rule-row-item">
                 <div class="rule-num">3</div>
                 <div class="rule-text">
                     <h6>Be Honest and Cooperative</h6>
-                    <p>Provide valid information and cooperate with the buyer to avoid restrictions.</p>
+                    <p>Provide valid information and cooperate with the buyer. Any misleading information may result in account restrictions.</p>
                 </div>
             </div>
             <div class="rule-row-item">
                 <div class="rule-num">4</div>
                 <div class="rule-text">
                     <h6>Respect the Buyer</h6>
-                    <p>Always communicate politely and respond promptly.</p>
+                    <p>Buyer has higher priority in our system. Always communicate politely and respond to the buyer's requests in a timely manner.</p>
                 </div>
             </div>
             <div class="rule-row-item">
                 <div class="rule-num">5</div>
                 <div class="rule-text">
                     <h6>Follow Platform Instructions</h6>
-                    <p>Complete all required steps and upload correct documents.</p>
+                    <p>Complete all required steps and upload correct documents. This helps ensure a smooth and fast verification process.</p>
                 </div>
             </div>
         </div>
 
         <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:12px; text-align:center; margin-bottom:16px;">
             <p style="font-size:11px; font-weight:800; color:#166534;">✓ Buyer's Payment Will Be Released</p>
-            <p style="font-size:10px; color:#15803d; margin-top:2px;">Once verification is completed successfully, payment will be released 100%.</p>
+            <p style="font-size:10px; color:#15803d; margin-top:2px;">Once the verification is completed successfully, the payment will be released to the buyer 100%.</p>
         </div>
 
         <button class="btn-main" onclick="switchPage('dashboard')">Continue →</button>
