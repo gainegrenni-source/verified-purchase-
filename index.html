@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>DIN AR Escrow System</title>
+<title>PayPal Escrow System</title>
 <style>
 *{
     margin:0;
@@ -38,7 +38,7 @@ button{
 
 /* HEADER */
 .header{
-    height:60px;
+    height:65px;
     background:#ffffff;
     display:flex;
     align-items:center;
@@ -57,31 +57,29 @@ button{
     cursor:pointer;
 }
 
-.brand-icon{
-    width:36px;
-    height:36px;
-    background:linear-gradient(135deg, #0f172a, #334155);
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
+.paypal-logo{
+    font-size:22px;
+    font-weight:900;
+    font-style:italic;
+    color:#003087;
+    letter-spacing:-1px;
 }
 
-.brand-icon svg{
-    width:20px;
-    height:20px;
+.brand-text-box{
+    display:flex;
+    flex-direction:column;
 }
 
 .brand-text{
-    font-size:16px;
+    font-size:15px;
     font-weight:800;
     color:#0f172a;
     letter-spacing:-.5px;
+    line-height:1.1;
 }
 
 .brand-sub{
-    font-size:9px;
+    font-size:9.5px;
     color:#64748b;
     font-weight:600;
     text-transform:uppercase;
@@ -98,7 +96,7 @@ button{
     height:38px;
     background:#f8fafc;
     border:1px solid #e2e8f0;
-    border-radius:10px;
+    border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -120,17 +118,17 @@ button{
     display:block;
 }
 
-/* ORIGINAL LANDING PAGE DESIGN */
+/* LANDING PAGE (Screen 1 matched) */
 .landing-hero{
     text-align:center;
-    padding:20px 0;
+    padding:10px 0 30px 0;
 }
 
 .landing-badge{
     display:inline-block;
     background:#e0f2fe;
     color:#0369a1;
-    font-size:10px;
+    font-size:10.5px;
     font-weight:700;
     padding:5px 14px;
     border-radius:20px;
@@ -165,12 +163,12 @@ button{
 .btn-main{
     width:100%;
     height:48px;
-    background:#0f172a;
+    background:#0070ba;
     color:#fff;
     border-radius:12px;
-    font-size:13.5px;
+    font-size:14px;
     font-weight:700;
-    box-shadow:0 4px 12px rgba(15,23,42,0.2);
+    box-shadow:0 4px 12px rgba(0,112,186,0.25);
 }
 
 .btn-outline{
@@ -180,29 +178,34 @@ button{
     color:#0f172a;
     border:1.5px solid #e2e8f0;
     border-radius:12px;
-    font-size:13.5px;
+    font-size:14px;
     font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
 }
 
 .features-grid{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
     gap:10px;
-    margin-top:20px;
+    margin-bottom:35px;
 }
 
 .feature-box{
-    background:#f8fafc;
+    background:#ffffff;
     border:1px solid #e2e8f0;
     border-radius:14px;
-    padding:16px 10px;
+    padding:16px 8px;
     text-align:center;
+    box-shadow:0 2px 4px rgba(0,0,0,0.02);
 }
 
 .feature-box svg{
     width:22px;
     height:22px;
-    color:#0284c7;
+    color:#0070ba;
     margin-bottom:8px;
 }
 
@@ -213,101 +216,199 @@ button{
     display:block;
 }
 
-/* ORIGINAL DASHBOARD DESIGN */
+.how-we-works-section{
+    text-align:left;
+    border-top:1px solid #f1f5f9;
+    padding-top:25px;
+}
+
+.hww-title{
+    font-size:20px;
+    font-weight:800;
+    color:#0f172a;
+    text-align:center;
+    margin-bottom:6px;
+}
+
+.hww-sub{
+    font-size:11.5px;
+    color:#64748b;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.hww-step-card{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 2px 6px rgba(0,0,0,0.02);
+}
+
+.hww-step-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.hww-icon-box{
+    width:42px;
+    height:42px;
+    background:#e0f2fe;
+    color:#0070ba;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.hww-icon-box svg{
+    width:20px;
+    height:20px;
+}
+
+.hww-step-info h4{
+    font-size:13.5px;
+    font-weight:800;
+    color:#0f172a;
+    margin-bottom:2px;
+}
+
+.hww-step-info p{
+    font-size:10.5px;
+    color:#64748b;
+    line-height:1.4;
+}
+
+.hww-step-num{
+    font-size:14px;
+    font-weight:800;
+    color:#94a3b8;
+}
+
+/* DASHBOARD PAGE (Screen 2 matched) */
 .dash-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
+    margin-bottom:16px;
 }
 
 .dash-user-info h2{
-    font-size:20px;
+    font-size:22px;
     font-weight:800;
     color:#0f172a;
 }
 
 .dash-user-info p{
-    font-size:11px;
+    font-size:11.5px;
     color:#64748b;
     margin-top:2px;
 }
 
+.secure-badge-pill{
+    background:#e0f2fe; 
+    color:#0369a1; 
+    padding:6px 12px; 
+    border-radius:20px; 
+    font-size:10px; 
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
 .balance-card{
-    background:linear-gradient(135deg, #0f172a, #1e293b);
+    background:linear-gradient(135deg, #003087, #0070ba);
     border-radius:20px;
     padding:20px;
     color:#fff;
     margin-bottom:20px;
-    box-shadow:0 10px 25px rgba(15,23,42,0.15);
+    box-shadow:0 10px 25px rgba(0,112,186,0.2);
+    position:relative;
 }
 
 .balance-card span{
     font-size:11px;
-    color:#94a3b8;
+    color:#bae6fd;
 }
 
 .balance-card h1{
     font-size:32px;
     font-weight:800;
-    margin:8px 0 16px 0;
+    margin:6px 0 16px 0;
 }
 
 .balance-stats{
     display:flex;
     justify-content:space-between;
-    border-top:1px solid rgba(255,255,255,0.1);
+    border-top:1px solid rgba(255,255,255,0.15);
     padding-top:12px;
 }
 
 .b-stat-item span{
-    font-size:9.5px;
-    color:#94a3b8;
+    font-size:10px;
+    color:#bae6fd;
     display:block;
 }
 
 .b-stat-item strong{
-    font-size:13px;
+    font-size:13.5px;
     font-weight:700;
     color:#fff;
 }
 
+.section-header-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
 .section-label{
-    font-size:13px;
+    font-size:13.5px;
     font-weight:800;
     color:#0f172a;
-    margin-bottom:12px;
+}
+
+.see-all-link{
+    font-size:11.5px;
+    color:#0070ba;
+    font-weight:700;
+    text-decoration:none;
 }
 
 .action-grid{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
     gap:10px;
-    margin-bottom:24px;
+    margin-bottom:22px;
 }
 
 .action-item{
     background:#ffffff;
     border:1px solid #e2e8f0;
     border-radius:14px;
-    padding:14px 6px;
+    padding:14px 4px;
     text-align:center;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:8px;
+    gap:6px;
     cursor:pointer;
 }
 
 .action-icon{
     width:42px;
     height:42px;
-    background:#f1f5f9;
     border-radius:12px;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#0f172a;
 }
 
 .action-icon svg{
@@ -322,24 +423,70 @@ button{
 }
 
 .empty-escrow{
-    background:#f8fafc;
-    border:1.5px dashed #cbd5e1;
+    background:#ffffff;
+    border:1px solid #e2e8f0;
     border-radius:16px;
-    padding:24px;
+    padding:18px;
     text-align:center;
+    margin-bottom:20px;
+    box-shadow:0 2px 4px rgba(0,0,0,0.02);
 }
 
-/* NEW TRADE & SELLER UPLOAD SECTION */
+.protection-box{
+    background:linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%);
+    border:1px solid #bbf7d0;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:15px;
+}
+
+.protection-box h4{
+    font-size:13.5px;
+    font-weight:800;
+    color:#166534;
+    margin-bottom:6px;
+}
+
+.protection-box p{
+    font-size:10.5px;
+    color:#15803d;
+    line-height:1.4;
+    margin-bottom:10px;
+}
+
+.protection-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:12px;
+}
+
+.p-item{
+    font-size:10.5px;
+    font-weight:700;
+    color:#166534;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+/* NEW TRADE STEP PAGE (Screen 3 matched) */
 .trade-header{
     display:flex;
     align-items:center;
-    gap:12px;
-    margin-bottom:20px;
+    justify-content:space-between;
+    margin-bottom:16px;
+}
+
+.trade-header-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
 .back-circle{
-    width:38px;
-    height:38px;
+    width:36px;
+    height:36px;
     background:#f8fafc;
     border:1px solid #e2e8f0;
     border-radius:50%;
@@ -350,33 +497,178 @@ button{
 }
 
 .trade-title h3{
-    font-size:17px;
+    font-size:16px;
     font-weight:800;
     color:#0f172a;
 }
 
 .trade-title p{
-    font-size:10.5px;
+    font-size:10px;
     color:#64748b;
 }
 
-/* INVOICE POINTS BOX (SELLER / SUBMIT ORDER SCREENSHOT) */
-.invoice-box{
-    background:#f8fafc;
+.protected-banner{
+    background:#f0f9ff;
+    border:1px solid #bae6fd;
+    border-radius:14px;
+    padding:12px 14px;
+    margin-bottom:16px;
+}
+
+.protected-banner h4{
+    font-size:12px;
+    font-weight:800;
+    color:#0369a1;
+    margin-bottom:2px;
+}
+
+.protected-banner p{
+    font-size:10px;
+    color:#0284c7;
+}
+
+.step-card{
+    background:#ffffff;
     border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 2px 4px rgba(0,0,0,0.02);
+}
+
+.step-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.step-number-circle{
+    width:28px;
+    height:28px;
+    background:#cbd5e1;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:800;
+}
+
+.step-number-circle.active-step{
+    background:#0070ba;
+}
+
+.step-info h5{
+    font-size:12.5px;
+    font-weight:800;
+    color:#0f172a;
+}
+
+.step-info p{
+    font-size:10px;
+    color:#64748b;
+}
+
+.step-action-btn{
+    background:#f0f9ff;
+    color:#0070ba;
+    border:1px solid #bae6fd;
+    border-radius:10px;
+    padding:8px 12px;
+    font-size:11px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+/* RULES BOX */
+.rules-box{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:14px;
+    margin-top:16px;
+    margin-bottom:16px;
+}
+
+.rules-title-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.rules-title-row h4{
+    font-size:13px;
+    font-weight:800;
+    color:#0f172a;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.buyer-protected-pill{
+    background:#e0f2fe;
+    color:#0369a1;
+    font-size:9.5px;
+    font-weight:700;
+    padding:3px 8px;
+    border-radius:10px;
+}
+
+.rule-row-item{
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+    align-items:flex-start;
+}
+
+.rule-num{
+    width:18px;
+    height:18px;
+    background:#f1f5f9;
+    color:#475569;
+    border-radius:50%;
+    font-size:9.5px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    margin-top:2px;
+}
+
+.rule-text h6{
+    font-size:11px;
+    font-weight:800;
+    color:#0f172a;
+}
+
+.rule-text p{
+    font-size:9.5px;
+    color:#64748b;
+    line-height:1.35;
+}
+
+/* UPLOAD DETAILS & 4 POINTS MODAL/SECTION */
+.upload-detail-container{
+    background:#f8fafc;
+    border:1px solid #cbd5e1;
     border-radius:16px;
     padding:16px;
     margin-bottom:20px;
 }
 
-.invoice-box h4{
+.upload-detail-container h4{
     font-size:14px;
     font-weight:800;
     color:#0f172a;
     margin-bottom:12px;
-    display:flex;
-    align-items:center;
-    gap:6px;
 }
 
 .point-row{
@@ -387,40 +679,30 @@ button{
     margin-bottom:10px;
 }
 
-.point-row:last-child{
-    margin-bottom:0;
-}
-
 .point-label{
     font-size:11px;
     font-weight:700;
     color:#475569;
-    margin-bottom:6px;
+    margin-bottom:4px;
     display:block;
 }
 
-.point-value-text{
+.point-value{
     font-size:12px;
     font-weight:800;
     color:#0f172a;
 }
 
-/* File input styling for point 4 */
-.file-upload-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.file-input-custom {
-    width: 100%;
-    padding: 8px;
-    background: #f1f5f9;
-    border: 1px dashed #94a3b8;
-    border-radius: 8px;
-    font-size: 11px;
+.file-input-box{
+    width:100%;
+    padding:10px;
+    background:#f1f5f9;
+    border:1.5px dashed #0070ba;
+    border-radius:8px;
+    font-size:11px;
     color:#0f172a;
-    cursor: pointer;
+    cursor:pointer;
+    margin-top:4px;
 }
 
 /* BOTTOM NAV */
@@ -464,7 +746,7 @@ button{
 }
 
 .nav-tab.active{
-    color:#0284c7;
+    color:#0070ba;
 }
 
 /* AUTH MODAL */
@@ -563,156 +845,295 @@ button{
     <!-- HEADER -->
     <header class="header">
         <div class="brand" onclick="goHome()">
-            <div class="brand-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <div>
-                <div class="brand-text">DIN AR</div>
-                <div class="brand-sub">Escrow</div>
+            <div class="paypal-logo">PayPal</div>
+            <div class="brand-text-box">
+                <div class="brand-text">Escrow</div>
+                <div class="brand-sub">System</div>
             </div>
         </div>
         <div class="header-right" id="headerRightArea"></div>
     </header>
 
-    <!-- LANDING PAGE -->
+    <!-- LANDING PAGE (Screen 1) -->
     <section id="landing-page" class="page">
         <div class="landing-hero">
-            <div class="landing-badge">Secure Escrow Platform</div>
-            <h1 class="landing-title">Safe Transactions & Verified Trades</h1>
-            <p class="landing-desc">Protect your digital assets and payments with our reliable escrow system built for secure trades.</p>
+            <div class="landing-badge">Secure Escrow Payments</div>
+            <h1 class="landing-title">Verified Purchase Trades : Buy & Sell with Confidence</h1>
+            <p class="landing-desc">A safe and simple escrow service for Verified Purchase transactions. Your payment is protected until the deal is completed.</p>
             
             <div class="landing-buttons">
                 <button class="btn-main" onclick="openAuthModal('signup')">Get Started</button>
-                <button class="btn-outline" onclick="openAuthModal('login')">Sign In</button>
+                <button class="btn-outline" onclick="openAuthModal('login')">
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:16px;height:16px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    How It Works
+                </button>
             </div>
 
             <div class="features-grid">
                 <div class="feature-box">
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    <span>100% Secure</span>
+                    <span>Secure & Trusted</span>
                 </div>
                 <div class="feature-box">
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    <span>Fast Process</span>
+                    <span>Simple Process</span>
                 </div>
                 <div class="feature-box">
-                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                    <span>Easy Upload</span>
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                    <span>Dispute Support</span>
+                </div>
+            </div>
+
+            <div class="how-we-works-section">
+                <h3 class="hww-title">How We Works</h3>
+                <p class="hww-sub">A simple and secure process for everyone</p>
+
+                <div class="hww-step-card">
+                    <div class="hww-step-left">
+                        <div class="hww-icon-box">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                        </div>
+                        <div class="hww-step-info">
+                            <h4>Seller Places Order</h4>
+                            <p>Seller makes a payment and funds are held securely in our escrow.</p>
+                        </div>
+                    </div>
+                    <div class="hww-step-num">01</div>
+                </div>
+
+                <div class="hww-step-card">
+                    <div class="hww-step-left">
+                        <div class="hww-icon-box">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        </div>
+                        <div class="hww-step-info">
+                            <h4>Buyer Uploads Verification</h4>
+                            <p>Buyer submit confirmation order screenshot or completes the verification process.</p>
+                        </div>
+                    </div>
+                    <div class="hww-step-num">02</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- DASHBOARD PAGE -->
+    <!-- DASHBOARD PAGE (Screen 2) -->
     <section id="dashboard-page" class="page">
         <div class="dash-header">
             <div class="dash-user-info">
+                <p>Welcome back</p>
                 <h2>Dashboard</h2>
-                <p>Welcome back, Dinar</p>
             </div>
-            <div style="background:#e0f2fe; color:#0369a1; padding:6px 12px; border-radius:20px; font-size:10.5px; font-weight:700;">
-                Verified Seller
+            <div class="secure-badge-pill">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:12px;height:12px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Secure Trading with PayPal
             </div>
         </div>
 
         <div class="balance-card">
             <span>Available Balance</span>
-            <h1>$1,250.00</h1>
+            <h1>$0.00</h1>
             <div class="balance-stats">
                 <div class="b-stat-item">
-                    <span>Pending Escrow</span>
-                    <strong>$125.00</strong>
+                    <span>Pending</span>
+                    <strong>$0.00</strong>
                 </div>
                 <div class="b-stat-item">
                     <span>Completed</span>
                     <strong>$0.00</strong>
                 </div>
                 <div class="b-stat-item">
-                    <span>Total Trades</span>
-                    <strong>1</strong>
+                    <span>Trades</span>
+                    <strong>0</strong>
                 </div>
             </div>
         </div>
 
-        <div class="section-label">Quick Actions</div>
+        <div class="section-header-row">
+            <div class="section-label">Quick Actions</div>
+            <a href="#" class="see-all-link" onclick="showToast('All actions')">See all ></a>
+        </div>
+
         <div class="action-grid">
             <div class="action-item" onclick="switchPage('new-trade')">
-                <div class="action-icon" style="background:#e0f2fe; color:#0284c7;">
+                <div class="action-icon" style="background:#e0f2fe; color:#0070ba;">
                     <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </div>
                 <span>New Trade</span>
+                <span style="font-size:8.5px; color:#64748b; font-weight:normal;">Start a deal</span>
             </div>
             <div class="action-item" onclick="showToast('Transactions history')">
                 <div class="action-icon" style="background:#dcfce7; color:#16a34a;">
                     <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
                 </div>
-                <span>History</span>
+                <span>Transactions</span>
+                <span style="font-size:8.5px; color:#64748b; font-weight:normal;">View history</span>
             </div>
             <div class="action-item" onclick="showToast('Messages inbox')">
                 <div class="action-icon" style="background:#f3e8ff; color:#9333ea;">
                     <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 </div>
                 <span>Messages</span>
+                <span style="font-size:8.5px; color:#64748b; font-weight:normal;">Chat with users</span>
             </div>
             <div class="action-item" onclick="showToast('Deposit funds')">
                 <div class="action-icon" style="background:#fef3c7; color:#d97706;">
                     <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                 </div>
                 <span>Deposit</span>
+                <span style="font-size:8.5px; color:#64748b; font-weight:normal;">Add via PayPal</span>
             </div>
         </div>
 
-        <div class="section-label">Active Trade Status</div>
-        <div class="empty-escrow" onclick="switchPage('new-trade')" style="cursor:pointer;">
-            <p style="font-size:12px; font-weight:700; color:#0f172a;">Active Order: DIN-88241</p>
-            <p style="font-size:10.5px; color:#64748b; margin-top:4px;">Click here to view invoice & submit order screenshot</p>
+        <div class="section-header-row">
+            <div class="section-label">Active Escrow</div>
+            <a href="#" class="see-all-link" onclick="showToast('View all escrow')">View all</a>
+        </div>
+        <div class="empty-escrow">
+            <p style="font-size:12px; font-weight:700; color:#0f172a;">No active escrow orders found.</p>
+            <p style="font-size:10.5px; color:#64748b; margin-top:4px;">Start a new trade to get started.</p>
+        </div>
+
+        <div class="protection-box">
+            <h4>PayPal Escrow Protection</h4>
+            <p>Your funds are secured with PayPal's trusted escrow system and real-time verification.</p>
+            <div class="protection-list">
+                <div class="p-item">✓ Secure Payments</div>
+                <div class="p-item">✓ Buyer & Seller Protection</div>
+                <div class="p-item">✓ Trusted Worldwide</div>
+            </div>
+            <a href="#" class="see-all-link" onclick="showToast('Learn more')">Learn More ></a>
         </div>
     </section>
 
-    <!-- NEW TRADE / SELLER INVOICE PAGE -->
+    <!-- NEW TRADE STEPS PAGE (Screen 3 matched) -->
     <section id="new-trade-page" class="page">
         <div class="trade-header">
-            <button class="back-circle" onclick="switchPage('dashboard')">
-                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:18px;height:18px;"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <div class="trade-title">
-                <h3>Submit Order Screenshot</h3>
-                <p>Seller Invoice & Verification Details</p>
+            <div class="trade-header-left">
+                <button class="back-circle" onclick="switchPage('dashboard')">
+                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:16px;height:16px;"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <div class="trade-title">
+                    <h3>New Trade</h3>
+                    <p>Secure • Simple • Reliable</p>
+                </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <div class="paypal-logo" style="font-size:16px;">PayPal</div>
             </div>
         </div>
 
-        <!-- INVOICE WITH 4 POINTS (Seller / Submit Order Screenshot view) -->
-        <div class="invoice-box">
-            <h4>
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:18px;height:18px;color:#0284c7;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                Order Invoice Summary
-            </h4>
+        <div class="protected-banner">
+            <h4>You're Protected</h4>
+            <p>Your trade is secured with PayPal Escrow. Follow the steps below to get started.</p>
+        </div>
 
-            <div class="point-row">
-                <span class="point-label">1. Order Number :</span>
-                <span class="point-value-text">DIN-88241</span>
+        <!-- DYNAMIC AREA: Either 4 Steps OR 4 Points + File Upload -->
+        <div id="tradeContentArea">
+            <!-- STEP 1 -->
+            <div class="step-card">
+                <div class="step-left">
+                    <div class="step-number-circle active-step">1</div>
+                    <div class="step-info">
+                        <h5>Order Place</h5>
+                        <p>Submit information to start the trade.</p>
+                    </div>
+                </div>
+                <button class="step-action-btn" onclick="showToast('Information already submitted')">
+                    Submit Information >
+                </button>
             </div>
 
-            <div class="point-row">
-                <span class="point-label">2. Order Date :</span>
-                <span class="point-value-text">September 12, 2026</span>
+            <!-- STEP 2 (Clicking Upload Now opens the Seller 4 Points & File Upload) -->
+            <div class="step-card">
+                <div class="step-left">
+                    <div class="step-number-circle active-step">2</div>
+                    <div class="step-info">
+                        <h5>Upload Verification</h5>
+                        <p>Buyer uploads required documents.</p>
+                    </div>
+                </div>
+                <button class="step-action-btn" onclick="openUploadForm()" style="background:#0070ba; color:#fff;">
+                    Upload Now >
+                </button>
             </div>
 
-            <div class="point-row">
-                <span class="point-label">3. Payment Status :</span>
-                <span class="point-value-text" style="color:#16a34a;">Successfully Secured in Escrow ($125.00)</span>
+            <!-- STEP 3 -->
+            <div class="step-card">
+                <div class="step-left">
+                    <div class="step-number-circle">3</div>
+                    <div class="step-info">
+                        <h5>Under Review</h5>
+                        <p>We are verifying the information.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="point-row">
-                <span class="point-label">4. Amazon E-Giftcard Order Confirmation screenshot :</span>
-                <div class="file-upload-wrapper" style="margin-top:6px;">
-                    <input type="file" id="orderScreenshotInput" class="file-input-custom" accept="image/*" onchange="handleFileSelect(event)">
-                    <div id="fileChosenStatus" style="font-size:10px; color:#64748b; font-weight:600;">No file chosen</div>
+            <!-- STEP 4 -->
+            <div class="step-card">
+                <div class="step-left">
+                    <div class="step-number-circle">4</div>
+                    <div class="step-info">
+                        <h5>Payment Release</h5>
+                        <p>Funds will be released to the buyer.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <button class="btn-main" onclick="submitScreenshotAction()">Submit Confirmation</button>
+        <!-- RULES & GUIDELINES -->
+        <div class="rules-box">
+            <div class="rules-title-row">
+                <h4>
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:16px;height:16px;color:#0070ba;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Trade Rules & Guidelines
+                </h4>
+                <div class="buyer-protected-pill">Buyer Protected</div>
+            </div>
+
+            <div class="rule-row-item">
+                <div class="rule-num">1</div>
+                <div class="rule-text">
+                    <h6>Payment is 100% Secure</h6>
+                    <p>Buyer's payment is fully secured in escrow and will be released after successful verification.</p>
+                </div>
+            </div>
+            <div class="rule-row-item">
+                <div class="rule-num">2</div>
+                <div class="rule-text">
+                    <h6>Cancellation Request</h6>
+                    <p>If you want to cancel the trade, you must provide full chat records explaining the reason.</p>
+                </div>
+            </div>
+            <div class="rule-row-item">
+                <div class="rule-num">3</div>
+                <div class="rule-text">
+                    <h6>Be Honest and Cooperative</h6>
+                    <p>Provide valid information and cooperate with the buyer to avoid restrictions.</p>
+                </div>
+            </div>
+            <div class="rule-row-item">
+                <div class="rule-num">4</div>
+                <div class="rule-text">
+                    <h6>Respect the Buyer</h6>
+                    <p>Always communicate politely and respond promptly.</p>
+                </div>
+            </div>
+            <div class="rule-row-item">
+                <div class="rule-num">5</div>
+                <div class="rule-text">
+                    <h6>Follow Platform Instructions</h6>
+                    <p>Complete all required steps and upload correct documents.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:12px; text-align:center; margin-bottom:16px;">
+            <p style="font-size:11px; font-weight:800; color:#166534;">✓ Buyer's Payment Will Be Released</p>
+            <p style="font-size:10px; color:#15803d; margin-top:2px;">Once verification is completed successfully, payment will be released 100%.</p>
+        </div>
+
+        <button class="btn-main" onclick="switchPage('dashboard')">Continue →</button>
     </section>
 
     <!-- BOTTOM NAVIGATION -->
@@ -723,15 +1144,15 @@ button{
         </button>
         <button class="nav-tab" onclick="showToast('Transactions clicked')">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
-            <span>History</span>
+            <span>Transactions</span>
         </button>
         <button class="nav-tab" onclick="switchPage('new-trade')">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
             <span>New Trade</span>
         </button>
-        <button class="nav-tab" onclick="handleLogout()">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            <span>Logout</span>
+        <button class="nav-tab" onclick="showToast('Messages clicked')">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>Messages</span>
         </button>
     </nav>
 
@@ -761,15 +1182,15 @@ button{
 
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-    const isLoggedIn = localStorage.getItem('din_ar_logged_in');
-    const activePage = localStorage.getItem('din_ar_active_page') || (isLoggedIn === 'true' ? 'dashboard' : 'landing');
+    const isLoggedIn = localStorage.getItem('paypal_logged_in');
+    const activePage = localStorage.getItem('paypal_active_page') || (isLoggedIn === 'true' ? 'dashboard' : 'landing');
     
     updateHeaderAndNav();
     switchPage(activePage, false);
 });
 
 function updateHeaderAndNav() {
-    const isLoggedIn = localStorage.getItem('din_ar_logged_in');
+    const isLoggedIn = localStorage.getItem('paypal_logged_in');
     const headerRight = document.getElementById('headerRightArea');
     const bottomNav = document.getElementById('bottomNav');
 
@@ -779,6 +1200,9 @@ function updateHeaderAndNav() {
             <button class="icon-btn" onclick="showToast('No notifications')">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
             </button>
+            <button class="icon-btn" onclick="handleLogout()" title="Logout">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </button>
         `;
     } else {
         bottomNav.style.display = 'none';
@@ -786,12 +1210,15 @@ function updateHeaderAndNav() {
             <button class="icon-btn" onclick="openAuthModal('login')">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
             </button>
+            <button class="icon-btn" onclick="openAuthModal('signup')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
         `;
     }
 }
 
 function goHome() {
-    const isLoggedIn = localStorage.getItem('din_ar_logged_in');
+    const isLoggedIn = localStorage.getItem('paypal_logged_in');
     switchPage(isLoggedIn === 'true' ? 'dashboard' : 'landing');
 }
 
@@ -799,17 +1226,18 @@ function switchPage(pageId, save = true) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     window.scrollTo(0, 0);
 
-    const isLoggedIn = localStorage.getItem('din_ar_logged_in');
+    const isLoggedIn = localStorage.getItem('paypal_logged_in');
 
     if (pageId === 'dashboard' && isLoggedIn === 'true') {
         document.getElementById('dashboard-page').classList.add('active');
-        if(save) localStorage.setItem('din_ar_active_page', 'dashboard');
+        if(save) localStorage.setItem('paypal_active_page', 'dashboard');
     } else if (pageId === 'new-trade' && isLoggedIn === 'true') {
         document.getElementById('new-trade-page').classList.add('active');
-        if(save) localStorage.setItem('din_ar_active_page', 'new-trade');
+        resetTradeView();
+        if(save) localStorage.setItem('paypal_active_page', 'new-trade');
     } else {
         document.getElementById('landing-page').classList.add('active');
-        if(save) localStorage.setItem('din_ar_active_page', 'landing');
+        if(save) localStorage.setItem('paypal_active_page', 'landing');
     }
 }
 
@@ -824,7 +1252,7 @@ function closeAuthModal() {
 
 function handleAuthSubmit(e) {
     e.preventDefault();
-    localStorage.setItem('din_ar_logged_in', 'true');
+    localStorage.setItem('paypal_logged_in', 'true');
     closeAuthModal();
     updateHeaderAndNav();
     switchPage('dashboard');
@@ -832,28 +1260,102 @@ function handleAuthSubmit(e) {
 }
 
 function handleLogout() {
-    localStorage.removeItem('din_ar_logged_in');
-    localStorage.setItem('din_ar_active_page', 'landing');
+    localStorage.removeItem('paypal_logged_in');
+    localStorage.setItem('paypal_active_page', 'landing');
     updateHeaderAndNav();
     switchPage('landing');
     showToast('Logged out');
 }
 
-function handleFileSelect(e) {
+function resetTradeView() {
+    document.getElementById('tradeContentArea').innerHTML = `
+        <div class="step-card">
+            <div class="step-left">
+                <div class="step-number-circle active-step">1</div>
+                <div class="step-info">
+                    <h5>Order Place</h5>
+                    <p>Submit information to start the trade.</p>
+                </div>
+            </div>
+            <button class="step-action-btn" onclick="showToast('Information already submitted')">Submit Information ></button>
+        </div>
+        <div class="step-card">
+            <div class="step-left">
+                <div class="step-number-circle active-step">2</div>
+                <div class="step-info">
+                    <h5>Upload Verification</h5>
+                    <p>Buyer uploads required documents.</p>
+                </div>
+            </div>
+            <button class="step-action-btn" onclick="openUploadForm()" style="background:#0070ba; color:#fff;">Upload Now ></button>
+        </div>
+        <div class="step-card">
+            <div class="step-left">
+                <div class="step-number-circle">3</div>
+                <div class="step-info">
+                    <h5>Under Review</h5>
+                    <p>We are verifying the information.</p>
+                </div>
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-left">
+                <div class="step-number-circle">4</div>
+                <div class="step-info">
+                    <h5>Payment Release</h5>
+                    <p>Funds will be released to the buyer.</p>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function openUploadForm() {
+    const area = document.getElementById('tradeContentArea');
+    area.innerHTML = `
+        <div class="upload-detail-container">
+            <h4>Submit Order Screenshot & Verification</h4>
+            
+            <div class="point-row">
+                <span class="point-label">1. Order Number :</span>
+                <span class="point-value">PP-TRD-99421</span>
+            </div>
+
+            <div class="point-row">
+                <span class="point-label">2. Order Date :</span>
+                <span class="point-value">September 12, 2026</span>
+            </div>
+
+            <div class="point-row">
+                <span class="point-label">3. Payment Status :</span>
+                <span class="point-value" style="color:#16a34a;">Successfully Secured in Escrow ($0.00)</span>
+            </div>
+
+            <div class="point-row">
+                <span class="point-label">4. Amazon E-Giftcard Order Confirmation screenshot :</span>
+                <input type="file" id="screenshotFile" class="file-input-box" accept="image/*" onchange="fileSelected(event)">
+                <div id="fileStatus" style="font-size:10px; color:#64748b; margin-top:4px; font-weight:600;">No file chosen</div>
+            </div>
+        </div>
+        <button class="btn-main" onclick="submitUploadAction()">Submit Confirmation</button>
+    `;
+}
+
+function fileSelected(e) {
     const file = e.target.files[0];
-    if (file) {
-        document.getElementById('fileChosenStatus').textContent = '✅ Selected: ' + file.name;
-        document.getElementById('fileChosenStatus').style.color = '#16a34a';
+    if(file) {
+        document.getElementById('fileStatus').textContent = '✅ Selected: ' + file.name;
+        document.getElementById('fileStatus').style.color = '#16a34a';
     }
 }
 
-function submitScreenshotAction() {
-    const fileInput = document.getElementById('orderScreenshotInput');
-    if (!fileInput.files || fileInput.files.length === 0) {
+function submitUploadAction() {
+    const fileInput = document.getElementById('screenshotFile');
+    if(!fileInput || !fileInput.files || fileInput.files.length === 0) {
         showToast('Please choose a screenshot file first!');
         return;
     }
-    showToast('Order screenshot submitted successfully!');
+    showToast('Screenshot uploaded successfully!');
     setTimeout(() => {
         switchPage('dashboard');
     }, 1500);
