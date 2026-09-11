@@ -1070,7 +1070,7 @@ footer{
 <div id="appContainer">
   <!-- Default Public View (Landing Page) -->
   <main id="publicView">
-    <section class="hero">
+    <section class="hero" id="home">
       <div class="hero-inner">
         <div class="badge">
           <span class="badge-icon">
@@ -1322,210 +1322,310 @@ footer{
 
   <!-- Logged-In User Interface with Bottom Navigation Bar -->
   <div id="loggedInView" style="display:none; max-width:640px; margin:20px auto 90px auto; background:#f8fafc; border-radius:24px; box-shadow:0 15px 35px rgba(0,0,0,0.08); overflow:hidden; border:1px solid #e2e8f0; position:relative;">
-    <!-- Top Bar -->
-    <div style="background:#fff; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #e2ebf3;">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <img src="logo.png" style="width:36px; height:32px; object-fit:contain;" alt="DIN AR">
-        <div>
-          <div style="font-size:16px; font-weight:900; letter-spacing:-0.5px; color:#07152f;">DIN AR Escrow System</div>
-          <div style="font-size:11px; color:#64748b;">Payment Protection</div>
+    
+    <!-- Scrollable Body Content (Fixed overlapping and padding issues) -->
+    <div style="padding:22px; max-height:calc(100vh - 120px); overflow-y:auto; padding-bottom:90px;">
+      
+      <!-- Dynamic Tab Content Views -->
+      <div id="tabHome" class="app-tab-content">
+        <!-- Hero Banner -->
+        <div style="background:linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%); border-radius:18px; padding:22px; display:flex; justify-content:space-between; align-items:center; border:1px solid #bfdbfe;">
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#1e40af; text-transform:uppercase; letter-spacing:0.5px;">Welcome Back,</div>
+            <div style="font-size:22px; font-weight:900; color:#07152f; margin-top:4px; line-height:1.2;">Secure Transactions<br>for a Safer Tomorrow</div>
+            <p style="font-size:12.5px; color:#475569; margin-top:8px; line-height:1.4;">Buy and sell with confidence. Your funds are protected in escrow until the deal is completed.</p>
+            <button onclick="switchTab('newTrade')" style="margin-top:14px; background:var(--blue); color:#fff; border:0; padding:10px 18px; border-radius:10px; font-weight:800; font-size:13px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(8,124,245,0.25); cursor:pointer;">
+              <span>+</span> New Trade
+            </button>
+          </div>
+          <div style="width:110px; height:110px; background:#ffffffaa; border-radius:50%; display:grid; place-items:center; flex-shrink:0; border:2px dashed #93c5fd;">
+            <svg viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="#087cf5" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+        </div>
+
+        <!-- Quick Action Cards Grid -->
+        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-top:18px;">
+          <div onclick="switchTab('newTrade')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
+            <div style="width:36px; height:36px; background:#e0f2fe; color:#0284c7; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+            <div style="font-size:12px; font-weight:800; color:#07152f;">New Trade</div>
+            <div style="font-size:10px; color:#64748b; margin-top:2px;">Create escrow</div>
+          </div>
+          <div onclick="switchTab('transactions')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
+            <div style="width:36px; height:36px; background:#f3e8ff; color:#9333ea; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+            <div style="font-size:12px; font-weight:800; color:#07152f;">Transactions</div>
+            <div style="font-size:10px; color:#64748b; margin-top:2px;">View all history</div>
+          </div>
+          <div onclick="alert('Deposit Funds')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
+            <div style="width:36px; height:36px; background:#dcfce7; color:#16a34a; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg></div>
+            <div style="font-size:12px; font-weight:800; color:#07152f;">Deposit</div>
+            <div style="font-size:10px; color:#64748b; margin-top:2px;">Add funds</div>
+          </div>
+          <div onclick="alert('Become a Seller')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
+            <div style="width:36px; height:36px; background:#ffedd5; color:#ea580c; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div>
+            <div style="font-size:12px; font-weight:800; color:#07152f;">Seller Mode</div>
+            <div style="font-size:10px; color:#64748b; margin-top:2px;">Start selling</div>
+          </div>
+        </div>
+
+        <!-- Account Overview Section -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:22px; margin-bottom:10px;">
+          <div style="font-size:15px; font-weight:900; color:#07152f;">Account Overview</div>
+          <div style="font-size:12px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="switchTab('transactions')">View All &gt;</div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;">
+          <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
+            <div style="font-size:10.5px; font-weight:700; color:#64748b;">TOTAL BALANCE</div>
+            <div style="font-size:16px; font-weight:900; color:#07152f; margin-top:4px;">$1,250.00</div>
+          </div>
+          <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
+            <div style="font-size:10.5px; font-weight:700; color:#64748b;">IN ESCROW</div>
+            <div style="font-size:16px; font-weight:900; color:#07152f; margin-top:4px;">$850.00</div>
+          </div>
+          <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
+            <div style="font-size:10.5px; font-weight:700; color:#64748b;">COMPLETED</div>
+            <div style="font-size:16px; font-weight:900; color:#16a34a; margin-top:4px;">12</div>
+          </div>
+          <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
+            <div style="font-size:10.5px; font-weight:700; color:#64748b;">PENDING</div>
+            <div style="font-size:16px; font-weight:900; color:#d97706; margin-top:4px;">3</div>
+          </div>
+        </div>
+
+        <!-- Recent Transactions Section -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:22px; margin-bottom:10px;">
+          <div style="font-size:15px; font-weight:900; color:#07152f;">Recent Transactions</div>
+          <div style="font-size:12px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="switchTab('transactions')">View All &gt;</div>
+        </div>
+
+        <div style="background:#fff; border-radius:14px; border:1px solid #e2e8f0; overflow:hidden;">
+          <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10284 &nbsp;🇺🇸</div>
+                <div style="font-size:11.5px; color:#64748b;">Amazon Gift Card (US) • Sep 10, 2026</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$250.00 USD</div>
+              <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
+            </div>
+          </div>
+          <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10285 &nbsp;🇮🇹</div>
+                <div style="font-size:11.5px; color:#64748b;">Eurozone Escrow • Sep 10, 2026</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$400.00 USD</div>
+              <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
+            </div>
+          </div>
+          <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10283 &nbsp;🇺🇸</div>
+                <div style="font-size:11.5px; color:#64748b;">PayPal Balance • Sep 09, 2026</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$180.00 USD</div>
+              <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div style="display:flex; align-items:center; gap:12px;">
-        <div style="width:38px; height:38px; border-radius:50%; background:#f1f5f9; display:grid; place-items:center; cursor:pointer; color:#334155; position:relative;" onclick="alert('No new notifications')">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-          <span style="position:absolute; top:8px; right:9px; width:8px; height:8px; background:#ef4444; border-radius:50%;"></span>
+
+      <!-- Transactions Tab View -->
+      <div id="tabTransactions" class="app-tab-content" style="display:none;">
+        <div style="font-size:18px; font-weight:900; color:#07152f; margin-bottom:15px;">All Transactions History</div>
+        <div style="background:#fff; border-radius:14px; border:1px solid #e2e8f0; overflow:hidden;">
+          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10284 &nbsp;🇺🇸</div>
+                <div style="font-size:11.5px; color:#64748b;">Amazon Gift Card (US) • Sep 10, 2026</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$250.00 USD</div>
+              <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10285 &nbsp;🇮🇹</div>
+                <div style="font-size:11.5px; color:#64748b;">Eurozone Escrow • Sep 10, 2026</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$400.00 USD</div>
+              <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#e0f2fe; color:#0369a1; display:grid; place-items:center; font-weight:800;">🔄</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10286 &nbsp;🇬🇧</div>
+                <div style="font-size:11.5px; color:#64748b;">UK Digital Transfer • Sep 09, 2026</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$310.00 USD</div>
+              <span class="status-badge status-under-review" style="font-size:10px; padding:2px 8px; margin-top:2px;">On-going</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10283 &nbsp;🇺🇸</div>
+                <div style="font-size:11.5px; color:#64748b;">PayPal Balance • Sep 09, 2026</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$180.00 USD</div>
+              <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10282 &nbsp;🇺🇸</div>
+                <div style="font-size:11.5px; color:#64748b;">USDT (TRC20) • Sep 08, 2026</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$320.00 USD</div>
+              <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10281 &nbsp;🇺🇸</div>
+                <div style="font-size:11.5px; color:#64748b;">Steam Gift Card • Sep 07, 2026</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13.5px; font-weight:900; color:#07152f;">$100.00 USD</div>
+              <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
+            </div>
+          </div>
         </div>
-        <button onclick="handleLogout()" style="background:#fee2e2; color:#991b1b; border:0; padding:6px 14px; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">Logout</button>
       </div>
+
+      <!-- New Trade Tab View -->
+      <div id="tabNewTrade" class="app-tab-content" style="display:none;">
+        <div style="font-size:18px; font-weight:900; color:#07152f; margin-bottom:15px;">Create New Escrow Trade</div>
+        <div style="background:#fff; padding:20px; border-radius:14px; border:1px solid #e2e8f0;">
+          <form onsubmit="event.preventDefault(); alert('New trade escrow successfully created!'); switchTab('home');">
+            <div class="modal-form-group" style="margin-top:0;">
+              <label>Trade Partner Email or Username</label>
+              <input type="text" placeholder="Enter partner account identifier" required>
+            </div>
+            <div class="modal-form-group">
+              <label>Escrow Category</label>
+              <select required style="width:100%; padding:12px 14px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff; outline:none;">
+                <option value="" disabled selected>Select category</option>
+                <option value="GiftCard">Gift Card (US/Global)</option>
+                <option value="Crypto">Crypto / USDT</option>
+                <option value="Digital">Digital Service / Transfer</option>
+              </select>
+            </div>
+            <div class="modal-form-group">
+              <label>Amount (USD)</label>
+              <input type="number" placeholder="Enter trade amount" required>
+            </div>
+            <div class="modal-form-group">
+              <label>Trade Notes / Terms</label>
+              <textarea rows="3" placeholder="Enter item details or trade requirements..."></textarea>
+            </div>
+            <button type="submit" class="modal-btn">Initialize Trade Escrow</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Messages Tab View -->
+      <div id="tabMessages" class="app-tab-content" style="display:none;">
+        <div style="font-size:18px; font-weight:900; color:#07152f; margin-bottom:15px;">Messages &amp; Support</div>
+        <div style="background:#fff; border-radius:14px; border:1px solid #e2e8f0; overflow:hidden;">
+          <div style="padding:16px; border-bottom:1px solid #f1f5f9; display:flex; align-items:center; gap:12px; cursor:pointer;" onclick="alert('Opening chat with DIN AR Support')">
+            <div style="width:40px; height:40px; background:#e0f2fe; color:var(--blue); border-radius:50%; display:grid; place-items:center; font-weight:900;">🛡️</div>
+            <div style="flex:1;">
+              <div style="display:flex; justify-content:space-between;"><span style="font-weight:800; font-size:14px; color:#07152f;">DIN AR Support Agent</span><span style="font-size:11px; color:#64748b;">10:45 AM</span></div>
+              <div style="font-size:12.5px; color:#64748b; margin-top:2px;">Your transaction #TRX-10284 is currently under verification...</div>
+            </div>
+          </div>
+          <div style="padding:16px; display:flex; align-items:center; gap:12px; cursor:pointer;" onclick="alert('Opening chat with Trade Partner')">
+            <div style="width:40px; height:40px; background:#f3e8ff; color:#9333ea; border-radius:50%; display:grid; place-items:center; font-weight:900;">👤</div>
+            <div style="flex:1;">
+              <div style="display:flex; justify-content:space-between;"><span style="font-weight:800; font-size:14px; color:#07152f;">Merchant Partner #892</span><span style="font-size:11px; color:#64748b;">Yesterday</span></div>
+              <div style="font-size:12.5px; color:#64748b; margin-top:2px;">Code sent successfully. Please confirm receipt.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Tab View -->
+      <div id="tabProfile" class="app-tab-content" style="display:none;">
+        <div style="font-size:18px; font-weight:900; color:#07152f; margin-bottom:15px;">User Profile &amp; Settings</div>
+        <div style="background:#fff; padding:20px; border-radius:14px; border:1px solid #e2e8f0; text-align:center;">
+          <div style="width:70px; height:70px; background:#e0f2fe; color:var(--blue); border-radius:50%; display:grid; place-items:center; font-size:28px; font-weight:900; margin:0 auto 12px;">DA</div>
+          <div style="font-size:16px; font-weight:900; color:#07152f;">Md Ahsanul Habib Dinar</div>
+          <div style="font-size:12px; color:#64748b; margin-top:2px;">Rangpur, Bangladesh 🇧🇩</div>
+          <div style="display:inline-block; margin-top:8px; padding:4px 12px; background:#dcfce7; color:#166534; border-radius:20px; font-size:12px; font-weight:700;">Verified Account</div>
+          
+          <div style="margin-top:20px; text-align:left; border-top:1px solid #f1f5f9; padding-top:15px;">
+            <div style="font-size:13px; font-weight:800; color:#07152f; margin-bottom:10px;">Account Security</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#475569; padding:8px 0; border-bottom:1px solid #f8fafc;">
+              <span>Two-Factor Authentication</span>
+              <span style="color:#16a34a; font-weight:700;">Enabled</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#475569; padding:8px 0;">
+              <span>KYC Level</span>
+              <span style="color:var(--blue); font-weight:700;">Level 2 Verified</span>
+            </div>
+          </div>
+          
+          <button onclick="handleLogout()" style="width:100%; margin-top:20px; background:#fee2e2; color:#991b1b; border:0; padding:12px; border-radius:10px; font-weight:800; font-size:14px; cursor:pointer;">Log Out</button>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Scrollable Body Content -->
-    <div style="padding:22px; max-height:calc(100vh - 160px); overflow-y:auto; padding-bottom:30px;">
-      <!-- Hero Banner -->
-      <div style="background:linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%); border-radius:18px; padding:22px; display:flex; justify-content:space-between; align-items:center; border:1px solid #bfdbfe;">
-        <div>
-          <div style="font-size:12px; font-weight:700; color:#1e40af; text-transform:uppercase; letter-spacing:0.5px;">Welcome Back,</div>
-          <div style="font-size:22px; font-weight:900; color:#07152f; margin-top:4px; line-height:1.2;">Secure Transactions<br>for a Safer Tomorrow</div>
-          <p style="font-size:12.5px; color:#475569; margin-top:8px; line-height:1.4;">Buy and sell with confidence. Your funds are protected in escrow until the deal is completed.</p>
-          <button onclick="alert('Opening New Trade workflow...')" style="margin-top:14px; background:var(--blue); color:#fff; border:0; padding:10px 18px; border-radius:10px; font-weight:800; font-size:13px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(8,124,245,0.25); cursor:pointer;">
-            <span>+</span> New Trade
-          </button>
-        </div>
-        <div style="width:110px; height:110px; background:#ffffffaa; border-radius:50%; display:grid; place-items:center; flex-shrink:0; border:2px dashed #93c5fd;">
-          <svg viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="#087cf5" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        </div>
-      </div>
-
-      <!-- Quick Action Cards Grid -->
-      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-top:18px;">
-        <div onclick="alert('New Trade action')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
-          <div style="width:36px; height:36px; background:#e0f2fe; color:#0284c7; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
-          <div style="font-size:12px; font-weight:800; color:#07152f;">New Trade</div>
-          <div style="font-size:10px; color:#64748b; margin-top:2px;">Create escrow</div>
-        </div>
-        <div onclick="alert('My Transactions')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
-          <div style="width:36px; height:36px; background:#f3e8ff; color:#9333ea; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
-          <div style="font-size:12px; font-weight:800; color:#07152f;">Transactions</div>
-          <div style="font-size:10px; color:#64748b; margin-top:2px;">View all history</div>
-        </div>
-        <div onclick="alert('Deposit Funds')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
-          <div style="width:36px; height:36px; background:#dcfce7; color:#16a34a; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg></div>
-          <div style="font-size:12px; font-weight:800; color:#07152f;">Deposit</div>
-          <div style="font-size:10px; color:#64748b; margin-top:2px;">Add funds</div>
-        </div>
-        <div onclick="alert('Become a Seller')" style="background:#fff; padding:14px 10px; border-radius:12px; text-align:center; border:1px solid #e2e8f0; cursor:pointer;">
-          <div style="width:36px; height:36px; background:#ffedd5; color:#ea580c; border-radius:50%; display:grid; place-items:center; margin:0 auto 8px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div>
-          <div style="font-size:12px; font-weight:800; color:#07152f;">Seller Mode</div>
-          <div style="font-size:10px; color:#64748b; margin-top:2px;">Start selling</div>
-        </div>
-      </div>
-
-      <!-- Account Overview Section -->
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:22px; margin-bottom:10px;">
-        <div style="font-size:15px; font-weight:900; color:#07152f;">Account Overview</div>
-        <div style="font-size:12px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="alert('Viewing all overview metrics')">View All &gt;</div>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;">
-        <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
-          <div style="font-size:10.5px; font-weight:700; color:#64748b;">TOTAL BALANCE</div>
-          <div style="font-size:16px; font-weight:900; color:#07152f; margin-top:4px;">$1,250.00</div>
-        </div>
-        <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
-          <div style="font-size:10.5px; font-weight:700; color:#64748b;">IN ESCROW</div>
-          <div style="font-size:16px; font-weight:900; color:#07152f; margin-top:4px;">$850.00</div>
-        </div>
-        <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
-          <div style="font-size:10.5px; font-weight:700; color:#64748b;">COMPLETED</div>
-          <div style="font-size:16px; font-weight:900; color:#16a34a; margin-top:4px;">12</div>
-        </div>
-        <div style="background:#fff; padding:14px; border-radius:12px; border:1px solid #e2e8f0;">
-          <div style="font-size:10.5px; font-weight:700; color:#64748b;">PENDING</div>
-          <div style="font-size:16px; font-weight:900; color:#d97706; margin-top:4px;">3</div>
-        </div>
-      </div>
-
-      <!-- Recent Transactions Section -->
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:22px; margin-bottom:10px;">
-        <div style="font-size:15px; font-weight:900; color:#07152f;">Recent Transactions</div>
-        <div style="font-size:12px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="alert('Viewing all transactions')">View All &gt;</div>
-      </div>
-
-      <div style="background:#fff; border-radius:14px; border:1px solid #e2e8f0; overflow:hidden;">
-        <!-- TRX 1 -->
-        <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
-            <div>
-              <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10284 &nbsp;🇺🇸</div>
-              <div style="font-size:11.5px; color:#64748b;">Amazon Gift Card (US) • Sep 10, 2026</div>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:13.5px; font-weight:900; color:#07152f;">$250.00 USD</div>
-            <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
-          </div>
-        </div>
-
-        <!-- TRX 2 -->
-        <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
-            <div>
-              <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10285 &nbsp;🇮🇹</div>
-              <div style="font-size:11.5px; color:#64748b;">Eurozone Escrow • Sep 10, 2026</div>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:13.5px; font-weight:900; color:#07152f;">$400.00 USD</div>
-            <span class="status-badge status-processing" style="font-size:10px; padding:2px 8px; margin-top:2px;">Processing</span>
-          </div>
-        </div>
-
-        <!-- TRX 3 -->
-        <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <div style="width:36px; height:36px; border-radius:50%; background:#e0f2fe; color:#0369a1; display:grid; place-items:center; font-weight:800;">🔄</div>
-            <div>
-              <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10286 &nbsp;🇬🇧</div>
-              <div style="font-size:11.5px; color:#64748b;">UK Digital Transfer • Sep 09, 2026</div>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:13.5px; font-weight:900; color:#07152f;">$310.00 USD</div>
-            <span class="status-badge status-under-review" style="font-size:10px; padding:2px 8px; margin-top:2px;">On-going</span>
-          </div>
-        </div>
-
-        <!-- TRX 4 -->
-        <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
-            <div>
-              <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10283 &nbsp;🇺🇸</div>
-              <div style="font-size:11.5px; color:#64748b;">PayPal Balance • Sep 09, 2026</div>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:13.5px; font-weight:900; color:#07152f;">$180.00 USD</div>
-            <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
-          </div>
-        </div>
-
-        <!-- TRX 5 -->
-        <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
-            <div>
-              <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10282 &nbsp;🇺🇸</div>
-              <div style="font-size:11.5px; color:#64748b;">USDT (TRC20) • Sep 08, 2026</div>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:13.5px; font-weight:900; color:#07152f;">$320.00 USD</div>
-            <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
-          </div>
-        </div>
-
-        <!-- TRX 6 -->
-        <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between;">
-          <div style="display:flex; align-items:center; gap:12px;">
-            <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
-            <div>
-              <div style="font-size:13.5px; font-weight:800; color:#07152f;">TRX-10281 &nbsp;🇺🇸</div>
-              <div style="font-size:11.5px; color:#64748b;">Steam Gift Card • Sep 07, 2026</div>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:13.5px; font-weight:900; color:#07152f;">$100.00 USD</div>
-            <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom Navigation Bar (Added as requested) -->
+    <!-- Bottom Navigation Bar (Fully functional with active state tracking) -->
     <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #e2ebf3; display:grid; grid-template-columns:repeat(5, 1fr); padding:8px 0; z-index:100; border-bottom-left-radius:24px; border-bottom-right-radius:24px;">
-      <div onclick="alert('Home tab selected')" style="text-align:center; cursor:pointer; color:var(--blue);">
+      <div id="navHome" onclick="switchTab('home')" style="text-align:center; cursor:pointer; color:var(--blue);">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
         <div style="font-size:10px; font-weight:800; margin-top:2px;">Home</div>
       </div>
-      <div onclick="alert('Transactions tab selected')" style="text-align:center; cursor:pointer; color:#64748b;">
+      <div id="navTransactions" onclick="switchTab('transactions')" style="text-align:center; cursor:pointer; color:#64748b;">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
         <div style="font-size:10px; font-weight:700; margin-top:2px;">Transactions</div>
       </div>
-      <div onclick="alert('New Trade action')" style="text-align:center; cursor:pointer; margin-top:-18px;">
+      <div id="navNewTrade" onclick="switchTab('newTrade')" style="text-align:center; cursor:pointer; margin-top:-18px;">
         <div style="width:42px; height:42px; background:var(--blue); color:#fff; border-radius:50%; display:grid; place-items:center; margin:0 auto; box-shadow:0 4px 10px rgba(8,124,245,0.4);">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         </div>
         <div style="font-size:10px; font-weight:800; margin-top:2px; color:var(--blue);">New Trade</div>
       </div>
-      <div onclick="alert('Messages tab selected')" style="text-align:center; cursor:pointer; color:#64748b; position:relative;">
+      <div id="navMessages" onclick="switchTab('messages')" style="text-align:center; cursor:pointer; color:#64748b; position:relative;">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
         <span style="position:absolute; top:2px; right:32%; width:6px; height:6px; background:#ef4444; border-radius:50%;"></span>
         <div style="font-size:10px; font-weight:700; margin-top:2px;">Messages</div>
       </div>
-      <div onclick="alert('Profile tab selected')" style="text-align:center; cursor:pointer; color:#64748b;">
+      <div id="navProfile" onclick="switchTab('profile')" style="text-align:center; cursor:pointer; color:#64748b;">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         <div style="font-size:10px; font-weight:700; margin-top:2px;">Profile</div>
       </div>
@@ -1570,9 +1670,10 @@ function updateHeaderAndUI(){
   const loggedInView = document.getElementById("loggedInView");
 
   if(isLoggedIn){
-    // Logged in state: Show logged in view directly
+    // Logged in state: Show logged in view directly with default home tab active
     publicView.style.display = "none";
     loggedInView.style.display = "block";
+    switchTab('home');
 
     desktopNav.innerHTML = `
       <a onclick="scrollToSection('home')">Home</a>
@@ -1628,6 +1729,42 @@ function updateHeaderAndUI(){
   }
   mobileNav.classList.remove("open");
   bindDynamicEvents();
+}
+
+function switchTab(tabName) {
+  // Hide all tab contents
+  document.querySelectorAll('.app-tab-content').forEach(el => el.style.display = 'none');
+  
+  // Show selected tab
+  const targetTab = document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
+  if(targetTab) targetTab.style.display = 'block';
+
+  // Reset all nav icons to muted color
+  const navIds = ['navHome', 'navTransactions', 'navNewTrade', 'navMessages', 'navProfile'];
+  navIds.forEach(id => {
+    const item = document.getElementById(id);
+    if(item) {
+      if(id === 'navNewTrade') {
+        item.querySelector('div:last-child').style.color = '#64748b';
+      } else {
+        item.style.color = '#64748b';
+        const label = item.querySelector('div:last-child');
+        if(label) label.style.fontWeight = '700';
+      }
+    }
+  });
+
+  // Highlight active nav item
+  const activeNavItem = document.getElementById('nav' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
+  if(activeNavItem) {
+    if(tabName === 'newTrade') {
+      activeNavItem.querySelector('div:last-child').style.color = 'var(--blue)';
+    } else {
+      activeNavItem.style.color = 'var(--blue)';
+      const label = activeNavItem.querySelector('div:last-child');
+      if(label) label.style.fontWeight = '800';
+    }
+  }
 }
 
 function handleLogout(){
@@ -1941,3 +2078,4 @@ updateHeaderAndUI();
 
 </body>
 </html>
+
