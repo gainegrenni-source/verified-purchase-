@@ -2,414 +2,248 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SecureTrade Demo</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f4f7fb;
-  color:#071936;
+font-family:Arial,Helvetica,sans-serif;
+background:#f4f7fb;color:#071936
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
+a{text-decoration:none;color:inherit}
 
 .demo-banner{
-  background:#fff1c9;
-  color:#715600;
-  text-align:center;
-  font-weight:800;
-  padding:12px 18px;
-  font-size:14px;
+background:#fff1c9;color:#715600;text-align:center;
+font-weight:800;padding:11px;font-size:13px
 }
 
 .topbar{
-  height:72px;
-  background:#fff;
-  border-bottom:1px solid #e4e9f0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
-  position:sticky;
-  top:0;
-  z-index:50;
+height:72px;background:#fff;border-bottom:1px solid #e4e9f0;
+display:flex;align-items:center;justify-content:space-between;
+padding:0 28px;position:sticky;top:0;z-index:50
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+.brand{display:flex;align-items:center;gap:12px}
 .logo{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:#0879df;
-  color:white;
-  display:grid;
-  place-items:center;
-  font-size:24px;
-  font-weight:900;
+width:42px;height:42px;border-radius:12px;background:#0879df;
+color:#fff;display:grid;place-items:center;font-size:24px;font-weight:900
 }
 .brand strong{font-size:19px}
 .brand small{display:block;color:#7b8798;margin-top:2px}
 
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:20px;
-}
+.top-actions{display:flex;align-items:center;gap:20px}
 .icon-btn{
-  border:0;
-  background:transparent;
-  font-size:22px;
-  position:relative;
+border:0;background:transparent;font-size:22px;position:relative
 }
 .badge{
-  position:absolute;
-  right:-7px;
-  top:-7px;
-  background:#e62929;
-  color:white;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  font-size:11px;
-  display:grid;
-  place-items:center;
+position:absolute;right:-7px;top:-7px;background:#e62929;color:white;
+width:18px;height:18px;border-radius:50%;font-size:11px;
+display:grid;place-items:center
 }
 .profile{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  border:0;
-  background:white;
-  font-weight:700;
+display:flex;align-items:center;gap:9px;border:0;background:#fff;font-weight:700
 }
 .avatar{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#147ee5;
-  color:white;
-  display:grid;
-  place-items:center;
+width:38px;height:38px;border-radius:50%;background:#147ee5;color:#fff;
+display:grid;place-items:center
 }
 
-.layout{
-  display:flex;
-  min-height:calc(100vh - 118px);
+.top-links{
+background:#fff;border-bottom:1px solid #e8edf3;
+display:flex;justify-content:center;gap:28px;padding:12px;
+font-size:13px;font-weight:700
 }
+.top-links button{
+border:0;background:none;color:#44536a
+}
+.top-links button:hover{color:#0879df}
+
+.layout{display:flex;min-height:calc(100vh - 150px)}
 
 .sidebar{
-  width:220px;
-  background:white;
-  border-right:1px solid #e4e9f0;
-  padding:22px 14px;
-  flex-shrink:0;
+width:220px;background:#fff;border-right:1px solid #e4e9f0;
+padding:22px 14px;flex-shrink:0
 }
 .nav-item{
-  width:100%;
-  border:0;
-  background:transparent;
-  text-align:left;
-  padding:13px 14px;
-  margin-bottom:5px;
-  border-radius:9px;
-  color:#35435a;
-  font-weight:700;
-  display:flex;
-  gap:12px;
-  align-items:center;
+width:100%;border:0;background:transparent;text-align:left;
+padding:13px 14px;margin-bottom:5px;border-radius:9px;
+color:#35435a;font-weight:700;display:flex;gap:12px;align-items:center
 }
 .nav-item:hover,.nav-item.active{
-  background:#e7f2ff;
-  color:#0879df;
+background:#e7f2ff;color:#0879df
 }
 
 .main{
-  flex:1;
-  padding:30px;
-  max-width:1400px;
-  margin:auto;
-  width:100%;
+flex:1;padding:30px;max-width:1400px;margin:auto;width:100%
 }
-
 .page{display:none}
 .page.active{display:block}
 
 .page-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:24px;
+display:flex;justify-content:space-between;align-items:center;margin-bottom:24px
 }
 .page-head h1{font-size:30px}
 .page-head p{color:#748096;margin-top:6px}
 
 .btn{
-  border:0;
-  border-radius:8px;
-  padding:12px 20px;
-  font-weight:800;
+border:0;border-radius:8px;padding:12px 20px;font-weight:800
 }
 .btn-primary{background:#0879df;color:#fff}
 .btn-light{background:#fff;border:1px solid #d7e0eb;color:#14233d}
 .btn-danger{background:#ffe8e8;color:#b42323}
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
+display:grid;grid-template-columns:repeat(4,1fr);gap:18px
 }
 .card{
-  background:#fff;
-  border:1px solid #e0e6ef;
-  border-radius:12px;
-  padding:22px;
-  margin-bottom:18px;
+background:#fff;border:1px solid #e0e6ef;border-radius:12px;
+padding:22px;margin-bottom:18px
 }
-.stat{
-  font-size:28px;
-  font-weight:900;
-  margin-top:8px;
-}
+.stat{font-size:28px;font-weight:900;margin-top:8px}
 .muted{color:#78859a}
 
 .transaction-card{
-  background:#fff;
-  border:1px solid #dfe6ef;
-  border-radius:12px;
-  padding:22px;
-  margin-top:20px;
+background:#fff;border:1px solid #dfe6ef;border-radius:12px;
+padding:22px;margin-top:20px
 }
 .status{
-  display:inline-block;
-  padding:6px 11px;
-  border-radius:20px;
-  background:#fff0ca;
-  color:#865d00;
-  font-weight:800;
-  font-size:13px;
+display:inline-block;padding:6px 11px;border-radius:20px;
+background:#fff0ca;color:#865d00;font-weight:800;font-size:13px
 }
 
 .progress{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  margin:30px 0;
+display:grid;grid-template-columns:repeat(4,1fr);margin:30px 0
 }
-.step{
-  text-align:center;
-  position:relative;
-}
+.step{text-align:center;position:relative}
 .step:not(:last-child):after{
-  content:"";
-  position:absolute;
-  height:3px;
-  background:#dbe4ef;
-  left:50%;
-  right:-50%;
-  top:17px;
-  z-index:0;
+content:"";position:absolute;height:3px;background:#dbe4ef;
+left:50%;right:-50%;top:17px;z-index:0
 }
 .step.done:not(:last-child):after{background:#147ee5}
 .circle{
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  background:#dfe6ef;
-  display:grid;
-  place-items:center;
-  margin:auto;
-  position:relative;
-  z-index:2;
-  font-weight:900;
+width:36px;height:36px;border-radius:50%;background:#dfe6ef;
+display:grid;place-items:center;margin:auto;position:relative;z-index:2;font-weight:900
 }
-.step.done .circle{
-  background:#147ee5;
-  color:white;
-}
-.step strong{
-  display:block;
-  margin-top:9px;
-  font-size:13px;
-}
-.step small{
-  display:block;
-  color:#7c899a;
-  margin-top:4px;
-}
+.step.done .circle{background:#147ee5;color:#fff}
+.step strong{display:block;margin-top:9px;font-size:13px}
+.step small{display:block;color:#7c899a;margin-top:4px}
 
 .two-col{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
+display:grid;grid-template-columns:1fr 1fr;gap:18px
 }
-
 .detail-row{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:13px 0;
-  border-bottom:1px solid #edf0f4;
+display:flex;justify-content:space-between;gap:15px;
+padding:13px 0;border-bottom:1px solid #edf0f4
 }
 .detail-row:last-child{border-bottom:0}
 
-.form{
-  max-width:700px;
-}
+.form{max-width:700px}
 .form-group{margin-bottom:17px}
-.form-group label{
-  display:block;
-  font-weight:800;
-  margin-bottom:7px;
-}
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;
-  border:1px solid #ccd6e3;
-  border-radius:8px;
-  padding:13px;
-  outline:none;
-  background:white;
+.form-group label{display:block;font-weight:800;margin-bottom:7px}
+.form-group input,.form-group select,.form-group textarea{
+width:100%;border:1px solid #ccd6e3;border-radius:8px;
+padding:13px;outline:none;background:#fff
 }
 .form-group textarea{min-height:110px;resize:vertical}
 
+.notice{
+background:#eaf5ff;border:1px solid #cfe7ff;padding:16px;
+border-radius:9px;color:#075da9;margin-bottom:18px
+}
 .message{
-  padding:16px;
-  border-bottom:1px solid #e8edf3;
+padding:16px;border-bottom:1px solid #e8edf3
 }
 .message strong{display:block;margin-bottom:5px}
 
-.notice{
-  background:#eaf5ff;
-  border:1px solid #cfe7ff;
-  padding:16px;
-  border-radius:9px;
-  color:#075da9;
-  margin-bottom:18px;
-}
-
-.empty{
-  text-align:center;
-  padding:50px 20px;
-  color:#7a8799;
-}
+.empty{text-align:center;padding:50px 20px;color:#7a8799}
 
 .mobile-nav{display:none}
 
 .modal-bg{
-  position:fixed;
-  inset:0;
-  background:rgba(7,25,54,.62);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-  padding:20px;
+position:fixed;inset:0;background:rgba(7,25,54,.62);
+display:none;align-items:center;justify-content:center;
+z-index:100;padding:20px
 }
 .modal-bg.show{display:flex}
 .modal{
-  background:#fff;
-  width:100%;
-  max-width:720px;
-  max-height:90vh;
-  overflow:auto;
-  border-radius:16px;
-  padding:28px;
+background:#fff;width:100%;max-width:720px;max-height:90vh;
+overflow:auto;border-radius:16px;padding:28px
 }
 .modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:22px;
+display:flex;justify-content:space-between;align-items:center;margin-bottom:22px
 }
 .close{
-  border:0;
-  background:#edf2f7;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  font-size:22px;
+border:0;background:#edf2f7;width:38px;height:38px;
+border-radius:50%;font-size:22px
 }
 
+.menu{
+position:relative;display:inline-block
+}
+.menu-btn{
+border:1px solid #d7e0eb;background:#fff;border-radius:8px;
+padding:8px 12px;font-size:18px
+}
+.menu-content{
+display:none;position:absolute;right:0;top:42px;
+background:#fff;border:1px solid #dce4ed;
+box-shadow:0 8px 25px #ccd5e1;border-radius:9px;
+width:180px;z-index:20
+}
+.menu-content.show{display:block}
+.menu-content button{
+display:block;width:100%;border:0;background:#fff;
+padding:11px 14px;text-align:left
+}
+.menu-content button:hover{background:#f1f6fb}
+
 .toast{
-  position:fixed;
-  bottom:25px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#071f48;
-  color:#fff;
-  padding:15px 22px;
-  border-radius:9px;
-  display:none;
-  z-index:200;
-  font-weight:700;
-  text-align:center;
+position:fixed;bottom:25px;left:50%;
+transform:translateX(-50%);background:#071f48;color:#fff;
+padding:15px 22px;border-radius:9px;display:none;
+z-index:200;font-weight:700;text-align:center
 }
 .toast.show{display:block}
 
 @media(max-width:850px){
-  .topbar{padding:0 15px}
-  .brand strong{font-size:16px}
-  .sidebar{display:none}
-  .main{padding:20px 15px 90px}
-  .grid{grid-template-columns:repeat(2,1fr)}
-  .two-col{grid-template-columns:1fr}
-  .page-head h1{font-size:25px}
-  .mobile-nav{
-    display:flex;
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    height:65px;
-    background:#fff;
-    border-top:1px solid #dce3ec;
-    z-index:80;
-    justify-content:space-around;
-  }
-  .mobile-nav button{
-    border:0;
-    background:white;
-    color:#68768a;
-    font-size:11px;
-    font-weight:700;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:3px;
-  }
-  .mobile-nav button.active{color:#0879df}
-  .progress{grid-template-columns:1fr}
-  .step{
-    text-align:left;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:9px 0;
-  }
-  .step:not(:last-child):after{
-    width:3px;
-    height:25px;
-    left:17px;
-    right:auto;
-    top:44px;
-  }
-  .circle{margin:0;flex-shrink:0}
-  .step strong{margin:0}
-  .step small{margin:3px 0 0}
-  .step div:last-child{display:block}
+.topbar{padding:0 15px}
+.brand strong{font-size:16px}
+.top-links{display:none}
+.sidebar{display:none}
+.main{padding:20px 15px 90px}
+.grid{grid-template-columns:repeat(2,1fr)}
+.two-col{grid-template-columns:1fr}
+.page-head h1{font-size:25px}
+
+.mobile-nav{
+display:flex;position:fixed;bottom:0;left:0;right:0;height:65px;
+background:#fff;border-top:1px solid #dce3ec;z-index:80;
+justify-content:space-around
+}
+.mobile-nav button{
+border:0;background:#fff;color:#68768a;font-size:11px;font-weight:700;
+display:flex;flex-direction:column;align-items:center;
+justify-content:center;gap:3px
+}
+.mobile-nav button.active{color:#0879df}
+
+.progress{grid-template-columns:1fr}
+.step{text-align:left;display:flex;align-items:center;gap:12px;padding:9px 0}
+.step:not(:last-child):after{
+width:3px;height:25px;left:17px;right:auto;top:44px
+}
+.circle{margin:0;flex-shrink:0}
+.step strong{margin:0}
+.step small{margin:3px 0 0}
 }
 
 @media(max-width:450px){
-  .grid{grid-template-columns:1fr}
-  .top-actions{gap:10px}
-  .brand small{display:none}
+.grid{grid-template-columns:1fr}
+.top-actions{gap:10px}
+.brand small{display:none}
 }
 </style>
 </head>
@@ -417,457 +251,610 @@ button{cursor:pointer}
 <body>
 
 <div class="demo-banner">
-  DEMO / SAMPLE WEBSITE — NO REAL PAYMENTS, ESCROW OR ACCOUNTS
+DEMO / SAMPLE WEBSITE — NO REAL PAYMENTS, ESCROW OR ACCOUNTS
 </div>
 
 <header class="topbar">
-  <div class="brand">
-    <div class="logo">S</div>
-    <div>
-      <strong>SecureTrade Demo</strong>
-      <small>Payment Workflow Prototype</small>
-    </div>
-  </div>
+<div class="brand">
+<div class="logo">S</div>
+<div>
+<strong>SecureTrade Demo</strong>
+<small>Payment Workflow Prototype</small>
+</div>
+</div>
 
-  <div class="top-actions">
-    <button class="icon-btn" onclick="showNotifications()">
-      🔔
-      <span class="badge">3</span>
-    </button>
+<div class="top-actions">
+<button class="icon-btn" onclick="showNotifications()">
+🔔 <span class="badge" id="notificationBadge">3</span>
+</button>
 
-    <button class="profile" onclick="showPage('settings')">
-      <span class="avatar">U</span>
-      <span>User⌄</span>
-    </button>
-  </div>
+<button class="profile" onclick="showPage('settings')">
+<span class="avatar">U</span>
+<span>User⌄</span>
+</button>
+</div>
 </header>
+
+<div class="top-links">
+<button onclick="showPage('dashboard')">Home</button>
+<button onclick="showPage('how')">How It Works</button>
+<button onclick="showPage('buyers')">For Buyers</button>
+<button onclick="showPage('sellers')">For Sellers</button>
+<button onclick="showPage('fees')">Fees</button>
+<button onclick="showPage('help')">Help</button>
+</div>
 
 <div class="layout">
 
 <aside class="sidebar">
 
-  <button class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
-    🏠 Dashboard
-  </button>
+<button class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+🏠 Dashboard
+</button>
 
-  <button class="nav-item" data-page="transactions" onclick="showPage('transactions')">
-    💳 My Transactions
-  </button>
+<button class="nav-item" data-page="transactions" onclick="showPage('transactions')">
+💳 My Transactions
+</button>
 
-  <button class="nav-item" data-page="newtrade" onclick="showPage('newtrade')">
-    ➕ New Trade
-  </button>
+<button class="nav-item" data-page="newtrade" onclick="showPage('newtrade')">
+➕ New Trade
+</button>
 
-  <button class="nav-item" data-page="messages" onclick="showPage('messages')">
-    💬 Messages
-  </button>
+<button class="nav-item" data-page="messages" onclick="showPage('messages')">
+💬 Messages
+</button>
 
-  <button class="nav-item" data-page="disputes" onclick="showPage('disputes')">
-    ◷ Disputes
-  </button>
+<button class="nav-item" data-page="disputes" onclick="showPage('disputes')">
+◷ Disputes
+</button>
 
-  <button class="nav-item" data-page="settings" onclick="showPage('settings')">
-    ⚙️ Settings
-  </button>
+<button class="nav-item" data-page="settings" onclick="showPage('settings')">
+⚙️ Settings
+</button>
 
 </aside>
 
 <main class="main">
 
-<!-- DASHBOARD -->
 <section id="dashboard" class="page active">
 
-  <div class="page-head">
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to your SecureTrade demo workspace.</p>
-    </div>
-    <button class="btn btn-primary" onclick="showPage('newtrade')">
-      + New Trade
-    </button>
-  </div>
+<div class="page-head">
+<div>
+<h1>Dashboard</h1>
+<p>Welcome to your SecureTrade demo workspace.</p>
+</div>
+<button class="btn btn-primary" onclick="showPage('newtrade')">+ New Trade</button>
+</div>
 
-  <div class="notice">
-    <strong>Demo Mode:</strong>
-    All transactions and statuses shown here are sample data only.
-  </div>
+<div class="notice">
+<strong>Demo Mode:</strong> All transactions and statuses shown here are sample data only.
+</div>
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="card">
-      <div class="muted">Demo Transactions</div>
-      <div class="stat" id="statTransactions">1</div>
-    </div>
+<div class="card">
+<div class="muted">Demo Transactions</div>
+<div class="stat" id="statTransactions">1</div>
+</div>
 
-    <div class="card">
-      <div class="muted">Processing</div>
-      <div class="stat">1</div>
-    </div>
+<div class="card">
+<div class="muted">Processing</div>
+<div class="stat">1</div>
+</div>
 
-    <div class="card">
-      <div class="muted">Completed</div>
-      <div class="stat">0</div>
-    </div>
+<div class="card">
+<div class="muted">Completed</div>
+<div class="stat">0</div>
+</div>
 
-    <div class="card">
-      <div class="muted">Messages</div>
-      <div class="stat">3</div>
-    </div>
+<div class="card">
+<div class="muted">Messages</div>
+<div class="stat" id="messageCount">3</div>
+</div>
 
-  </div>
+</div>
 
-  <div class="transaction-card">
-    <h2>Recent Demo Transaction</h2>
+<div class="transaction-card">
 
-    <div class="detail-row">
-      <span>Transaction ID</span>
-      <strong id="dashTxn">TRX-DEMO-10284</strong>
-    </div>
+<div class="page-head">
+<div>
+<h2>Recent Demo Transaction</h2>
+<p id="dashDate">Created today • Demo transaction</p>
+</div>
 
-    <div class="detail-row">
-      <span>Amount</span>
-      <strong id="dashAmount">$250.00 USD</strong>
-    </div>
+<div class="menu">
+<button class="menu-btn" onclick="toggleMenu()">⋮</button>
 
-    <div class="detail-row">
-      <span>Status</span>
-      <span class="status">Processing</span>
-    </div>
+<div class="menu-content" id="orderMenu">
+<button onclick="showOrder()">View Order</button>
+<button onclick="showInvoice()">View Invoice</button>
+<button onclick="copyTransaction()">Copy Transaction ID</button>
+</div>
+</div>
+</div>
 
-    <br>
+<div class="detail-row">
+<span>Transaction ID</span>
+<strong id="dashTxn">TRX-DEMO-10284</strong>
+</div>
 
-    <button class="btn btn-primary" onclick="showPage('transactions')">
-      View Transaction
-    </button>
-  </div>
+<div class="detail-row">
+<span>Amount</span>
+<strong id="dashAmount">$250.00 USD</strong>
+</div>
+
+<div class="detail-row">
+<span>Status</span>
+<span class="status">Processing</span>
+</div>
+
+<br>
+
+<button class="btn btn-primary" onclick="showPage('transactions')">
+View Transaction
+</button>
+
+</div>
 
 </section>
 
 
-<!-- TRANSACTIONS -->
 <section id="transactions" class="page">
 
-  <div class="page-head">
-    <div>
-      <h1>My Transactions</h1>
-      <p>View sample transaction activity.</p>
-    </div>
+<div class="page-head">
+<div>
+<h1>My Transactions</h1>
+<p>View sample transaction activity.</p>
+</div>
 
-    <button class="btn btn-primary" onclick="showPage('newtrade')">
-      + New Trade
-    </button>
-  </div>
+<button class="btn btn-primary" onclick="showPage('newtrade')">
++ New Trade
+</button>
+</div>
 
-  <div class="transaction-card">
+<div class="transaction-card">
 
-    <div class="page-head">
-      <div>
-        <h2 id="txnTitle">Transaction #TRX-DEMO-10284</h2>
-        <p id="txnDate">Created today • Demo transaction</p>
-      </div>
+<div class="page-head">
+<div>
+<h2 id="txnTitle">Transaction #TRX-DEMO-10284</h2>
+<p id="txnDate">Created today • Demo transaction</p>
+</div>
+<span class="status">Processing</span>
+</div>
 
-      <span class="status">Processing</span>
-    </div>
+<div class="progress">
 
-    <div class="progress">
+<div class="step done">
+<div class="circle">1</div>
+<div>
+<strong>Order Placed</strong>
+<small>Sample order created</small>
+</div>
+</div>
 
-      <div class="step done">
-        <div class="circle">1</div>
-        <div>
-          <strong>Order Placed</strong>
-          <small>Sample order created</small>
-        </div>
-      </div>
+<div class="step">
+<div class="circle">2</div>
+<div>
+<strong>Verification</strong>
+<small>Demo verification step</small>
+</div>
+</div>
 
-      <div class="step">
-        <div class="circle">2</div>
-        <div>
-          <strong>Upload Verification</strong>
-          <small>Demo verification step</small>
-        </div>
-      </div>
+<div class="step">
+<div class="circle">3</div>
+<div>
+<strong>Under Review</strong>
+<small>Sample review stage</small>
+</div>
+</div>
 
-      <div class="step">
-        <div class="circle">3</div>
-        <div>
-          <strong>Under Review</strong>
-          <small>Sample review stage</small>
-        </div>
-      </div>
+<div class="step">
+<div class="circle">4</div>
+<div>
+<strong>Payment Release</strong>
+<small>Demo final stage</small>
+</div>
+</div>
 
-      <div class="step">
-        <div class="circle">4</div>
-        <div>
-          <strong>Payment Release</strong>
-          <small>Demo final stage</small>
-        </div>
-      </div>
+</div>
 
-    </div>
+<div class="two-col">
 
-    <div class="two-col">
+<div class="card">
+<h2>Transaction Details</h2>
 
-      <div class="card">
-        <h2>Transaction Details</h2>
+<div class="detail-row">
+<span>Transaction ID</span>
+<strong id="detailTxn">TRX-DEMO-10284</strong>
+</div>
 
-        <div class="detail-row">
-          <span>Transaction ID</span>
-          <strong id="detailTxn">TRX-DEMO-10284</strong>
-        </div>
+<div class="detail-row">
+<span>Amount</span>
+<strong id="detailAmount">$250.00 USD</strong>
+</div>
 
-        <div class="detail-row">
-          <span>Amount</span>
-          <strong id="detailAmount">$250.00 USD</strong>
-        </div>
+<div class="detail-row">
+<span>Payment</span>
+<strong>Demo / Sample</strong>
+</div>
 
-        <div class="detail-row">
-          <span>Status</span>
-          <span class="status">Processing</span>
-        </div>
+<div class="detail-row">
+<span>Buyer</span>
+<strong id="detailBuyer">Demo Buyer</strong>
+</div>
 
-        <div class="detail-row">
-          <span>Payment</span>
-          <strong>Demo / Sample</strong>
-        </div>
+<div class="detail-row">
+<span>Seller</span>
+<strong id="detailSeller">Demo Seller</strong>
+</div>
+</div>
 
-        <div class="detail-row">
-          <span>Buyer</span>
-          <strong id="detailBuyer">Demo Buyer</strong>
-        </div>
+<div class="card">
 
-        <div class="detail-row">
-          <span>Seller</span>
-          <strong id="detailSeller">Demo Seller</strong>
-        </div>
+<h2>Verification</h2>
 
-      </div>
+<p class="muted" style="margin:15px 0">
+This is a demo upload area. No real verification is performed.
+</p>
 
-      <div class="card">
-        <h2>Verification</h2>
+<input type="file" id="demoFile" accept=".jpg,.jpeg,.png,.pdf">
 
-        <p class="muted" style="margin:15px 0">
-          This section demonstrates where a verification document
-          upload could appear in a real application.
-        </p>
+<br><br>
 
-        <input type="file" id="demoFile"
-               accept=".jpg,.jpeg,.png,.pdf">
+<button class="btn btn-primary" onclick="demoUpload()">
+Upload Demo File
+</button>
 
-        <br><br>
+<p id="fileResult" class="muted" style="margin-top:12px"></p>
 
-        <button class="btn btn-primary" onclick="demoUpload()">
-          Upload Demo File
-        </button>
+</div>
 
-        <p id="fileResult" class="muted" style="margin-top:12px"></p>
-      </div>
+</div>
 
-    </div>
+<div class="card">
 
-    <div class="card">
+<h2>Order Information</h2>
 
-      <h2>Order Information</h2>
+<div class="detail-row">
+<span>Product</span>
+<strong id="detailProduct">Sample Product</strong>
+</div>
 
-      <div class="detail-row">
-        <span>Product</span>
-        <strong id="detailProduct">Sample Product</strong>
-      </div>
+<div class="detail-row">
+<span>Order ID</span>
+<strong id="detailOrder">ORD-DEMO-7854</strong>
+</div>
 
-      <div class="detail-row">
-        <span>Order ID</span>
-        <strong id="detailOrder">ORD-DEMO-7854</strong>
-      </div>
+<div class="detail-row">
+<span>Quantity</span>
+<strong id="detailQty">1</strong>
+</div>
 
-      <div class="detail-row">
-        <span>Quantity</span>
-        <strong id="detailQty">1</strong>
-      </div>
+<div class="detail-row">
+<span>Description</span>
+<strong id="detailDescription">Demo purchase</strong>
+</div>
 
-      <div class="detail-row">
-        <span>Description</span>
-        <strong id="detailDescription">Demo purchase</strong>
-      </div>
+</div>
 
-    </div>
+<button class="btn btn-light" onclick="showOrder()">View Demo Order</button>
+<button class="btn btn-primary" onclick="showInvoice()">View Demo Invoice</button>
 
-    <button class="btn btn-light" onclick="showInvoice()">
-      View Demo Invoice
-    </button>
-
-  </div>
+</div>
 
 </section>
 
 
-<!-- NEW TRADE -->
 <section id="newtrade" class="page">
 
-  <div class="page-head">
-    <div>
-      <h1>New Demo Trade</h1>
-      <p>Create a sample transaction for testing the interface.</p>
-    </div>
-  </div>
+<div class="page-head">
+<div>
+<h1>New Demo Trade</h1>
+<p>Create a sample transaction for testing.</p>
+</div>
+</div>
 
-  <div class="card form">
+<div class="card form">
 
-    <div class="notice">
-      This form creates a <strong>demo transaction only</strong>.
-      Do not enter real payment credentials or sensitive information.
-    </div>
+<div class="notice">
+This form creates a <strong>demo transaction only</strong>.
+Do not enter real payment credentials or sensitive information.
+</div>
 
-    <div class="form-group">
-      <label>Product / Item</label>
-      <input id="productInput"
-             placeholder="Example: Sample Product">
-    </div>
+<div class="form-group">
+<label>Product / Item *</label>
+<input id="productInput" placeholder="Example: Sample Product">
+</div>
 
-    <div class="form-group">
-      <label>Buyer Name</label>
-      <input id="buyerInput"
-             placeholder="Demo Buyer">
-    </div>
+<div class="form-group">
+<label>Buyer Name *</label>
+<input id="buyerInput" placeholder="Demo Buyer">
+</div>
 
-    <div class="form-group">
-      <label>Seller Name</label>
-      <input id="sellerInput"
-             placeholder="Demo Seller">
-    </div>
+<div class="form-group">
+<label>Seller Name *</label>
+<input id="sellerInput" placeholder="Demo Seller">
+</div>
 
-    <div class="form-group">
-      <label>Amount (USD)</label>
-      <input id="amountInput"
-             type="number"
-             min="0"
-             step="0.01"
-             placeholder="250.00">
-    </div>
+<div class="form-group">
+<label>Amount (USD) *</label>
+<input id="amountInput" type="number" min="0.01" step="0.01" placeholder="250.00">
+</div>
 
-    <div class="form-group">
-      <label>Quantity</label>
-      <input id="quantityInput"
-             type="number"
-             min="1"
-             value="1">
-    </div>
+<div class="form-group">
+<label>Quantity *</label>
+<input id="quantityInput" type="number" min="1" value="1">
+</div>
 
-    <div class="form-group">
-      <label>Description</label>
-      <textarea id="descriptionInput"
-                placeholder="Describe the sample order..."></textarea>
-    </div>
+<div class="form-group">
+<label>Description *</label>
+<textarea id="descriptionInput" placeholder="Describe the sample order..."></textarea>
+</div>
 
-    <button class="btn btn-primary" onclick="createOrder()">
-      Submit Demo Order
-    </button>
+<button class="btn btn-primary" onclick="createOrder()">
+Submit Demo Order
+</button>
 
-  </div>
+</div>
 
 </section>
 
 
-<!-- MESSAGES -->
 <section id="messages" class="page">
 
-  <div class="page-head">
-    <div>
-      <h1>Messages</h1>
-      <p>Demo support and transaction messages.</p>
-    </div>
-  </div>
+<div class="page-head">
+<div>
+<h1>Messages</h1>
+<p>Demo support and transaction messages.</p>
+</div>
+</div>
 
-  <div class="card">
+<div class="card" id="messagesBox">
 
-    <div class="message">
-      <strong>SecureTrade Demo Support</strong>
-      <p class="muted">Your sample transaction was created successfully.</p>
-    </div>
+<div class="message">
+<strong>SecureTrade Demo Support</strong>
+<p class="muted">Your sample transaction was created successfully.</p>
+</div>
 
-    <div class="message">
-      <strong>Transaction Update</strong>
-      <p class="muted">Demo order is currently in Processing status.</p>
-    </div>
+<div class="message">
+<strong>Transaction Update</strong>
+<p class="muted">Demo order is currently in Processing status.</p>
+</div>
 
-    <div class="message">
-      <strong>System</strong>
-      <p class="muted">Remember: this environment does not process real payments.</p>
-    </div>
+<div class="message">
+<strong>System</strong>
+<p class="muted">Remember: this environment does not process real payments.</p>
+</div>
 
-    <br>
+<br>
 
-    <button class="btn btn-primary"
-            onclick="toast('Demo message composer opened.')">
-      + New Message
-    </button>
+<button class="btn btn-primary" onclick="openMessageComposer()">
++ New Message
+</button>
 
-  </div>
+</div>
 
 </section>
 
 
-<!-- DISPUTES -->
 <section id="disputes" class="page">
 
-  <div class="page-head">
-    <div>
-      <h1>Disputes</h1>
-      <p>Sample dispute management interface.</p>
-    </div>
-  </div>
+<div class="page-head">
+<div>
+<h1>Disputes</h1>
+<p>Sample dispute management interface.</p>
+</div>
+</div>
 
-  <div class="card">
-    <div class="empty">
-      <h2>No Demo Disputes</h2>
-      <p style="margin:10px 0 20px">
-        There are currently no sample disputes.
-      </p>
-      <button class="btn btn-primary"
-              onclick="toast('Demo dispute form opened.')">
-        Create Demo Dispute
-      </button>
-    </div>
-  </div>
+<div class="card">
+
+<div class="empty">
+<h2>No Demo Disputes</h2>
+
+<p style="margin:10px 0 20px">
+There are currently no sample disputes.
+</p>
+
+<button class="btn btn-primary" onclick="openDispute()">
+Create Demo Dispute
+</button>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- SETTINGS -->
 <section id="settings" class="page">
 
-  <div class="page-head">
-    <div>
-      <h1>Settings</h1>
-      <p>Demo profile and interface settings.</p>
-    </div>
-  </div>
+<div class="page-head">
+<div>
+<h1>Settings</h1>
+<p>Demo profile and interface settings.</p>
+</div>
+</div>
 
-  <div class="card form">
+<div class="card form">
 
-    <div class="form-group">
-      <label>Display Name</label>
-      <input value="Demo User">
-    </div>
+<div class="form-group">
+<label>Display Name</label>
+<input id="displayName" value="Demo User">
+</div>
 
-    <div class="form-group">
-      <label>Demo Email</label>
-      <input value="demo@example.test"
-             readonly>
-    </div>
+<div class="form-group">
+<label>Demo Email</label>
+<input value="demo@example.test" readonly>
+</div>
 
-    <div class="form-group">
-      <label>Interface Language</label>
-      <select>
-        <option>English</option>
-        <option>বাংলা</option>
-      </select>
-    </div>
+<div class="form-group">
+<label>Interface Language</label>
+<select id="language">
+<option>English</option>
+<option>বাংলা</option>
+</select>
+</div>
 
-    <button class="btn btn-primary"
-            onclick="toast('Demo settings saved successfully.')">
-      Save Demo Settings
-    </button>
+<button class="btn btn-primary" onclick="saveSettings()">
+Save Demo Settings
+</button>
 
-  </div>
+</div>
+
+</section>
+
+
+<section id="how" class="page">
+
+<div class="page-head">
+<div>
+<h1>How It Works</h1>
+<p>Four-step sample workflow.</p>
+</div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h2>1. Create Order</h2>
+<p class="muted">Enter sample trade information and create a demo order.</p>
+</div>
+
+<div class="card">
+<h2>2. Verification</h2>
+<p class="muted">The interface displays a sample verification stage.</p>
+</div>
+
+<div class="card">
+<h2>3. Review</h2>
+<p class="muted">The demo transaction moves through a review stage.</p>
+</div>
+
+<div class="card">
+<h2>4. Completion</h2>
+<p class="muted">The interface demonstrates the final transaction stage.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="buyers" class="page">
+
+<div class="page-head">
+<div>
+<h1>For Buyers</h1>
+<p>Sample buyer workflow.</p>
+</div>
+</div>
+
+<div class="card">
+<h2>Buyer Demo</h2>
+<p class="muted" style="margin-top:12px;line-height:1.7">
+Review sample orders, inspect transaction information,
+and follow the demonstration workflow.
+</p>
+<br>
+<button class="btn btn-primary" onclick="showPage('newtrade')">
+Create Buyer Demo Order
+</button>
+</div>
+
+</section>
+
+
+<section id="sellers" class="page">
+
+<div class="page-head">
+<div>
+<h1>For Sellers</h1>
+<p>Sample seller workflow.</p>
+</div>
+</div>
+
+<div class="card">
+<h2>Seller Demo</h2>
+<p class="muted" style="margin-top:12px;line-height:1.7">
+View sample order information and follow the demonstration
+transaction process.
+</p>
+<br>
+<button class="btn btn-primary" onclick="showPage('transactions')">
+View Demo Transactions
+</button>
+</div>
+
+</section>
+
+
+<section id="fees" class="page">
+
+<div class="page-head">
+<div>
+<h1>Demo Fees</h1>
+<p>Sample fee information.</p>
+</div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="muted">Demo Platform Fee</div>
+<div class="stat">5%</div>
+</div>
+
+<div class="card">
+<div class="muted">Payment Fee</div>
+<div class="stat">0%</div>
+</div>
+
+<div class="card">
+<div class="muted">Demo Withdrawal</div>
+<div class="stat">N/A</div>
+</div>
+
+<div class="card">
+<div class="muted">Real Charges</div>
+<div class="stat">$0</div>
+</div>
+
+</div>
+
+<div class="notice">
+These are sample values for interface testing only.
+</div>
+
+</section>
+
+
+<section id="help" class="page">
+
+<div class="page-head">
+<div>
+<h1>Help Center</h1>
+<p>Demo support center.</p>
+</div>
+</div>
+
+<div class="card">
+
+<h3>How do I create a demo order?</h3>
+<p class="muted" style="margin:8px 0 20px">
+Open New Trade, fill in the sample fields and submit the form.
+</p>
+
+<h3>Are real payments processed?</h3>
+<p class="muted" style="margin:8px 0 20px">
+No. This website is a demonstration interface only.
+</p>
+
+<h3>Need more help?</h3>
+<br>
+<button class="btn btn-primary" onclick="openMessageComposer()">
+Contact Demo Support
+</button>
+
+</div>
 
 </section>
 
@@ -875,118 +862,243 @@ button{cursor:pointer}
 </div>
 
 
-<!-- MOBILE NAV -->
 <nav class="mobile-nav">
 
-  <button class="active" onclick="showPage('dashboard')">
-    🏠
-    <span>Dashboard</span>
-  </button>
+<button data-mobile="dashboard" class="active" onclick="showPage('dashboard')">
+🏠<span>Dashboard</span>
+</button>
 
-  <button onclick="showPage('transactions')">
-    💳
-    <span>Transactions</span>
-  </button>
+<button data-mobile="transactions" onclick="showPage('transactions')">
+💳<span>Transactions</span>
+</button>
 
-  <button onclick="showPage('newtrade')">
-    ➕
-    <span>New Trade</span>
-  </button>
+<button data-mobile="newtrade" onclick="showPage('newtrade')">
+➕<span>New Trade</span>
+</button>
 
-  <button onclick="showPage('messages')">
-    💬
-    <span>Messages</span>
-  </button>
+<button data-mobile="messages" onclick="showPage('messages')">
+💬<span>Messages</span>
+</button>
 
-  <button onclick="showPage('settings')">
-    👤
-    <span>Profile</span>
-  </button>
+<button data-mobile="settings" onclick="showPage('settings')">
+👤<span>Profile</span>
+</button>
 
 </nav>
 
 
-<!-- NOTIFICATION MODAL -->
+<!-- NOTIFICATIONS -->
+
 <div class="modal-bg" id="notificationModal">
 
-  <div class="modal">
+<div class="modal">
 
-    <div class="modal-head">
-      <h2>Notifications</h2>
-      <button class="close"
-              onclick="closeModal('notificationModal')">×</button>
-    </div>
+<div class="modal-head">
+<h2>Notifications</h2>
+<button class="close" onclick="closeModal('notificationModal')">×</button>
+</div>
 
-    <div class="message">
-      <strong>Demo Transaction</strong>
-      <p class="muted">Your sample transaction is processing.</p>
-    </div>
+<div class="message">
+<strong>Demo Transaction</strong>
+<p class="muted">Your sample transaction is processing.</p>
+</div>
 
-    <div class="message">
-      <strong>New Message</strong>
-      <p class="muted">You have a demo support message.</p>
-    </div>
+<div class="message">
+<strong>New Message</strong>
+<p class="muted">You have a demo support message.</p>
+</div>
 
-    <div class="message">
-      <strong>Demo Reminder</strong>
-      <p class="muted">No real payment or funds are involved.</p>
-    </div>
+<div class="message">
+<strong>Demo Reminder</strong>
+<p class="muted">No real payment or funds are involved.</p>
+</div>
 
-  </div>
+<br>
 
+<button class="btn btn-light" onclick="markNotificationsRead()">
+Mark All as Read
+</button>
+
+</div>
 </div>
 
 
-<!-- INVOICE MODAL -->
+<!-- ORDER MODAL -->
+
+<div class="modal-bg" id="orderModal">
+
+<div class="modal">
+
+<div class="modal-head">
+<h2>Demo Order</h2>
+<button class="close" onclick="closeModal('orderModal')">×</button>
+</div>
+
+<div class="notice">
+<strong>SAMPLE / DEMO ORDER</strong><br>
+No real order or payment has been created.
+</div>
+
+<div class="detail-row">
+<span>Order ID</span>
+<strong id="orderModalId">ORD-DEMO-7854</strong>
+</div>
+
+<div class="detail-row">
+<span>Product</span>
+<strong id="orderModalProduct">Sample Product</strong>
+</div>
+
+<div class="detail-row">
+<span>Buyer</span>
+<strong id="orderModalBuyer">Demo Buyer</strong>
+</div>
+
+<div class="detail-row">
+<span>Seller</span>
+<strong id="orderModalSeller">Demo Seller</strong>
+</div>
+
+<div class="detail-row">
+<span>Quantity</span>
+<strong id="orderModalQty">1</strong>
+</div>
+
+<div class="detail-row">
+<span>Amount</span>
+<strong id="orderModalAmount">$250.00 USD</strong>
+</div>
+
+<div class="detail-row">
+<span>Description</span>
+<strong id="orderModalDescription">Demo purchase</strong>
+</div>
+
+<br>
+
+<button class="btn btn-primary" onclick="closeModal('orderModal')">
+Close
+</button>
+
+</div>
+</div>
+
+
+<!-- INVOICE -->
+
 <div class="modal-bg" id="invoiceModal">
 
-  <div class="modal">
+<div class="modal">
 
-    <div class="modal-head">
-      <h2>Demo Invoice</h2>
-      <button class="close"
-              onclick="closeModal('invoiceModal')">×</button>
-    </div>
+<div class="modal-head">
+<h2>Demo Invoice</h2>
+<button class="close" onclick="closeModal('invoiceModal')">×</button>
+</div>
 
-    <div class="notice">
-      <strong>SAMPLE / DEMO INVOICE</strong><br>
-      This document has no payment value.
-    </div>
+<div class="notice">
+<strong>SAMPLE / DEMO INVOICE</strong><br>
+This document has no payment value.
+</div>
 
-    <div class="detail-row">
-      <span>Transaction ID</span>
-      <strong id="invoiceTxn">TRX-DEMO-10284</strong>
-    </div>
+<div class="detail-row">
+<span>Transaction ID</span>
+<strong id="invoiceTxn">TRX-DEMO-10284</strong>
+</div>
 
-    <div class="detail-row">
-      <span>Product</span>
-      <strong id="invoiceProduct">Sample Product</strong>
-    </div>
+<div class="detail-row">
+<span>Product</span>
+<strong id="invoiceProduct">Sample Product</strong>
+</div>
 
-    <div class="detail-row">
-      <span>Buyer</span>
-      <strong id="invoiceBuyer">Demo Buyer</strong>
-    </div>
+<div class="detail-row">
+<span>Buyer</span>
+<strong id="invoiceBuyer">Demo Buyer</strong>
+</div>
 
-    <div class="detail-row">
-      <span>Seller</span>
-      <strong id="invoiceSeller">Demo Seller</strong>
-    </div>
+<div class="detail-row">
+<span>Seller</span>
+<strong id="invoiceSeller">Demo Seller</strong>
+</div>
 
-    <div class="detail-row">
-      <span>Total</span>
-      <strong id="invoiceAmount">$250.00 USD</strong>
-    </div>
+<div class="detail-row">
+<span>Total</span>
+<strong id="invoiceAmount">$250.00 USD</strong>
+</div>
 
-    <br>
+<br>
 
-    <button class="btn btn-primary"
-            onclick="closeModal('invoiceModal')">
-      Close Invoice
-    </button>
+<button class="btn btn-primary" onclick="closeModal('invoiceModal')">
+Close Invoice
+</button>
 
-  </div>
+</div>
+</div>
 
+
+<!-- MESSAGE COMPOSER -->
+
+<div class="modal-bg" id="messageModal">
+
+<div class="modal">
+
+<div class="modal-head">
+<h2>New Demo Message</h2>
+<button class="close" onclick="closeModal('messageModal')">×</button>
+</div>
+
+<div class="form-group">
+<label>Subject</label>
+<input id="messageSubject" placeholder="Demo message subject">
+</div>
+
+<div class="form-group">
+<label>Message</label>
+<textarea id="messageText" placeholder="Write your demo message..."></textarea>
+</div>
+
+<button class="btn btn-primary" onclick="sendMessage()">
+Send Demo Message
+</button>
+
+</div>
+</div>
+
+
+<!-- DISPUTE -->
+
+<div class="modal-bg" id="disputeModal">
+
+<div class="modal">
+
+<div class="modal-head">
+<h2>Create Demo Dispute</h2>
+<button class="close" onclick="closeModal('disputeModal')">×</button>
+</div>
+
+<div class="notice">
+This creates a sample dispute record only.
+</div>
+
+<div class="form-group">
+<label>Reason</label>
+<select id="disputeReason">
+<option>Order issue</option>
+<option>Product issue</option>
+<option>Delivery issue</option>
+<option>Other demo reason</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Details</label>
+<textarea id="disputeDetails" placeholder="Describe the sample issue..."></textarea>
+</div>
+
+<button class="btn btn-primary" onclick="submitDispute()">
+Submit Demo Dispute
+</button>
+
+</div>
 </div>
 
 
@@ -995,242 +1107,376 @@ button{cursor:pointer}
 
 <script>
 
-let demoOrder = {
-  transaction:"TRX-DEMO-10284",
-  order:"ORD-DEMO-7854",
-  product:"Sample Product",
-  buyer:"Demo Buyer",
-  seller:"Demo Seller",
-  amount:"250.00",
-  quantity:"1",
-  description:"Demo purchase"
+let demoOrder={
+transaction:"TRX-DEMO-10284",
+order:"ORD-DEMO-7854",
+product:"Sample Product",
+buyer:"Demo Buyer",
+seller:"Demo Seller",
+amount:"250.00",
+quantity:"1",
+description:"Demo purchase"
 };
 
-
-/* LOAD SAVED DEMO ORDER */
 try{
-  const saved = localStorage.getItem("secureTradeDemoOrder");
-  if(saved){
-    demoOrder = JSON.parse(saved);
-  }
+const saved=localStorage.getItem("secureTradeDemoOrder");
+if(saved) demoOrder=JSON.parse(saved);
 }catch(e){}
 
 
 /* PAGE NAVIGATION */
+
 function showPage(page){
 
-  document.querySelectorAll(".page")
-    .forEach(p => p.classList.remove("active"));
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
 
-  const target = document.getElementById(page);
+const target=document.getElementById(page);
 
-  if(target){
-    target.classList.add("active");
-  }
+if(target) target.classList.add("active");
 
-  document.querySelectorAll(".nav-item")
-    .forEach(btn => {
-      btn.classList.toggle(
-        "active",
-        btn.dataset.page === page
-      );
-    });
+document.querySelectorAll(".nav-item")
+.forEach(btn=>{
+btn.classList.toggle("active",btn.dataset.page===page);
+});
 
-  document.querySelectorAll(".mobile-nav button")
-    .forEach(btn => btn.classList.remove("active"));
+document.querySelectorAll(".mobile-nav button")
+.forEach(btn=>{
+btn.classList.toggle(
+"active",
+btn.dataset.mobile===page
+);
+});
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+window.scrollTo({top:0,behavior:"smooth"});
 
-  updateUI();
+updateUI();
 }
 
 
-/* CREATE DEMO ORDER */
+/* CREATE ORDER */
+
 function createOrder(){
 
-  const product =
-    document.getElementById("productInput").value.trim()
-    || "Sample Product";
+const product=document.getElementById("productInput").value.trim();
+const buyer=document.getElementById("buyerInput").value.trim();
+const seller=document.getElementById("sellerInput").value.trim();
+const amount=document.getElementById("amountInput").value;
+const quantity=document.getElementById("quantityInput").value;
+const description=document.getElementById("descriptionInput").value.trim();
 
-  const buyer =
-    document.getElementById("buyerInput").value.trim()
-    || "Demo Buyer";
+if(!product||!buyer||!seller||!amount||!quantity||!description){
+toast("Please complete all required fields.");
+return;
+}
 
-  const seller =
-    document.getElementById("sellerInput").value.trim()
-    || "Demo Seller";
+if(Number(amount)<=0){
+toast("Enter a valid demo amount.");
+return;
+}
 
-  const amount =
-    document.getElementById("amountInput").value
-    || "250.00";
+const random=Math.floor(10000+Math.random()*89999);
 
-  const quantity =
-    document.getElementById("quantityInput").value
-    || "1";
+demoOrder={
+transaction:"TRX-DEMO-"+random,
+order:"ORD-DEMO-"+random,
+product,
+buyer,
+seller,
+amount:Number(amount).toFixed(2),
+quantity,
+description
+};
 
-  const description =
-    document.getElementById("descriptionInput").value.trim()
-    || "Demo purchase";
+localStorage.setItem(
+"secureTradeDemoOrder",
+JSON.stringify(demoOrder)
+);
 
-  const random =
-    Math.floor(10000 + Math.random()*89999);
+updateUI();
 
-  demoOrder = {
-    transaction:"TRX-DEMO-" + random,
-    order:"ORD-DEMO-" + random,
-    product,
-    buyer,
-    seller,
-    amount:Number(amount).toFixed(2),
-    quantity,
-    description
-  };
+toast("Demo order placed successfully.");
 
-  localStorage.setItem(
-    "secureTradeDemoOrder",
-    JSON.stringify(demoOrder)
-  );
-
-  updateUI();
-
-  toast("Demo order placed successfully.");
-
-  setTimeout(()=>{
-    showPage("transactions");
-  },700);
+setTimeout(()=>{
+showPage("transactions");
+},700);
 }
 
 
-/* UPDATE ALL DATA */
+/* UPDATE UI */
+
 function updateUI(){
 
-  document.getElementById("dashTxn").textContent =
-    demoOrder.transaction;
+const money="$"+demoOrder.amount+" USD";
 
-  document.getElementById("dashAmount").textContent =
-    "$" + demoOrder.amount + " USD";
+document.getElementById("dashTxn").textContent=demoOrder.transaction;
+document.getElementById("dashAmount").textContent=money;
 
-  document.getElementById("txnTitle").textContent =
-    "Transaction #" + demoOrder.transaction;
+document.getElementById("txnTitle").textContent=
+"Transaction #"+demoOrder.transaction;
 
-  document.getElementById("detailTxn").textContent =
-    demoOrder.transaction;
+document.getElementById("detailTxn").textContent=demoOrder.transaction;
+document.getElementById("detailAmount").textContent=money;
+document.getElementById("detailBuyer").textContent=demoOrder.buyer;
+document.getElementById("detailSeller").textContent=demoOrder.seller;
+document.getElementById("detailProduct").textContent=demoOrder.product;
+document.getElementById("detailOrder").textContent=demoOrder.order;
+document.getElementById("detailQty").textContent=demoOrder.quantity;
+document.getElementById("detailDescription").textContent=demoOrder.description;
 
-  document.getElementById("detailAmount").textContent =
-    "$" + demoOrder.amount + " USD";
+document.getElementById("invoiceTxn").textContent=demoOrder.transaction;
+document.getElementById("invoiceProduct").textContent=demoOrder.product;
+document.getElementById("invoiceBuyer").textContent=demoOrder.buyer;
+document.getElementById("invoiceSeller").textContent=demoOrder.seller;
+document.getElementById("invoiceAmount").textContent=money;
 
-  document.getElementById("detailBuyer").textContent =
-    demoOrder.buyer;
-
-  document.getElementById("detailSeller").textContent =
-    demoOrder.seller;
-
-  document.getElementById("detailProduct").textContent =
-    demoOrder.product;
-
-  document.getElementById("detailOrder").textContent =
-    demoOrder.order;
-
-  document.getElementById("detailQty").textContent =
-    demoOrder.quantity;
-
-  document.getElementById("detailDescription").textContent =
-    demoOrder.description;
-
-  document.getElementById("invoiceTxn").textContent =
-    demoOrder.transaction;
-
-  document.getElementById("invoiceProduct").textContent =
-    demoOrder.product;
-
-  document.getElementById("invoiceBuyer").textContent =
-    demoOrder.buyer;
-
-  document.getElementById("invoiceSeller").textContent =
-    demoOrder.seller;
-
-  document.getElementById("invoiceAmount").textContent =
-    "$" + demoOrder.amount + " USD";
+document.getElementById("orderModalId").textContent=demoOrder.order;
+document.getElementById("orderModalProduct").textContent=demoOrder.product;
+document.getElementById("orderModalBuyer").textContent=demoOrder.buyer;
+document.getElementById("orderModalSeller").textContent=demoOrder.seller;
+document.getElementById("orderModalQty").textContent=demoOrder.quantity;
+document.getElementById("orderModalAmount").textContent=money;
+document.getElementById("orderModalDescription").textContent=demoOrder.description;
 }
 
 
-/* DEMO FILE ACTION */
-function demoUpload(){
+/* ORDER VIEW */
 
-  const file =
-    document.getElementById("demoFile").files[0];
+function showOrder(){
 
-  const result =
-    document.getElementById("fileResult");
+updateUI();
 
-  if(!file){
-    toast("Choose a sample file first.");
-    return;
-  }
+closeMenus();
 
-  result.textContent =
-    "Demo file selected: " + file.name;
-
-  toast("Demo verification file uploaded.");
-}
-
-
-/* NOTIFICATIONS */
-function showNotifications(){
-  document
-    .getElementById("notificationModal")
-    .classList.add("show");
+document.getElementById("orderModal").classList.add("show");
 }
 
 
 /* INVOICE */
-function showInvoice(){
-  updateUI();
 
-  document
-    .getElementById("invoiceModal")
-    .classList.add("show");
+function showInvoice(){
+
+updateUI();
+
+closeMenus();
+
+document.getElementById("invoiceModal").classList.add("show");
+}
+
+
+/* NOTIFICATIONS */
+
+function showNotifications(){
+
+document.getElementById("notificationModal").classList.add("show");
+}
+
+function markNotificationsRead(){
+
+document.getElementById("notificationBadge").style.display="none";
+
+closeModal("notificationModal");
+
+toast("Demo notifications marked as read.");
+}
+
+
+/* FILE */
+
+function demoUpload(){
+
+const file=document.getElementById("demoFile").files[0];
+
+if(!file){
+toast("Choose a sample file first.");
+return;
+}
+
+document.getElementById("fileResult").textContent=
+"Demo file selected: "+file.name;
+
+toast("Demo file upload completed.");
+}
+
+
+/* MENU */
+
+function toggleMenu(){
+
+document.getElementById("orderMenu")
+.classList.toggle("show");
+}
+
+function closeMenus(){
+
+document.querySelectorAll(".menu-content")
+.forEach(m=>m.classList.remove("show"));
+}
+
+
+/* COPY */
+
+function copyTransaction(){
+
+navigator.clipboard.writeText(demoOrder.transaction)
+.then(()=>{
+toast("Demo transaction ID copied.");
+})
+.catch(()=>{
+toast(demoOrder.transaction);
+});
+
+closeMenus();
+}
+
+
+/* MESSAGE */
+
+function openMessageComposer(){
+
+document.getElementById("messageModal")
+.classList.add("show");
+}
+
+function sendMessage(){
+
+const subject=document.getElementById("messageSubject").value.trim();
+const text=document.getElementById("messageText").value.trim();
+
+if(!subject||!text){
+toast("Enter a subject and message.");
+return;
+}
+
+const box=document.getElementById("messagesBox");
+
+const item=document.createElement("div");
+
+item.className="message";
+
+item.innerHTML=
+"<strong>"+escapeHTML(subject)+"</strong>"+
+"<p class='muted'>"+escapeHTML(text)+"</p>";
+
+box.insertBefore(item,box.firstChild);
+
+document.getElementById("messageSubject").value="";
+document.getElementById("messageText").value="";
+
+closeModal("messageModal");
+
+toast("Demo message sent successfully.");
+
+}
+
+
+/* DISPUTE */
+
+function openDispute(){
+
+document.getElementById("disputeModal")
+.classList.add("show");
+}
+
+function submitDispute(){
+
+const reason=document.getElementById("disputeReason").value;
+const details=document.getElementById("disputeDetails").value.trim();
+
+if(!details){
+toast("Please enter demo dispute details.");
+return;
+}
+
+closeModal("disputeModal");
+
+toast("Demo dispute created: "+reason);
+}
+
+
+/* SETTINGS */
+
+function saveSettings(){
+
+const name=document.getElementById("displayName").value.trim();
+
+if(!name){
+toast("Enter a display name.");
+return;
+}
+
+document.querySelector(".profile span:last-child").textContent=
+name+"⌄";
+
+toast("Demo settings saved successfully.");
 }
 
 
 /* CLOSE MODAL */
+
 function closeModal(id){
-  document
-    .getElementById(id)
-    .classList.remove("show");
+
+document.getElementById(id)
+.classList.remove("show");
 }
 
 
 /* TOAST */
+
 function toast(message){
 
-  const box =
-    document.getElementById("toast");
+const box=document.getElementById("toast");
 
-  box.textContent = message;
-  box.classList.add("show");
+box.textContent=message;
+box.classList.add("show");
 
-  setTimeout(()=>{
-    box.classList.remove("show");
-  },2500);
+clearTimeout(window.toastTimer);
+
+window.toastTimer=setTimeout(()=>{
+box.classList.remove("show");
+},2500);
 }
 
 
-/* CLOSE MODAL ON BACKGROUND */
+/* ESCAPE HTML */
+
+function escapeHTML(text){
+
+const div=document.createElement("div");
+div.textContent=text;
+return div.innerHTML;
+}
+
+
+/* BACKGROUND CLICK */
+
 document.querySelectorAll(".modal-bg")
 .forEach(modal=>{
-  modal.addEventListener("click",function(e){
-    if(e.target === modal){
-      modal.classList.remove("show");
-    }
-  });
+
+modal.addEventListener("click",function(e){
+
+if(e.target===modal){
+modal.classList.remove("show");
+}
+
+});
+
+});
+
+
+/* OUTSIDE MENU CLICK */
+
+document.addEventListener("click",function(e){
+
+if(!e.target.closest(".menu")){
+closeMenus();
+}
+
 });
 
 
 /* INITIALIZE */
+
 updateUI();
 
 </script>
