@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>DIN AR — Escrow System</title>
-
+<title>PayPal Escrow System</title>
 <style>
 *{
     margin:0;
@@ -15,8 +14,8 @@
 
 body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    background:#f5f7fb;
-    color:#172033;
+    background:#f4f6fa;
+    color:#1a2b4c;
 }
 
 button{
@@ -30,20 +29,23 @@ button{
     max-width:480px;
     min-height:100vh;
     margin:auto;
-    background:#f5f7fb;
+    background:#ffffff;
     position:relative;
-    overflow:hidden;
+    overflow-x:hidden;
 }
 
 /* HEADER */
 .header{
     height:70px;
-    background:#fff;
+    background:#ffffff;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:15px 18px;
+    padding:0 20px;
     border-bottom:1px solid #edf0f5;
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .brand{
@@ -52,120 +54,426 @@ button{
     gap:10px;
 }
 
-.brand img{
-    width:38px;
-    height:38px;
-    object-fit:contain;
+.brand-icon{
+    width:36px;
+    height:36px;
+    background:#0070ba;
     border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+}
+
+.brand-icon svg{
+    width:20px;
+    height:20px;
 }
 
 .brand-text{
-    font-size:18px;
+    font-size:16px;
     font-weight:800;
+    color:#1a2b4c;
     letter-spacing:-.3px;
 }
 
 .brand-sub{
     font-size:9px;
-    color:#8c94a4;
-    margin-top:2px;
+    color:#718096;
+    margin-top:1px;
 }
 
-.header-actions{
-    display:flex;
-    gap:9px;
-}
-
-.icon-btn{
-    width:39px;
-    height:39px;
-    background:#f5f7fa;
+.menu-btn{
+    width:40px;
+    height:40px;
+    background:#f4f6fa;
     border-radius:12px;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#354052;
-    position:relative;
+    color:#1a2b4c;
 }
 
-.icon-btn svg{
-    width:19px;
-    height:19px;
-}
-
-.notification-dot{
-    width:7px;
-    height:7px;
-    background:#ef5350;
-    border-radius:50%;
-    position:absolute;
-    right:8px;
-    top:7px;
-    border:2px solid #f5f7fa;
+.menu-btn svg{
+    width:22px;
+    height:22px;
 }
 
 /* PAGES */
 .page{
     display:none;
-    padding:18px 16px 100px;
+    padding:20px 16px 80px;
 }
 
 .page.active{
     display:block;
 }
 
-/* AUTH PAGE */
-.auth-hero{
+/* LANDING PAGE */
+.badge-tag{
     text-align:center;
-    padding:15px 10px 10px;
+    margin-bottom:15px;
 }
 
-.auth-hero h1{
+.badge-tag span{
+    background:#edf2f7;
+    color:#4a5568;
+    font-size:9px;
+    font-weight:700;
+    text-transform:uppercase;
+    padding:6px 12px;
+    border-radius:20px;
+    letter-spacing:.5px;
+}
+
+.hero-title{
     font-size:26px;
-    letter-spacing:-.7px;
-    color:#172033;
+    font-weight:800;
+    text-align:center;
+    line-height:1.3;
+    color:#1a2b4c;
+    padding:0 10px;
+    letter-spacing:-.5px;
 }
 
-.auth-hero p{
-    font-size:11px;
-    color:#8c94a4;
-    margin-top:6px;
-    line-height:1.5;
+.hero-btns{
+    margin-top:22px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-.auth-card{
-    background:#fff;
-    border:1px solid #edf0f4;
+.btn-primary{
+    width:100%;
+    height:48px;
+    background:#0070ba;
+    color:#fff;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 6px 16px rgba(0,112,186,.25);
+}
+
+.btn-secondary{
+    width:100%;
+    height:48px;
+    background:#ffffff;
+    color:#1a2b4c;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.btn-secondary svg{
+    width:16px;
+    height:16px;
+    fill:#0070ba;
+}
+
+/* PROTECTION CARD */
+.protection-card{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
     border-radius:20px;
     padding:20px;
-    margin-top:15px;
-    box-shadow:0 10px 25px rgba(20,31,50,.05);
+    margin-top:25px;
+}
+
+.protection-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+    font-weight:800;
+    color:#1a2b4c;
+    margin-bottom:15px;
+}
+
+.protection-title svg{
+    width:22px;
+    height:22px;
+    fill:#0070ba;
+}
+
+.check-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.check-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:12px;
+    font-weight:600;
+    color:#2d3748;
+}
+
+.check-icon{
+    width:20px;
+    height:20px;
+    background:#e6fffa;
+    color:#319795;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:800;
+    flex-shrink:0;
+}
+
+/* FEATURES GRID */
+.features-grid{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.feature-row{
+    background:#f8fafc;
+    border:1px solid #edf2f7;
+    border-radius:14px;
+    padding:14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.feature-icon{
+    width:36px;
+    height:36px;
+    background:#edf2f7;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#0070ba;
+    flex-shrink:0;
+}
+
+.feature-icon svg{
+    width:18px;
+    height:18px;
+}
+
+.feature-info strong{
+    display:block;
+    font-size:12px;
+    color:#1a2b4c;
+}
+
+.feature-info p{
+    font-size:10px;
+    color:#718096;
+    margin-top:2px;
+}
+
+/* HOW IT WORKS */
+.how-section{
+    margin-top:35px;
+}
+
+.how-title{
+    text-align:center;
+    font-size:18px;
+    font-weight:800;
+    color:#1a2b4c;
+}
+
+.how-subtitle{
+    text-align:center;
+    font-size:11px;
+    color:#718096;
+    margin-top:4px;
+    margin-bottom:20px;
+}
+
+.steps-list{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.step-box{
+    display:flex;
+    gap:14px;
+    background:#f8fafc;
+    border:1px solid #edf2f7;
+    border-radius:14px;
+    padding:14px;
+}
+
+.step-ico{
+    width:36px;
+    height:36px;
+    background:#e1effe;
+    color:#0070ba;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.step-ico svg{
+    width:18px;
+    height:18px;
+}
+
+.step-content strong{
+    font-size:12px;
+    color:#1a2b4c;
+    display:block;
+}
+
+.step-content p{
+    font-size:10px;
+    color:#718096;
+    margin-top:3px;
+    line-height:1.4;
+}
+
+/* MENU MODAL / DRAWER */
+.drawer-backdrop{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(2px);
+    display:none;
+    z-index:200;
+}
+
+.drawer-backdrop.show{
+    display:block;
+}
+
+.drawer{
+    position:fixed;
+    top:0;
+    right:-280px;
+    width:280px;
+    height:100%;
+    background:#ffffff;
+    z-index:210;
+    transition:right .3s ease;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    box-shadow:-5px 0 25px rgba(0,0,0,0.1);
+}
+
+.drawer.open{
+    right:0;
+}
+
+.drawer-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:15px;
+    border-bottom:1px solid #edf2f7;
+}
+
+.drawer-links{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.drawer-link{
+    width:100%;
+    padding:12px 14px;
+    background:#f8fafc;
+    border-radius:10px;
+    text-align:left;
+    font-size:12px;
+    font-weight:700;
+    color:#1a2b4c;
+}
+
+.drawer-link.primary{
+    background:#0070ba;
+    color:#fff;
+}
+
+/* AUTH MODAL */
+.auth-modal-backdrop{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:300;
+    padding:20px;
+}
+
+.auth-modal-backdrop.show{
+    display:flex;
+}
+
+.auth-modal{
+    width:100%;
+    max-width:400px;
+    background:#fff;
+    border-radius:20px;
+    padding:24px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+    position:relative;
+}
+
+.close-modal{
+    position:absolute;
+    top:16px;
+    right:16px;
+    background:#f4f6fa;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    color:#718096;
 }
 
 .auth-switcher{
     display:flex;
     background:#f4f6fa;
-    border-radius:14px;
+    border-radius:12px;
     padding:4px;
-    margin-bottom:18px;
-    position:relative;
+    margin:20px 0;
 }
 
 .auth-tab{
     flex:1;
-    height:38px;
-    border-radius:11px;
+    height:36px;
+    border-radius:9px;
     font-size:11px;
     font-weight:700;
     background:transparent;
-    color:#7c8594;
-    transition:.2s;
+    color:#718096;
 }
 
 .auth-tab.active{
     background:#fff;
-    color:#172033;
-    box-shadow:0 3px 10px rgba(0,0,0,.06);
+    color:#1a2b4c;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
 .form-group{
@@ -176,657 +484,53 @@ button{
     display:block;
     font-size:10px;
     font-weight:700;
-    color:#354052;
-    margin-bottom:6px;
+    color:#4a5568;
+    margin-bottom:5px;
 }
 
 .form-group input{
     width:100%;
-    height:45px;
-    border:1px solid #e5e9ef;
-    border-radius:12px;
-    padding:0 14px;
+    height:44px;
+    border:1px solid #cbd5e0;
+    border-radius:10px;
+    padding:0 12px;
+    font-size:12px;
     outline:none;
-    font-size:12px;
-    background:#fafbfc;
 }
 
-.form-group input:focus{
-    border-color:#202d42;
-    background:#fff;
-}
-
-.primary-btn{
-    width:100%;
-    height:46px;
-    border-radius:12px;
-    background:#182235;
-    color:#fff;
-    font-size:12px;
-    font-weight:700;
-    margin-top:4px;
-    box-shadow:0 6px 16px rgba(24,34,53,.2);
-}
-
-/* DASHBOARD */
-.welcome{
-    margin:6px 2px 18px;
-}
-
-.welcome small{
-    color:#8c94a4;
-    font-size:12px;
-}
-
-.welcome h1{
-    font-size:25px;
-    margin-top:4px;
-    letter-spacing:-.7px;
+/* DASHBOARD & OTHER STYLES */
+.dashboard-page{
+    padding:16px;
 }
 
 .balance-card{
-    background:linear-gradient(135deg,#182235,#273650);
-    border-radius:20px;
+    background:linear-gradient(135deg,#003087,#0070ba);
+    border-radius:18px;
     padding:20px;
     color:#fff;
-    box-shadow:0 12px 28px rgba(20,31,50,.16);
+    margin-bottom:20px;
 }
 
-.balance-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.balance-label{
-    font-size:12px;
-    color:#bfc7d5;
-}
-
-.balance{
-    font-size:30px;
-    font-weight:800;
-    margin-top:5px;
-}
-
-.balance-status{
-    font-size:10px;
-    padding:6px 9px;
-    border-radius:20px;
-    background:rgba(255,255,255,.12);
-    color:#dfe6f2;
-}
-
-.balance-bottom{
-    display:flex;
-    justify-content:space-between;
-    margin-top:22px;
-    padding-top:15px;
-    border-top:1px solid rgba(255,255,255,.1);
-}
-
-.balance-bottom span{
-    font-size:10px;
-    color:#aeb8c8;
-}
-
-.balance-bottom strong{
-    display:block;
-    font-size:13px;
-    color:#fff;
-    margin-top:3px;
-}
-
-.section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:22px 2px 11px;
-}
-
-.section-title h3{
-    font-size:15px;
-}
-
-.section-title span{
-    font-size:11px;
-    color:#697386;
-}
-
-/* QUICK ACTIONS */
-.quick-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:9px;
-}
-
-.quick{
-    background:#fff;
-    border:1px solid #edf0f4;
-    border-radius:15px;
-    padding:14px 7px;
-    text-align:center;
-}
-
-.quick-icon{
-    width:37px;
-    height:37px;
-    border-radius:11px;
-    background:#f0f3f8;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#273650;
-}
-
-.quick-icon svg{
-    width:18px;
-}
-
-.quick p{
-    margin-top:8px;
-    font-size:10px;
-    font-weight:700;
-}
-
-/* ORDER CARD */
-.order-card{
-    background:#fff;
-    border:1px solid #edf0f4;
-    border-radius:17px;
-    padding:15px;
-}
-
-.order-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.order-user{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.avatar{
-    width:38px;
-    height:38px;
-    border-radius:12px;
-    background:#e9edf4;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:12px;
-    font-weight:800;
-}
-
-.order-user strong{
-    display:block;
-    font-size:12px;
-}
-
-.order-user small{
-    color:#8c94a4;
-    font-size:10px;
-}
-
-.amount{
-    text-align:right;
-}
-
-.amount strong{
-    font-size:14px;
-}
-
-.amount small{
-    display:block;
-    color:#8c94a4;
-    font-size:9px;
-}
-
-.status{
-    display:inline-flex;
-    align-items:center;
-    gap:5px;
-    padding:5px 8px;
-    border-radius:20px;
-    font-size:9px;
-    font-weight:700;
-}
-
-.status.completed{
-    background:#eaf8f0;
-    color:#218653;
-}
-
-.status.processing{
-    background:#fff4dc;
-    color:#ad7500;
-}
-
-.dot{
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:currentColor;
-}
-
-.order-info{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:9px;
-    margin-top:14px;
-}
-
-.info-box{
-    background:#f7f8fa;
-    border-radius:10px;
-    padding:9px;
-}
-
-.info-box span{
-    display:block;
-    font-size:8px;
-    color:#9299a7;
-}
-
-.info-box strong{
-    font-size:10px;
-    display:block;
-    margin-top:3px;
-}
-
-/* TRANSACTIONS */
-.transaction-head{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:15px;
-}
-
-.back-btn{
-    width:37px;
-    height:37px;
-    background:#fff;
-    border:1px solid #edf0f4;
-    border-radius:11px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.transaction-head h2{
-    font-size:20px;
-}
-
-.find-box{
-    background:#fff;
-    border:1px solid #e9edf3;
-    border-radius:14px;
-    height:47px;
-    display:flex;
-    align-items:center;
-    padding:0 13px;
-    gap:9px;
-    margin-bottom:14px;
-}
-
-.find-box svg{
-    width:18px;
-    color:#8b94a4;
-}
-
-.find-box input{
-    border:0;
-    outline:0;
-    flex:1;
-    font-size:12px;
-    background:transparent;
-}
-
-.transaction-filter{
-    display:flex;
-    gap:7px;
-    overflow-x:auto;
-    padding-bottom:3px;
-    margin-bottom:13px;
-}
-
-.filter{
-    white-space:nowrap;
-    background:#fff;
-    border:1px solid #e8ecf2;
-    border-radius:20px;
-    padding:7px 12px;
-    font-size:9px;
-    font-weight:700;
-    color:#687285;
-}
-
-.filter.active{
-    background:#202d42;
-    color:#fff;
-    border-color:#202d42;
-}
-
-.transaction-list{
-    display:flex;
-    flex-direction:column;
-    gap:9px;
-}
-
-.transaction{
-    background:#fff;
-    border:1px solid #edf0f4;
-    border-radius:15px;
-    padding:12px;
-}
-
-.transaction-main{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.t-left{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    min-width:0;
-}
-
-.t-avatar{
-    width:35px;
-    height:35px;
-    flex-shrink:0;
-    border-radius:10px;
-    background:#edf1f6;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:10px;
-    font-weight:800;
-}
-
-.t-name{
-    min-width:0;
-}
-
-.t-name strong{
-    display:block;
-    font-size:10px;
-    max-width:170px;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-}
-
-.t-name small{
-    display:block;
-    color:#9299a7;
-    font-size:8px;
-    margin-top:2px;
-}
-
-.t-right{
-    text-align:right;
-}
-
-.t-right strong{
-    display:block;
-    font-size:11px;
-}
-
-.t-right small{
-    display:block;
-    color:#a0a7b4;
-    font-size:8px;
-    margin-top:2px;
-}
-
-.transaction-status{
-    margin-top:9px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-top:1px solid #f0f2f5;
-    padding-top:8px;
-}
-
-.transaction-status span{
-    font-size:8px;
-    color:#9aa1ae;
-}
-
-/* MESSAGES */
-.message-card{
-    background:#fff;
-    border:1px solid #edf0f4;
-    border-radius:15px;
-    padding:13px;
-    margin-bottom:9px;
-    display:flex;
-    gap:10px;
-}
-
-.message-avatar{
-    width:38px;
-    height:38px;
-    border-radius:12px;
-    background:#e9edf4;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:800;
-    font-size:11px;
-}
-
-.message-content{
-    flex:1;
-}
-
-.message-content strong{
-    font-size:11px;
-}
-
-.message-content p{
-    color:#858e9e;
-    font-size:9px;
-    margin-top:4px;
-}
-
-.message-time{
-    font-size:8px;
-    color:#a2a9b5;
-}
-
-/* NEW TRADE FORM */
-.form-card{
-    background:#fff;
-    border:1px solid #edf0f4;
-    border-radius:17px;
-    padding:16px;
-}
-
-.form-card .form-group input,
-.form-card .form-group select{
-    width:100%;
-    height:43px;
-    border:1px solid #e5e9ef;
-    border-radius:11px;
-    padding:0 12px;
-    outline:none;
-    font-size:11px;
-    background:#fafbfc;
-}
-
-/* DETAIL */
-.detail-card{
-    background:#fff;
-    border:1px solid #edf0f4;
-    border-radius:17px;
-    padding:16px;
-    margin-bottom:11px;
-}
-
-.detail-top{
-    text-align:center;
-}
-
-.detail-icon{
-    width:50px;
-    height:50px;
-    border-radius:16px;
-    background:#edf8f2;
-    color:#218653;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:auto;
-}
-
-.detail-top h2{
-    font-size:17px;
-    margin-top:9px;
-}
-
-.detail-top p{
-    color:#8d95a3;
-    font-size:9px;
-    margin-top:3px;
-}
-
-.progress{
-    margin:20px 0 5px;
-}
-
-.progress-line{
-    height:5px;
-    border-radius:5px;
-    background:#e9edf2;
-    position:relative;
-}
-
-.progress-line:before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    height:100%;
-    width:82%;
-    border-radius:5px;
-    background:#273650;
-}
-
-.steps{
-    display:flex;
-    justify-content:space-between;
-    margin-top:7px;
-}
-
-.steps span{
-    font-size:7px;
-    color:#8c94a4;
-}
-
-.steps span.active{
-    color:#26354c;
-    font-weight:700;
-}
-
-.detail-row{
-    display:flex;
-    justify-content:space-between;
-    padding:10px 0;
-    border-bottom:1px solid #f0f2f5;
-}
-
-.detail-row:last-child{
-    border-bottom:0;
-}
-
-.detail-row span{
-    font-size:9px;
-    color:#9098a6;
-}
-
-.detail-row strong{
-    font-size:10px;
-}
-
-/* BOTTOM NAV */
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:100%;
-    max-width:480px;
-    height:72px;
-    background:rgba(255,255,255,.97);
-    border-top:1px solid #e9edf2;
-    display:none;
-    grid-template-columns:repeat(4,1fr);
-    z-index:100;
-    padding-bottom:5px;
-}
-
-.bottom-nav.visible{
-    display:grid;
-}
-
-.nav-item{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:4px;
-    color:#9aa1ad;
-    font-size:8px;
-    font-weight:600;
-    background:none;
-}
-
-.nav-item svg{
-    width:19px;
-    height:19px;
-}
-
-.nav-item.active{
-    color:#202d42;
-}
-
-/* TOAST */
 .toast{
     position:fixed;
     left:50%;
-    bottom:88px;
+    bottom:30px;
     transform:translate(-50%,20px);
     opacity:0;
     pointer-events:none;
-    background:#202d42;
+    background:#1a2b4c;
     color:#fff;
-    border-radius:12px;
-    padding:10px 15px;
-    font-size:10px;
-    transition:.25s;
-    z-index:500;
-    white-space:nowrap;
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:11px;
+    transition:.3s;
+    z-index:400;
 }
 
 .toast.show{
     opacity:1;
     transform:translate(-50%,0);
 }
-
-@media(min-width:700px){
-    body{ background:#e9edf3; }
-    .app{ box-shadow:0 0 50px rgba(0,0,0,.08); }
-}
-
-::-webkit-scrollbar{ width:0; height:0; }
 </style>
 </head>
 
@@ -834,693 +538,237 @@ button{
 
 <div class="app">
 
+<!-- HEADER -->
 <header class="header">
     <div class="brand">
-        <img src="logo.png" alt="DIN AR" onerror="this.style.display='none'">
+        <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
         <div>
-            <div class="brand-text">DIN AR</div>
-            <div class="brand-sub">Escrow System</div>
+            <div class="brand-text">PayPal Escrow</div>
+            <div class="brand-sub">Payment Protection</div>
         </div>
     </div>
 
-    <div class="header-actions" id="header-actions" style="display:none;">
-        <button class="icon-btn" onclick="showToast('Notifications')">
-            <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
-                <path d="M10 21h4"/>
-            </svg>
-            <i class="notification-dot"></i>
-        </button>
-
-        <button class="icon-btn" onclick="handleLogout()" title="Logout">
-            <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                <polyline points="16 17 21 12 16 7"/>
-                <line x1="21" y1="12" x2="9" y2="12"/>
-            </svg>
-        </button>
-    </div>
+    <button class="menu-btn" onclick="toggleDrawer(true)">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
 </header>
 
-
-<!-- HOME / AUTH PAGE (যাতে আপনার স্ক্রিনশটের মতো সেই ক্লিন লুক থাকে) -->
-<section id="home-auth" class="page active">
-    <div class="auth-hero">
-        <h1>Welcome to DIN AR</h1>
-        <p>Secure peer-to-peer escrow system with instant<br>buyer and seller protection.</p>
+<!-- LANDING PAGE -->
+<section id="landing-page" class="page active">
+    <div class="badge-tag">
+        <span>Secure Escrow Payments</span>
     </div>
 
-    <div class="auth-card">
-        <div class="auth-switcher">
-            <button class="auth-tab active" id="tab-login-btn" onclick="switchAuthTab('login')">Login</button>
-            <button class="auth-tab" id="tab-signup-btn" onclick="switchAuthTab('signup')">Sign Up</button>
+    <h1 class="hero-title">Gift Card Trades: Secure Your Verification Order Process by Amazon</h1>
+
+    <div class="hero-btns">
+        <button class="btn-primary" onclick="openAuthModal('signup')">Get Started</button>
+        <button class="btn-secondary" onclick="showToast('How it works guide')">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            How It Works
+        </button>
+    </div>
+
+    <div class="protection-card">
+        <div class="protection-title">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Your Payment is Protected
         </div>
+        <div class="check-list">
+            <div class="check-item"><div class="check-icon">✓</div> Funds secured in escrow</div>
+            <div class="check-item"><div class="check-icon">✓</div> Seller ships your order</div>
+            <div class="check-item"><div class="check-icon">✓</div> You confirm receipt</div>
+            <div class="check-item"><div class="check-icon">✓</div> Payment released</div>
+        </div>
+    </div>
 
-        <!-- Login Form -->
-        <form id="loginForm" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="loginEmail" placeholder="admin@dinar.com" required>
+    <div class="features-grid">
+        <div class="feature-row">
+            <div class="feature-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="loginPassword" placeholder="••••••••" required>
+            <div class="feature-info">
+                <strong>Secure & Trusted</strong>
+                <p>Your funds are safe with us</p>
             </div>
-            <button type="submit" class="primary-btn">Login to Dashboard</button>
-        </form>
+        </div>
+        <div class="feature-row">
+            <div class="feature-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <div class="feature-info">
+                <strong>Simple Process</strong>
+                <p>Easy for buyers and sellers</p>
+            </div>
+        </div>
+    </div>
 
-        <!-- Signup Form -->
-        <form id="signupForm" style="display:none;" onsubmit="handleSignup(event)">
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="signupName" placeholder="Md Dinar" required>
+    <div class="how-section">
+        <div class="how-title">How Escrow Works</div>
+        <div class="how-subtitle">A simple and secure process for everyone</div>
+
+        <div class="steps-list">
+            <div class="step-box">
+                <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+                <div class="step-content">
+                    <strong>1. Place an Order</strong>
+                    <p>Buyer makes a payment and funds are held securely in our escrow.</p>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="signupEmail" placeholder="your@email.com" required>
+            <div class="step-box">
+                <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+                <div class="step-content">
+                    <strong>2. Seller Delivers</strong>
+                    <p>Seller ships the item or completes the service.</p>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="signupPassword" placeholder="••••••••" required>
+            <div class="step-box">
+                <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 240 240"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+                <div class="step-content">
+                    <strong>3. Confirm Receipt</strong>
+                    <p>Buyer confirms the order is received as expected.</p>
+                </div>
             </div>
-            <button type="submit" class="primary-btn">Create Account & Login</button>
-        </form>
+            <div class="step-box">
+                <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                <div class="step-content">
+                    <strong>4. PayPal Payout Released</strong>
+                    <p>Funds are released to the seller.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top:25px;">
+        <button class="btn-primary" onclick="openAuthModal('signup')">Create Your Account</button>
     </div>
 </section>
 
-
-<!-- DASHBOARD -->
-<section id="dashboard" class="page">
-    <div class="welcome">
-        <small>Welcome back</small>
-        <h1>Dashboard</h1>
-    </div>
-
+<!-- DASHBOARD PAGE (After Login) -->
+<section id="dashboard-page" class="page dashboard-page">
     <div class="balance-card">
-        <div class="balance-top">
-            <div>
-                <div class="balance-label">Available Balance</div>
-                <div class="balance" id="dash-available">$0.00</div>
-            </div>
-            <div class="balance-status">Protected</div>
-        </div>
-
-        <div class="balance-bottom">
-            <div>
-                <span>Pending</span>
-                <strong id="dash-pending">$0.00</strong>
-            </div>
-            <div>
-                <span>Completed</span>
-                <strong id="dash-completed">$0.00</strong>
-            </div>
-            <div>
-                <span>Trades</span>
-                <strong id="dash-count">0</strong>
-            </div>
-        </div>
+        <div style="font-size:11px; opacity:0.8;">Available Balance</div>
+        <div style="font-size:28px; font-weight:800; margin-top:5px;">$1,250.00</div>
     </div>
-
-    <div class="section-title">
-        <h3>Quick Actions</h3>
+    <h3 style="font-size:15px; margin-bottom:10px;">Recent Escrow Trades</h3>
+    <div style="background:#f8fafc; border:1px solid #edf2f7; border-radius:14px; padding:20px; text-align:center; color:#718096; font-size:11px;">
+        No recent trades found.
     </div>
-
-    <div class="quick-grid">
-        <button class="quick" onclick="openPage('newtrade')">
-            <div class="quick-icon">
-                <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                    <path d="M12 5v14M5 12h14"/>
-                </svg>
-            </div>
-            <p>New Trade</p>
-        </button>
-
-        <button class="quick" onclick="openTransactions()">
-            <div class="quick-icon">
-                <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                    <path d="M4 7h16M4 12h16M4 17h16"/>
-                </svg>
-            </div>
-            <p>Transactions</p>
-        </button>
-
-        <button class="quick" onclick="openPage('messages')">
-            <div class="quick-icon">
-                <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                    <path d="M4 5h16v11H8l-4 4V5z"/>
-                </svg>
-            </div>
-            <p>Messages</p>
-        </button>
-    </div>
-
-    <div class="section-title">
-        <h3>Active Escrow</h3>
-        <span onclick="openTransactions()" style="cursor:pointer;">View all</span>
-    </div>
-
-    <div id="active-escrow-container">
-        <div class="order-card" style="text-align:center; padding:25px; color:#8c94a4; font-size:11px;">
-            No active escrow orders found.
-        </div>
-    </div>
-
-    <div class="section-title">
-        <h3>DIN AR Protection</h3>
-    </div>
-
-    <div class="order-card">
-        <div style="font-size:12px;font-weight:800;">
-            DIN AR Payment Protection
-        </div>
-        <p style="font-size:9px;color:#8992a1;line-height:1.6;margin-top:6px;">
-            Secure transaction workflow with real-time verification and escrow protection.
-        </p>
-    </div>
+    <button class="btn-primary" style="margin-top:20px;" onclick="handleLogout()">Log Out</button>
 </section>
-
-
-<!-- TRANSACTIONS -->
-<section id="transactions" class="page">
-    <div class="transaction-head">
-        <button class="back-btn" onclick="openPage('dashboard')">
-            <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M15 18l-6-6 6-6"/>
-            </svg>
-        </button>
-        <h2>Transactions</h2>
-    </div>
-
-    <div class="find-box">
-        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="6.5"/>
-            <path d="m16 16 5 5"/>
-        </svg>
-        <input id="transactionSearch" type="text" placeholder="Find Transaction..." oninput="filterTransactions()">
-    </div>
-
-    <div class="transaction-filter">
-        <button class="filter active" onclick="setFilter('all',this)">All</button>
-        <button class="filter" onclick="setFilter('processing',this)">Processing</button>
-        <button class="filter" onclick="setFilter('completed',this)">Completed</button>
-    </div>
-
-    <div id="transactionList" class="transaction-list">
-        <div style="text-align:center; padding:30px; color:#8c94a4; font-size:11px;">
-            No transactions available yet.
-        </div>
-    </div>
-</section>
-
-
-<!-- NEW TRADE -->
-<section id="newtrade" class="page">
-    <div class="transaction-head">
-        <button class="back-btn" onclick="openPage('dashboard')">
-            <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M15 18l-6-6 6-6"/>
-            </svg>
-        </button>
-        <h2>New Trade</h2>
-    </div>
-
-    <div class="form-card">
-        <form id="tradeForm" onsubmit="handleCreateTrade(event)">
-            <div class="form-group">
-                <label>Buyer Email / Identifier</label>
-                <input type="text" id="tradeBuyer" placeholder="buyer@example.com" required>
-            </div>
-
-            <div class="form-group">
-                <label>Trade Amount ($)</label>
-                <input type="number" step="0.01" id="tradeAmount" placeholder="0.00" required>
-            </div>
-
-            <div class="form-group">
-                <label>Payment Method</label>
-                <select id="tradeMethod" style="width:100%; height:43px; border:1px solid #e5e9ef; border-radius:11px; padding:0 12px; outline:none; font-size:11px; background:#fafbfc;">
-                    <option value="PayPal">PayPal</option>
-                    <option value="Bank Transfer">Bank Transfer</option>
-                    <option value="Crypto">Crypto (USDT)</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Order Type</label>
-                <select id="tradeType" style="width:100%; height:43px; border:1px solid #e5e9ef; border-radius:11px; padding:0 12px; outline:none; font-size:11px; background:#fafbfc;">
-                    <option value="Amazon E-Giftcard">Amazon E-Giftcard</option>
-                    <option value="Verification Order">Verification Order</option>
-                    <option value="Digital Service">Digital Service</option>
-                </select>
-            </div>
-
-            <button type="submit" class="primary-btn">Create Trade</button>
-        </form>
-    </div>
-</section>
-
-
-<!-- MESSAGES -->
-<section id="messages" class="page">
-    <div class="transaction-head">
-        <button class="back-btn" onclick="openPage('dashboard')">
-            <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M15 18l-6-6 6-6"/>
-            </svg>
-        </button>
-        <h2>Messages</h2>
-    </div>
-
-    <div id="messages-container">
-        <div class="message-card">
-            <div class="message-avatar">DA</div>
-            <div class="message-content">
-                <strong>DIN AR Support</strong>
-                <p>System initialized and ready for live activity.</p>
-            </div>
-            <span class="message-time">Just now</span>
-        </div>
-    </div>
-</section>
-
-
-<!-- TRANSACTION DETAIL -->
-<section id="detail" class="page">
-    <div class="transaction-head">
-        <button class="back-btn" onclick="openTransactions()">
-            <svg width="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M15 18l-6-6 6-6"/>
-            </svg>
-        </button>
-        <h2>Transaction Details</h2>
-    </div>
-
-    <div id="detail-content-area"></div>
-</section>
-
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav" id="bottom-nav">
-    <button class="nav-item active" data-page="dashboard" onclick="openPage('dashboard')">
-        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-            <path d="M3 11.5 12 4l9 7.5"/>
-            <path d="M5 10v10h14V10"/>
-            <path d="M9 20v-6h6v6"/>
-        </svg>
-        Home
-    </button>
-
-    <button class="nav-item" data-page="transactions" onclick="openTransactions()">
-        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-            <path d="M4 7h16M4 12h16M4 17h16"/>
-        </svg>
-        Transactions
-    </button>
-
-    <button class="nav-item" data-page="newtrade" onclick="openPage('newtrade')">
-        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="8"/>
-            <path d="M12 8v8M8 12h8"/>
-        </svg>
-        New Trade
-    </button>
-
-    <button class="nav-item" data-page="messages" onclick="openPage('messages')">
-        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-            <path d="M4 5h16v11H8l-4 4V5z"/>
-        </svg>
-        Messages
-    </button>
-</nav>
 
 </div>
 
-<div id="toast" class="toast"></div>
+<!-- DRAWER MENU -->
+<div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleDrawer(false)"></div>
+<div class="drawer" id="drawerMenu">
+    <div class="drawer-header">
+        <strong>Menu</strong>
+        <button onclick="toggleDrawer(false)" style="background:none; font-size:16px; font-weight:bold;">✕</button>
+    </div>
+    <div class="drawer-links">
+        <button class="drawer-link" onclick="toggleDrawer(false); openAuthModal('login')">Login</button>
+        <button class="drawer-link primary" onclick="toggleDrawer(false); openAuthModal('signup')">Sign Up</button>
+    </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-modal-backdrop" id="authModal">
+    <div class="auth-modal">
+        <button class="close-modal" onclick="closeAuthModal()">✕</button>
+        <h2 id="authTitle" style="font-size:18px; text-align:center;">Login to Account</h2>
+        
+        <div class="auth-switcher">
+            <button class="auth-tab active" id="tabLoginBtn" onclick="switchModalTab('login')">Login</button>
+            <button class="auth-tab" id="tabSignupBtn" onclick="switchModalTab('signup')">Sign Up</button>
+        </div>
+
+        <form onsubmit="handleAuthSubmit(event)">
+            <div class="form-group" id="nameFieldGroup" style="display:none;">
+                <label>Full Name</label>
+                <input type="text" placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-primary" id="authSubmitBtn">Login</button>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast">Action completed</div>
 
 <script>
-let transactions = JSON.parse(localStorage.getItem('dinar_escrow_txs')) || [];
-let isLoggedIn = localStorage.getItem('dinar_logged_in') === 'true';
-let currentFilter = "all";
-
-function saveTransactions() {
-    localStorage.setItem('dinar_escrow_txs', JSON.stringify(transactions));
-    updateDashboard();
-    renderTransactions();
+function toggleDrawer(open) {
+    const drawer = document.getElementById('drawerMenu');
+    const backdrop = document.getElementById('drawerBackdrop');
+    if(open) {
+        drawer.classList.add('open');
+        backdrop.classList.add('show');
+    } else {
+        drawer.classList.remove('open');
+        backdrop.classList.remove('show');
+    }
 }
 
-function switchAuthTab(tab) {
-    const loginBtn = document.getElementById('tab-login-btn');
-    const signupBtn = document.getElementById('tab-signup-btn');
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
+function openAuthModal(mode) {
+    document.getElementById('authModal').classList.add('show');
+    switchModalTab(mode);
+}
 
-    if(tab === 'login') {
+function closeAuthModal() {
+    document.getElementById('authModal').classList.remove('show');
+}
+
+function switchModalTab(mode) {
+    const loginBtn = document.getElementById('tabLoginBtn');
+    const signupBtn = document.getElementById('tabSignupBtn');
+    const nameField = document.getElementById('nameFieldGroup');
+    const authTitle = document.getElementById('authTitle');
+    const submitBtn = document.getElementById('authSubmitBtn');
+
+    if(mode === 'login') {
         loginBtn.classList.add('active');
         signupBtn.classList.remove('active');
-        loginForm.style.display = 'block';
-        signupForm.style.display = 'none';
+        nameField.style.display = 'none';
+        authTitle.textContent = 'Login to Account';
+        submitBtn.textContent = 'Login';
     } else {
         signupBtn.classList.add('active');
         loginBtn.classList.remove('active');
-        signupForm.style.display = 'block';
-        loginForm.style.display = 'none';
+        nameField.style.display = 'block';
+        authTitle.textContent = 'Create Account';
+        submitBtn.textContent = 'Sign Up';
     }
 }
 
-function handleLogin(e) {
+function handleAuthSubmit(e) {
     e.preventDefault();
-    isLoggedIn = true;
-    localStorage.setItem('dinar_logged_in', 'true');
-    showToast('Logged in successfully');
-    checkAuthState();
-    openPage('dashboard');
-}
-
-function handleSignup(e) {
-    e.preventDefault();
-    isLoggedIn = true;
-    localStorage.setItem('dinar_logged_in', 'true');
-    showToast('Account created successfully');
-    checkAuthState();
-    openPage('dashboard');
+    closeAuthModal();
+    showToast('Successfully logged in!');
+    document.getElementById('landing-page').classList.remove('active');
+    document.getElementById('dashboard-page').classList.add('active');
 }
 
 function handleLogout() {
-    isLoggedIn = false;
-    localStorage.removeItem('dinar_logged_in');
+    document.getElementById('dashboard-page').classList.remove('active');
+    document.getElementById('landing-page').classList.add('active');
     showToast('Logged out successfully');
-    checkAuthState();
-    openPage('home-auth');
 }
 
-function checkAuthState() {
-    const bottomNav = document.getElementById('bottom-nav');
-    const headerActions = document.getElementById('header-actions');
-
-    if(isLoggedIn) {
-        bottomNav.classList.add('visible');
-        headerActions.style.display = 'flex';
-    } else {
-        bottomNav.classList.remove('visible');
-        headerActions.style.display = 'none';
-    }
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
 }
-
-function updateDashboard() {
-    let available = 0;
-    let pending = 0;
-    let completed = 0;
-
-    transactions.forEach(tx => {
-        const amt = parseFloat(tx.amount) || 0;
-        if(tx.status === 'completed') {
-            completed += amt;
-            available += amt;
-        } else if(tx.status === 'processing') {
-            pending += amt;
-        }
-    });
-
-    document.getElementById('dash-available').textContent = `$${available.toFixed(2)}`;
-    document.getElementById('dash-pending').textContent = `$${pending.toFixed(2)}`;
-    document.getElementById('dash-completed').textContent = `$${completed.toFixed(2)}`;
-    document.getElementById('dash-count').textContent = transactions.length;
-
-    const activeContainer = document.getElementById('active-escrow-container');
-    const activeTx = transactions.find(tx => tx.status === 'processing');
-
-    if(activeTx) {
-        const initials = getInitials(activeTx.buyer);
-        activeContainer.innerHTML = `
-            <div class="order-card">
-                <div class="order-row">
-                    <div class="order-user">
-                        <div class="avatar">${initials}</div>
-                        <div>
-                            <strong>${escapeHtml(activeTx.type)}</strong>
-                            <small>${escapeHtml(activeTx.buyer)}</small>
-                        </div>
-                    </div>
-                    <div class="amount">
-                        <strong>$${parseFloat(activeTx.amount).toFixed(2)}</strong>
-                        <small>USD</small>
-                    </div>
-                </div>
-                <div style="margin-top:11px;">
-                    <span class="status processing">
-                        <i class="dot"></i> Processing
-                    </span>
-                </div>
-                <div class="order-info">
-                    <div class="info-box">
-                        <span>Method</span>
-                        <strong>${escapeHtml(activeTx.method)}</strong>
-                    </div>
-                    <div class="info-box">
-                        <span>Protection</span>
-                        <strong>DIN AR Protected</strong>
-                    </div>
-                </div>
-                <button class="primary-btn" style="margin-top:12px;" onclick="viewDetail('${activeTx.id}')">
-                    View Transaction
-                </button>
-            </div>
-        `;
-    } else {
-        activeContainer.innerHTML = `
-            <div class="order-card" style="text-align:center; padding:25px; color:#8c94a4; font-size:11px;">
-                No active escrow orders found.
-            </div>
-        `;
-    }
-}
-
-function renderTransactions() {
-    const listContainer = document.getElementById('transactionList');
-    const searchVal = document.getElementById('transactionSearch').value.toLowerCase().trim();
-
-    const filtered = transactions.filter(tx => {
-        const matchesStatus = (currentFilter === 'all' || tx.status === currentFilter);
-        const matchesSearch = tx.buyer.toLowerCase().includes(searchVal) || tx.type.toLowerCase().includes(searchVal) || tx.id.toLowerCase().includes(searchVal);
-        return matchesStatus && matchesSearch;
-    });
-
-    if(filtered.length === 0) {
-        listContainer.innerHTML = `
-            <div style="text-align:center; padding:30px; color:#8c94a4; font-size:11px;">
-                No matching transactions found.
-            </div>
-        `;
-        return;
-    }
-
-    let html = '';
-    [...filtered].reverse().forEach(tx => {
-        const initials = getInitials(tx.buyer);
-        const statusClass = tx.status === 'completed' ? 'completed' : 'processing';
-        const statusText = tx.status === 'completed' ? 'Completed' : 'Processing';
-
-        html += `
-            <div class="transaction" onclick="viewDetail('${tx.id}')" style="cursor:pointer;">
-                <div class="transaction-main">
-                    <div class="t-left">
-                        <div class="t-avatar">${initials}</div>
-                        <div class="t-name">
-                            <strong>${escapeHtml(tx.buyer)}</strong>
-                            <small>${escapeHtml(tx.type)}</small>
-                        </div>
-                    </div>
-                    <div class="t-right">
-                        <strong>$${parseFloat(tx.amount).toFixed(2)}</strong>
-                        <small>${escapeHtml(tx.date)}</small>
-                    </div>
-                </div>
-                <div class="transaction-status">
-                    <span>Ref: #${escapeHtml(tx.id)}</span>
-                    <span class="status ${statusClass}"><i class="dot"></i> ${statusText}</span>
-                </div>
-            </div>
-        `;
-    });
-
-    listContainer.innerHTML = html;
-}
-
-function handleCreateTrade(e) {
-    e.preventDefault();
-    const buyer = document.getElementById('tradeBuyer').value.trim();
-    const amount = document.getElementById('tradeAmount').value;
-    const method = document.getElementById('tradeMethod').value;
-    const type = document.getElementById('tradeType').value;
-
-    const newTx = {
-        id: Math.floor(10000 + Math.random() * 90000).toString(),
-        buyer: buyer,
-        amount: amount,
-        method: method,
-        type: type,
-        status: 'processing',
-        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-    };
-
-    transactions.push(newTx);
-    saveTransactions();
-
-    document.getElementById('tradeForm').reset();
-    showToast('Trade created successfully');
-    openTransactions();
-}
-
-function viewDetail(id) {
-    const tx = transactions.find(t => t.id === id);
-    if(!tx) return;
-
-    const detailArea = document.getElementById('detail-content-area');
-    const statusClass = tx.status === 'completed' ? 'completed' : 'processing';
-    const statusText = tx.status === 'completed' ? 'Completed' : 'Processing';
-    const fee = (parseFloat(tx.amount) * 0.025).toFixed(2);
-
-    detailArea.innerHTML = `
-        <div class="detail-card">
-            <div class="detail-top">
-                <div class="detail-icon">
-                    <svg width="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                        <path d="M20 7l-9 10-4-4"/>
-                    </svg>
-                </div>
-                <h2>${escapeHtml(tx.type)}</h2>
-                <p>Transaction reference #${escapeHtml(tx.id)}</p>
-            </div>
-            <div class="progress">
-                <div class="progress-line"></div>
-                <div class="steps">
-                    <span class="active">Created</span>
-                    <span class="${tx.status === 'completed' ? 'active' : ''}">Verified</span>
-                    <span class="${tx.status === 'completed' ? 'active' : ''}">Protected</span>
-                    <span class="${tx.status === 'completed' ? 'active' : ''}">Completed</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="detail-card">
-            <div class="detail-row">
-                <span>Buyer</span>
-                <strong>${escapeHtml(tx.buyer)}</strong>
-            </div>
-            <div class="detail-row">
-                <span>Amount</span>
-                <strong>$${parseFloat(tx.amount).toFixed(2)} USD</strong>
-            </div>
-            <div class="detail-row">
-                <span>Platform Fees</span>
-                <strong>$${fee}</strong>
-            </div>
-            <div class="detail-row">
-                <span>Payment Method</span>
-                <strong>${escapeHtml(tx.method)}</strong>
-            </div>
-            <div class="detail-row">
-                <span>Protection</span>
-                <strong>DIN AR Payment Protection</strong>
-            </div>
-            <div class="detail-row">
-                <span>Status</span>
-                <span class="status ${statusClass}"><i class="dot"></i> ${statusText}</span>
-            </div>
-        </div>
-
-        ${tx.status === 'processing' ? `
-            <button class="primary-btn" onclick="completeTransaction('${tx.id}')">
-                Mark as Completed / Release Funds
-            </button>
-        ` : ''}
-    `;
-
-    openPage('detail');
-}
-
-function completeTransaction(id) {
-    transactions = transactions.map(tx => {
-        if(tx.id === id) { tx.status = 'completed'; }
-        return tx;
-    });
-    saveTransactions();
-    showToast('Funds released successfully');
-    viewDetail(id);
-}
-
-function getInitials(str) {
-    if(!str) return 'DIN';
-    const parts = str.split(/[\s@._]+/);
-    if(parts.length >= 2) { return (parts[0][0] + parts[1][0]).toUpperCase(); }
-    return str.substring(0, 2).toUpperCase();
-}
-
-function escapeHtml(text) {
-    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-    return text.replace(/[&<>"']/g, m => map[m]);
-}
-
-function openPage(page){
-    if(!isLoggedIn && page !== 'home-auth') {
-        page = 'home-auth';
-    }
-
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    const target = document.getElementById(page);
-    if(target) target.classList.add("active");
-
-    document.querySelectorAll(".nav-item").forEach(item => {
-        item.classList.remove("active");
-        if(item.dataset.page === page){ item.classList.add("active"); }
-    });
-
-    window.scrollTo({ top: 0, behavior: "instant" });
-}
-
-function openTransactions(){
-    if(!isLoggedIn) {
-        openPage('home-auth');
-        return;
-    }
-    openPage("transactions");
-    document.querySelectorAll(".nav-item").forEach(item => {
-        item.classList.remove("active");
-        if(item.dataset.page === "transactions"){ item.classList.add("active"); }
-    });
-    renderTransactions();
-}
-
-function showToast(message){
-    const toast = document.getElementById("toast");
-    toast.textContent = message;
-    toast.classList.add("show");
-    clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => { toast.classList.remove("show"); }, 1800);
-}
-
-function setFilter(filter, button){
-    currentFilter = filter;
-    document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
-    button.classList.add("active");
-    renderTransactions();
-}
-
-function filterTransactions(){
-    renderTransactions();
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    checkAuthState();
-    if(isLoggedIn) {
-        openPage('dashboard');
-    } else {
-        openPage('home-auth');
-    }
-    updateDashboard();
-    renderTransactions();
-});
 </script>
 
 </body>
