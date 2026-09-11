@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>DIN AR Escrow System — Payment Protection</title>
+  <title>DIN AR — Payment Protection Demo</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,208 +14,189 @@
       theme: {
         extend: {
           colors: {
-            dinBlue: "#1268e8",
-            dinDark: "#062b63",
-            dinNavy: "#071d49",
-            dinCyan: "#10b9ed",
-            dinLight: "#edf7ff"
-          },
-          boxShadow: {
-            soft: "0 12px 35px rgba(5, 45, 100, .12)",
-            card: "0 20px 55px rgba(0, 54, 120, .18)"
+            primary: "#0066FF",
+            navy: "#031B33",
+            cyan: "#13B7EF",
+            lightBlue: "#EFF7FF"
           }
         }
       }
-    };
+    }
   </script>
 
   <style>
     * {
+      box-sizing: border-box;
       scroll-behavior: smooth;
     }
 
     body {
+      margin: 0;
       font-family: Arial, Helvetica, sans-serif;
+      color: #031B33;
       overflow-x: hidden;
     }
 
-    /* =====================================================
-       JPG LOGO HANDLING
-       ===================================================== */
-
-    .logo-main,
-    .logo-dn,
-    .logo-arrow {
-      mix-blend-mode: multiply;
+    .logo {
+      display: block;
+      width: 100%;
+      height: auto;
       object-fit: contain;
+      mix-blend-mode: multiply;
     }
 
-    .logo-main {
-      max-height: 55px;
-    }
-
-    .logo-dn {
-      max-width: 100%;
-      max-height: 110px;
-    }
-
-    .logo-arrow {
-      max-width: 75px;
-      max-height: 75px;
-    }
-
-    /* =====================================================
-       HERO BACKGROUND SHAPE
-       ===================================================== */
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
+    .hero {
+      position: relative;
       overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
+      background:
+        radial-gradient(
+          circle at 82% 25%,
+          rgba(0, 102, 255, .16),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          #eef8ff 0%,
+          #ffffff 55%,
+          #eaf6ff 100%
+        );
     }
 
-    .hero-bg::before {
-      content: "";
-      position: absolute;
-      width: 750px;
-      height: 750px;
-      top: -430px;
-      right: -180px;
-      border-radius: 50%;
-      background: linear-gradient(
-        135deg,
-        rgba(18, 104, 232, .12),
-        rgba(16, 185, 237, .18)
-      );
-    }
-
-    .hero-bg::after {
+    .hero::before {
       content: "";
       position: absolute;
       width: 600px;
-      height: 300px;
-      left: -280px;
-      bottom: -160px;
+      height: 600px;
+      right: -260px;
+      top: -280px;
       border-radius: 50%;
-      background: rgba(18, 104, 232, .07);
+      background: rgba(19,183,239,.12);
     }
 
-    /* =====================================================
-       CSS SHIELD
-       ===================================================== */
-
-    .shield {
-      width: 175px;
-      height: 205px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      clip-path: polygon(
-        50% 0%,
-        92% 15%,
-        88% 62%,
-        70% 83%,
-        50% 100%,
-        30% 83%,
-        12% 62%,
-        8% 15%
-      );
-
-      background: linear-gradient(
-        145deg,
-        #0a54c8,
-        #087bf0 50%,
-        #13c1ef
-      );
-
-      box-shadow:
-        0 18px 35px rgba(0, 83, 190, .28);
-    }
-
-    .shield::before {
+    .hero::after {
       content: "";
       position: absolute;
-      inset: 9px;
-      clip-path: inherit;
+      width: 500px;
+      height: 220px;
+      left: -260px;
+      bottom: -130px;
+      border-radius: 50%;
+      background: rgba(0,102,255,.07);
+    }
+
+    /* Shield graphic */
+    .shield {
+      width: 170px;
+      height: 195px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      clip-path: polygon(
+        50% 0,
+        91% 14%,
+        88% 61%,
+        72% 83%,
+        50% 100%,
+        28% 83%,
+        12% 61%,
+        9% 14%
+      );
+
       background: linear-gradient(
         145deg,
-        #ffffff,
-        #eaf7ff
+        #0053c7,
+        #0066ff 48%,
+        #13b7ef
       );
-      z-index: 0;
+
+      box-shadow: 0 20px 40px rgba(0,70,180,.25);
     }
 
-    .shield-content {
+    .shield-inner {
+      width: 145px;
+      height: 170px;
+
+      clip-path: polygon(
+        50% 0,
+        91% 14%,
+        88% 61%,
+        72% 83%,
+        50% 100%,
+        28% 83%,
+        12% 61%,
+        9% 14%
+      );
+
+      background: #ffffff;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .shield-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+
+    /* Process icons */
+    .process-icon {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: #e8f5ff;
+      color: #0066ff;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .number {
+      width: 28px;
+      height: 28px;
+      margin: -8px auto 0;
+
+      border-radius: 50%;
+      background: #0066ff;
+      color: #fff;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 13px;
+      font-weight: 700;
+
       position: relative;
       z-index: 2;
-      width: 115px;
-      height: 115px;
-      border-radius: 22px;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 25px rgba(0, 50, 120, .12);
-      overflow: hidden;
     }
 
-    /* =====================================================
-       PROCESS ICONS
-       ===================================================== */
-
-    .process-icon {
-      width: 82px;
-      height: 82px;
-      border-radius: 50%;
-      background: #e9f6ff;
-      color: #096fe9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      box-shadow: inset 0 0 0 1px rgba(18, 104, 232, .05);
-    }
-
-    .step-number {
-      width: 29px;
-      height: 29px;
-      border-radius: 50%;
-      background: #096fe9;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    /* =====================================================
-       CSS LAPTOP MOCKUP
-       ===================================================== */
-
-    .laptop {
-      width: min(100%, 540px);
+    /* Demo device area */
+    .laptop-frame {
+      width: min(100%, 560px);
       margin: auto;
     }
 
     .laptop-screen {
-      background: #101827;
-      border: 10px solid #202b3c;
-      border-bottom-width: 15px;
-      border-radius: 18px 18px 8px 8px;
       padding: 10px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .20);
+      background: #172231;
+      border-radius: 18px 18px 8px 8px;
+      box-shadow: 0 20px 45px rgba(0,0,0,.2);
     }
 
     .laptop-display {
-      min-height: 280px;
-      background: linear-gradient(145deg, #f8fcff, #e8f5ff);
-      border-radius: 7px;
-      padding: 25px;
+      min-height: 290px;
+      border-radius: 8px;
+      background: #f7fbff;
+      overflow: hidden;
     }
 
     .laptop-base {
@@ -223,46 +204,37 @@
       margin-left: -6%;
       height: 22px;
       border-radius: 0 0 18px 18px;
-      background: linear-gradient(#c8d0da, #8995a4);
-      box-shadow: 0 15px 25px rgba(0, 0, 0, .18);
+      background: linear-gradient(#d8dee6,#8995a4);
     }
 
-    /* =====================================================
-       CSS PHONE MOCKUP
-       ===================================================== */
-
-    .phone {
-      width: 235px;
+    .phone-frame {
+      width: 230px;
       padding: 9px;
-      border-radius: 34px;
-      background: #10151d;
-      box-shadow: 0 25px 55px rgba(0, 0, 0, .25);
-      border: 2px solid #3b4654;
+      border-radius: 32px;
+      background: #111820;
+      box-shadow: 0 22px 50px rgba(0,0,0,.25);
     }
 
-    .phone-screen {
-      min-height: 450px;
-      border-radius: 27px;
+    .phone-display {
+      min-height: 440px;
+      border-radius: 25px;
+      background: #f8fbff;
       overflow: hidden;
-      background: #f8fcff;
       position: relative;
     }
 
-    .phone-notch {
+    .notch {
       width: 90px;
       height: 20px;
-      background: #10151d;
       border-radius: 0 0 14px 14px;
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-    }
+      background: #111820;
 
-    /* =====================================================
-       STATS
-       ===================================================== */
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
 
     .stats-item {
       position: relative;
@@ -272,106 +244,114 @@
       content: "";
       position: absolute;
       right: 0;
-      top: 15%;
-      height: 70%;
+      top: 20%;
       width: 1px;
-      background: rgba(255,255,255,.17);
+      height: 60%;
+      background: rgba(255,255,255,.18);
     }
 
-    /* =====================================================
-       MOBILE
-       ===================================================== */
+    @media(max-width: 767px) {
 
-    @media (max-width: 767px) {
       .hero-title {
-        font-size: 40px;
-        line-height: 1.05;
-      }
-
-      .shield {
-        width: 145px;
-        height: 170px;
-      }
-
-      .shield-content {
-        width: 95px;
-        height: 95px;
+        font-size: 42px;
+        line-height: 1.04;
       }
 
       .stats-item:not(:last-child)::after {
         display: none;
       }
 
-      .laptop-display {
-        min-height: 230px;
+      .shield {
+        transform: scale(.9);
       }
+
     }
   </style>
 </head>
 
-<body class="bg-white text-slate-800">
+<body>
 
   <!-- =====================================================
        HEADER
-       ===================================================== -->
+  ====================================================== -->
 
-  <header class="relative z-50 bg-white border-b border-slate-100">
+  <header class="bg-white border-b border-slate-100 relative z-50">
+
     <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
       <div class="h-[72px] flex items-center justify-between">
 
         <!-- Logo -->
-        <a href="#home" class="flex items-center gap-3">
-          <div class="w-[190px] sm:w-[230px]">
-            <img
-              src="assets/images/logo-main.jpg"
-              alt="DIN AR"
-              class="logo-main w-full"
-            />
-          </div>
+        <a href="#home" class="w-[190px] sm:w-[230px]">
+          <img
+            src="logo.png"
+            alt="DIN AR"
+            class="logo"
+          >
+
+          <span class="block text-[11px] sm:text-xs text-slate-500 -mt-1">
+            Payment Protection — DEMO
+          </span>
         </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden lg:flex items-center gap-7 text-[14px] font-medium">
-          <a href="#home" class="text-dinBlue">Home</a>
-          <a href="#how-it-works" class="hover:text-dinBlue transition">
+
+        <!-- Desktop navigation -->
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-medium">
+
+          <a href="#home" class="text-primary">
+            Home
+          </a>
+
+          <a href="#how-it-works"
+             class="hover:text-primary transition">
             How It Works
           </a>
-          <a href="#buyers" class="hover:text-dinBlue transition">
+
+          <a href="#buyers"
+             class="hover:text-primary transition">
             For Buyers
           </a>
-          <a href="#sellers" class="hover:text-dinBlue transition">
+
+          <a href="#sellers"
+             class="hover:text-primary transition">
             For Sellers
           </a>
-          <a href="#fees" class="hover:text-dinBlue transition">
+
+          <a href="#fees"
+             class="hover:text-primary transition">
             Fees
           </a>
-          <a href="#help" class="hover:text-dinBlue transition">
+
+          <a href="#help"
+             class="hover:text-primary transition">
             Help
           </a>
 
           <a
             href="#login"
-            class="px-5 py-2.5 rounded-lg border border-dinBlue text-dinBlue hover:bg-dinBlue hover:text-white transition"
+            class="px-5 py-2.5 rounded-lg border border-primary text-primary"
           >
             Log In
           </a>
 
           <a
             href="#signup"
-            class="px-5 py-2.5 rounded-lg bg-dinBlue text-white hover:bg-blue-700 transition shadow-sm"
+            class="px-5 py-2.5 rounded-lg bg-primary text-white"
           >
             Sign Up
           </a>
+
         </nav>
 
-        <!-- Mobile Menu -->
+
+        <!-- Mobile menu -->
         <button
           id="menuButton"
-          class="lg:hidden w-11 h-11 rounded-lg border border-slate-200 flex items-center justify-center text-dinDark"
+          class="lg:hidden w-11 h-11 border rounded-lg flex items-center justify-center"
           aria-label="Open menu"
         >
+
           <svg
-            xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             fill="none"
@@ -380,709 +360,544 @@
           >
             <path d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
+
         </button>
+
       </div>
 
-      <!-- Mobile Navigation -->
-      <nav
-        id="mobileMenu"
-        class="hidden lg:hidden pb-5"
-      >
-        <div class="flex flex-col gap-1 text-sm font-medium">
-          <a href="#home" class="px-4 py-3 rounded-lg bg-blue-50 text-dinBlue">
+
+      <!-- Mobile navigation -->
+
+      <nav id="mobileMenu" class="hidden lg:hidden pb-5">
+
+        <div class="flex flex-col gap-1">
+
+          <a href="#home" class="px-4 py-3 rounded-lg bg-blue-50">
             Home
           </a>
-          <a href="#how-it-works" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+
+          <a href="#how-it-works" class="px-4 py-3">
             How It Works
           </a>
-          <a href="#buyers" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+
+          <a href="#buyers" class="px-4 py-3">
             For Buyers
           </a>
-          <a href="#sellers" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+
+          <a href="#sellers" class="px-4 py-3">
             For Sellers
           </a>
-          <a href="#fees" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+
+          <a href="#fees" class="px-4 py-3">
             Fees
           </a>
-          <a href="#help" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+
+          <a href="#help" class="px-4 py-3">
             Help
           </a>
 
-          <div class="flex gap-3 pt-3">
+          <div class="flex gap-3 mt-2">
+
             <a
               href="#login"
-              class="flex-1 text-center px-4 py-3 rounded-lg border border-dinBlue text-dinBlue"
+              class="flex-1 text-center py-3 rounded-lg border border-primary text-primary"
             >
               Log In
             </a>
 
             <a
               href="#signup"
-              class="flex-1 text-center px-4 py-3 rounded-lg bg-dinBlue text-white"
+              class="flex-1 text-center py-3 rounded-lg bg-primary text-white"
             >
               Sign Up
             </a>
+
           </div>
+
         </div>
+
       </nav>
+
     </div>
+
   </header>
 
 
   <!-- =====================================================
        HERO
-       ===================================================== -->
+  ====================================================== -->
 
-  <main id="home">
+  <section id="home" class="hero">
 
-    <section class="relative overflow-hidden bg-gradient-to-br from-[#f4faff] via-white to-[#edf8ff]">
-      <div class="hero-bg"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-5 lg:px-8 py-14 lg:py-20">
 
-      <div class="relative z-10 max-w-7xl mx-auto px-5 lg:px-8 py-14 lg:py-20">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          <!-- Hero Content -->
-          <div>
+        <!-- Hero content -->
 
-            <div
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100/80 text-dinDark text-xs sm:text-sm font-bold mb-6"
+        <div>
+
+          <div
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-navy text-xs font-bold"
+          >
+
+            <span
+              class="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center"
             >
-              <span class="w-7 h-7 rounded-full bg-dinBlue text-white flex items-center justify-center">
-                ✓
-              </span>
+              ✓
+            </span>
 
-              SECURE ESCROW PAYMENTS
-            </div>
+            SECURE PAYMENT CONCEPT
 
-            <h1
-              class="hero-title text-[48px] sm:text-[58px] lg:text-[64px] font-black tracking-[-2.5px] text-black leading-[1.02]"
-            >
-              Verified Purchase Trades:
-              <span class="block">
-                Buy &amp; Sell with Confidence
-              </span>
-            </h1>
-
-            <p class="mt-7 max-w-2xl text-[17px] sm:text-[19px] leading-7 text-slate-600">
-              A safe and simple escrow service for verified purchase
-              transactions. Your payment is protected until the deal is completed.
-            </p>
-
-            <!-- Buttons -->
-            <div class="flex flex-col sm:flex-row gap-3 mt-8">
-
-              <a
-                href="#signup"
-                class="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-dinBlue text-white font-bold text-[16px] shadow-lg shadow-blue-200 hover:bg-blue-700 transition"
-              >
-                Get Started
-              </a>
-
-              <a
-                href="#how-it-works"
-                class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-white border border-slate-200 text-dinDark font-bold text-[16px] hover:border-dinBlue transition"
-              >
-                <span class="w-6 h-6 rounded-full bg-dinBlue text-white flex items-center justify-center text-xs">
-                  ▶
-                </span>
-                How It Works
-              </a>
-
-            </div>
-
-            <!-- Hero Features -->
-            <div class="grid grid-cols-3 gap-3 sm:gap-7 mt-10">
-
-              <div class="flex items-center gap-2">
-                <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-dinBlue text-xl">
-                  ✓
-                </div>
-                <div>
-                  <div class="font-bold text-sm text-dinDark">
-                    Secure &amp; Trusted
-                  </div>
-                  <div class="text-xs text-slate-500">
-                    Funds protected
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-2">
-                <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-dinBlue text-xl">
-                  ⚙
-                </div>
-                <div>
-                  <div class="font-bold text-sm text-dinDark">
-                    Simple Process
-                  </div>
-                  <div class="text-xs text-slate-500">
-                    Easy for everyone
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-2">
-                <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-dinBlue text-xl">
-                  ♧
-                </div>
-                <div>
-                  <div class="font-bold text-sm text-dinDark">
-                    Dispute Support
-                  </div>
-                  <div class="text-xs text-slate-500">
-                    Here to help
-                  </div>
-                </div>
-              </div>
-
-            </div>
           </div>
 
 
-          <!-- Protection Card -->
-          <div class="relative flex justify-center lg:justify-end">
-
-            <div
-              class="absolute -top-6 -right-2 hidden sm:block text-dinDark rotate-[-8deg]"
-            >
-              <div class="text-lg font-bold italic">
-                Trade with Trust
-              </div>
-
-              <svg
-                width="110"
-                height="55"
-                viewBox="0 0 110 55"
-                fill="none"
-              >
-                <path
-                  d="M5 20 C35 50 75 50 100 12"
-                  stroke="#092e69"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M91 9 L101 12 L94 21"
-                  stroke="#092e69"
-                  stroke-width="2"
-                />
-              </svg>
-            </div>
+          <h1
+            class="hero-title mt-6 text-[56px] font-black tracking-[-2.5px] leading-[1.02] text-black"
+          >
+            Verified Purchase Trades:
+            <span class="block">
+              Buy &amp; Sell with Confidence
+            </span>
+          </h1>
 
 
-            <div
-              class="w-full max-w-[430px] rounded-3xl bg-white border border-slate-100 p-7 sm:p-9 shadow-card"
-            >
-
-              <div class="text-center">
-
-                <div
-                  class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-dinBlue text-xs font-bold"
-                >
-                  <span>✓</span>
-                  PAYMENT PROTECTION
-                </div>
-
-                <!-- CSS Shield -->
-                <div class="flex justify-center mt-8">
-                  <div class="shield">
-
-                    <div class="shield-content">
-                      <img
-                        src="assets/images/logo-dn.jpg"
-                        alt="DIN AR Shield Logo"
-                        class="logo-dn w-[88px]"
-                      />
-                    </div>
-
-                  </div>
-                </div>
-
-                <h2 class="mt-7 text-2xl font-extrabold text-dinDark">
-                  Secure Payments
-                </h2>
-
-                <p class="mt-2 text-sm text-slate-500">
-                  A simple demo protection flow for purchase transactions.
-                </p>
-
-              </div>
-
-              <!-- Card checklist -->
-              <div class="mt-7 space-y-4">
-
-                <div class="flex gap-3 items-center">
-                  <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">
-                    ✓
-                  </span>
-                  <span class="text-sm font-medium">
-                    Funds held securely
-                  </span>
-                </div>
-
-                <div class="flex gap-3 items-center">
-                  <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">
-                    ✓
-                  </span>
-                  <span class="text-sm font-medium">
-                    Seller completes order
-                  </span>
-                </div>
-
-                <div class="flex gap-3 items-center">
-                  <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">
-                    ✓
-                  </span>
-                  <span class="text-sm font-medium">
-                    Buyer confirms receipt
-                  </span>
-                </div>
-
-                <div class="flex gap-3 items-center">
-                  <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">
-                    ✓
-                  </span>
-                  <span class="text-sm font-medium">
-                    Release after completion
-                  </span>
-                </div>
-
-              </div>
-
-              <a
-                href="#how-it-works"
-                class="mt-8 block w-full text-center bg-dinBlue text-white font-bold py-3.5 rounded-xl hover:bg-blue-700 transition"
-              >
-                View Process
-              </a>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =====================================================
-         HOW IT WORKS
-         ===================================================== -->
-
-    <section
-      id="how-it-works"
-      class="py-16 lg:py-20 bg-white"
-    >
-      <div class="max-w-7xl mx-auto px-5 lg:px-8">
-
-        <div class="text-center max-w-2xl mx-auto">
-          <h2 class="text-[36px] sm:text-[44px] font-black text-dinDark tracking-tight">
-            How We Works
-          </h2>
-
-          <p class="mt-3 text-slate-500 text-lg">
-            A simple and secure process for everyone
+          <p
+            class="mt-7 max-w-xl text-lg leading-7 text-slate-600"
+          >
+            A clean and simple payment-protection interface concept
+            designed for purchase transactions.
           </p>
-        </div>
 
 
-        <div class="grid md:grid-cols-4 gap-10 md:gap-5 mt-14">
-
-          <!-- Step 1 -->
-          <div class="relative text-center">
-
-            <div class="flex justify-center">
-              <div class="process-icon">
-                🛒
-              </div>
-            </div>
-
-            <div class="flex justify-center -mt-1">
-              <span class="step-number">1</span>
-            </div>
-
-            <h3 class="mt-4 text-lg font-extrabold text-dinDark">
-              Seller Places Order
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-500 max-w-[230px] mx-auto">
-              Seller makes a payment and funds are securely held during the demo process.
-            </p>
-
-            <!-- Arrow -->
-            <div class="hidden md:block absolute top-9 -right-5 text-3xl text-slate-300">
-              →
-            </div>
-
-          </div>
-
-
-          <!-- Step 2 -->
-          <div class="relative text-center">
-
-            <div class="flex justify-center">
-              <div class="process-icon">
-                ↑
-              </div>
-            </div>
-
-            <div class="flex justify-center -mt-1">
-              <span class="step-number">2</span>
-            </div>
-
-            <h3 class="mt-4 text-lg font-extrabold text-dinDark">
-              Buyer Uploads Verification
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-500 max-w-[230px] mx-auto">
-              Buyer submits order confirmation information for the process.
-            </p>
-
-            <div class="hidden md:block absolute top-9 -right-5 text-3xl text-slate-300">
-              →
-            </div>
-
-          </div>
-
-
-          <!-- Step 3 -->
-          <div class="relative text-center">
-
-            <div class="flex justify-center">
-              <div class="process-icon">
-                ✓
-              </div>
-            </div>
-
-            <div class="flex justify-center -mt-1">
-              <span class="step-number">3</span>
-            </div>
-
-            <h3 class="mt-4 text-lg font-extrabold text-dinDark">
-              System Verification
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-500 max-w-[230px] mx-auto">
-              Transaction information can be reviewed before the next step.
-            </p>
-
-            <div class="hidden md:block absolute top-9 -right-5 text-3xl text-slate-300">
-              →
-            </div>
-
-          </div>
-
-
-          <!-- Step 4 -->
-          <div class="text-center">
-
-            <div class="flex justify-center">
-              <div class="process-icon">
-                ▣
-              </div>
-            </div>
-
-            <div class="flex justify-center -mt-1">
-              <span class="step-number">4</span>
-            </div>
-
-            <h3 class="mt-4 text-lg font-extrabold text-dinDark">
-              Payout Released
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-500 max-w-[230px] mx-auto">
-              Funds may be released after the agreed transaction conditions are completed.
-            </p>
-
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =====================================================
-         WHY CHOOSE
-         ===================================================== -->
-
-    <section class="py-16 bg-[#f5faff]">
-
-      <div class="max-w-7xl mx-auto px-5 lg:px-8">
-
-        <div class="grid lg:grid-cols-2 gap-10 items-center">
-
-          <div>
-
-            <h2 class="text-3xl sm:text-4xl font-black text-dinDark">
-              Why Choose Our Escrow?
-            </h2>
-
-            <div class="mt-7 space-y-5">
-
-              <div class="flex gap-3">
-                <span class="text-green-500 text-xl">●</span>
-                <p class="text-slate-600">
-                  Designed for safer purchase transactions.
-                </p>
-              </div>
-
-              <div class="flex gap-3">
-                <span class="text-green-500 text-xl">●</span>
-                <p class="text-slate-600">
-                  A structured process for buyers and sellers.
-                </p>
-              </div>
-
-              <div class="flex gap-3">
-                <span class="text-green-500 text-xl">●</span>
-                <p class="text-slate-600">
-                  Clear transaction status and process steps.
-                </p>
-              </div>
-
-              <div class="flex gap-3">
-                <span class="text-green-500 text-xl">●</span>
-                <p class="text-slate-600">
-                  Transparent dispute workflow.
-                </p>
-              </div>
-
-              <div class="flex gap-3">
-                <span class="text-green-500 text-xl">●</span>
-                <p class="text-slate-600">
-                  Dedicated support experience.
-                </p>
-              </div>
-
-            </div>
+          <div class="flex flex-col sm:flex-row gap-3 mt-8">
 
             <a
               href="#signup"
-              class="inline-block mt-7 px-7 py-3.5 bg-dinBlue text-white rounded-lg font-bold hover:bg-blue-700 transition"
+              class="text-center px-8 py-4 rounded-lg bg-primary text-white font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition"
             >
-              Create Your Account
+              Get Started
+            </a>
+
+            <a
+              href="#how-it-works"
+              class="flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-white border border-slate-200 font-bold"
+            >
+
+              <span
+                class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs"
+              >
+                ▶
+              </span>
+
+              How It Works
+
             </a>
 
           </div>
 
 
-          <!-- Laptop + Phone Demo -->
-          <div class="relative min-h-[400px] flex items-center justify-center">
+          <!-- Features -->
 
-            <!-- Laptop -->
-            <div class="laptop">
+          <div class="grid grid-cols-3 gap-3 sm:gap-6 mt-10">
 
-              <div class="laptop-screen">
-
-                <div class="laptop-display">
-
-                  <div class="flex justify-between items-center">
-                    <div class="font-extrabold text-dinDark">
-                      Secure Payments
-                    </div>
-
-                    <span class="px-3 py-1 rounded-full bg-green-100 text-green-600 text-xs font-bold">
-                      DEMO
-                    </span>
-                  </div>
-
-                  <div class="mt-7 grid grid-cols-2 gap-3">
-
-                    <div class="bg-white rounded-xl p-4 shadow-sm">
-                      <div class="text-xs text-slate-400">
-                        Transaction
-                      </div>
-                      <div class="font-bold text-dinDark mt-1">
-                        #DIN-00001
-                      </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl p-4 shadow-sm">
-                      <div class="text-xs text-slate-400">
-                        Status
-                      </div>
-                      <div class="font-bold text-green-600 mt-1">
-                        Protected
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <div class="mt-4 bg-white rounded-xl p-4 shadow-sm">
-
-                    <div class="flex justify-between text-sm">
-                      <span>Payment process</span>
-                      <span class="font-bold text-dinBlue">
-                        75%
-                      </span>
-                    </div>
-
-                    <div class="mt-3 h-2 rounded-full bg-slate-100 overflow-hidden">
-                      <div class="h-full w-3/4 bg-dinBlue rounded-full"></div>
-                    </div>
-
-                  </div>
-
-                </div>
-
+            <div>
+              <div class="text-primary text-2xl">
+                ✓
               </div>
 
-              <div class="laptop-base"></div>
+              <strong class="block text-sm">
+                Secure Concept
+              </strong>
 
+              <span class="text-xs text-slate-500">
+                Designed for clarity
+              </span>
             </div>
 
 
-            <!-- Floating Phone -->
-            <div class="absolute -bottom-10 -right-2 sm:right-0">
-
-              <div class="phone">
-
-                <div class="phone-screen">
-
-                  <div class="phone-notch"></div>
-
-                  <div class="p-5 pt-9">
-
-                    <div class="flex items-center gap-2">
-                      <img
-                        src="assets/images/logo-d-arrow.jpg"
-                        alt=""
-                        class="logo-arrow w-10 h-10"
-                      />
-
-                      <div>
-                        <div class="font-black text-dinDark text-sm">
-                          DIN AR
-                        </div>
-
-                        <div class="text-[9px] text-slate-500">
-                          Payment Protection
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mt-7 bg-blue-50 rounded-2xl p-4">
-
-                      <div class="text-xs text-dinBlue font-bold">
-                        SECURE PAYMENT
-                      </div>
-
-                      <div class="mt-2 text-xl font-black text-dinDark">
-                        Protected
-                      </div>
-
-                      <div class="mt-3 flex justify-center">
-                        <div class="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-3xl">
-                          ✓
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <div class="mt-4 space-y-2">
-
-                      <div class="h-9 rounded-lg bg-white border border-slate-100"></div>
-                      <div class="h-9 rounded-lg bg-white border border-slate-100"></div>
-                      <div class="h-9 rounded-lg bg-white border border-slate-100"></div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
+            <div>
+              <div class="text-primary text-2xl">
+                ⚙
               </div>
 
+              <strong class="block text-sm">
+                Simple Process
+              </strong>
+
+              <span class="text-xs text-slate-500">
+                Easy to understand
+              </span>
+            </div>
+
+
+            <div>
+              <div class="text-primary text-2xl">
+                ♧
+              </div>
+
+              <strong class="block text-sm">
+                Support
+              </strong>
+
+              <span class="text-xs text-slate-500">
+                Help interface
+              </span>
             </div>
 
           </div>
 
         </div>
+
+
+        <!-- Protection card -->
+
+        <div class="flex justify-center lg:justify-end">
+
+          <div
+            class="w-full max-w-[430px] bg-white rounded-3xl p-8 sm:p-10 shadow-[0_20px_60px_rgba(0,50,120,.16)] border border-slate-100"
+          >
+
+            <div class="text-center">
+
+              <span
+                class="inline-flex px-4 py-2 rounded-full bg-blue-50 text-primary text-xs font-bold"
+              >
+                PAYMENT PROTECTION DEMO
+              </span>
+
+
+              <div class="flex justify-center mt-7">
+
+                <div class="shield">
+
+                  <div class="shield-inner">
+
+                    <img
+                      src="logo.png"
+                      alt="DIN AR"
+                      class="shield-logo"
+                    >
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <h2 class="mt-5 text-2xl font-black">
+                Your Payment is Protected
+              </h2>
+
+              <p class="mt-2 text-sm text-slate-500">
+                Interface demonstration only.
+              </p>
+
+            </div>
+
+
+            <div class="mt-7 space-y-4">
+
+              <div class="flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                  ✓
+                </span>
+                <span class="text-sm">
+                  Transaction information
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                  ✓
+                </span>
+                <span class="text-sm">
+                  Order status
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                  ✓
+                </span>
+                <span class="text-sm">
+                  Buyer confirmation
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                  ✓
+                </span>
+                <span class="text-sm">
+                  Completion status
+                </span>
+              </div>
+
+            </div>
+
+
+            <a
+              href="#how-it-works"
+              class="block text-center mt-8 py-3.5 rounded-xl bg-primary text-white font-bold"
+            >
+              View Process
+            </a>
+
+          </div>
+
+        </div>
+
       </div>
-    </section>
+
+    </div>
+
+  </section>
 
 
-    <!-- =====================================================
-         STATS BAR
-         ===================================================== -->
+  <!-- =====================================================
+       HOW IT WORKS
+  ====================================================== -->
 
-    <section class="bg-[#062d68] text-white">
+  <section id="how-it-works" class="py-16 lg:py-20 bg-white">
 
-      <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
 
-        <div class="grid grid-cols-2 md:grid-cols-4">
+      <div class="text-center">
 
-          <div class="stats-item px-5 py-7 sm:py-8 flex items-center justify-center gap-3">
+        <h2 class="text-4xl sm:text-5xl font-black text-navy">
+          How It Works
+        </h2>
 
-            <div class="text-3xl text-blue-300">
-              ♟
+        <p class="mt-3 text-slate-500">
+          A simple process for everyone
+        </p>
+
+      </div>
+
+
+      <div class="grid md:grid-cols-4 gap-10 mt-14">
+
+
+        <!-- 01 -->
+
+        <div class="relative text-center">
+
+          <div class="flex justify-center">
+            <div class="process-icon">
+              🛒
             </div>
-
-            <div>
-              <div class="text-xl sm:text-2xl font-black">
-                10K+
-              </div>
-
-              <div class="text-xs sm:text-sm text-blue-100">
-                Active Traders
-              </div>
-            </div>
-
           </div>
 
-
-          <div class="stats-item px-5 py-7 sm:py-8 flex items-center justify-center gap-3">
-
-            <div class="text-3xl text-blue-300">
-              $
-            </div>
-
-            <div>
-              <div class="text-xl sm:text-2xl font-black">
-                $20M+
-              </div>
-
-              <div class="text-xs sm:text-sm text-blue-100">
-                Transactions Secured
-              </div>
-            </div>
-
+          <div class="number">
+            1
           </div>
 
+          <h3 class="mt-4 font-black text-lg">
+            Seller Places Order
+          </h3>
 
-          <div class="stats-item px-5 py-7 sm:py-8 flex items-center justify-center gap-3">
+          <p class="mt-2 text-sm leading-6 text-slate-500">
+            The seller begins the purchase workflow.
+          </p>
 
-            <div class="text-3xl text-blue-300">
+          <div class="hidden md:block absolute top-8 -right-5 text-3xl text-slate-300">
+            →
+          </div>
+
+        </div>
+
+
+        <!-- 02 -->
+
+        <div class="relative text-center">
+
+          <div class="flex justify-center">
+            <div class="process-icon">
+              ↑
+            </div>
+          </div>
+
+          <div class="number">
+            2
+          </div>
+
+          <h3 class="mt-4 font-black text-lg">
+            Buyer Verification
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-slate-500">
+            The buyer provides the required order information.
+          </p>
+
+          <div class="hidden md:block absolute top-8 -right-5 text-3xl text-slate-300">
+            →
+          </div>
+
+        </div>
+
+
+        <!-- 03 -->
+
+        <div class="relative text-center">
+
+          <div class="flex justify-center">
+            <div class="process-icon">
               ✓
             </div>
+          </div>
 
-            <div>
-              <div class="text-xl sm:text-2xl font-black">
-                99.9%
-              </div>
+          <div class="number">
+            3
+          </div>
 
-              <div class="text-xs sm:text-sm text-blue-100">
-                Success Rate
-              </div>
+          <h3 class="mt-4 font-black text-lg">
+            Review
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-slate-500">
+            Transaction information is reviewed.
+          </p>
+
+          <div class="hidden md:block absolute top-8 -right-5 text-3xl text-slate-300">
+            →
+          </div>
+
+        </div>
+
+
+        <!-- 04 -->
+
+        <div class="text-center">
+
+          <div class="flex justify-center">
+            <div class="process-icon">
+              ▣
+            </div>
+          </div>
+
+          <div class="number">
+            4
+          </div>
+
+          <h3 class="mt-4 font-black text-lg">
+            Completion
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-slate-500">
+            The workflow reaches its final stage.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       LAPTOP / MOBILE MOCKUP
+  ====================================================== -->
+
+  <section class="py-16 bg-lightBlue">
+
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+
+        <!-- Text -->
+
+        <div>
+
+          <h2 class="text-4xl font-black text-navy">
+            Trade safely.
+            <span class="block">
+              Stay protected.
+            </span>
+          </h2>
+
+          <p class="mt-5 text-slate-600 leading-7 max-w-lg">
+            This area is prepared for your real laptop or mobile
+            screenshots. Replace the empty image elements with your
+            own approved visual assets.
+          </p>
+
+
+          <div class="mt-7 space-y-4">
+
+            <div class="flex gap-3">
+              <span class="text-green-500">✓</span>
+              <span>Clear transaction workflow</span>
+            </div>
+
+            <div class="flex gap-3">
+              <span class="text-green-500">✓</span>
+              <span>Responsive interface</span>
+            </div>
+
+            <div class="flex gap-3">
+              <span class="text-green-500">✓</span>
+              <span>Simple buyer and seller experience</span>
             </div>
 
           </div>
 
+        </div>
 
-          <div class="stats-item px-5 py-7 sm:py-8 flex items-center justify-center gap-3">
 
-            <div class="text-3xl text-blue-300">
-              ♧
+        <!-- Devices -->
+
+        <div class="relative min-h-[410px] flex items-center justify-center">
+
+
+          <!-- Laptop -->
+
+          <div class="laptop-frame">
+
+            <div class="laptop-screen">
+
+              <div class="laptop-display">
+
+                <!-- Replace src with your real screenshot -->
+                <img
+                  src=""
+                  alt="Laptop screenshot placeholder"
+                  class="w-full h-full min-h-[270px] object-contain"
+                >
+
+              </div>
+
             </div>
 
-            <div>
-              <div class="text-xl sm:text-2xl font-black">
-                24/7
+            <div class="laptop-base"></div>
+
+          </div>
+
+
+          <!-- Phone -->
+
+          <div class="absolute right-0 bottom-[-30px]">
+
+            <div class="phone-frame">
+
+              <div class="phone-display">
+
+                <div class="notch"></div>
+
+                <!-- Replace src with your real screenshot -->
+                <img
+                  src=""
+                  alt="Mobile screenshot placeholder"
+                  class="w-full h-full min-h-[420px] object-contain"
+                >
+
               </div>
 
-              <div class="text-xs sm:text-sm text-blue-100">
-                Dedicated Support
-              </div>
             </div>
 
           </div>
@@ -1090,161 +905,263 @@
         </div>
 
       </div>
-    </section>
+
+    </div>
+
+  </section>
 
 
-    <!-- =====================================================
-         DEMO CTA
-         ===================================================== -->
+  <!-- =====================================================
+       STATS / DEMO BAR
+  ====================================================== -->
 
-    <section
-      id="signup"
-      class="py-16 lg:py-20 bg-white"
-    >
+  <section class="bg-navy text-white">
 
-      <div class="max-w-5xl mx-auto px-5">
+    <div class="max-w-7xl mx-auto">
 
-        <div
-          class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#062d68] to-[#0b67db] p-8 sm:p-12 text-white text-center"
+      <div class="grid grid-cols-2 md:grid-cols-4">
+
+
+        <div class="stats-item flex items-center justify-center gap-3 px-5 py-7">
+
+          <span class="text-3xl text-blue-300">
+            ♟
+          </span>
+
+          <div>
+            <strong class="block text-xl">
+              10K+
+            </strong>
+
+            <span class="text-xs text-blue-100">
+              Demo Users
+            </span>
+          </div>
+
+        </div>
+
+
+        <div class="stats-item flex items-center justify-center gap-3 px-5 py-7">
+
+          <span class="text-3xl text-blue-300">
+            $
+          </span>
+
+          <div>
+            <strong class="block text-xl">
+              $20M+
+            </strong>
+
+            <span class="text-xs text-blue-100">
+              Demo Volume
+            </span>
+          </div>
+
+        </div>
+
+
+        <div class="stats-item flex items-center justify-center gap-3 px-5 py-7">
+
+          <span class="text-3xl text-blue-300">
+            ✓
+          </span>
+
+          <div>
+            <strong class="block text-xl">
+              99.9%
+            </strong>
+
+            <span class="text-xs text-blue-100">
+              UI Availability
+            </span>
+          </div>
+
+        </div>
+
+
+        <div class="stats-item flex items-center justify-center gap-3 px-5 py-7">
+
+          <span class="text-3xl text-blue-300">
+            ♧
+          </span>
+
+          <div>
+            <strong class="block text-xl">
+              24/7
+            </strong>
+
+            <span class="text-xs text-blue-100">
+              Demo Support
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       CTA
+  ====================================================== -->
+
+  <section id="signup" class="py-16 bg-white">
+
+    <div class="max-w-5xl mx-auto px-5">
+
+      <div class="rounded-3xl bg-gradient-to-br from-navy to-primary p-8 sm:p-12 text-center text-white">
+
+        <img
+          src="logo.png"
+          alt="DIN AR"
+          class="w-28 mx-auto mb-5"
         >
 
-          <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-white/10"></div>
-          <div class="absolute -bottom-24 -left-20 w-72 h-72 rounded-full bg-cyan-400/10"></div>
+        <h2 class="text-3xl sm:text-4xl font-black">
+          Payment Protection Concept
+        </h2>
 
-          <div class="relative">
+        <p class="mt-4 text-blue-100 max-w-xl mx-auto">
+          A responsive landing-page concept ready for your
+          legitimate business content and backend integration.
+        </p>
 
-            <div class="flex justify-center mb-5">
-              <img
-                src="assets/images/logo-dn.jpg"
-                alt="DIN AR"
-                class="logo-dn w-[110px] bg-white rounded-xl p-2"
-              />
-            </div>
-
-            <h2 class="text-3xl sm:text-4xl font-black">
-              Trade safely. Stay protected.
-            </h2>
-
-            <p class="mt-4 text-blue-100 max-w-2xl mx-auto">
-              Explore the demo experience and customize this landing page
-              with your own legitimate business information.
-            </p>
-
-            <button
-              class="mt-7 px-8 py-3.5 rounded-xl bg-white text-dinBlue font-bold hover:bg-blue-50 transition"
-            >
-              Get Started
-            </button>
-
-          </div>
-
-        </div>
+        <button
+          class="mt-7 px-8 py-3.5 rounded-xl bg-white text-primary font-bold"
+        >
+          Get Started
+        </button>
 
       </div>
-    </section>
 
-  </main>
+    </div>
+
+  </section>
 
 
   <!-- =====================================================
        FOOTER
-       ===================================================== -->
+  ====================================================== -->
 
-  <footer class="bg-white border-t border-slate-100">
+  <footer class="border-t border-slate-100 bg-white">
 
-    <div class="max-w-7xl mx-auto px-5 lg:px-8 pt-12 pb-6">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-12">
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
-        <!-- Brand -->
+
         <div>
 
           <img
-            src="assets/images/logo-main.jpg"
+            src="logo.png"
             alt="DIN AR"
-            class="logo-main w-[180px]"
-          />
+            class="w-[180px]"
+          >
 
-          <p class="mt-3 text-sm text-slate-500 max-w-[220px]">
-            Payment Protection
+          <p class="mt-2 text-xs text-slate-500">
+            Payment Protection — DEMO
           </p>
 
         </div>
 
 
-        <!-- Company -->
         <div>
 
-          <h3 class="font-extrabold text-dinDark">
+          <h3 class="font-black">
             Company
           </h3>
 
           <div class="mt-4 space-y-2 text-sm text-slate-500">
-            <a href="#" class="block hover:text-dinBlue">About Us</a>
-            <a href="#" class="block hover:text-dinBlue">Careers</a>
-            <a href="#" class="block hover:text-dinBlue">Blog</a>
+
+            <a href="#" class="block hover:text-primary">
+              About Us
+            </a>
+
+            <a href="#" class="block hover:text-primary">
+              Careers
+            </a>
+
+            <a href="#" class="block hover:text-primary">
+              Blog
+            </a>
+
           </div>
 
         </div>
 
 
-        <!-- Support -->
         <div id="help">
 
-          <h3 class="font-extrabold text-dinDark">
+          <h3 class="font-black">
             Support
           </h3>
 
           <div class="mt-4 space-y-2 text-sm text-slate-500">
-            <a href="#" class="block hover:text-dinBlue">Help Center</a>
-            <a href="#" class="block hover:text-dinBlue">Dispute Center</a>
-            <a href="#" class="block hover:text-dinBlue">Contact Us</a>
+
+            <a href="#" class="block hover:text-primary">
+              Help Center
+            </a>
+
+            <a href="#" class="block hover:text-primary">
+              Contact Us
+            </a>
+
+            <a href="#" class="block hover:text-primary">
+              Support
+            </a>
+
           </div>
 
         </div>
 
 
-        <!-- Legal / Social -->
         <div>
 
-          <h3 class="font-extrabold text-dinDark">
+          <h3 class="font-black">
             Legal
           </h3>
 
           <div class="mt-4 space-y-2 text-sm text-slate-500">
-            <a href="#" class="block hover:text-dinBlue">Terms of Service</a>
-            <a href="#" class="block hover:text-dinBlue">Privacy Policy</a>
-            <a href="#" class="block hover:text-dinBlue">Cookie Policy</a>
+
+            <a href="#" class="block hover:text-primary">
+              Terms of Service
+            </a>
+
+            <a href="#" class="block hover:text-primary">
+              Privacy Policy
+            </a>
+
+            <a href="#" class="block hover:text-primary">
+              Cookie Policy
+            </a>
+
           </div>
 
-          <div class="mt-5 flex gap-3">
+
+          <div class="flex gap-3 mt-5">
 
             <a
               href="#"
-              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold hover:bg-dinBlue hover:text-white transition"
+              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold"
             >
               f
             </a>
 
             <a
               href="#"
-              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold hover:bg-dinBlue hover:text-white transition"
+              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold"
             >
               X
             </a>
 
             <a
               href="#"
-              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold hover:bg-dinBlue hover:text-white transition"
+              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold"
             >
               in
-            </a>
-
-            <a
-              href="#"
-              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold hover:bg-dinBlue hover:text-white transition"
-            >
-              ▶
             </a>
 
           </div>
@@ -1254,40 +1171,57 @@
       </div>
 
 
-      <div class="mt-10 pt-5 border-t border-slate-100 flex flex-col sm:flex-row justify-between gap-3 text-xs text-slate-400">
+      <div
+        class="mt-10 pt-5 border-t border-slate-100 flex flex-col sm:flex-row justify-between gap-3 text-xs text-slate-400"
+      >
 
         <span>
-          © 2026 DIN AR Escrow System. All rights reserved.
+          © 2026 DIN AR — Demo Concept. All rights reserved.
         </span>
 
         <span>
-          Safer Trades. Stronger Communities.
+          Demonstration interface only.
         </span>
 
       </div>
 
     </div>
+
   </footer>
 
 
   <!-- =====================================================
-       MOBILE MENU SCRIPT
-       ===================================================== -->
+       MOBILE MENU JS
+  ====================================================== -->
 
   <script>
-    const menuButton = document.getElementById("menuButton");
-    const mobileMenu = document.getElementById("mobileMenu");
+
+    const menuButton =
+      document.getElementById("menuButton");
+
+    const mobileMenu =
+      document.getElementById("mobileMenu");
+
 
     menuButton.addEventListener("click", () => {
+
       mobileMenu.classList.toggle("hidden");
+
     });
 
-    // Close mobile menu after clicking a link
-    document.querySelectorAll("#mobileMenu a").forEach(link => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.add("hidden");
+
+    document
+      .querySelectorAll("#mobileMenu a")
+      .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+          mobileMenu.classList.add("hidden");
+
+        });
+
       });
-    });
+
   </script>
 
 </body>
