@@ -939,10 +939,15 @@ button{
 }
 
 /* DASHBOARD STYLES */
+.dashboard-page{
+    padding:20px 16px 40px;
+}
+
 .dashboard-header-row{
     display:flex;
     justify-content:space-between;
     align-items:flex-start;
+    gap:12px;
     margin-bottom:16px;
 }
 
@@ -955,12 +960,13 @@ button{
     font-size:22px;
     font-weight:800;
     color:#1a2b4c;
+    line-height:1.05;
 }
 
 .secure-badge-pill{
     background:#e1effe;
     border:1px solid #cbd5e0;
-    padding:6px 10px;
+    padding:7px 10px;
     border-radius:20px;
     display:flex;
     align-items:center;
@@ -968,6 +974,7 @@ button{
     font-size:10px;
     font-weight:700;
     color:#0070ba;
+    white-space:nowrap;
 }
 
 .secure-badge-pill svg{
@@ -981,67 +988,110 @@ button{
     border-radius:18px;
     padding:18px;
     color:#fff;
-    margin-bottom:16px;
+    margin-bottom:18px;
     box-shadow:0 8px 20px rgba(0,112,186,.2);
     position:relative;
+}
+
+.balance-label{
+    font-size:11px;
+    opacity:.9;
+}
+
+.balance-amount-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
 }
 
 .balance-amount{
     font-size:30px;
     font-weight:800;
-    margin:8px 0 14px 0;
+    margin:7px 0 14px;
+    letter-spacing:-.5px;
 }
+
+.balance-eye{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.22);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    margin-top:2px;
+}
+
+.balance-eye svg{width:19px;height:19px;}
 
 .balance-stats-row{
     display:flex;
     justify-content:space-between;
-    border-top:1px solid rgba(255,255,255,0.2);
+    gap:10px;
+    border-top:1px solid rgba(255,255,255,.2);
     padding-top:12px;
 }
 
-.b-stat span{
-    font-size:9px;
-    opacity:0.8;
-    display:block;
-}
-
-.b-stat strong{
-    font-size:13px;
-    font-weight:700;
-}
+.b-stat{min-width:0;}
+.b-stat span{font-size:9px;opacity:.8;display:block;}
+.b-stat strong{font-size:13px;font-weight:700;display:block;margin-top:2px;}
 
 .section-header-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:12px;
-    margin-top:16px;
+    gap:8px;
+    margin-bottom:11px;
+    margin-top:17px;
 }
 
 .section-title{
-    font-size:14px;
+    font-size:15px;
     font-weight:800;
     color:#1a2b4c;
 }
 
+.dashboard-view-all{
+    background:transparent;
+    color:#1478b8;
+    font-size:10px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:3px;
+    padding:4px 0;
+}
+
+.dashboard-view-all svg{width:13px;height:13px;}
+
 .quick-actions-grid{
     display:grid;
-    grid-template-columns:repeat(4, 1fr);
+    grid-template-columns:repeat(4,1fr);
     gap:8px;
-    margin-bottom:10px;
+    margin-bottom:4px;
 }
 
 .q-action-card{
-    background:#ffffff;
+    background:#fff;
     border:1px solid #e2e8f0;
     border-radius:14px;
-    padding:12px 6px;
+    padding:12px 5px;
     text-align:center;
     display:flex;
     flex-direction:column;
     align-items:center;
     gap:8px;
+    min-width:0;
+    cursor:pointer;
+    transition:transform .15s ease,box-shadow .15s ease;
 }
+
+.q-action-card:active{transform:scale(.98);}
+.q-action-card span{font-size:10px;font-weight:700;color:#1a2b4c;}
 
 .q-icon-box{
     width:40px;
@@ -1051,25 +1101,167 @@ button{
     align-items:center;
     justify-content:center;
 }
+.q-icon-box svg{width:20px;height:20px;}
 
-.q-icon-box svg{
-    width:20px;
-    height:20px;
+.trade-overview-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
 }
 
-.q-action-card span{
-    font-size:10px;
-    font-weight:700;
-    color:#1a2b4c;
+.overview-card{
+    background:#f9fbfd;
+    border:1px solid #edf1f5;
+    border-radius:10px;
+    padding:10px 6px;
+    min-width:0;
 }
 
-.active-escrow-box{
-    background:#ffffff;
+.overview-icon{
+    width:25px;height:25px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:6px;
+}
+.overview-icon svg{width:13px;height:13px;}
+.overview-label{font-size:8px;color:#718096;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.overview-value{font-size:14px;font-weight:800;color:#1a2b4c;margin-top:2px;}
+
+.recent-box{
+    background:#fff;
     border:1px solid #e2e8f0;
     border-radius:14px;
-    padding:20px;
-    text-align:center;
-    margin-bottom:10px;
+    padding:13px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.recent-empty-icon{
+    width:40px;height:40px;border-radius:12px;
+    background:#f1f4f8;color:#718096;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.recent-empty-icon svg{width:20px;height:20px;}
+.recent-copy{min-width:0;}
+.recent-copy strong{display:block;font-size:11px;color:#1a2b4c;}
+.recent-copy p{font-size:9px;color:#718096;line-height:1.35;margin-top:3px;}
+
+.dashboard-info-card{
+    border:1px solid #d9eaf6;
+    border-radius:13px;
+    padding:12px;
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:9px;
+}
+
+.dashboard-info-card.blue{background:#eef8ff;}
+.dashboard-info-card.green{background:#effcf7;border-color:#d8f1e8;}
+.dashboard-info-card.shield{background:#edf7ff;}
+
+.info-card-icon{
+    width:38px;height:38px;border-radius:11px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.info-card-icon svg{width:19px;height:19px;}
+.info-card-copy{flex:1;min-width:0;}
+.info-card-copy h4{font-size:11.5px;font-weight:800;color:#16446f;}
+.info-card-copy strong{display:block;font-size:10px;color:#174b79;margin-top:4px;}
+.info-card-copy p{font-size:8.8px;line-height:1.4;color:#66788a;margin-top:3px;}
+.info-card-arrow{color:#47718f;display:flex;align-items:center;justify-content:center;margin-top:5px;}
+.info-card-arrow svg{width:15px;height:15px;}
+
+.dashboard-support-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    margin-top:12px;
+}
+
+.support-item{text-align:center;min-width:0;}
+.support-icon{
+    width:40px;height:40px;border-radius:50%;background:#f4f7fa;
+    margin:0 auto 5px;display:flex;align-items:center;justify-content:center;color:#1a2b4c;
+}
+.support-icon svg{width:18px;height:18px;}
+.support-item span{font-size:7.5px;font-weight:700;color:#4a5568;line-height:1.2;display:block;}
+
+.dashboard-help{
+    background:#eef7ff;
+    border:1px solid #dbeaf7;
+    border-radius:13px;
+    padding:11px 12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
+    cursor:pointer;
+}
+.dashboard-help .info-card-icon{background:#d9efff;color:#0070ba;}
+.dashboard-help h4{font-size:11px;color:#16446f;font-weight:800;}
+.dashboard-help p{font-size:8.5px;color:#718096;margin-top:2px;}
+.dashboard-help .info-card-arrow{margin-left:auto;}
+
+/* Responsive desktop layout: keep the same visual system, expand cleanly */
+@media (min-width:768px){
+    .app{max-width:1180px;padding-bottom:90px;}
+    .header{height:72px;padding:0 34px;}
+    .brand-icon{width:38px;height:38px;}
+    .brand-icon svg{width:21px;height:21px;}
+    .brand-text{font-size:18px;}
+    .brand-sub{font-size:9px;}
+    .icon-btn{width:44px;height:44px;}
+    .icon-btn svg{width:21px;height:21px;}
+    .page{padding:30px 34px 50px;}
+    .dashboard-page{max-width:1080px;margin:0 auto;padding-left:34px;padding-right:34px;}
+    .dash-title{font-size:30px;}
+    .welcome-text{font-size:15px;}
+    .secure-badge-pill{font-size:12px;padding:9px 14px;}
+    .main-balance-card{padding:24px;border-radius:22px;}
+    .balance-label{font-size:14px;}
+    .balance-amount{font-size:42px;}
+    .b-stat span{font-size:11px;}
+    .b-stat strong{font-size:17px;}
+    .section-title{font-size:20px;}
+    .dashboard-view-all{font-size:12px;}
+    .quick-actions-grid{gap:14px;}
+    .q-action-card{padding:18px 10px;min-height:128px;gap:12px;}
+    .q-icon-box{width:54px;height:54px;border-radius:15px;}
+    .q-icon-box svg{width:25px;height:25px;}
+    .q-action-card span{font-size:13px;}
+    .trade-overview-grid{gap:12px;}
+    .overview-card{padding:15px;}
+    .overview-icon{width:34px;height:34px;}
+    .overview-icon svg{width:17px;height:17px;}
+    .overview-label{font-size:10px;}
+    .overview-value{font-size:20px;}
+    .recent-box{padding:17px;}
+    .recent-copy strong{font-size:14px;}
+    .recent-copy p{font-size:11px;}
+    .dashboard-info-card{padding:16px;}
+    .info-card-icon{width:44px;height:44px;}
+    .info-card-copy h4{font-size:14px;}
+    .info-card-copy strong{font-size:12px;}
+    .info-card-copy p{font-size:10px;}
+    .support-icon{width:48px;height:48px;}
+    .support-item span{font-size:10px;}
+    .dashboard-help{padding:15px;}
+    .dashboard-help h4{font-size:14px;}
+    .dashboard-help p{font-size:10px;}
+    .bottom-nav{max-width:1180px;height:72px;}
+    .nav-item svg{width:24px;height:24px;}
+    .nav-item span{font-size:11px;}
+}
+
+@media (max-width:360px){
+    .dashboard-page{padding-left:12px;padding-right:12px;}
+    .secure-badge-pill{font-size:9px;padding:6px 8px;}
+    .balance-amount{font-size:27px;}
+    .quick-actions-grid{gap:5px;}
+    .q-action-card{padding-left:3px;padding-right:3px;}
+    .q-action-card span{font-size:9px;}
+    .trade-overview-grid{gap:4px;}
 }
 
 /* NEW TRADE PAGE STYLES */
@@ -1656,6 +1848,12 @@ button{
     .cta-button{min-width:112px;font-size:9px;}
 }
 </style>
+
+<style id="responsive-final-adjustments">
+body{overflow-x:hidden;}
+.bottom-nav{padding-bottom:env(safe-area-inset-bottom);height:calc(65px + env(safe-area-inset-bottom));}
+@media (min-width:768px){.bottom-nav{height:72px;}.app{min-height:100vh;}}
+</style>
 </head>
 
 <body>
@@ -2099,8 +2297,13 @@ button{
     </div>
 
     <div class="main-balance-card">
-        <div style="font-size:11px; opacity:0.9;">Available Balance</div>
-        <div class="balance-amount">$1,250.00</div>
+        <div class="balance-label">Available Balance</div>
+        <div class="balance-amount-row">
+            <div class="balance-amount" id="dashboardBalance">$1,250.00</div>
+            <button class="balance-eye" onclick="toggleBalanceVisibility()" aria-label="Show or hide balance">
+                <svg id="balanceEyeIcon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+        </div>
         <div class="balance-stats-row">
             <div class="b-stat"><span>Pending</span><strong>$0.00</strong></div>
             <div class="b-stat"><span>Completed</span><strong>$0.00</strong></div>
@@ -2110,42 +2313,89 @@ button{
 
     <div class="section-header-row">
         <div class="section-title">Quick Actions</div>
+        <button class="dashboard-view-all" onclick="showToast('All actions opened')">View All
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
     </div>
 
     <div class="quick-actions-grid">
         <div class="q-action-card" onclick="switchPage('new-trade')">
             <div class="q-icon-box" style="background:#e1effe; color:#0070ba;">
                 <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </div>
-            <span>New Trade</span>
+            </div><span>New Trade</span>
         </div>
-        <div class="q-action-card" onclick="showToast('Transactions clicked')">
+        <div class="q-action-card" onclick="showToast('Transactions opened')">
             <div class="q-icon-box" style="background:#e6fcf5; color:#0ca678;">
                 <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
-            </div>
-            <span>History</span>
+            </div><span>History</span>
         </div>
-        <div class="q-action-card" onclick="showToast('Messages clicked')">
+        <div class="q-action-card" onclick="showToast('Messages opened')">
             <div class="q-icon-box" style="background:#f3f0ff; color:#7950f2;">
                 <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <span>Messages</span>
+            </div><span>Messages</span>
         </div>
-        <div class="q-action-card" onclick="showToast('Deposit clicked')">
+        <div class="q-action-card" onclick="showToast('Deposit opened')">
             <div class="q-icon-box" style="background:#fff3bf; color:#f59f00;">
-                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-            </div>
-            <span>Deposit</span>
+                <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div><span>Deposit</span>
         </div>
     </div>
 
     <div class="section-header-row">
-        <div class="section-title">Active Escrow</div>
+        <div class="section-title">Trade Overview</div>
+        <button class="dashboard-view-all" onclick="showToast('Showing this month')">This Month
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
     </div>
 
-    <div class="active-escrow-box">
-        <div style="font-size:11.5px; font-weight:700; color:#1a2b4c; margin-bottom:2px;">No active escrow orders found.</div>
-        <div style="font-size:10px; color:#718096;">Start a new trade to get started.</div>
+    <div class="trade-overview-grid">
+        <div class="overview-card"><div class="overview-icon" style="background:#e6fcf5;color:#0ca678;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div><div class="overview-label">Total Trades</div><div class="overview-value">0</div></div>
+        <div class="overview-card"><div class="overview-icon" style="background:#e1effe;color:#0070ba;"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="overview-label">Completed</div><div class="overview-value">0</div></div>
+        <div class="overview-card"><div class="overview-icon" style="background:#fff8db;color:#e59b00;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div><div class="overview-label">Pending</div><div class="overview-value">0</div></div>
+        <div class="overview-card"><div class="overview-icon" style="background:#fff0f0;color:#e03131;"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg></div><div class="overview-label">Cancelled</div><div class="overview-value">0</div></div>
+    </div>
+
+    <div class="section-header-row">
+        <div class="section-title">Recent Transactions</div>
+        <button class="dashboard-view-all" onclick="showToast('Transactions opened')">View All
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+    </div>
+
+    <div class="recent-box">
+        <div class="recent-empty-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
+        <div class="recent-copy"><strong>No transactions yet</strong><p>Your recent transactions will appear here once you start trading.</p></div>
+    </div>
+
+    <div class="dashboard-info-card blue">
+        <div class="info-card-icon" style="background:#d9efff;color:#146fc0;"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <div class="info-card-copy"><h4>Announcements</h4><strong>Welcome to DIN AR!</strong><p>Trade safely with our secure escrow system. Your funds are always protected.</p></div>
+        <div class="info-card-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+    </div>
+
+    <div class="dashboard-info-card green">
+        <div class="info-card-icon" style="background:#d9f7e9;color:#087f5b;"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M8.5 14.5C7.55 13.45 7 12.03 7 10.5A5 5 0 0 1 12 5a5 5 0 0 1 5 5.5c0 1.53-.55 2.95-1.5 4"/><path d="M12 2v1"/></svg></div>
+        <div class="info-card-copy"><h4>Trading Tips</h4><strong>Always keep chat records</strong><p>Make sure to keep all communication records until the trade is completed.</p></div>
+        <div class="info-card-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+    </div>
+
+    <div class="dashboard-info-card shield">
+        <div class="info-card-icon" style="background:#d8efff;color:#0070ba;"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+        <div class="info-card-copy"><h4>DIN AR Protection</h4><p>Your funds are secured with our trusted escrow system and real-time verification.</p></div>
+        <div class="info-card-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+    </div>
+
+    <div class="dashboard-support-grid">
+        <div class="support-item"><div class="support-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><span>Secure Payments</span></div>
+        <div class="support-item"><div class="support-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M14 20a5 5 0 0 1 7 0"/></svg></div><span>Trusted Users</span></div>
+        <div class="support-item"><div class="support-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div><span>Global Support</span></div>
+        <div class="support-item"><div class="support-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div><span>24/7 Assistance</span></div>
+    </div>
+
+    <div class="dashboard-help" onclick="showToast('Support opened')">
+        <div class="info-card-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H5a1 1 0 0 0-1 1zM20 13v4a2 2 0 0 1-2 2h-1v-6h2a1 1 0 0 1 1 1z"/><path d="M12 21h2"/></svg></div>
+        <div><h4>Need Help?</h4><p>Our support team is always here to assist you.</p></div>
+        <div class="info-card-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
     </div>
 </section>
 
@@ -2543,6 +2793,20 @@ function handleAuthSubmit(e) {
     showToast('Successfully logged in!');
     updateUIState();
     switchPage('dashboard');
+}
+
+function toggleBalanceVisibility() {
+    const balance = document.getElementById('dashboardBalance');
+    const icon = document.getElementById('balanceEyeIcon');
+    if (!balance) return;
+    const hidden = balance.dataset.hidden === 'true';
+    balance.textContent = hidden ? '$1,250.00' : '••••••••';
+    balance.dataset.hidden = hidden ? 'false' : 'true';
+    if (icon) {
+        icon.innerHTML = hidden
+            ? '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'
+            : '<path d="M3 3l18 18"/><path d="M10.58 10.58A2 2 0 0 0 13.42 13.42"/><path d="M9.88 5.09A10.75 10.75 0 0 1 12 5c6.5 0 10 7 10 7a17.5 17.5 0 0 1-3.16 3.95"/><path d="M6.61 6.61C3.78 8.45 2 12 2 12s3.5 7 10 7a10.9 10.9 0 0 0 3.12-.45"/>';
+    }
 }
 
 function handleLogout() {
