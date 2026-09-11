@@ -36,12 +36,12 @@ button{
 
 /* HEADER */
 .header{
-    height:70px;
+    height:65px;
     background:#ffffff;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 20px;
+    padding:0 16px;
     border-bottom:1px solid #edf0f5;
     position:sticky;
     top:0;
@@ -51,14 +51,14 @@ button{
 .brand{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:8px;
 }
 
 .brand-icon{
-    width:36px;
-    height:36px;
+    width:32px;
+    height:32px;
     background:#0070ba;
-    border-radius:10px;
+    border-radius:8px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -66,28 +66,29 @@ button{
 }
 
 .brand-icon svg{
-    width:20px;
-    height:20px;
+    width:18px;
+    height:18px;
 }
 
 .brand-text{
-    font-size:16px;
+    font-size:15px;
     font-weight:800;
     color:#1a2b4c;
     letter-spacing:-.3px;
 }
 
 .brand-sub{
-    font-size:9px;
+    font-size:8px;
     color:#718096;
     margin-top:1px;
 }
 
 .menu-btn{
-    width:40px;
-    height:40px;
-    background:#f4f6fa;
-    border-radius:12px;
+    width:38px;
+    height:38px;
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:10px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -95,14 +96,14 @@ button{
 }
 
 .menu-btn svg{
-    width:22px;
-    height:22px;
+    width:20px;
+    height:20px;
 }
 
 /* PAGES */
 .page{
     display:none;
-    padding:20px 16px 80px;
+    padding:20px 16px 40px;
 }
 
 .page.active{
@@ -112,32 +113,42 @@ button{
 /* LANDING PAGE */
 .badge-tag{
     text-align:center;
-    margin-bottom:15px;
+    margin-bottom:12px;
 }
 
 .badge-tag span{
     background:#edf2f7;
-    color:#4a5568;
+    color:#2b6cb0;
     font-size:9px;
     font-weight:700;
     text-transform:uppercase;
-    padding:6px 12px;
+    padding:5px 12px;
     border-radius:20px;
     letter-spacing:.5px;
+    border:1px solid #e2e8f0;
 }
 
 .hero-title{
-    font-size:26px;
+    font-size:22px;
     font-weight:800;
     text-align:center;
-    line-height:1.3;
+    line-height:1.25;
     color:#1a2b4c;
+    padding:0 5px;
+    letter-spacing:-.4px;
+}
+
+.hero-desc{
+    font-size:11px;
+    color:#4a5568;
+    text-align:center;
+    margin-top:12px;
+    line-height:1.4;
     padding:0 10px;
-    letter-spacing:-.5px;
 }
 
 .hero-btns{
-    margin-top:22px;
+    margin-top:20px;
     display:flex;
     flex-direction:column;
     gap:10px;
@@ -145,21 +156,21 @@ button{
 
 .btn-primary{
     width:100%;
-    height:48px;
+    height:46px;
     background:#0070ba;
     color:#fff;
     border-radius:12px;
     font-size:13px;
     font-weight:700;
-    box-shadow:0 6px 16px rgba(0,112,186,.25);
+    box-shadow:0 4px 14px rgba(0,112,186,.25);
 }
 
 .btn-secondary{
     width:100%;
-    height:48px;
+    height:46px;
     background:#ffffff;
     color:#1a2b4c;
-    border:1px solid #e2e8f0;
+    border:1px solid #cbd5e0;
     border-radius:12px;
     font-size:13px;
     font-weight:700;
@@ -170,120 +181,59 @@ button{
 }
 
 .btn-secondary svg{
-    width:16px;
-    height:16px;
+    width:15px;
+    height:15px;
     fill:#0070ba;
 }
 
-/* PROTECTION CARD */
-.protection-card{
-    background:#f8fafc;
-    border:1px solid #e2e8f0;
-    border-radius:20px;
-    padding:20px;
-    margin-top:25px;
-}
-
-.protection-title{
+/* THREE ICONS ROW */
+.features-row-3{
     display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:14px;
-    font-weight:800;
-    color:#1a2b4c;
-    margin-bottom:15px;
+    justify-content:space-between;
+    margin-top:25px;
+    gap:8px;
+    text-align:center;
 }
 
-.protection-title svg{
-    width:22px;
-    height:22px;
-    fill:#0070ba;
-}
-
-.check-list{
+.feat-col{
+    flex:1;
     display:flex;
     flex-direction:column;
-    gap:12px;
-}
-
-.check-item{
-    display:flex;
     align-items:center;
-    gap:10px;
-    font-size:12px;
-    font-weight:600;
-    color:#2d3748;
 }
 
-.check-icon{
-    width:20px;
-    height:20px;
-    background:#e6fffa;
-    color:#319795;
+.feat-icon-circle{
+    width:42px;
+    height:42px;
+    background:#f0f4f8;
+    border:1px solid #e2e8f0;
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:11px;
-    font-weight:800;
-    flex-shrink:0;
-}
-
-/* FEATURES GRID */
-.features-grid{
-    margin-top:20px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.feature-row{
-    background:#f8fafc;
-    border:1px solid #edf2f7;
-    border-radius:14px;
-    padding:14px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.feature-icon{
-    width:36px;
-    height:36px;
-    background:#edf2f7;
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
     color:#0070ba;
-    flex-shrink:0;
+    margin-bottom:6px;
 }
 
-.feature-icon svg{
-    width:18px;
-    height:18px;
+.feat-icon-circle svg{
+    width:20px;
+    height:20px;
 }
 
-.feature-info strong{
-    display:block;
-    font-size:12px;
-    color:#1a2b4c;
-}
-
-.feature-info p{
+.feat-col span{
     font-size:10px;
-    color:#718096;
-    margin-top:2px;
+    font-weight:700;
+    color:#1a2b4c;
 }
 
 /* HOW IT WORKS */
 .how-section{
-    margin-top:35px;
+    margin-top:30px;
 }
 
 .how-title{
     text-align:center;
-    font-size:18px;
+    font-size:20px;
     font-weight:800;
     color:#1a2b4c;
 }
@@ -292,28 +242,29 @@ button{
     text-align:center;
     font-size:11px;
     color:#718096;
-    margin-top:4px;
-    margin-bottom:20px;
+    margin-top:3px;
+    margin-bottom:18px;
 }
 
 .steps-list{
     display:flex;
     flex-direction:column;
-    gap:15px;
+    gap:12px;
 }
 
 .step-box{
     display:flex;
-    gap:14px;
+    align-items:center;
+    gap:12px;
     background:#f8fafc;
     border:1px solid #edf2f7;
     border-radius:14px;
-    padding:14px;
+    padding:12px;
 }
 
 .step-ico{
-    width:36px;
-    height:36px;
+    width:40px;
+    height:40px;
     background:#e1effe;
     color:#0070ba;
     border-radius:10px;
@@ -324,24 +275,121 @@ button{
 }
 
 .step-ico svg{
-    width:18px;
-    height:18px;
+    width:20px;
+    height:20px;
+}
+
+.step-number-badge{
+    width:22px;
+    height:22px;
+    background:#0070ba;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10px;
+    font-weight:bold;
+    flex-shrink:0;
+}
+
+.step-content{
+    flex:1;
 }
 
 .step-content strong{
-    font-size:12px;
+    font-size:11px;
     color:#1a2b4c;
     display:block;
 }
 
 .step-content p{
-    font-size:10px;
+    font-size:9.5px;
     color:#718096;
-    margin-top:3px;
-    line-height:1.4;
+    margin-top:2px;
+    line-height:1.35;
 }
 
-/* MENU MODAL / DRAWER */
+/* STATS BAR (10K+ Traders) */
+.stats-bar{
+    background:#0b1e38;
+    color:#fff;
+    padding:20px 10px;
+    display:flex;
+    justify-content:space-around;
+    text-align:center;
+    margin:30px -16px 0 -16px;
+}
+
+.stat-item svg{
+    width:20px;
+    height:20px;
+    fill:#fff;
+    margin-bottom:4px;
+}
+
+.stat-item strong{
+    display:block;
+    font-size:13px;
+    font-weight:800;
+}
+
+.stat-item span{
+    font-size:9px;
+    color:#a0aec0;
+}
+
+/* FOOTER */
+.footer{
+    background:#0b1e38;
+    border-top:1px solid rgba(255,255,255,0.1);
+    padding:20px 16px;
+    color:#a0aec0;
+    margin:0 -16px -40px -16px;
+}
+
+.footer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.footer-brand{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:#fff;
+    font-size:13px;
+    font-weight:800;
+}
+
+.social-icons{
+    display:flex;
+    gap:8px;
+}
+
+.soc-icon{
+    width:24px;
+    height:24px;
+    background:#1a365d;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:10px;
+}
+
+.footer-copy{
+    font-size:8.5px;
+    line-height:1.4;
+    color:#718096;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* DRAWER MENU */
 .drawer-backdrop{
     position:fixed;
     top:0;
@@ -498,7 +546,7 @@ button{
     outline:none;
 }
 
-/* DASHBOARD & OTHER STYLES */
+/* DASHBOARD PAGE */
 .dashboard-page{
     padding:16px;
 }
@@ -561,7 +609,8 @@ button{
         <span>Secure Escrow Payments</span>
     </div>
 
-    <h1 class="hero-title">Gift Card Trades: Secure Your Verification Order Process by Amazon</h1>
+    <h1 class="hero-title">Verified Purchase Trades : Buy & Sell with Confidence</h1>
+    <p class="hero-desc">A safe and simple escrow service for Verified Purchase transactions. Your payment is protected until the deal is completed.</p>
 
     <div class="hero-btns">
         <button class="btn-primary" onclick="openAuthModal('signup')">Get Started</button>
@@ -571,72 +620,68 @@ button{
         </button>
     </div>
 
-    <div class="protection-card">
-        <div class="protection-title">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Your Payment is Protected
-        </div>
-        <div class="check-list">
-            <div class="check-item"><div class="check-icon">✓</div> Funds secured in escrow</div>
-            <div class="check-item"><div class="check-icon">✓</div> Seller ships your order</div>
-            <div class="check-item"><div class="check-icon">✓</div> You confirm receipt</div>
-            <div class="check-item"><div class="check-icon">✓</div> Payment released</div>
-        </div>
-    </div>
-
-    <div class="features-grid">
-        <div class="feature-row">
-            <div class="feature-icon">
+    <!-- 3 ICONS ROW -->
+    <div class="features-row-3">
+        <div class="feat-col">
+            <div class="feat-icon-circle">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <div class="feature-info">
-                <strong>Secure & Trusted</strong>
-                <p>Your funds are safe with us</p>
-            </div>
+            <span>Secure & Trusted</span>
         </div>
-        <div class="feature-row">
-            <div class="feature-icon">
+        <div class="feat-col">
+            <div class="feat-icon-circle">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             </div>
-            <div class="feature-info">
-                <strong>Simple Process</strong>
-                <p>Easy for buyers and sellers</p>
+            <span>Simple Process</span>
+        </div>
+        <div class="feat-col">
+            <div class="feat-icon-circle">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
             </div>
+            <span>Dispute Support</span>
         </div>
     </div>
 
+    <!-- HOW IT WORKS -->
     <div class="how-section">
-        <div class="how-title">How Escrow Works</div>
+        <div class="how-title">How We Works</div>
         <div class="how-subtitle">A simple and secure process for everyone</div>
 
         <div class="steps-list">
             <div class="step-box">
                 <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
                 <div class="step-content">
-                    <strong>1. Place an Order</strong>
-                    <p>Buyer makes a payment and funds are held securely in our escrow.</p>
+                    <strong>Seller Places Order</strong>
+                    <p>Seller makes a payment and funds are held securely in our escrow.</p>
                 </div>
+                <div class="step-number-badge">1</div>
             </div>
+
             <div class="step-box">
-                <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+                <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg></div>
                 <div class="step-content">
-                    <strong>2. Seller Delivers</strong>
-                    <p>Seller ships the item or completes the service.</p>
+                    <strong>Buyer Uploads Verification</strong>
+                    <p>Buyer submit confirmation order screenshot or completes the verification process.</p>
                 </div>
+                <div class="step-number-badge">2</div>
             </div>
+
             <div class="step-box">
-                <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 240 240"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+                <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                 <div class="step-content">
-                    <strong>3. Confirm Receipt</strong>
-                    <p>Buyer confirms the order is received as expected.</p>
+                    <strong>System/Admin Verification</strong>
+                    <p>Seller confirms the order is received as expected.</p>
                 </div>
+                <div class="step-number-badge">3</div>
             </div>
+
             <div class="step-box">
                 <div class="step-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
                 <div class="step-content">
-                    <strong>4. PayPal Payout Released</strong>
-                    <p>Funds are released to the seller.</p>
+                    <strong>PayPal Payout Released</strong>
+                    <p>Funds are released to the Buyer.</p>
                 </div>
+                <div class="step-number-badge">4</div>
             </div>
         </div>
     </div>
@@ -644,6 +689,50 @@ button{
     <div style="margin-top:25px;">
         <button class="btn-primary" onclick="openAuthModal('signup')">Create Your Account</button>
     </div>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <strong>10K+</strong>
+            <span>Traders</span>
+        </div>
+        <div class="stat-item">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <strong>$20M+</strong>
+            <span>Secured</span>
+        </div>
+        <div class="stat-item">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <strong>99.9%</strong>
+            <span>Success</span>
+        </div>
+        <div class="stat-item">
+            <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            <strong>24/7</strong>
+            <span>Support</span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="brand-icon" style="width:24px; height:24px; border-radius:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px; height:12px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                PayPal <span style="font-weight:400; font-size:11px; color:#a0aec0; margin-left:4px;">Payment Protection</span>
+            </div>
+            <div class="social-icons">
+                <div class="soc-icon">f</div>
+                <div class="soc-icon">𝕏</div>
+                <div class="soc-icon">in</div>
+                <div class="soc-icon">▶</div>
+            </div>
+        </div>
+        <div class="footer-copy">
+            <div>© 2026 PayPal Escrow System.<br>All rights reserved.</div>
+            <div style="text-align:right;">Safer Trades.<br>Stronger Communities.</div>
+        </div>
+    </footer>
 </section>
 
 <!-- DASHBOARD PAGE (After Login) -->
