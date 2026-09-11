@@ -1,2263 +1,1294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>DIN AR — Payment Protection</title>
-
-<meta name="description"
-content="DIN AR transaction coordination and payment protection platform.">
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Inter,Arial,Helvetica,sans-serif;
-    color:#081747;
-    background:#fff;
-    line-height:1.5;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-button,
-input,
-select,
-textarea{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.container{
-    width:min(1180px,92%);
-    margin:auto;
-}
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-header{
-    height:66px;
-    background:#fff;
-    border-bottom:1px solid #e7edf7;
-    display:flex;
-    align-items:center;
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-.nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:25px;
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    min-width:max-content;
-}
-
-.brand-logo{
-    width:46px;
-    height:46px;
-    object-fit:contain;
-}
-
-.brand-text strong{
-    display:block;
-    font-size:21px;
-    line-height:21px;
-    letter-spacing:-.5px;
-    color:#09245c;
-}
-
-.brand-text span{
-    display:block;
-    font-size:11px;
-    color:#7b8497;
-    margin-top:2px;
-}
-
-.nav-links{
-    display:flex;
-    align-items:center;
-    gap:26px;
-    font-size:14px;
-    color:#25324e;
-}
-
-.nav-links a{
-    transition:.2s;
-}
-
-.nav-links a:hover{
-    color:#0875e8;
-}
-
-.nav-actions{
-    display:flex;
-    align-items:center;
-    gap:9px;
-}
-
-.btn{
-    border:0;
-    border-radius:7px;
-    padding:11px 20px;
-    font-weight:600;
-    transition:.2s;
-}
-
-.btn:hover{
-    transform:translateY(-1px);
-}
-
-.btn-outline{
-    background:#fff;
-    color:#096ee0;
-    border:1px solid #9ec9f7;
-}
-
-.btn-primary{
-    color:#fff;
-    background:linear-gradient(135deg,#0875ee,#0864d7);
-    box-shadow:0 5px 14px rgba(8,117,238,.18);
-}
-
-.menu{
-    display:none;
-    border:0;
-    background:none;
-    font-size:28px;
-    color:#071846;
-}
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero{
-    position:relative;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at 85% 20%,rgba(0,201,220,.20),transparent 28%),
-        linear-gradient(115deg,#f3faff 0%,#eef8ff 48%,#e9fbff 100%);
-    padding:58px 0 48px;
-}
-
-.hero:after{
-    content:"";
-    position:absolute;
-    width:430px;
-    height:430px;
-    right:-120px;
-    top:-165px;
-    background:linear-gradient(135deg,#00b7ca,#0874e8);
-    transform:rotate(16deg);
-    border-radius:45px;
-    opacity:.95;
-}
-
-.hero-grid{
-    position:relative;
-    z-index:2;
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
-    gap:45px;
-    align-items:center;
-}
-
-.badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:7px 14px;
-    background:#e4f3ff;
-    border:1px solid #d3eafa;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:700;
-    color:#30435f;
-    margin-bottom:20px;
-}
-
-.badge-icon{
-    width:18px;
-    height:18px;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    color:#fff;
-    background:#0875e8;
-    font-size:11px;
-}
-
-.hero h1{
-    font-size:48px;
-    line-height:1.05;
-    letter-spacing:-2px;
-    color:#080b12;
-    margin-bottom:18px;
-}
-
-.hero h1 span{
-    color:#09265f;
-}
-
-.hero-description{
-    color:#566277;
-    max-width:570px;
-    font-size:16px;
-    margin-bottom:27px;
-}
-
-.hero-buttons{
-    display:flex;
-    gap:12px;
-    margin-bottom:34px;
-}
-
-.hero-buttons .btn{
-    min-width:175px;
-}
-
-.how-btn{
-    background:#fff;
-    border:1px solid #d9e3ed;
-    color:#17233d;
-}
-
-.play{
-    display:inline-grid;
-    place-items:center;
-    width:22px;
-    height:22px;
-    border-radius:50%;
-    background:#0875e8;
-    color:#fff;
-    font-size:10px;
-    margin-right:6px;
-}
-
-.features{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.feature{
-    display:flex;
-    align-items:center;
-    gap:9px;
-}
-
-.feature-icon{
-    width:42px;
-    height:42px;
-    flex:none;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    background:#dff2ff;
-    color:#0875e8;
-    font-size:19px;
-}
-
-.feature strong{
-    display:block;
-    font-size:13px;
-}
-
-.feature small{
-    display:block;
-    color:#738096;
-    font-size:11px;
-}
-
-/* =====================================================
-   PROTECTION CARD
-===================================================== */
-
-.protection-card{
-    position:relative;
-    z-index:3;
-    width:min(440px,100%);
-    margin:auto;
-    background:#fff;
-    border-radius:17px;
-    padding:34px;
-    box-shadow:0 25px 70px rgba(9,47,93,.18);
-}
-
-.card-brand{
-    display:flex;
-    justify-content:center;
-    margin:-66px auto 17px;
-}
-
-.card-brand img{
-    width:100px;
-    height:100px;
-    object-fit:contain;
-    border-radius:22px;
-    background:#fff;
-}
-
-.protection-card h2{
-    color:#10131a;
-    text-align:center;
-    font-size:21px;
-    margin-bottom:19px;
-}
-
-.check-list{
-    list-style:none;
-}
-
-.check-list li{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin:12px 0;
-    color:#27334b;
-    font-size:14px;
-}
-
-.check{
-    width:23px;
-    height:23px;
-    flex:none;
-    border-radius:50%;
-    background:#28b67a;
-    color:#fff;
-    display:grid;
-    place-items:center;
-    font-size:13px;
-    font-weight:bold;
-}
-
-/* =====================================================
-   QUICK SEARCH
-===================================================== */
-
-.search-section{
-    padding:25px 0;
-    background:#fff;
-    border-bottom:1px solid #edf2f7;
-}
-
-.search-box{
-    max-width:800px;
-    margin:auto;
-    background:#fff;
-    border:1px solid #dfe8f2;
-    border-radius:14px;
-    padding:10px;
-    display:flex;
-    gap:10px;
-    box-shadow:0 8px 30px rgba(8,55,100,.07);
-}
-
-.search-box input{
-    flex:1;
-    border:0;
-    outline:none;
-    padding:12px 14px;
-    color:#17233d;
-}
-
-.search-box button{
-    border:0;
-    background:#0875e8;
-    color:#fff;
-    border-radius:9px;
-    padding:0 24px;
-    font-weight:700;
-}
-
-/* =====================================================
-   HOW IT WORKS
-===================================================== */
-
-.section{
-    padding:62px 0;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:40px;
-}
-
-.section-title h2{
-    font-size:34px;
-    letter-spacing:-1px;
-    margin-bottom:5px;
-}
-
-.section-title p{
-    color:#7b8496;
-}
-
-.steps{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:28px;
-}
-
-.step{
-    position:relative;
-    text-align:center;
-}
-
-.step:not(:last-child):after{
-    content:"→";
-    position:absolute;
-    right:-28px;
-    top:45px;
-    color:#a9b5c6;
-    font-size:27px;
-}
-
-.step-icon{
-    width:72px;
-    height:72px;
-    margin:auto auto 18px;
-    border-radius:50%;
-    background:#e5f4ff;
-    color:#0875e8;
-    display:grid;
-    place-items:center;
-    font-size:29px;
-    position:relative;
-}
-
-.step-number{
-    position:absolute;
-    bottom:-7px;
-    right:-4px;
-    width:28px;
-    height:28px;
-    border-radius:50%;
-    background:#0875e8;
-    color:#fff;
-    display:grid;
-    place-items:center;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.step h3{
-    font-size:17px;
-    margin-bottom:7px;
-}
-
-.step p{
-    font-size:13px;
-    color:#718096;
-}
-
-/* =====================================================
-   WHY
-===================================================== */
-
-.why{
-    background:linear-gradient(135deg,#eef9ff,#f8fcff);
-}
-
-.why-grid{
-    display:grid;
-    grid-template-columns:.9fr 1.1fr;
-    gap:40px;
-    align-items:center;
-}
-
-.why h2{
-    font-size:31px;
-    line-height:1.1;
-    margin-bottom:17px;
-}
-
-.why-list{
-    list-style:none;
-    margin-bottom:24px;
-}
-
-.why-list li{
-    display:flex;
-    gap:10px;
-    margin:11px 0;
-    color:#526078;
-    font-size:14px;
-}
-
-.green-check{
-    width:20px;
-    height:20px;
-    flex:none;
-    border-radius:50%;
-    background:#25b77a;
-    color:#fff;
-    display:grid;
-    place-items:center;
-    font-size:11px;
-}
-
-.visual{
-    min-height:310px;
-    border-radius:18px;
-    overflow:hidden;
-    background:
-        linear-gradient(110deg,rgba(5,42,83,.1),rgba(4,92,143,.05)),
-        url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=85")
-        center/cover;
-    position:relative;
-    box-shadow:0 15px 40px rgba(18,62,100,.12);
-}
-
-.visual-overlay{
-    position:absolute;
-    inset:0;
-    background:linear-gradient(90deg,rgba(255,255,255,.96),rgba(255,255,255,.08));
-    padding:45px;
-}
-
-.visual-overlay h3{
-    max-width:280px;
-    font-size:29px;
-    line-height:1.1;
-}
-
-/* =====================================================
-   SELLER / BUYER CARDS
-===================================================== */
-
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:25px;
-}
-
-.info-card{
-    background:#fff;
-    border:1px solid #e1eaf3;
-    border-radius:16px;
-    padding:30px;
-    box-shadow:0 8px 30px rgba(15,50,90,.05);
-}
-
-.info-card h3{
-    margin-bottom:9px;
-    font-size:22px;
-}
-
-.info-card p{
-    color:#718096;
-    font-size:14px;
-    margin-bottom:18px;
-}
-
-.info-list{
-    list-style:none;
-}
-
-.info-list li{
-    margin:10px 0;
-    font-size:14px;
-    color:#526078;
-}
-
-.info-list li::before{
-    content:"✓";
-    color:#fff;
-    background:#25b77a;
-    width:19px;
-    height:19px;
-    display:inline-grid;
-    place-items:center;
-    border-radius:50%;
-    margin-right:8px;
-    font-size:11px;
-}
-
-/* =====================================================
-   FEES
-===================================================== */
-
-.fee-box{
-    max-width:650px;
-    margin:auto;
-    background:#fff;
-    border:1px solid #e2eaf2;
-    border-radius:15px;
-    padding:30px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,.05);
-}
-
-.fee-box h3{
-    font-size:22px;
-    margin-bottom:10px;
-}
-
-.fee-box p{
-    color:#718096;
-    font-size:14px;
-}
-
-/* =====================================================
-   CTA
-===================================================== */
-
-.cta{
-    padding:65px 0;
-    background:#05275b;
-    color:#fff;
-    text-align:center;
-}
-
-.cta h2{
-    font-size:34px;
-    margin-bottom:9px;
-}
-
-.cta p{
-    color:#c6d7ef;
-    max-width:600px;
-    margin:0 auto 25px;
-}
-
-.cta .btn{
-    background:#0875ee;
-    color:#fff;
-}
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer{
-    background:#fff;
-    padding-top:32px;
-}
-
-.footer-grid{
-    display:grid;
-    grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;
-    gap:25px;
-    padding-bottom:28px;
-}
-
-.footer-title{
-    font-size:13px;
-    font-weight:800;
-    margin-bottom:10px;
-}
-
-.footer-links{
-    list-style:none;
-}
-
-.footer-links li{
-    margin:6px 0;
-}
-
-.footer-links a{
-    font-size:12px;
-    color:#6e788a;
-}
-
-.footer-links a:hover{
-    color:#0875e8;
-}
-
-.socials{
-    display:flex;
-    gap:9px;
-    margin-top:10px;
-}
-
-.social{
-    width:31px;
-    height:31px;
-    display:grid;
-    place-items:center;
-    border-radius:50%;
-    background:#111923;
-    color:#fff;
-    font-size:12px;
-}
-
-.footer-bottom{
-    border-top:1px solid #e8edf3;
-    padding:13px 0;
-    display:flex;
-    justify-content:space-between;
-    color:#7d8797;
-    font-size:11px;
-}
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(5,19,40,.55);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:3000;
-}
-
-.modal.active{
-    display:flex;
-}
-
-.modal-box{
-    width:min(480px,100%);
-    max-height:90vh;
-    overflow:auto;
-    background:#fff;
-    border-radius:15px;
-    padding:30px;
-    box-shadow:0 25px 80px rgba(0,0,0,.25);
-}
-
-.modal-box h2{
-    margin-bottom:5px;
-}
-
-.modal-box p{
-    color:#738096;
-    font-size:13px;
-    margin-bottom:20px;
-}
-
-.input-group{
-    margin-bottom:13px;
-}
-
-.input-group label{
-    display:block;
-    font-size:12px;
-    font-weight:700;
-    color:#34415c;
-    margin-bottom:6px;
-}
-
-.input{
-    width:100%;
-    padding:13px;
-    border:1px solid #d8e0ea;
-    border-radius:7px;
-    outline:none;
-    background:#fff;
-}
-
-.input:focus{
-    border-color:#0875e8;
-}
-
-textarea.input{
-    min-height:100px;
-    resize:vertical;
-}
-
-.modal-actions{
-    display:flex;
-    gap:10px;
-    margin-top:18px;
-}
-
-.close{
-    background:#f2f5f8;
-    color:#334155;
-}
-
-/* =====================================================
-   SEARCH RESULT
-===================================================== */
-
-.result{
-    margin-top:15px;
-    border-radius:12px;
-    padding:18px;
-    display:none;
-}
-
-.result.success{
-    display:block;
-    background:#effbf5;
-    border:1px solid #bdebd2;
-}
-
-.result.error{
-    display:block;
-    background:#fff3f3;
-    border:1px solid #f1c6c6;
-}
-
-.result h4{
-    margin-bottom:8px;
-}
-
-.result-row{
-    display:flex;
-    justify-content:space-between;
-    gap:15px;
-    padding:7px 0;
-    border-bottom:1px solid rgba(0,0,0,.06);
-    font-size:13px;
-}
-
-.result-row:last-child{
-    border-bottom:0;
-}
-
-.status{
-    display:inline-block;
-    padding:4px 9px;
-    border-radius:20px;
-    background:#dff8eb;
-    color:#13834e;
-    font-weight:700;
-    font-size:11px;
-}
-
-/* =====================================================
-   MOBILE MENU
-===================================================== */
-
-.mobile-menu{
-    position:fixed;
-    top:60px;
-    left:0;
-    right:0;
-    background:#fff;
-    box-shadow:0 10px 25px rgba(0,0,0,.1);
-    padding:15px 5%;
-    display:none;
-    z-index:999;
-}
-
-.mobile-menu.active{
-    display:block;
-}
-
-.mobile-menu a{
-    display:block;
-    padding:13px 0;
-    border-bottom:1px solid #edf1f5;
-    font-size:14px;
-}
-
-.mobile-menu .btn{
-    width:100%;
-    margin-top:12px;
-}
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media(max-width:900px){
-
-    .nav-links,
-    .nav-actions{
-        display:none;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>DIN AR Escrow System — Payment Protection</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dinBlue: "#1268e8",
+            dinDark: "#062b63",
+            dinNavy: "#071d49",
+            dinCyan: "#10b9ed",
+            dinLight: "#edf7ff"
+          },
+          boxShadow: {
+            soft: "0 12px 35px rgba(5, 45, 100, .12)",
+            card: "0 20px 55px rgba(0, 54, 120, .18)"
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * {
+      scroll-behavior: smooth;
     }
 
-    .menu{
-        display:block;
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
     }
 
-    .hero{
-        padding:42px 0;
+    /* =====================================================
+       JPG LOGO HANDLING
+       ===================================================== */
+
+    .logo-main,
+    .logo-dn,
+    .logo-arrow {
+      mix-blend-mode: multiply;
+      object-fit: contain;
     }
 
-    .hero-grid{
-        grid-template-columns:1fr;
+    .logo-main {
+      max-height: 55px;
     }
 
-    .hero h1{
-        font-size:39px;
+    .logo-dn {
+      max-width: 100%;
+      max-height: 110px;
     }
 
-    .protection-card{
-        margin-top:35px;
+    .logo-arrow {
+      max-width: 75px;
+      max-height: 75px;
     }
 
-    .features{
-        grid-template-columns:1fr;
-        gap:13px;
+    /* =====================================================
+       HERO BACKGROUND SHAPE
+       ===================================================== */
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .steps{
-        grid-template-columns:1fr 1fr;
+    .hero-bg::before {
+      content: "";
+      position: absolute;
+      width: 750px;
+      height: 750px;
+      top: -430px;
+      right: -180px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        rgba(18, 104, 232, .12),
+        rgba(16, 185, 237, .18)
+      );
     }
 
-    .step:not(:last-child):after{
-        display:none;
+    .hero-bg::after {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 300px;
+      left: -280px;
+      bottom: -160px;
+      border-radius: 50%;
+      background: rgba(18, 104, 232, .07);
     }
 
-    .why-grid{
-        grid-template-columns:1fr;
+    /* =====================================================
+       CSS SHIELD
+       ===================================================== */
+
+    .shield {
+      width: 175px;
+      height: 205px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      clip-path: polygon(
+        50% 0%,
+        92% 15%,
+        88% 62%,
+        70% 83%,
+        50% 100%,
+        30% 83%,
+        12% 62%,
+        8% 15%
+      );
+
+      background: linear-gradient(
+        145deg,
+        #0a54c8,
+        #087bf0 50%,
+        #13c1ef
+      );
+
+      box-shadow:
+        0 18px 35px rgba(0, 83, 190, .28);
     }
 
-    .info-grid{
-        grid-template-columns:1fr;
+    .shield::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      clip-path: inherit;
+      background: linear-gradient(
+        145deg,
+        #ffffff,
+        #eaf7ff
+      );
+      z-index: 0;
     }
 
-    .footer-grid{
-        grid-template-columns:1fr 1fr;
-    }
-}
-
-@media(max-width:560px){
-
-    header{
-        height:60px;
-    }
-
-    .brand-logo{
-        width:39px;
-        height:39px;
+    .shield-content {
+      position: relative;
+      z-index: 2;
+      width: 115px;
+      height: 115px;
+      border-radius: 22px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(0, 50, 120, .12);
+      overflow: hidden;
     }
 
-    .brand-text strong{
-        font-size:19px;
+    /* =====================================================
+       PROCESS ICONS
+       ===================================================== */
+
+    .process-icon {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: #e9f6ff;
+      color: #096fe9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: inset 0 0 0 1px rgba(18, 104, 232, .05);
     }
 
-    .brand-text span{
-        font-size:10px;
+    .step-number {
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      background: #096fe9;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
     }
 
-    .hero h1{
-        font-size:34px;
-        letter-spacing:-1px;
+    /* =====================================================
+       CSS LAPTOP MOCKUP
+       ===================================================== */
+
+    .laptop {
+      width: min(100%, 540px);
+      margin: auto;
     }
 
-    .hero-description{
-        font-size:15px;
+    .laptop-screen {
+      background: #101827;
+      border: 10px solid #202b3c;
+      border-bottom-width: 15px;
+      border-radius: 18px 18px 8px 8px;
+      padding: 10px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .20);
     }
 
-    .hero-buttons{
-        flex-direction:column;
+    .laptop-display {
+      min-height: 280px;
+      background: linear-gradient(145deg, #f8fcff, #e8f5ff);
+      border-radius: 7px;
+      padding: 25px;
     }
 
-    .hero-buttons .btn{
-        width:100%;
+    .laptop-base {
+      width: 112%;
+      margin-left: -6%;
+      height: 22px;
+      border-radius: 0 0 18px 18px;
+      background: linear-gradient(#c8d0da, #8995a4);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, .18);
     }
 
-    .search-box{
-        flex-direction:column;
+    /* =====================================================
+       CSS PHONE MOCKUP
+       ===================================================== */
+
+    .phone {
+      width: 235px;
+      padding: 9px;
+      border-radius: 34px;
+      background: #10151d;
+      box-shadow: 0 25px 55px rgba(0, 0, 0, .25);
+      border: 2px solid #3b4654;
     }
 
-    .search-box button{
-        min-height:45px;
+    .phone-screen {
+      min-height: 450px;
+      border-radius: 27px;
+      overflow: hidden;
+      background: #f8fcff;
+      position: relative;
     }
 
-    .section{
-        padding:48px 0;
+    .phone-notch {
+      width: 90px;
+      height: 20px;
+      background: #10151d;
+      border-radius: 0 0 14px 14px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
     }
 
-    .section-title h2{
-        font-size:28px;
+    /* =====================================================
+       STATS
+       ===================================================== */
+
+    .stats-item {
+      position: relative;
     }
 
-    .steps{
-        grid-template-columns:1fr;
-        gap:32px;
+    .stats-item:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background: rgba(255,255,255,.17);
     }
 
-    .visual-overlay{
-        padding:30px;
-    }
+    /* =====================================================
+       MOBILE
+       ===================================================== */
 
-    .visual-overlay h3{
-        font-size:24px;
-    }
+    @media (max-width: 767px) {
+      .hero-title {
+        font-size: 40px;
+        line-height: 1.05;
+      }
 
-    .footer-grid{
-        grid-template-columns:1fr;
-    }
+      .shield {
+        width: 145px;
+        height: 170px;
+      }
 
-    .footer-bottom{
-        flex-direction:column;
-        gap:5px;
-    }
+      .shield-content {
+        width: 95px;
+        height: 95px;
+      }
 
-    .modal-box{
-        padding:22px;
+      .stats-item:not(:last-child)::after {
+        display: none;
+      }
+
+      .laptop-display {
+        min-height: 230px;
+      }
     }
-}
-</style>
+  </style>
 </head>
 
-<body>
+<body class="bg-white text-slate-800">
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
 
-<header>
-<div class="container nav">
+  <header class="relative z-50 bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="h-[72px] flex items-center justify-between">
 
-    <a href="#home" class="brand">
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3">
+          <div class="w-[190px] sm:w-[230px]">
+            <img
+              src="assets/images/logo-main.jpg"
+              alt="DIN AR"
+              class="logo-main w-full"
+            />
+          </div>
+        </a>
 
-        <!-- Replace this path with your hosted DIN AR logo -->
-        <img
-            src="DINAR-logo.png"
-            alt="DIN AR"
-            class="brand-logo"
-        >
+        <!-- Desktop Navigation -->
+        <nav class="hidden lg:flex items-center gap-7 text-[14px] font-medium">
+          <a href="#home" class="text-dinBlue">Home</a>
+          <a href="#how-it-works" class="hover:text-dinBlue transition">
+            How It Works
+          </a>
+          <a href="#buyers" class="hover:text-dinBlue transition">
+            For Buyers
+          </a>
+          <a href="#sellers" class="hover:text-dinBlue transition">
+            For Sellers
+          </a>
+          <a href="#fees" class="hover:text-dinBlue transition">
+            Fees
+          </a>
+          <a href="#help" class="hover:text-dinBlue transition">
+            Help
+          </a>
 
-        <div class="brand-text">
-            <strong>DIN AR</strong>
-            <span>Payment Protection</span>
-        </div>
-
-    </a>
-
-    <nav class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#buyers">For Buyers</a>
-        <a href="#sellers">For Sellers</a>
-        <a href="#fees">Fees</a>
-        <a href="#help">Help</a>
-    </nav>
-
-    <div class="nav-actions">
-
-        <button class="btn btn-outline"
-                onclick="openAuth('login')">
+          <a
+            href="#login"
+            class="px-5 py-2.5 rounded-lg border border-dinBlue text-dinBlue hover:bg-dinBlue hover:text-white transition"
+          >
             Log In
-        </button>
+          </a>
 
-        <button class="btn btn-primary"
-                onclick="openAuth('signup')">
+          <a
+            href="#signup"
+            class="px-5 py-2.5 rounded-lg bg-dinBlue text-white hover:bg-blue-700 transition shadow-sm"
+          >
             Sign Up
-        </button>
+          </a>
+        </nav>
 
-    </div>
-
-    <button class="menu"
-            onclick="toggleMenu()"
-            aria-label="Menu">
-        ☰
-    </button>
-
-</div>
-</header>
-
-
-<!-- MOBILE NAV -->
-
-<div class="mobile-menu" id="mobileMenu">
-
-    <a href="#home" onclick="closeMenu()">Home</a>
-    <a href="#how-it-works" onclick="closeMenu()">How It Works</a>
-    <a href="#buyers" onclick="closeMenu()">For Buyers</a>
-    <a href="#sellers" onclick="closeMenu()">For Sellers</a>
-    <a href="#fees" onclick="closeMenu()">Fees</a>
-    <a href="#help" onclick="closeMenu()">Help</a>
-
-    <button class="btn btn-outline"
-            onclick="openAuth('login');closeMenu()">
-        Log In
-    </button>
-
-    <button class="btn btn-primary"
-            onclick="openAuth('signup');closeMenu()">
-        Sign Up
-    </button>
-
-</div>
-
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
-<section class="hero" id="home">
-
-<div class="container hero-grid">
-
-    <div>
-
-        <div class="badge">
-            <span class="badge-icon">✓</span>
-            SECURE TRANSACTION COORDINATION
-        </div>
-
-        <h1>
-            DIN AR Trades :
-            <span>
-                Secure Your<br>
-                Verification Order Process
-            </span>
-        </h1>
-
-        <p class="hero-description">
-            A structured transaction-coordination service designed
-            to keep purchase workflows organized, transparent and
-            easy to verify from order placement through completion.
-        </p>
-
-        <div class="hero-buttons">
-
-            <button class="btn btn-primary"
-                    onclick="openAuth('order')">
-                Get Started
-            </button>
-
-            <button class="btn how-btn"
-                    onclick="document.querySelector('#how-it-works').scrollIntoView({behavior:'smooth'})">
-
-                <span class="play">▶</span>
-                How It Works
-
-            </button>
-
-        </div>
-
-        <div class="features">
-
-            <div class="feature">
-
-                <div class="feature-icon">✓</div>
-
-                <div>
-                    <strong>Secure & Trusted</strong>
-                    <small>Clear transaction workflow</small>
-                </div>
-
-            </div>
-
-            <div class="feature">
-
-                <div class="feature-icon">⚙</div>
-
-                <div>
-                    <strong>Simple Process</strong>
-                    <small>Easy for buyers and sellers</small>
-                </div>
-
-            </div>
-
-            <div class="feature">
-
-                <div class="feature-icon">◉</div>
-
-                <div>
-                    <strong>Support</strong>
-                    <small>Transaction assistance</small>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div>
-
-        <div class="protection-card">
-
-            <div class="card-brand">
-
-                <img
-                    src="DINAR-logo.png"
-                    alt="DIN AR Logo"
-                >
-
-            </div>
-
-            <h2>Your Transaction Is Protected</h2>
-
-            <ul class="check-list">
-
-                <li>
-                    <span class="check">✓</span>
-                    Transaction details are recorded
-                </li>
-
-                <li>
-                    <span class="check">✓</span>
-                    Order information is reviewed
-                </li>
-
-                <li>
-                    <span class="check">✓</span>
-                    Buyer confirmation is collected
-                </li>
-
-                <li>
-                    <span class="check">✓</span>
-                    Completion status is documented
-                </li>
-
-            </ul>
-
-        </div>
-
-    </div>
-
-</div>
-</section>
-
-
-<!-- =====================================================
-     TRANSACTION SEARCH
-===================================================== -->
-
-<section class="search-section">
-
-<div class="container">
-
-    <div class="search-box">
-
-        <input
-            type="text"
-            id="transactionSearch"
-            placeholder="Enter Transaction ID"
+        <!-- Mobile Menu -->
+        <button
+          id="menuButton"
+          class="lg:hidden w-11 h-11 rounded-lg border border-slate-200 flex items-center justify-center text-dinDark"
+          aria-label="Open menu"
         >
-
-        <button onclick="searchTransaction()">
-            Search Transaction
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
         </button>
-
-    </div>
-
-    <div id="searchResult" class="result"></div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     HOW IT WORKS
-===================================================== -->
-
-<section class="section" id="how-it-works">
-
-<div class="container">
-
-    <div class="section-title">
-
-        <h2>How It Works</h2>
-
-        <p>
-            A simple and transparent transaction workflow
-        </p>
-
-    </div>
-
-
-    <div class="steps">
-
-        <div class="step">
-
-            <div class="step-icon">
-
-                🛒
-
-                <span class="step-number">
-                    1
-                </span>
-
-            </div>
-
-            <h3>Seller Places Order</h3>
-
-            <p>
-                Seller submits the required transaction,
-                invoice and order information.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-icon">
-
-                ↑
-
-                <span class="step-number">
-                    2
-                </span>
-
-            </div>
-
-            <h3>Buyer Provides Confirmation</h3>
-
-            <p>
-                Buyer reviews the submitted order information
-                and provides the required confirmation.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-icon">
-
-                ✓
-
-                <span class="step-number">
-                    3
-                </span>
-
-            </div>
-
-            <h3>Review & Verification</h3>
-
-            <p>
-                The submitted transaction information is
-                reviewed according to the applicable workflow.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-icon">
-
-                ▣
-
-                <span class="step-number">
-                    4
-                </span>
-
-            </div>
-
-            <h3>Completion</h3>
-
-            <p>
-                After the required confirmation,
-                the transaction can be marked complete.
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     WHY DIN AR
-===================================================== -->
-
-<section class="section why" id="buyers">
-
-<div class="container why-grid">
-
-    <div>
-
-        <h2>
-            Built for Safer<br>
-            Transaction Workflows
-        </h2>
-
-        <ul class="why-list">
-
-            <li>
-                <span class="green-check">✓</span>
-                Clear transaction information
-            </li>
-
-            <li>
-                <span class="green-check">✓</span>
-                Organized order process
-            </li>
-
-            <li>
-                <span class="green-check">✓</span>
-                Transaction status visibility
-            </li>
-
-            <li>
-                <span class="green-check">✓</span>
-                Documented buyer confirmation
-            </li>
-
-            <li>
-                <span class="green-check">✓</span>
-                Dedicated transaction support
-            </li>
-
-        </ul>
-
-        <button
-            class="btn btn-primary"
-            onclick="openAuth('signup')">
-
-            Create Your Account
-
-        </button>
-
-    </div>
-
-
-    <div class="visual">
-
-        <div class="visual-overlay">
-
-            <h3>
-                Trade with confidence.
-                Stay organized.
-            </h3>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     SELLERS
-===================================================== -->
-
-<section class="section" id="sellers">
-
-<div class="container">
-
-    <div class="section-title">
-
-        <h2>For Sellers</h2>
-
-        <p>
-            Submit and track the required transaction information
-            through one organized workflow.
-        </p>
-
-    </div>
-
-
-    <div class="info-grid">
-
-        <div class="info-card">
-
-            <h3>Place a Transaction</h3>
-
-            <p>
-                Start an order by providing the information
-                required for transaction review.
-            </p>
-
-            <ul class="info-list">
-
-                <li>PayPal email</li>
-
-                <li>Invoice information</li>
-
-                <li>Product name</li>
-
-                <li>Exact transaction amount</li>
-
-                <li>Product website and link</li>
-
-            </ul>
-
-            <br>
-
-            <button
-                class="btn btn-primary"
-                onclick="openAuth('order')">
-
-                Place Order
-
-            </button>
-
-        </div>
-
-
-        <div class="info-card">
-
-            <h3>Track Your Transaction</h3>
-
-            <p>
-                Use the transaction ID to review the information
-                associated with an order.
-            </p>
-
-            <ul class="info-list">
-
-                <li>Transaction ID</li>
-
-                <li>Order status</li>
-
-                <li>Submitted information</li>
-
-                <li>Buyer confirmation status</li>
-
-                <li>Completion status</li>
-
-            </ul>
-
-            <br>
-
-            <button
-                class="btn btn-outline"
-                onclick="document.querySelector('#transactionSearch').focus()">
-
-                Search Transaction
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     FEES
-===================================================== -->
-
-<section class="section why" id="fees">
-
-<div class="container">
-
-    <div class="section-title">
-
-        <h2>Fees</h2>
-
-        <p>
-            Applicable service fees should be displayed clearly
-            before an order is submitted.
-        </p>
-
-    </div>
-
-
-    <div class="fee-box">
-
-        <h3>
-            Transparent Pricing
-        </h3>
-
-        <p>
-            Add your actual DIN AR service-fee structure here.
-            The final fee should be shown to the seller before
-            transaction confirmation.
-        </p>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     HELP
-===================================================== -->
-
-<section class="section" id="help">
-
-<div class="container">
-
-    <div class="section-title">
-
-        <h2>Need Help?</h2>
-
-        <p>
-            Contact DIN AR support regarding a transaction,
-            order or account-related issue.
-        </p>
-
-    </div>
-
-
-    <div style="
-        max-width:600px;
-        margin:auto;
-        text-align:center;
-    ">
-
-        <button
-            class="btn btn-primary"
-            onclick="openAuth('support')">
-
-            Contact Support
-
-        </button>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     CTA
-===================================================== -->
-
-<section class="cta">
-
-<div class="container">
-
-    <h2>
-        Ready to Get Started?
-    </h2>
-
-    <p>
-        Create an account and manage your transaction workflow
-        through DIN AR.
-    </p>
-
-    <button
-        class="btn"
-        onclick="openAuth('signup')">
-
-        Create Your Account
-
-    </button>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer>
-
-<div class="container">
-
-    <div class="footer-grid">
-
-        <div>
-
-            <a href="#home" class="brand">
-
-                <img
-                    src="DINAR-logo.png"
-                    alt="DIN AR"
-                    class="brand-logo"
-                >
-
-                <div class="brand-text">
-
-                    <strong>DIN AR</strong>
-
-                    <span>
-                        Payment Protection
-                    </span>
-
-                </div>
-
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav
+        id="mobileMenu"
+        class="hidden lg:hidden pb-5"
+      >
+        <div class="flex flex-col gap-1 text-sm font-medium">
+          <a href="#home" class="px-4 py-3 rounded-lg bg-blue-50 text-dinBlue">
+            Home
+          </a>
+          <a href="#how-it-works" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+            How It Works
+          </a>
+          <a href="#buyers" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+            For Buyers
+          </a>
+          <a href="#sellers" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+            For Sellers
+          </a>
+          <a href="#fees" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+            Fees
+          </a>
+          <a href="#help" class="px-4 py-3 rounded-lg hover:bg-slate-50">
+            Help
+          </a>
+
+          <div class="flex gap-3 pt-3">
+            <a
+              href="#login"
+              class="flex-1 text-center px-4 py-3 rounded-lg border border-dinBlue text-dinBlue"
+            >
+              Log In
             </a>
 
-            <p style="
-                color:#718096;
-                font-size:12px;
-                margin-top:14px;
-                max-width:230px;
-            ">
-                Transaction coordination and payment
-                workflow services by DIN AR.
+            <a
+              href="#signup"
+              class="flex-1 text-center px-4 py-3 rounded-lg bg-dinBlue text-white"
+            >
+              Sign Up
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
+
+  <main id="home">
+
+    <section class="relative overflow-hidden bg-gradient-to-br from-[#f4faff] via-white to-[#edf8ff]">
+      <div class="hero-bg"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-5 lg:px-8 py-14 lg:py-20">
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          <!-- Hero Content -->
+          <div>
+
+            <div
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100/80 text-dinDark text-xs sm:text-sm font-bold mb-6"
+            >
+              <span class="w-7 h-7 rounded-full bg-dinBlue text-white flex items-center justify-center">
+                ✓
+              </span>
+
+              SECURE ESCROW PAYMENTS
+            </div>
+
+            <h1
+              class="hero-title text-[48px] sm:text-[58px] lg:text-[64px] font-black tracking-[-2.5px] text-black leading-[1.02]"
+            >
+              Verified Purchase Trades:
+              <span class="block">
+                Buy &amp; Sell with Confidence
+              </span>
+            </h1>
+
+            <p class="mt-7 max-w-2xl text-[17px] sm:text-[19px] leading-7 text-slate-600">
+              A safe and simple escrow service for verified purchase
+              transactions. Your payment is protected until the deal is completed.
             </p>
 
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 mt-8">
+
+              <a
+                href="#signup"
+                class="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-dinBlue text-white font-bold text-[16px] shadow-lg shadow-blue-200 hover:bg-blue-700 transition"
+              >
+                Get Started
+              </a>
+
+              <a
+                href="#how-it-works"
+                class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg bg-white border border-slate-200 text-dinDark font-bold text-[16px] hover:border-dinBlue transition"
+              >
+                <span class="w-6 h-6 rounded-full bg-dinBlue text-white flex items-center justify-center text-xs">
+                  ▶
+                </span>
+                How It Works
+              </a>
+
+            </div>
+
+            <!-- Hero Features -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-7 mt-10">
+
+              <div class="flex items-center gap-2">
+                <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-dinBlue text-xl">
+                  ✓
+                </div>
+                <div>
+                  <div class="font-bold text-sm text-dinDark">
+                    Secure &amp; Trusted
+                  </div>
+                  <div class="text-xs text-slate-500">
+                    Funds protected
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-dinBlue text-xl">
+                  ⚙
+                </div>
+                <div>
+                  <div class="font-bold text-sm text-dinDark">
+                    Simple Process
+                  </div>
+                  <div class="text-xs text-slate-500">
+                    Easy for everyone
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-dinBlue text-xl">
+                  ♧
+                </div>
+                <div>
+                  <div class="font-bold text-sm text-dinDark">
+                    Dispute Support
+                  </div>
+                  <div class="text-xs text-slate-500">
+                    Here to help
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- Protection Card -->
+          <div class="relative flex justify-center lg:justify-end">
+
+            <div
+              class="absolute -top-6 -right-2 hidden sm:block text-dinDark rotate-[-8deg]"
+            >
+              <div class="text-lg font-bold italic">
+                Trade with Trust
+              </div>
+
+              <svg
+                width="110"
+                height="55"
+                viewBox="0 0 110 55"
+                fill="none"
+              >
+                <path
+                  d="M5 20 C35 50 75 50 100 12"
+                  stroke="#092e69"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M91 9 L101 12 L94 21"
+                  stroke="#092e69"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+
+
+            <div
+              class="w-full max-w-[430px] rounded-3xl bg-white border border-slate-100 p-7 sm:p-9 shadow-card"
+            >
+
+              <div class="text-center">
+
+                <div
+                  class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-dinBlue text-xs font-bold"
+                >
+                  <span>✓</span>
+                  PAYMENT PROTECTION
+                </div>
+
+                <!-- CSS Shield -->
+                <div class="flex justify-center mt-8">
+                  <div class="shield">
+
+                    <div class="shield-content">
+                      <img
+                        src="assets/images/logo-dn.jpg"
+                        alt="DIN AR Shield Logo"
+                        class="logo-dn w-[88px]"
+                      />
+                    </div>
+
+                  </div>
+                </div>
+
+                <h2 class="mt-7 text-2xl font-extrabold text-dinDark">
+                  Secure Payments
+                </h2>
+
+                <p class="mt-2 text-sm text-slate-500">
+                  A simple demo protection flow for purchase transactions.
+                </p>
+
+              </div>
+
+              <!-- Card checklist -->
+              <div class="mt-7 space-y-4">
+
+                <div class="flex gap-3 items-center">
+                  <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">
+                    ✓
+                  </span>
+                  <span class="text-sm font-medium">
+                    Funds held securely
+                  </span>
+                </div>
+
+                <div class="flex gap-3 items-center">
+                  <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">
+                    ✓
+                  </span>
+                  <span class="text-sm font-medium">
+                    Seller completes order
+                  </span>
+                </div>
+
+                <div class="flex gap-3 items-center">
+                  <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">
+                    ✓
+                  </span>
+                  <span class="text-sm font-medium">
+                    Buyer confirms receipt
+                  </span>
+                </div>
+
+                <div class="flex gap-3 items-center">
+                  <span class="w-7 h-7 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">
+                    ✓
+                  </span>
+                  <span class="text-sm font-medium">
+                    Release after completion
+                  </span>
+                </div>
+
+              </div>
+
+              <a
+                href="#how-it-works"
+                class="mt-8 block w-full text-center bg-dinBlue text-white font-bold py-3.5 rounded-xl hover:bg-blue-700 transition"
+              >
+                View Process
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+         ===================================================== -->
+
+    <section
+      id="how-it-works"
+      class="py-16 lg:py-20 bg-white"
+    >
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+        <div class="text-center max-w-2xl mx-auto">
+          <h2 class="text-[36px] sm:text-[44px] font-black text-dinDark tracking-tight">
+            How We Works
+          </h2>
+
+          <p class="mt-3 text-slate-500 text-lg">
+            A simple and secure process for everyone
+          </p>
         </div>
 
 
+        <div class="grid md:grid-cols-4 gap-10 md:gap-5 mt-14">
+
+          <!-- Step 1 -->
+          <div class="relative text-center">
+
+            <div class="flex justify-center">
+              <div class="process-icon">
+                🛒
+              </div>
+            </div>
+
+            <div class="flex justify-center -mt-1">
+              <span class="step-number">1</span>
+            </div>
+
+            <h3 class="mt-4 text-lg font-extrabold text-dinDark">
+              Seller Places Order
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-slate-500 max-w-[230px] mx-auto">
+              Seller makes a payment and funds are securely held during the demo process.
+            </p>
+
+            <!-- Arrow -->
+            <div class="hidden md:block absolute top-9 -right-5 text-3xl text-slate-300">
+              →
+            </div>
+
+          </div>
+
+
+          <!-- Step 2 -->
+          <div class="relative text-center">
+
+            <div class="flex justify-center">
+              <div class="process-icon">
+                ↑
+              </div>
+            </div>
+
+            <div class="flex justify-center -mt-1">
+              <span class="step-number">2</span>
+            </div>
+
+            <h3 class="mt-4 text-lg font-extrabold text-dinDark">
+              Buyer Uploads Verification
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-slate-500 max-w-[230px] mx-auto">
+              Buyer submits order confirmation information for the process.
+            </p>
+
+            <div class="hidden md:block absolute top-9 -right-5 text-3xl text-slate-300">
+              →
+            </div>
+
+          </div>
+
+
+          <!-- Step 3 -->
+          <div class="relative text-center">
+
+            <div class="flex justify-center">
+              <div class="process-icon">
+                ✓
+              </div>
+            </div>
+
+            <div class="flex justify-center -mt-1">
+              <span class="step-number">3</span>
+            </div>
+
+            <h3 class="mt-4 text-lg font-extrabold text-dinDark">
+              System Verification
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-slate-500 max-w-[230px] mx-auto">
+              Transaction information can be reviewed before the next step.
+            </p>
+
+            <div class="hidden md:block absolute top-9 -right-5 text-3xl text-slate-300">
+              →
+            </div>
+
+          </div>
+
+
+          <!-- Step 4 -->
+          <div class="text-center">
+
+            <div class="flex justify-center">
+              <div class="process-icon">
+                ▣
+              </div>
+            </div>
+
+            <div class="flex justify-center -mt-1">
+              <span class="step-number">4</span>
+            </div>
+
+            <h3 class="mt-4 text-lg font-extrabold text-dinDark">
+              Payout Released
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-slate-500 max-w-[230px] mx-auto">
+              Funds may be released after the agreed transaction conditions are completed.
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         WHY CHOOSE
+         ===================================================== -->
+
+    <section class="py-16 bg-[#f5faff]">
+
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+
+          <div>
+
+            <h2 class="text-3xl sm:text-4xl font-black text-dinDark">
+              Why Choose Our Escrow?
+            </h2>
+
+            <div class="mt-7 space-y-5">
+
+              <div class="flex gap-3">
+                <span class="text-green-500 text-xl">●</span>
+                <p class="text-slate-600">
+                  Designed for safer purchase transactions.
+                </p>
+              </div>
+
+              <div class="flex gap-3">
+                <span class="text-green-500 text-xl">●</span>
+                <p class="text-slate-600">
+                  A structured process for buyers and sellers.
+                </p>
+              </div>
+
+              <div class="flex gap-3">
+                <span class="text-green-500 text-xl">●</span>
+                <p class="text-slate-600">
+                  Clear transaction status and process steps.
+                </p>
+              </div>
+
+              <div class="flex gap-3">
+                <span class="text-green-500 text-xl">●</span>
+                <p class="text-slate-600">
+                  Transparent dispute workflow.
+                </p>
+              </div>
+
+              <div class="flex gap-3">
+                <span class="text-green-500 text-xl">●</span>
+                <p class="text-slate-600">
+                  Dedicated support experience.
+                </p>
+              </div>
+
+            </div>
+
+            <a
+              href="#signup"
+              class="inline-block mt-7 px-7 py-3.5 bg-dinBlue text-white rounded-lg font-bold hover:bg-blue-700 transition"
+            >
+              Create Your Account
+            </a>
+
+          </div>
+
+
+          <!-- Laptop + Phone Demo -->
+          <div class="relative min-h-[400px] flex items-center justify-center">
+
+            <!-- Laptop -->
+            <div class="laptop">
+
+              <div class="laptop-screen">
+
+                <div class="laptop-display">
+
+                  <div class="flex justify-between items-center">
+                    <div class="font-extrabold text-dinDark">
+                      Secure Payments
+                    </div>
+
+                    <span class="px-3 py-1 rounded-full bg-green-100 text-green-600 text-xs font-bold">
+                      DEMO
+                    </span>
+                  </div>
+
+                  <div class="mt-7 grid grid-cols-2 gap-3">
+
+                    <div class="bg-white rounded-xl p-4 shadow-sm">
+                      <div class="text-xs text-slate-400">
+                        Transaction
+                      </div>
+                      <div class="font-bold text-dinDark mt-1">
+                        #DIN-00001
+                      </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-4 shadow-sm">
+                      <div class="text-xs text-slate-400">
+                        Status
+                      </div>
+                      <div class="font-bold text-green-600 mt-1">
+                        Protected
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="mt-4 bg-white rounded-xl p-4 shadow-sm">
+
+                    <div class="flex justify-between text-sm">
+                      <span>Payment process</span>
+                      <span class="font-bold text-dinBlue">
+                        75%
+                      </span>
+                    </div>
+
+                    <div class="mt-3 h-2 rounded-full bg-slate-100 overflow-hidden">
+                      <div class="h-full w-3/4 bg-dinBlue rounded-full"></div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="laptop-base"></div>
+
+            </div>
+
+
+            <!-- Floating Phone -->
+            <div class="absolute -bottom-10 -right-2 sm:right-0">
+
+              <div class="phone">
+
+                <div class="phone-screen">
+
+                  <div class="phone-notch"></div>
+
+                  <div class="p-5 pt-9">
+
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="assets/images/logo-d-arrow.jpg"
+                        alt=""
+                        class="logo-arrow w-10 h-10"
+                      />
+
+                      <div>
+                        <div class="font-black text-dinDark text-sm">
+                          DIN AR
+                        </div>
+
+                        <div class="text-[9px] text-slate-500">
+                          Payment Protection
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mt-7 bg-blue-50 rounded-2xl p-4">
+
+                      <div class="text-xs text-dinBlue font-bold">
+                        SECURE PAYMENT
+                      </div>
+
+                      <div class="mt-2 text-xl font-black text-dinDark">
+                        Protected
+                      </div>
+
+                      <div class="mt-3 flex justify-center">
+                        <div class="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-3xl">
+                          ✓
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="mt-4 space-y-2">
+
+                      <div class="h-9 rounded-lg bg-white border border-slate-100"></div>
+                      <div class="h-9 rounded-lg bg-white border border-slate-100"></div>
+                      <div class="h-9 rounded-lg bg-white border border-slate-100"></div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         STATS BAR
+         ===================================================== -->
+
+    <section class="bg-[#062d68] text-white">
+
+      <div class="max-w-7xl mx-auto">
+
+        <div class="grid grid-cols-2 md:grid-cols-4">
+
+          <div class="stats-item px-5 py-7 sm:py-8 flex items-center justify-center gap-3">
+
+            <div class="text-3xl text-blue-300">
+              ♟
+            </div>
+
+            <div>
+              <div class="text-xl sm:text-2xl font-black">
+                10K+
+              </div>
+
+              <div class="text-xs sm:text-sm text-blue-100">
+                Active Traders
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="stats-item px-5 py-7 sm:py-8 flex items-center justify-center gap-3">
+
+            <div class="text-3xl text-blue-300">
+              $
+            </div>
+
+            <div>
+              <div class="text-xl sm:text-2xl font-black">
+                $20M+
+              </div>
+
+              <div class="text-xs sm:text-sm text-blue-100">
+                Transactions Secured
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="stats-item px-5 py-7 sm:py-8 flex items-center justify-center gap-3">
+
+            <div class="text-3xl text-blue-300">
+              ✓
+            </div>
+
+            <div>
+              <div class="text-xl sm:text-2xl font-black">
+                99.9%
+              </div>
+
+              <div class="text-xs sm:text-sm text-blue-100">
+                Success Rate
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="stats-item px-5 py-7 sm:py-8 flex items-center justify-center gap-3">
+
+            <div class="text-3xl text-blue-300">
+              ♧
+            </div>
+
+            <div>
+              <div class="text-xl sm:text-2xl font-black">
+                24/7
+              </div>
+
+              <div class="text-xs sm:text-sm text-blue-100">
+                Dedicated Support
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         DEMO CTA
+         ===================================================== -->
+
+    <section
+      id="signup"
+      class="py-16 lg:py-20 bg-white"
+    >
+
+      <div class="max-w-5xl mx-auto px-5">
+
+        <div
+          class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#062d68] to-[#0b67db] p-8 sm:p-12 text-white text-center"
+        >
+
+          <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-white/10"></div>
+          <div class="absolute -bottom-24 -left-20 w-72 h-72 rounded-full bg-cyan-400/10"></div>
+
+          <div class="relative">
+
+            <div class="flex justify-center mb-5">
+              <img
+                src="assets/images/logo-dn.jpg"
+                alt="DIN AR"
+                class="logo-dn w-[110px] bg-white rounded-xl p-2"
+              />
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl font-black">
+              Trade safely. Stay protected.
+            </h2>
+
+            <p class="mt-4 text-blue-100 max-w-2xl mx-auto">
+              Explore the demo experience and customize this landing page
+              with your own legitimate business information.
+            </p>
+
+            <button
+              class="mt-7 px-8 py-3.5 rounded-xl bg-white text-dinBlue font-bold hover:bg-blue-50 transition"
+            >
+              Get Started
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <footer class="bg-white border-t border-slate-100">
+
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 pt-12 pb-6">
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <!-- Brand -->
         <div>
 
-            <div class="footer-title">
-                Company
-            </div>
+          <img
+            src="assets/images/logo-main.jpg"
+            alt="DIN AR"
+            class="logo-main w-[180px]"
+          />
 
-            <ul class="footer-links">
-
-                <li>
-                    <a href="#home">
-                        About Us
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#home">
-                        Careers
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#home">
-                        Blog
-                    </a>
-                </li>
-
-            </ul>
+          <p class="mt-3 text-sm text-slate-500 max-w-[220px]">
+            Payment Protection
+          </p>
 
         </div>
 
 
+        <!-- Company -->
         <div>
 
-            <div class="footer-title">
-                Support
-            </div>
+          <h3 class="font-extrabold text-dinDark">
+            Company
+          </h3>
 
-            <ul class="footer-links">
-
-                <li>
-                    <a href="#help">
-                        Help Center
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#help">
-                        Support
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#help">
-                        Contact Us
-                    </a>
-                </li>
-
-            </ul>
+          <div class="mt-4 space-y-2 text-sm text-slate-500">
+            <a href="#" class="block hover:text-dinBlue">About Us</a>
+            <a href="#" class="block hover:text-dinBlue">Careers</a>
+            <a href="#" class="block hover:text-dinBlue">Blog</a>
+          </div>
 
         </div>
 
 
+        <!-- Support -->
+        <div id="help">
+
+          <h3 class="font-extrabold text-dinDark">
+            Support
+          </h3>
+
+          <div class="mt-4 space-y-2 text-sm text-slate-500">
+            <a href="#" class="block hover:text-dinBlue">Help Center</a>
+            <a href="#" class="block hover:text-dinBlue">Dispute Center</a>
+            <a href="#" class="block hover:text-dinBlue">Contact Us</a>
+          </div>
+
+        </div>
+
+
+        <!-- Legal / Social -->
         <div>
 
-            <div class="footer-title">
-                Legal
-            </div>
+          <h3 class="font-extrabold text-dinDark">
+            Legal
+          </h3>
 
-            <ul class="footer-links">
+          <div class="mt-4 space-y-2 text-sm text-slate-500">
+            <a href="#" class="block hover:text-dinBlue">Terms of Service</a>
+            <a href="#" class="block hover:text-dinBlue">Privacy Policy</a>
+            <a href="#" class="block hover:text-dinBlue">Cookie Policy</a>
+          </div>
 
-                <li>
-                    <a href="#">
-                        Terms of Service
-                    </a>
-                </li>
+          <div class="mt-5 flex gap-3">
 
-                <li>
-                    <a href="#">
-                        Privacy Policy
-                    </a>
-                </li>
+            <a
+              href="#"
+              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold hover:bg-dinBlue hover:text-white transition"
+            >
+              f
+            </a>
 
-                <li>
-                    <a href="#">
-                        Cookie Policy
-                    </a>
-                </li>
+            <a
+              href="#"
+              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold hover:bg-dinBlue hover:text-white transition"
+            >
+              X
+            </a>
 
-            </ul>
+            <a
+              href="#"
+              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold hover:bg-dinBlue hover:text-white transition"
+            >
+              in
+            </a>
 
-        </div>
+            <a
+              href="#"
+              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold hover:bg-dinBlue hover:text-white transition"
+            >
+              ▶
+            </a>
 
-
-        <div>
-
-            <div class="footer-title">
-                Follow Us
-            </div>
-
-            <div class="socials">
-
-                <a href="#" class="social">
-                    f
-                </a>
-
-                <a href="#" class="social">
-                    X
-                </a>
-
-                <a href="#" class="social">
-                    in
-                </a>
-
-                <a href="#" class="social">
-                    ▶
-                </a>
-
-            </div>
+          </div>
 
         </div>
 
-    </div>
+      </div>
 
 
-    <div class="footer-bottom">
+      <div class="mt-10 pt-5 border-t border-slate-100 flex flex-col sm:flex-row justify-between gap-3 text-xs text-slate-400">
 
         <span>
-            © 2026 DIN AR. All rights reserved.
+          © 2026 DIN AR Escrow System. All rights reserved.
         </span>
 
         <span>
-            Safer Trades. Stronger Communities.
+          Safer Trades. Stronger Communities.
         </span>
 
+      </div>
+
     </div>
+  </footer>
 
-</div>
 
-</footer>
+  <!-- =====================================================
+       MOBILE MENU SCRIPT
+       ===================================================== -->
 
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-<!-- =====================================================
-     AUTH / ORDER MODAL
-===================================================== -->
-
-<div class="modal" id="modal">
-
-<div class="modal-box">
-
-    <h2 id="modalTitle">
-        Create Account
-    </h2>
-
-    <p id="modalDescription">
-        Enter the required information below.
-    </p>
-
-
-    <form id="mainForm"
-          onsubmit="submitForm(event)">
-
-        <div class="input-group">
-
-            <label>
-                Email Address
-            </label>
-
-            <input
-                class="input"
-                type="email"
-                required
-                placeholder="name@example.com"
-            >
-
-        </div>
-
-
-        <div
-            class="input-group"
-            id="productField"
-            style="display:none;">
-
-            <label>
-                Product Name
-            </label>
-
-            <input
-                class="input"
-                type="text"
-                placeholder="Product name"
-            >
-
-        </div>
-
-
-        <div
-            class="input-group"
-            id="amountField"
-            style="display:none;">
-
-            <label>
-                Exact Amount
-            </label>
-
-            <input
-                class="input"
-                type="number"
-                step="0.01"
-                placeholder="0.00"
-            >
-
-        </div>
-
-
-        <div
-            class="input-group"
-            id="paypalField"
-            style="display:none;">
-
-            <label>
-                PayPal Email
-            </label>
-
-            <input
-                class="input"
-                type="email"
-                placeholder="PayPal email"
-            >
-
-        </div>
-
-
-        <div
-            class="input-group"
-            id="linkField"
-            style="display:none;">
-
-            <label>
-                Product Website / Link
-            </label>
-
-            <input
-                class="input"
-                type="url"
-                placeholder="https://example.com/product"
-            >
-
-        </div>
-
-
-        <div
-            class="input-group"
-            id="messageField"
-            style="display:none;">
-
-            <label>
-                Message
-            </label>
-
-            <textarea
-                class="input"
-                placeholder="Describe your request..."
-            ></textarea>
-
-        </div>
-
-
-        <div class="modal-actions">
-
-            <button
-                type="button"
-                class="btn close"
-                onclick="closeModal()">
-
-                Cancel
-
-            </button>
-
-            <button
-                type="submit"
-                class="btn btn-primary">
-
-                Continue
-
-            </button>
-
-        </div>
-
-    </form>
-
-</div>
-
-</div>
-
-
-<script>
-
-/* =====================================================
-   MOBILE MENU
-===================================================== */
-
-function toggleMenu(){
-
-    document
-        .getElementById("mobileMenu")
-        .classList.toggle("active");
-
-}
-
-function closeMenu(){
-
-    document
-        .getElementById("mobileMenu")
-        .classList.remove("active");
-
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-let currentMode = "";
-
-function openAuth(mode){
-
-    currentMode = mode;
-
-    const modal =
-        document.getElementById("modal");
-
-    const title =
-        document.getElementById("modalTitle");
-
-    const description =
-        document.getElementById("modalDescription");
-
-    const productField =
-        document.getElementById("productField");
-
-    const amountField =
-        document.getElementById("amountField");
-
-    const paypalField =
-        document.getElementById("paypalField");
-
-    const linkField =
-        document.getElementById("linkField");
-
-    const messageField =
-        document.getElementById("messageField");
-
-
-    productField.style.display = "none";
-    amountField.style.display = "none";
-    paypalField.style.display = "none";
-    linkField.style.display = "none";
-    messageField.style.display = "none";
-
-
-    if(mode === "login"){
-
-        title.textContent =
-            "Log In";
-
-        description.textContent =
-            "Log in to your DIN AR account.";
-
-    }
-
-
-    else if(mode === "signup"){
-
-        title.textContent =
-            "Create Account";
-
-        description.textContent =
-            "Create your DIN AR account.";
-
-    }
-
-
-    else if(mode === "order"){
-
-        title.textContent =
-            "Place Transaction";
-
-        description.textContent =
-            "Submit the required transaction information.";
-
-        productField.style.display = "block";
-        amountField.style.display = "block";
-        paypalField.style.display = "block";
-        linkField.style.display = "block";
-
-    }
-
-
-    else if(mode === "support"){
-
-        title.textContent =
-            "Contact Support";
-
-        description.textContent =
-            "Send a transaction-related support request.";
-
-        messageField.style.display = "block";
-
-    }
-
-
-    modal.classList.add("active");
-
-}
-
-
-function closeModal(){
-
-    document
-        .getElementById("modal")
-        .classList.remove("active");
-
-}
-
-
-document
-    .getElementById("modal")
-    .addEventListener("click",function(e){
-
-        if(e.target === this){
-
-            closeModal();
-
-        }
-
+    menuButton.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
     });
 
-
-/* =====================================================
-   FORM
-===================================================== */
-
-function submitForm(event){
-
-    event.preventDefault();
-
-    /*
-       IMPORTANT:
-       This front-end form does not create a real account,
-       payment or escrow transaction.
-
-       Connect this function to your secure backend/API.
-    */
-
-    alert(
-        "Your request has been submitted for processing."
-    );
-
-    closeModal();
-
-}
-
-
-/* =====================================================
-   TRANSACTION SEARCH
-===================================================== */
-
-function searchTransaction(){
-
-    const input =
-        document
-        .getElementById("transactionSearch")
-        .value
-        .trim();
-
-    const result =
-        document
-        .getElementById("searchResult");
-
-
-    if(!input){
-
-        result.className =
-            "result error";
-
-        result.innerHTML =
-            "<h4>Transaction ID Required</h4>" +
-            "<p>Please enter a transaction ID.</p>";
-
-        return;
-
-    }
-
-
-    /*
-       DEMO SEARCH RESULT
-
-       Replace this section with a secure backend/API
-       lookup before using this feature in production.
-    */
-
-    result.className =
-        "result success";
-
-    result.innerHTML = `
-
-        <h4>
-            Transaction Found
-        </h4>
-
-        <div class="result-row">
-            <span>Transaction ID</span>
-            <strong>${escapeHTML(input)}</strong>
-        </div>
-
-        <div class="result-row">
-            <span>Status</span>
-            <span class="status">
-                Pending Review
-            </span>
-        </div>
-
-        <div class="result-row">
-            <span>Order Information</span>
-            <span>
-                Available after verification
-            </span>
-        </div>
-
-        <div style="
-            margin-top:12px;
-            font-size:12px;
-            color:#718096;
-        ">
-            This page displays transaction information
-            supplied by the authorized system.
-        </div>
-
-    `;
-
-}
-
-
-function escapeHTML(value){
-
-    return value
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-</script>
+    // Close mobile menu after clicking a link
+    document.querySelectorAll("#mobileMenu a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+      });
+    });
+  </script>
 
 </body>
 </html>
