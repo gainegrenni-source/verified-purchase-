@@ -811,12 +811,15 @@ button{
 <div class="toast" id="toast">Action completed</div>
 
 <script>
-// পেজ লোড হওয়ার সাথে সাথেই চেক করবে ইউজার আগে থেকেই লগইন করা কি না
+// পেজ লোড হওয়ার সময় চেক করবে আগে লগইন করা ছিল কিনা
 window.addEventListener('DOMContentLoaded', () => {
     const isLoggedIn = localStorage.getItem('din_ar_logged_in');
     if (isLoggedIn === 'true') {
         document.getElementById('landing-page').classList.remove('active');
         document.getElementById('dashboard-page').classList.add('active');
+    } else {
+        document.getElementById('landing-page').classList.add('active');
+        document.getElementById('dashboard-page').classList.remove('active');
     }
 });
 
@@ -841,7 +844,7 @@ function switchModalTab(mode) {
         signupBtn.classList.remove('active');
         nameField.style.display = 'none';
         authTitle.textContent = 'Login to Account';
-        submitBtn.textContent = 'Login';
+        submitBtn.textContent, submitBtn.textContent = 'Login';
     } else {
         signupBtn.classList.add('active');
         loginBtn.classList.remove('active');
@@ -854,7 +857,7 @@ function switchModalTab(mode) {
 function handleAuthSubmit(e) {
     e.preventDefault();
     
-    // লোকাল স্টোরেজে লগইন স্টেট সেভ করে রাখা হচ্ছে যাতে রিফ্রেশ করলে উড়ে না যায়
+    // লগইন সফল হলে স্টোরেজে সেভ হবে এবং ড্যাশবোর্ডে যাবে
     localStorage.setItem('din_ar_logged_in', 'true');
     
     closeAuthModal();
@@ -865,7 +868,7 @@ function handleAuthSubmit(e) {
 }
 
 function handleLogout() {
-    // লগআউট করার সময় লোকাল স্টোরেজ থেকে ডাটা মুছে ফেলা হবে
+    // লগআউট করলে স্টোরেজ ক্লিয়ার হয়ে ল্যান্ডিং পেজে ফিরে আসবে
     localStorage.removeItem('din_ar_logged_in');
     
     document.getElementById('dashboard-page').classList.remove('active');
