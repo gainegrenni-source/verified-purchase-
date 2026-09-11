@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DIN AR escrow payment protection demo">
+<title>DIN AR Escrow System — Payment Protection</title>
+
+<style>
+  :root{
+    --navy:#071b3a;
+    --blue:#0878ee;
+    --blue2:#0b8af5;
+    --sky:#eaf7ff;
+    --sky2:#dff2ff;
+    --text:#233957;
+    --muted:#61738c;
+    --white:#fff;
+    --green:#35b779;
+    --border:#d9e4ef;
+    --shadow:0 10px 30px rgba(10,54,100,.08);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--navy);
+    background:#fff;
+    overflow-x:hidden;
+  }
+  button,a{font:inherit}
+  a{text-decoration:none;color:inherit}
+
+  /* HEADER */
+  .site-header{
+    height:78px;
+    background:#fff;
+    border-bottom:1px solid #e6edf4;
+    display:flex;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  .header-inner{
+    width:min(1180px,100%);
+    margin:auto;
+    padding:0 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    min-width:0;
+  }
+  .brand-logo{
+    width:62px;
+    height:52px;
+    object-fit:contain;
+    display:block;
+    flex:none;
+  }
+  .brand-copy{min-width:0}
+  .brand-title{
+    margin:0;
+    font-size:24px;
+    line-height:1.05;
+    font-weight:800;
+    letter-spacing:-.7px;
+    white-space:nowrap;
+  }
+  .brand-subtitle{
+    margin:5px 0 0;
+    color:#718096;
+    font-size:14px;
+    line-height:1;
+    font-weight:500;
+  }
+
+  .desktop-nav{
+    display:flex;
+    align-items:center;
+    gap:26px;
+    color:#263e5e;
+    font-size:14px;
+    font-weight:600;
+  }
+  .desktop-nav a:hover{color:var(--blue)}
+  .header-actions{display:flex;gap:10px}
+  .outline-btn,.solid-btn{
+    height:42px;
+    padding:0 19px;
+    border-radius:9px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .outline-btn{background:#fff;border:1px solid #a9c8e7;color:#1269c9}
+  .solid-btn{background:var(--blue);border:1px solid var(--blue);color:#fff}
+
+  .menu-btn{
+    width:48px;height:48px;
+    border:0;background:transparent;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    padding:7px;
+  }
+  .hamburger{width:34px;display:grid;gap:6px}
+  .hamburger span{
+    height:5px;border-radius:99px;background:var(--navy);display:block;
+  }
+
+  /* HERO */
+  .hero{
+    background:linear-gradient(180deg,#eaf7ff 0%,#e7f6ff 100%);
+    padding:58px 28px 38px;
+  }
+  .hero-inner{
+    width:min(1180px,100%);
+    margin:auto;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(380px,520px);
+    align-items:center;
+    gap:58px;
+  }
+  .security-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:9px 18px 9px 10px;
+    border-radius:999px;
+    background:#d9efff;
+    color:#24466e;
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:.1px;
+  }
+  .pill-icon{
+    width:34px;height:34px;border-radius:10px;
+    display:grid;place-items:center;
+    background:var(--blue);
+    color:#fff;
+  }
+  .pill-icon svg{width:19px;height:19px}
+  h1{
+    margin:30px 0 0;
+    font-size:clamp(48px,6vw,76px);
+    line-height:.98;
+    letter-spacing:-3.7px;
+    font-weight:850;
+    max-width:790px;
+  }
+  h1 .accent{color:#0878ee}
+  .hero-copy{
+    margin:25px 0 0;
+    max-width:680px;
+    color:#40546e;
+    font-size:20px;
+    line-height:1.55;
+  }
+  .hero-actions{
+    margin-top:30px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .primary-action,.secondary-action{
+    min-height:56px;
+    border-radius:10px;
+    padding:0 30px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .primary-action{background:var(--blue);color:#fff;border:1px solid var(--blue)}
+  .secondary-action{background:#fff;color:#18375d;border:1px solid #d2e0ec;box-shadow:0 2px 8px rgba(22,66,105,.06)}
+  .play{
+    width:31px;height:31px;border-radius:50%;
+    background:var(--blue);color:#fff;
+    display:grid;place-items:center;
+  }
+  .play svg{width:14px;height:14px;margin-left:2px}
+
+  .hero-visual{
+    min-height:330px;
+    border-radius:24px;
+    background:linear-gradient(145deg,#d7efff,#f5fbff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:26px;
+    overflow:hidden;
+  }
+  .secure-card{
+    width:min(410px,100%);
+    background:#fff;
+    border:1px solid #d9e5ef;
+    border-radius:20px;
+    padding:28px;
+    box-shadow:0 18px 45px rgba(23,82,130,.13);
+  }
+  .secure-card h2{margin:0 0 20px;font-size:27px;letter-spacing:-1px}
+  .check-row{
+    display:flex;align-items:center;gap:12px;
+    margin:14px 0;color:#30445f;font-size:16px;font-weight:700;
+  }
+  .check{
+    width:25px;height:25px;border-radius:50%;
+    background:var(--green);color:#fff;display:grid;place-items:center;flex:none;
+  }
+  .check svg{width:14px;height:14px}
+
+  /* BENEFITS */
+  .benefits{
+    background:#eaf7ff;
+    padding:8px 28px 54px;
+  }
+  .benefits-inner{
+    width:min(1180px,100%);
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+  }
+  .benefit{text-align:center;padding:18px 10px}
+  .benefit-icon{
+    width:72px;height:72px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    background:#d8efff;
+    color:var(--blue);
+    display:grid;place-items:center;
+  }
+  .benefit-icon svg{width:34px;height:34px}
+  .benefit h3{margin:0;font-size:18px;letter-spacing:-.35px}
+  .benefit p{margin:6px 0 0;color:#62748b;font-size:14px}
+
+  /* HOW IT WORKS */
+  .how{
+    background:#fff;
+    padding:72px 28px 80px;
+  }
+  .section-inner{width:min(900px,100%);margin:auto}
+  .section-heading{text-align:center}
+  .section-heading h2{
+    margin:0;font-size:clamp(38px,5vw,56px);
+    letter-spacing:-2.5px;line-height:1.05
+  }
+  .section-heading p{margin:13px auto 0;color:#63758b;font-size:17px}
+  .steps{
+    margin-top:46px;
+    display:grid;
+    gap:18px;
+  }
+  .step{
+    display:grid;
+    grid-template-columns:68px 42px minmax(0,1fr);
+    align-items:center;
+    gap:16px;
+    padding:15px 16px;
+    border:1px solid #e0e9f1;
+    border-radius:17px;
+    background:#fff;
+    box-shadow:0 7px 22px rgba(19,67,107,.055);
+  }
+  .step-icon{
+    width:68px;height:68px;border-radius:50%;
+    background:#e4f5ff;color:var(--blue);
+    display:grid;place-items:center;
+  }
+  .step-icon svg{width:31px;height:31px}
+  .step-number{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--blue);color:#fff;
+    display:grid;place-items:center;
+    font-weight:800;
+  }
+  .step h3{margin:0;font-size:18px}
+  .step p{margin:5px 0 0;color:#667990;font-size:15px;line-height:1.45}
+  .account-action{
+    display:flex;justify-content:center;margin-top:34px;
+  }
+  .account-action a{
+    background:var(--blue);color:#fff;
+    padding:15px 30px;border-radius:10px;font-weight:800;
+  }
+
+  /* FOOTER */
+  footer{
+    background:#0a315c;
+    color:#fff;
+    padding:42px 28px 24px;
+  }
+  .footer-inner{
+    width:min(1180px,100%);
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:25px;
+  }
+  .footer-brand{display:flex;align-items:center;gap:12px}
+  .footer-logo{width:56px;height:46px;object-fit:contain}
+  .footer-brand strong{font-size:20px}
+  .footer-brand small{display:block;color:#bdd0e3;margin-top:3px}
+  .footer-note{color:#bdd0e3;font-size:13px;line-height:1.5;text-align:right}
+
+  /* MOBILE */
+  @media(max-width:850px){
+    .site-header{height:108px;position:relative}
+    .header-inner{padding:0 22px;gap:10px}
+    .brand{gap:12px;flex:1;min-width:0}
+    .brand-logo{width:62px;height:52px}
+    .brand-title{
+      font-size:24px;
+      letter-spacing:-1px;
+      white-space:normal;
+    }
+    .brand-subtitle{font-size:14px;margin-top:6px}
+    .desktop-nav,.header-actions{display:none}
+    .menu-btn{display:flex;flex:none}
+
+    .hero{padding:48px 22px 34px}
+    .hero-inner{display:block}
+    .security-pill{
+      font-size:14px;
+      padding-right:15px;
+      gap:10px;
+    }
+    .pill-icon{width:34px;height:34px}
+    h1{
+      margin-top:44px;
+      font-size:clamp(49px,13.4vw,67px);
+      line-height:1.00;
+      letter-spacing:-3px;
+    }
+    .hero-copy{
+      margin-top:28px;
+      font-size:18px;
+      line-height:1.58;
+    }
+    .hero-actions{
+      margin-top:29px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    .primary-action,.secondary-action{width:100%;min-height:58px}
+    .hero-visual{
+      margin-top:44px;
+      min-height:405px;
+      padding:22px 16px;
+      border-radius:22px;
+    }
+    .secure-card{padding:27px 24px}
+    .secure-card h2{font-size:25px}
+    .check-row{font-size:16px}
+
+    .benefits{padding:10px 18px 42px}
+    .benefits-inner{grid-template-columns:repeat(3,1fr);gap:3px}
+    .benefit{padding:16px 2px}
+    .benefit-icon{width:66px;height:66px}
+    .benefit-icon svg{width:31px;height:31px}
+    .benefit h3{font-size:14px;line-height:1.25}
+    .benefit p{font-size:11px;line-height:1.3}
+
+    .how{padding:57px 22px 65px}
+    .section-heading h2{font-size:42px;letter-spacing:-2px}
+    .section-heading p{font-size:15px;line-height:1.45}
+    .steps{margin-top:30px;gap:13px}
+    .step{
+      grid-template-columns:54px 36px minmax(0,1fr);
+      gap:10px;
+      padding:13px 11px;
+      border-radius:15px;
+    }
+    .step-icon{width:54px;height:54px}
+    .step-icon svg{width:26px;height:26px}
+    .step-number{width:34px;height:34px;font-size:14px}
+    .step h3{font-size:15px;line-height:1.25}
+    .step p{font-size:13px;line-height:1.4}
+    .account-action a{width:100%;text-align:center}
+
+    footer{padding:34px 22px 20px}
+    .footer-inner{display:block}
+    .footer-note{text-align:left;margin-top:18px}
+  }
+
+  @media(max-width:370px){
+    .brand-title{font-size:21px}
+    .brand-logo{width:55px}
+    .menu-btn{width:44px}
+    h1{font-size:47px;letter-spacing:-2.6px}
+    .benefit h3{font-size:12px}
+    .step{grid-template-columns:48px 32px minmax(0,1fr);gap:8px}
+    .step-icon{width:48px;height:48px}
+  }
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#">
+      <img class="brand-logo" src="./logo.png" alt="DIN AR logo">
+      <div class="brand-copy">
+        <h1 class="brand-title" style="font-size:24px;line-height:1.05;margin:0;letter-spacing:-.7px">DIN AR Escrow System</h1>
+        <p class="brand-subtitle">Payment Protection</p>
+      </div>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#how">How It Works</a>
+      <a href="#buyers">For Buyers</a>
+      <a href="#sellers">For Sellers</a>
+      <a href="#fees">Fees</a>
+      <a href="#help">Help</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="outline-btn" type="button">Log In</button>
+      <button class="solid-btn" type="button">Sign Up</button>
+    </div>
+
+    <button class="menu-btn" aria-label="Open menu" type="button" onclick="toggleMenu()">
+      <span class="hamburger"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <div class="security-pill">
+        <span class="pill-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7">
+            <path d="M12 3l7 3v5c0 4.7-3 8.4-7 10-4-1.6-7-5.3-7-10V6l7-3z"/>
+            <path d="m8.5 12 2.2 2.2 4.8-5"/>
+          </svg>
+        </span>
+        SECURE ESCROW PAYMENTS
+      </div>
+
+      <h2 style="margin:30px 0 0;font-size:clamp(48px,6vw,76px);line-height:.98;letter-spacing:-3.7px;font-weight:850;max-width:790px">
+        Verified Purchase Trades:
+        <span class="accent">Buy &amp; Sell with Confidence</span>
+      </h2>
+
+      <p class="hero-copy">
+        A simple escrow workflow designed to help buyers and sellers keep transaction steps clear and organized.
+      </p>
+
+      <div class="hero-actions">
+        <a class="primary-action" href="#how">Get Started</a>
+        <a class="secondary-action" href="#how">
+          <span class="play" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M6.5 4.8 15 10l-8.5 5.2z"/></svg>
+          </span>
+          How It Works
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-label="Escrow workflow illustration">
+      <div class="secure-card">
+        <h2>Secure Payments</h2>
+        <div class="check-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 12 4 4 8-9"/></svg></span>Funds held according to the agreed workflow</div>
+        <div class="check-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 12 4 4 8-9"/></svg></span>Seller completes the order</div>
+        <div class="check-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 12 4 4 8-9"/></svg></span>Buyer confirms receipt</div>
+        <div class="check-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 12 4 4 8-9"/></svg></span>Release follows the agreed terms</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits" aria-label="Benefits">
+  <div class="benefits-inner">
+    <div class="benefit">
+      <div class="benefit-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.7-3 8.4-7 10-4-1.6-7-5.3-7-10V6l7-3z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+      </div>
+      <h3>Secure &amp; Trusted</h3>
+      <p>Clear transaction steps</p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-2.6V20a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1A1.7 1.7 0 0 0 8 15a1.7 1.7 0 0 0-1.6-1H6v-2.6h.4A1.7 1.7 0 0 0 8 10a1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-1.8.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.2H15V5a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2V14h-.2a1.7 1.7 0 0 0-1.6 1z"/></svg>
+      </div>
+      <h3>Simple Process</h3>
+      <p>Easy-to-follow workflow</p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v3a2 2 0 0 0 2 2h1v-5H4zm16 0v3a2 2 0 0 1-2 2h-1v-5h3z"/><path d="M8 18c.7 2 2.1 3 4 3s3.3-1 4-3"/></svg>
+      </div>
+      <h3>Dispute Support</h3>
+      <p>Help with transaction issues</p>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="section-inner">
+    <div class="section-heading">
+      <h2>How Escrow Works</h2>
+      <p>A clear four-step process for a more organized transaction.</p>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 11h10.5l2-8H6.2"/><path d="M8 8h11"/></svg>
+        </div>
+        <div class="step-number">1</div>
+        <div>
+          <h3>Seller Places Order</h3>
+          <p>The transaction details and agreed terms are recorded before the workflow begins.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5"/><path d="M12 17V10"/><path d="m9.5 12.5 2.5-2.5 2.5 2.5"/></svg>
+        </div>
+        <div class="step-number">2</div>
+        <div>
+          <h3>Buyer Uploads Verification</h3>
+          <p>The buyer provides the required order confirmation or verification information.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.7-3 8.4-7 10-4-1.6-7-5.3-7-10V6l7-3z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+        </div>
+        <div class="step-number">3</div>
+        <div>
+          <h3>System Verification</h3>
+          <p>The submitted information is reviewed against the transaction requirements.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+        </div>
+        <div class="step-number">4</div>
+        <div>
+          <h3>Payment Release</h3>
+          <p>Once the agreed conditions are satisfied, the transaction proceeds to its release stage.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="account-action">
+      <a href="#home">Create Your Account</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="./logo.png" alt="DIN AR logo">
+      <div><strong>DIN AR</strong><small>Payment Protection</small></div>
+    </div>
+    <div class="footer-note">
+      Demo / prototype interface — not a payment processor.<br>
+      Use only with accurate business, legal and payment disclosures.
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  alert("Navigation menu — connect these items to your real pages before launch.");
+}
+</script>
+
+</body>
+</html>
