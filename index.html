@@ -189,6 +189,7 @@ button{
   padding:20px;
   border-bottom:1px solid var(--line);
   box-shadow:0 12px 25px rgba(0,0,0,.08);
+  z-index: 1100;
 }
 
 .mobile-nav.open{
@@ -1319,8 +1320,8 @@ footer{
     </footer>
   </main>
 
-  <!-- Logged-In User Interface (Exact reference layout requested) -->
-  <div id="loggedInView" style="display:none; max-width:640px; margin:20px auto; background:#f8fafc; border-radius:24px; box-shadow:0 15px 35px rgba(0,0,0,0.08); overflow:hidden; border:1px solid #e2e8f0;">
+  <!-- Logged-In User Interface with Bottom Navigation Bar -->
+  <div id="loggedInView" style="display:none; max-width:640px; margin:20px auto 90px auto; background:#f8fafc; border-radius:24px; box-shadow:0 15px 35px rgba(0,0,0,0.08); overflow:hidden; border:1px solid #e2e8f0; position:relative;">
     <!-- Top Bar -->
     <div style="background:#fff; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #e2ebf3;">
       <div style="display:flex; align-items:center; gap:10px;">
@@ -1331,7 +1332,7 @@ footer{
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:12px;">
-        <div style="width:38px; height:38px; border-radius:50%; background:#f1f5f9; display:grid; place-items:center; cursor:pointer; color:#334155; position:relative;">
+        <div style="width:38px; height:38px; border-radius:50%; background:#f1f5f9; display:grid; place-items:center; cursor:pointer; color:#334155; position:relative;" onclick="alert('No new notifications')">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
           <span style="position:absolute; top:8px; right:9px; width:8px; height:8px; background:#ef4444; border-radius:50%;"></span>
         </div>
@@ -1340,7 +1341,7 @@ footer{
     </div>
 
     <!-- Scrollable Body Content -->
-    <div style="padding:22px; max-height:calc(100vh - 160px); overflow-y:auto;">
+    <div style="padding:22px; max-height:calc(100vh - 160px); overflow-y:auto; padding-bottom:30px;">
       <!-- Hero Banner -->
       <div style="background:linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%); border-radius:18px; padding:22px; display:flex; justify-content:space-between; align-items:center; border:1px solid #bfdbfe;">
         <div>
@@ -1404,14 +1405,14 @@ footer{
         </div>
       </div>
 
-      <!-- Recent Transactions Section (Exact 6 items requested: 4 Completed with USA flags, 2 Processing/On-going with USA, Italy, UK flags) -->
+      <!-- Recent Transactions Section -->
       <div style="display:flex; justify-content:space-between; align-items:center; margin-top:22px; margin-bottom:10px;">
         <div style="font-size:15px; font-weight:900; color:#07152f;">Recent Transactions</div>
         <div style="font-size:12px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="alert('Viewing all transactions')">View All &gt;</div>
       </div>
 
       <div style="background:#fff; border-radius:14px; border:1px solid #e2e8f0; overflow:hidden;">
-        <!-- TRX 1: Processing (USA Flag) -->
+        <!-- TRX 1 -->
         <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
           <div style="display:flex; align-items:center; gap:12px;">
             <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
@@ -1426,7 +1427,7 @@ footer{
           </div>
         </div>
 
-        <!-- TRX 2: Processing (Italy 🇮🇹 Flag) -->
+        <!-- TRX 2 -->
         <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
           <div style="display:flex; align-items:center; gap:12px;">
             <div style="width:36px; height:36px; border-radius:50%; background:#fef3c7; color:#d97706; display:grid; place-items:center; font-weight:800;">⏳</div>
@@ -1441,7 +1442,7 @@ footer{
           </div>
         </div>
 
-        <!-- TRX 3: On-going / Processing (UK 🇬🇧 Flag) -->
+        <!-- TRX 3 -->
         <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
           <div style="display:flex; align-items:center; gap:12px;">
             <div style="width:36px; height:36px; border-radius:50%; background:#e0f2fe; color:#0369a1; display:grid; place-items:center; font-weight:800;">🔄</div>
@@ -1456,7 +1457,7 @@ footer{
           </div>
         </div>
 
-        <!-- TRX 4: Completed (USA Flag) -->
+        <!-- TRX 4 -->
         <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
           <div style="display:flex; align-items:center; gap:12px;">
             <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
@@ -1471,7 +1472,7 @@ footer{
           </div>
         </div>
 
-        <!-- TRX 5: Completed (USA Flag) -->
+        <!-- TRX 5 -->
         <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f1f5f9;">
           <div style="display:flex; align-items:center; gap:12px;">
             <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
@@ -1486,7 +1487,7 @@ footer{
           </div>
         </div>
 
-        <!-- TRX 6: Completed (USA Flag) -->
+        <!-- TRX 6 -->
         <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between;">
           <div style="display:flex; align-items:center; gap:12px;">
             <div style="width:36px; height:36px; border-radius:50%; background:#dcfce7; color:#16a34a; display:grid; place-items:center; font-weight:800;">✓</div>
@@ -1500,6 +1501,33 @@ footer{
             <span class="status-badge status-success" style="font-size:10px; padding:2px 8px; margin-top:2px;">Completed</span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation Bar (Added as requested) -->
+    <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #e2ebf3; display:grid; grid-template-columns:repeat(5, 1fr); padding:8px 0; z-index:100; border-bottom-left-radius:24px; border-bottom-right-radius:24px;">
+      <div onclick="alert('Home tab selected')" style="text-align:center; cursor:pointer; color:var(--blue);">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <div style="font-size:10px; font-weight:800; margin-top:2px;">Home</div>
+      </div>
+      <div onclick="alert('Transactions tab selected')" style="text-align:center; cursor:pointer; color:#64748b;">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+        <div style="font-size:10px; font-weight:700; margin-top:2px;">Transactions</div>
+      </div>
+      <div onclick="alert('New Trade action')" style="text-align:center; cursor:pointer; margin-top:-18px;">
+        <div style="width:42px; height:42px; background:var(--blue); color:#fff; border-radius:50%; display:grid; place-items:center; margin:0 auto; box-shadow:0 4px 10px rgba(8,124,245,0.4);">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </div>
+        <div style="font-size:10px; font-weight:800; margin-top:2px; color:var(--blue);">New Trade</div>
+      </div>
+      <div onclick="alert('Messages tab selected')" style="text-align:center; cursor:pointer; color:#64748b; position:relative;">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span style="position:absolute; top:2px; right:32%; width:6px; height:6px; background:#ef4444; border-radius:50%;"></span>
+        <div style="font-size:10px; font-weight:700; margin-top:2px;">Messages</div>
+      </div>
+      <div onclick="alert('Profile tab selected')" style="text-align:center; cursor:pointer; color:#64748b;">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <div style="font-size:10px; font-weight:700; margin-top:2px;">Profile</div>
       </div>
     </div>
   </div>
@@ -1542,7 +1570,7 @@ function updateHeaderAndUI(){
   const loggedInView = document.getElementById("loggedInView");
 
   if(isLoggedIn){
-    // Logged in state: No Signup option, show Logout option, home goes to dashboard interface
+    // Logged in state: Show logged in view directly
     publicView.style.display = "none";
     loggedInView.style.display = "block";
 
@@ -1598,6 +1626,7 @@ function updateHeaderAndUI(){
       <button class="btn btn-primary" data-modal="signupModal">Sign Up</button>
     `;
   }
+  mobileNav.classList.remove("open");
   bindDynamicEvents();
 }
 
@@ -1609,13 +1638,8 @@ function handleLogout(){
 }
 
 function scrollToSection(id){
-  if(isLoggedIn){
-    // If logged in, scroll within the logged-in dashboard view or top
-    window.scrollTo({top:0, behavior:'smooth'});
-  } else {
-    const el = document.getElementById(id);
-    if(el) el.scrollIntoView({behavior:'smooth'});
-  }
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth'});
 }
 
 // Mobile Navigation Toggle
@@ -1699,7 +1723,6 @@ function openSignupModal(){
 
 function checkInputType(val){
   const dropdown = document.getElementById("countryCodeDropdown");
-  // If input starts with digits or '+' or has numbers, treat as phone number and show European + China + Japan + Russia codes
   const isNumber = /^[0-9+\s]+$/.test(val) && val.length > 0;
   if(isNumber){
     dropdown.style.display = "block";
@@ -1718,8 +1741,6 @@ function selectCountry(code, name){
 function handleSignupSubmit(e){
   e.preventDefault();
   closeDashboard();
-  // Show Verification Needed message, then login successfully and open dashboard interface
-  alert("Verification Needed: Email/Phone added successfully! Signup successful without code confirmation.");
   localStorage.setItem("dinar_logged_in", "true");
   isLoggedIn = true;
   updateHeaderAndUI();
@@ -1729,7 +1750,6 @@ function handleSignupSubmit(e){
 function handleLoginSubmit(e){
   e.preventDefault();
   closeDashboard();
-  alert("Login successful!");
   localStorage.setItem("dinar_logged_in", "true");
   isLoggedIn = true;
   updateHeaderAndUI();
