@@ -1707,6 +1707,16 @@ button{
     color:#0070ba;
 }
 
+/* PROFILE MENU OVERLAY - keeps the profile view focused without changing page content */
+.profile-menu-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,.96);
+    z-index:450;
+    display:none;
+}
+.profile-menu-overlay.show{display:block;}
+
 /* PROFILE DROPDOWN MENU */
 .profile-dropdown{
     position:absolute;
@@ -1874,6 +1884,137 @@ button{
 .dropdown-item svg{
     width:15px;
     height:15px;
+}
+
+
+/* PROFILE SUBPAGES */
+.profile-page{
+    padding:0 16px 30px;
+    background:#fff;
+}
+.profile-page-header{
+    height:58px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    border-bottom:1px solid #edf0f5;
+    margin:0 -16px 14px;
+}
+.profile-page-header h2{
+    font-size:14px;
+    font-weight:800;
+    color:#102a52;
+}
+.profile-page-back{
+    position:absolute;
+    left:16px;
+    width:32px;
+    height:32px;
+    border:0;
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#102a52;
+    cursor:pointer;
+}
+.profile-page-back svg{width:19px;height:19px;}
+.profile-avatar-large{
+    width:74px;height:74px;border-radius:50%;
+    background:#e3f0ff;color:#173b70;
+    display:flex;align-items:center;justify-content:center;
+    font-size:34px;font-weight:800;
+    margin:10px auto 14px;
+    position:relative;
+}
+.profile-camera{
+    position:absolute;right:-2px;bottom:-1px;
+    width:25px;height:25px;border-radius:50%;
+    background:#fff;border:1px solid #dbe5ef;
+    display:flex;align-items:center;justify-content:center;
+}
+.profile-camera svg{width:13px;height:13px;}
+.profile-data-card{
+    border:1px solid #edf0f5;border-radius:10px;
+    overflow:hidden;background:#fff;margin-bottom:16px;
+}
+.profile-data-row{
+    padding:11px 12px;border-bottom:1px solid #edf0f5;
+}
+.profile-data-row:last-child{border-bottom:0;}
+.profile-data-label{font-size:10px;color:#718096;margin-bottom:3px;}
+.profile-data-value{font-size:12px;color:#102a52;font-weight:500;}
+.profile-primary-btn{
+    width:100%;height:42px;border:0;border-radius:8px;
+    background:#d9eaff;color:#0872c0;font-size:12px;font-weight:800;
+}
+.profile-alert{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:13px 12px;border-radius:9px;margin-bottom:14px;
+}
+.profile-alert.pending{background:#fff5df;color:#b75b00;}
+.profile-alert.success{background:#dff7ec;color:#087f5b;}
+.profile-alert-icon{
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.6);flex:0 0 30px;
+}
+.profile-alert h3{font-size:12px;font-weight:800;margin-bottom:3px;}
+.profile-alert p{font-size:9px;line-height:1.4;color:#68788a;}
+.profile-list{display:flex;flex-direction:column;gap:7px;}
+.profile-list-item{
+    min-height:57px;border:1px solid #edf0f5;border-radius:9px;
+    display:flex;align-items:center;gap:11px;padding:9px 10px;
+    background:#fff;text-align:left;cursor:pointer;
+}
+.profile-list-icon{
+    width:34px;height:34px;border-radius:50%;
+    background:#edf6ff;color:#0872c0;display:flex;
+    align-items:center;justify-content:center;flex:0 0 34px;
+}
+.profile-list-icon svg{width:18px;height:18px;}
+.profile-list-copy{min-width:0;flex:1;}
+.profile-list-copy strong{display:block;font-size:10px;color:#102a52;margin-bottom:2px;}
+.profile-list-copy span{display:block;font-size:8px;color:#718096;line-height:1.25;}
+.profile-chevron{width:15px;height:15px;color:#5b728b;flex:0 0 15px;}
+.profile-toggle-row{
+    display:flex;align-items:center;justify-content:space-between;
+    min-height:57px;border:1px solid #edf0f5;border-radius:9px;padding:9px 10px;
+}
+.profile-toggle{
+    width:31px;height:18px;border-radius:20px;background:#d4dce6;
+    position:relative;flex:0 0 31px;
+}
+.profile-toggle.on{background:#087fd0;}
+.profile-toggle:after{
+    content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;
+    background:#fff;border-radius:50%;transition:.15s;
+}
+.profile-toggle.on:after{left:15px;}
+.profile-search{
+    height:38px;border:0;border-radius:10px;background:#f1f5f9;
+    padding:0 12px;width:100%;font-size:10px;color:#34495e;margin-bottom:9px;
+}
+.profile-logout-icon{
+    width:52px;height:52px;border-radius:50%;background:#fff0f0;
+    color:#e53232;display:flex;align-items:center;justify-content:center;
+    margin:26px auto 12px;
+}
+.profile-logout-icon svg{width:26px;height:26px;}
+.profile-logout-title{text-align:center;font-size:15px;font-weight:800;color:#102a52;}
+.profile-logout-sub{text-align:center;font-size:9px;color:#718096;margin-top:4px;}
+.profile-logout-btn{
+    width:100%;height:40px;border:0;border-radius:7px;background:#ef2d2d;
+    color:#fff;font-size:11px;font-weight:800;margin-top:22px;
+}
+.profile-cancel-btn{
+    width:100%;height:40px;border:1px solid #edf0f5;border-radius:7px;
+    background:#f7f9fc;color:#1a2b4c;font-size:11px;font-weight:700;margin-top:7px;
+}
+.profile-info-note{
+    margin-top:12px;padding:10px;border-radius:8px;background:#f5f9fd;
+    color:#607287;font-size:8px;line-height:1.45;
 }
 
 /* AUTH MODAL */
@@ -2688,6 +2829,21 @@ body{overflow-x:hidden;}
     <div id="transactionList"></div>
 </section>
 
+<!-- PROFILE MENU OVERLAY -->
+<div class="profile-menu-overlay" id="profileMenuOverlay" onclick="closeProfileDropdown()"></div>
+
+
+<!-- PROFILE SUBPAGES -->
+<section id="profile-page" class="page profile-page">
+    <div class="profile-page-header">
+        <button class="profile-page-back" onclick="closeProfilePage()" aria-label="Back">
+            <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <h2 id="profilePageTitle">My Profile</h2>
+    </div>
+    <div id="profilePageContent"></div>
+</section>
+
 <!-- BOTTOM NAVIGATION BAR -->
 <nav class="bottom-nav" id="bottomNav" style="display:none;">
     <button class="nav-item active" onclick="switchPage('dashboard')">
@@ -2884,7 +3040,7 @@ function updateUIState() {
             <button class="icon-btn" onclick="showToast('No new notifications')">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
             </button>
-            <div style="position:relative;">
+            <div style="position:relative; z-index:500;">
                 <button class="icon-btn" onclick="toggleProfileDropdown(event)">
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </button>
@@ -2941,7 +3097,7 @@ function updateUIState() {
 
                     <div class="profile-menu-divider"></div>
 
-                    <button class="dropdown-item logout" onclick="handleLogout()">
+                    <button class="dropdown-item logout" onclick="openProfileItem('Log Out')">
                         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                         <span class="dropdown-item-copy"><span>Log Out</span><small>Sign out from your account</small></span>
                     </button>
@@ -3000,6 +3156,14 @@ function switchPage(pageName, saveToStorage = true) {
         } else {
             openAuthModal('login');
         }
+    } else if (pageName === 'profile') {
+        if (isLoggedIn === 'true') {
+            renderProfilePage('my-profile');
+            document.getElementById('profile-page').classList.add('active');
+            if(saveToStorage) localStorage.setItem('din_ar_active_page', 'profile');
+        } else {
+            openAuthModal('login');
+        }
     } else {
         document.getElementById('landing-page').classList.add('active');
         if(saveToStorage) localStorage.setItem('din_ar_active_page', 'landing');
@@ -3026,14 +3190,21 @@ function showLandingFeature(name) {
 function toggleProfileDropdown(e) {
     e.stopPropagation();
     const dropdown = document.getElementById('profileDropdown');
-    dropdown.classList.toggle('show');
+    const overlay = document.getElementById('profileMenuOverlay');
+    if (!dropdown) return;
+    const isOpen = dropdown.classList.toggle('show');
+    if (overlay) overlay.classList.toggle('show', isOpen);
+}
+
+function closeProfileDropdown() {
+    const dropdown = document.getElementById('profileDropdown');
+    const overlay = document.getElementById('profileMenuOverlay');
+    if (dropdown) dropdown.classList.remove('show');
+    if (overlay) overlay.classList.remove('show');
 }
 
 window.addEventListener('click', () => {
-    const dropdown = document.getElementById('profileDropdown');
-    if (dropdown && dropdown.classList.contains('show')) {
-        dropdown.classList.remove('show');
-    }
+    closeProfileDropdown();
 });
 
 function openAuthModal(mode) {
@@ -3131,8 +3302,160 @@ function updateProfileMenu() {
 }
 
 function openProfileItem(name) {
-    document.getElementById('profileDropdown')?.classList.remove('show');
-    showToast(name + ' selected');
+    closeProfileDropdown();
+    const pageMap = {
+        'My Profile':'my-profile',
+        'Verification':'verification',
+        'Security':'security',
+        'Payment Methods':'payment-methods',
+        'Notifications':'notifications',
+        'Help Center':'help-center',
+        'Terms of Service':'terms',
+        'Privacy Policy':'privacy',
+        'Log Out':'logout'
+    };
+    const key = pageMap[name];
+    if (!key) return;
+    renderProfilePage(key);
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('profile-page').classList.add('active');
+    localStorage.setItem('din_ar_active_page','profile');
+}
+
+function closeProfilePage() {
+    switchPage('dashboard');
+}
+
+function profileIcon(svg) {
+    return `<div class="profile-list-icon">${svg}</div>`;
+}
+function profileChevron() {
+    return `<svg class="profile-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>`;
+}
+function profileRow(title, subtitle, icon, action='') {
+    return `<button class="profile-list-item" ${action ? `onclick="${action}"` : ''}>
+        ${profileIcon(icon)}
+        <span class="profile-list-copy"><strong>${title}</strong><span>${subtitle}</span></span>
+        ${profileChevron()}
+    </button>`;
+}
+
+function renderProfilePage(page) {
+    const titleEl = document.getElementById('profilePageTitle');
+    const content = document.getElementById('profilePageContent');
+    if (!titleEl || !content) return;
+
+    const user = getProfileUserData();
+    const initial = (user.name || 'A').charAt(0).toUpperCase();
+
+    const icons = {
+        user:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+        shield:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>',
+        lock:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
+        card:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>',
+        bell:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+        question:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.5 1.5c-.8 1-2.1 1.2-2.1 2.5"/><path d="M12 17h.01"/></svg>',
+        doc:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+        info:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6"/><path d="M12 7h.01"/></svg>',
+        refresh:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 1 4"/><polyline points="20 4 20 11 13 11"/></svg>',
+        search:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
+        logout:'<svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>',
+        camera:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h3l1.5-2h7L17 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"/><circle cx="12" cy="13" r="3"/></svg>'
+    };
+
+    if (page === 'my-profile') {
+        titleEl.textContent='My Profile';
+        content.innerHTML = `
+            <div class="profile-avatar-large">${initial}<span class="profile-camera">${icons.camera}</span></div>
+            <div class="profile-data-card">
+                <div class="profile-data-row"><div class="profile-data-label">Full Name</div><div class="profile-data-value" id="profileFullName">${user.name}</div></div>
+                <div class="profile-data-row"><div class="profile-data-label">Email Address</div><div class="profile-data-value" id="profileFullEmail">${user.email}</div></div>
+                <div class="profile-data-row"><div class="profile-data-label">Phone Number</div><div class="profile-data-value">+880 1XXX XXXXXXX</div></div>
+                <div class="profile-data-row"><div class="profile-data-label">Country</div><div class="profile-data-value">Bangladesh</div></div>
+                <div class="profile-data-row"><div class="profile-data-label">Member Since</div><div class="profile-data-value">${new Date().toLocaleDateString('en-US',{month:'short',day:'2-digit',year:'numeric'})}</div></div>
+            </div>
+            <button class="profile-primary-btn" onclick="showToast('Edit Profile')">Edit Profile</button>`;
+    } else if (page === 'verification') {
+        titleEl.textContent='Verification';
+        content.innerHTML = `
+            <div class="profile-alert ${user.verified?'success':'pending'}">
+                <div class="profile-alert-icon">${user.verified?icons.shield:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'}</div>
+                <div><h3>${user.verified?'Verification Complete':'Verification Pending'}</h3><p>${user.verified?'Your identity verification is complete.':'Complete your identity verification to unlock all features.'}</p></div>
+            </div>
+            <div class="profile-list">
+                ${profileRow('Identity Verification','Upload your national ID',icons.user)}
+                ${profileRow('Address Verification','Submit proof of address',icons.shield)}
+                ${profileRow('Selfie Verification','Take a live selfie',icons.user)}
+            </div>
+            ${user.verified?'':'<button class="profile-primary-btn" style="margin-top:16px;background:#0070ba;color:#fff;" onclick="showToast(\'Start Verification\')">Start Verification</button>'}`;
+    } else if (page === 'security') {
+        titleEl.textContent='Security';
+        content.innerHTML = `
+            <div class="profile-alert success"><div class="profile-alert-icon">${icons.shield}</div><div><h3>Your account is secure</h3><p>Follow security best practices to keep your account safe.</p></div></div>
+            <div class="profile-list">
+                ${profileRow('Change Password','Update your password',icons.lock)}
+                ${profileRow('Two-Factor Authentication','Add an extra layer of security',icons.shield)}
+                ${profileRow('Login Sessions','Manage your active sessions',icons.card)}
+                ${profileRow('Email Alerts','Get notified about important activity','<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>')}
+            </div>`;
+    } else if (page === 'payment-methods') {
+        titleEl.textContent='Payment Methods';
+        content.innerHTML = `
+            <div class="profile-list">
+                ${profileRow('PayPal',user.email,icons.card)}
+                ${profileRow('Card','Add or manage card',icons.card)}
+                ${profileRow('Bank Account','Add or manage bank account','<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10h18M5 10v8M9 10v8M15 10v8M19 10v8M2 18h20M12 3l10 5H2l10-5z"/></svg>')}
+                ${profileRow('E-wallet','Add or manage e-wallet',icons.card)}
+            </div>`;
+    } else if (page === 'notifications') {
+        titleEl.textContent='Notifications';
+        content.innerHTML = `
+            <div class="profile-list">
+                <div class="profile-toggle-row">${profileIcon(icons.bell)}<span class="profile-list-copy"><strong>Trade Updates</strong><span>Get notified about your trades</span></span><span class="profile-toggle on"></span></div>
+                <div class="profile-toggle-row">${profileIcon('<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.8 8.8 0 0 1-4-.9L3 21l1.4-4.2A8.3 8.3 0 1 1 21 11.5z"/></svg>')}<span class="profile-list-copy"><strong>Messages</strong><span>New messages from buyers or sellers</span></span><span class="profile-toggle on"></span></div>
+                <div class="profile-toggle-row">${profileIcon(icons.user)}<span class="profile-list-copy"><strong>Account Activity</strong><span>Login and security alerts</span></span><span class="profile-toggle on"></span></div>
+                <div class="profile-toggle-row">${profileIcon('<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m13 3 8 4-9 14-4-8z"/><path d="M3 20h7"/></svg>')}<span class="profile-list-copy"><strong>Promotions</strong><span>Offers, tips and platform news</span></span><span class="profile-toggle"></span></div>
+            </div>`;
+    } else if (page === 'help-center') {
+        titleEl.textContent='Help Center';
+        content.innerHTML = `
+            <input class="profile-search" placeholder="Search for help..." />
+            <div class="profile-list">
+                ${profileRow('How to create a trade?','Step by step guide',icons.question)}
+                ${profileRow('Payment methods','Supported payment options',icons.card)}
+                ${profileRow('Verification process','How to verify your account',icons.shield)}
+                ${profileRow('Fees and charges','Platform fees and pricing',icons.info)}
+                ${profileRow('Contact Support','Get in touch with our support team',icons.user)}
+            </div>`;
+    } else if (page === 'terms') {
+        titleEl.textContent='Terms of Service';
+        content.innerHTML = `
+            <div class="profile-list">
+                ${profileRow('Use of Our Services','',icons.doc)}
+                ${profileRow('User Responsibilities','',icons.user)}
+                ${profileRow('Payments and Fees','',icons.card)}
+                ${profileRow('Prohibited Activities','',icons.info)}
+                ${profileRow('Changes to Terms','',icons.refresh)}
+                ${profileRow('Contact Us','',icons.card)}
+            </div>`;
+    } else if (page === 'privacy') {
+        titleEl.textContent='Privacy Policy';
+        content.innerHTML = `
+            <div class="profile-list">
+                ${profileRow('Data Security','',icons.shield)}
+                ${profileRow('Cookies and Tracking','',icons.question)}
+                ${profileRow('Your Rights','',icons.user)}
+                ${profileRow('Contact Us','',icons.card)}
+            </div>`;
+    } else if (page === 'logout') {
+        titleEl.textContent='';
+        content.innerHTML = `
+            <div class="profile-logout-icon">${icons.logout}</div>
+            <div class="profile-logout-title">Log Out</div>
+            <div class="profile-logout-sub">Are you sure you want to sign out<br>from your account?</div>
+            <button class="profile-logout-btn" onclick="handleLogout()">Log Out</button>
+            <button class="profile-cancel-btn" onclick="closeProfilePage()">Cancel</button>`;
+    }
 }
 
 function setAccountVerificationStatus(status) {
