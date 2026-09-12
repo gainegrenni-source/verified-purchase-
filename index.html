@@ -1965,11 +1965,9 @@ button{
 .v-main-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-style:normal;color:#59718c;font-size:17px;line-height:1;}
 .v-main-status{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:none;align-items:center;gap:4px;font-size:9px;font-weight:800;color:#9a7400;}
 .v-main-status svg{width:16px;height:16px;}
-.v-main-item.is-submitted .v-main-arrow{display:none;}
-.v-main-item.is-submitted .v-main-status{display:flex;}
-.v-main-item.is-verified .v-main-status{color:#159765;}
-.v-main-item.is-rejected .v-main-status{color:#d64545;}
-.v-main-item.is-under-review .v-main-status{color:#2477b7;}
+.v-main-item.is-submitted .v-main-arrow,.v-main-item.is-verified .v-main-arrow,.v-main-item.is-rejected .v-main-arrow,.v-main-item.is-under-review .v-main-arrow,.v-main-item.is-needs_review .v-main-arrow{display:none;}
+.v-main-item.is-submitted .v-main-status,.v-main-item.is-verified .v-main-status,.v-main-item.is-rejected .v-main-status,.v-main-item.is-under-review .v-main-status{display:flex;}
+.v-main-item.is-verified .v-main-status{color:#159765;}.v-main-item.is-rejected .v-main-status{color:#d64545;}.v-main-item.is-under-review .v-main-status{color:#2477b7;}
 .v-start-btn{width:100%;margin-top:26px;height:46px;border-radius:10px;background:#0879c1;color:#fff;font-weight:700;font-size:13px;}
 .v-step-header{height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #edf0f5;margin-bottom:15px;}
 .v-step-header button{background:none;font-size:31px;line-height:1;color:#122b52;width:40px;text-align:left;cursor:pointer;}
@@ -1981,70 +1979,21 @@ button{
 .v-radio-card{position:relative;display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:12px 14px;border:1px solid #e3e9ef;border-radius:11px;background:#fff;cursor:pointer;}
 .v-radio-card input{position:absolute;opacity:0;pointer-events:none;}
 .v-radio-circle{width:20px;height:20px;border:2px solid #a8b4c2;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 20px;}
-.v-radio-card.selected{border-color:#0879c1;background:#f5fbff;}
-.v-radio-card.selected .v-radio-circle{border-color:#0879c1;}
-.v-radio-card.selected .v-radio-circle::after{content:"";width:9px;height:9px;border-radius:50%;background:#0879c1;}
-.v-radio-copy b{display:block;font-size:12px;color:#10284c;}
-.v-radio-copy span{display:block;font-size:9.5px;color:#718096;margin-top:3px;}
-.v-continue{width:100%;height:46px;border-radius:10px;background:#0879c1;color:#fff;font-size:13px;font-weight:700;margin-top:18px;}
-.v-continue:disabled{background:#cbd5e1;cursor:not-allowed;box-shadow:none;}
-.v-upload-card{border:1px solid #e3e9ef;border-radius:12px;background:#fff;padding:13px;margin-bottom:10px;}
-.v-upload-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;}
-.v-upload-head b{font-size:12px;color:#10284c;}
-.v-upload-step{font-size:9px;font-weight:800;color:#718096;}
-.v-file-input{display:none;}
-.v-file-label{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;min-height:46px;border:1px dashed #9fc7e4;border-radius:10px;background:#f5fbff;color:#0879c1;font-size:11px;font-weight:800;cursor:pointer;}
-.v-file-label svg{width:17px;height:17px;}
-.v-preview{display:none;margin-top:10px;border:1px solid #e3e9ef;border-radius:10px;background:#f8fafc;padding:8px;}
-.v-preview.show{display:block;}
-.v-preview img{display:block;width:100%;max-height:230px;object-fit:contain;border-radius:7px;background:#fff;}
-.v-file-name{margin-top:6px;font-size:9px;color:#718096;word-break:break-word;}
-.v-submit{width:100%;height:46px;border-radius:10px;background:#0879c1;color:#fff;font-size:13px;font-weight:700;margin-top:6px;}
-.v-submit:disabled{background:#cbd5e1;cursor:not-allowed;}
-.v-country-box{border:1px solid #e3e9ef;border-radius:11px;background:#fff;padding:12px;margin-bottom:12px;}
-.v-label{display:block;font-size:10px;font-weight:800;color:#4a5568;margin-bottom:6px;}
-.v-country-search,.v-country-select{width:100%;height:42px;border:1px solid #cbd5e0;border-radius:9px;padding:0 10px;font-size:11px;outline:none;background:#fff;color:#1a2b4c;}
-.v-country-search{margin-bottom:8px;}
-.v-country-options{max-height:190px;overflow:auto;display:none;border:1px solid #e2e8f0;border-radius:9px;background:#fff;}
-.v-country-options.show{display:block;}
-.v-country-option{width:100%;border:0;background:#fff;text-align:left;padding:10px;font-size:10.5px;color:#1a2b4c;cursor:pointer;}
-.v-country-option:hover{background:#f5f9fc;}
-.v-address-empty{padding:12px;border:1px dashed #cbd5e0;border-radius:10px;color:#718096;font-size:10px;text-align:center;}
-.v-address-types{display:flex;flex-direction:column;gap:8px;}
-.v-camera-card{background:#0e1c2c;border-radius:15px;padding:13px;color:#fff;overflow:hidden;}
-.v-camera-wrap{position:relative;width:100%;aspect-ratio:3/4;background:#050b12;border-radius:11px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.v-camera-video{width:100%;height:100%;object-fit:cover;display:block;transform:scaleX(-1);}
-.v-camera-oval{position:absolute;width:58%;height:64%;border:2px solid rgba(255,255,255,.95);border-radius:50%;box-shadow:0 0 0 999px rgba(0,0,0,.22);pointer-events:none;}
-.v-camera-tip{margin-top:10px;text-align:center;font-size:11px;font-weight:800;}
-.v-camera-progress{display:flex;justify-content:center;gap:6px;margin-top:9px;}
-.v-camera-dot{width:7px;height:7px;border-radius:50%;background:#667789;}
-.v-camera-dot.active{background:#2da9ff;transform:scale(1.2);}
-.v-camera-actions{display:flex;gap:8px;margin-top:12px;}
-.v-camera-btn{flex:1;height:42px;border-radius:9px;border:1px solid #31485e;background:#1a2b3d;color:#fff;font-weight:800;font-size:11px;cursor:pointer;}
-.v-camera-btn.primary{background:#0879c1;border-color:#0879c1;}
-.v-camera-btn:disabled{opacity:.45;cursor:not-allowed;}
-.v-camera-error{display:none;margin-top:10px;padding:9px;border-radius:8px;background:#3a2020;color:#ffb4b4;font-size:9.5px;line-height:1.35;}
-.v-camera-error.show{display:block;}
-.v-result{padding:20px 14px;border:1px solid #dce8f0;border-radius:12px;background:#fff;text-align:center;}
-.v-result-icon{width:52px;height:52px;border-radius:50%;background:#e8f8f1;color:#159765;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
-.v-result-icon svg{width:26px;height:26px;}
-.v-result strong{display:block;font-size:15px;color:#10284c;}
-.v-result p{font-size:10px;color:#718096;line-height:1.4;margin-top:5px;}
-.v-back-main{width:100%;height:44px;border-radius:9px;background:#f3f6f9;color:#24415f;font-size:11px;font-weight:800;margin-top:12px;}
+.v-radio-card.selected{border-color:#0879c1;background:#f5fbff;}.v-radio-card.selected .v-radio-circle{border-color:#0879c1;}.v-radio-card.selected .v-radio-circle::after{content:"";width:9px;height:9px;border-radius:50%;background:#0879c1;}
+.v-radio-copy b{display:block;font-size:12px;color:#10284c;}.v-radio-copy span{display:block;font-size:9.5px;color:#718096;margin-top:3px;}
+.v-continue{width:100%;height:46px;border-radius:10px;background:#0879c1;color:#fff;font-size:13px;font-weight:700;margin-top:18px;}.v-continue:disabled{background:#cbd5e1;cursor:not-allowed;box-shadow:none;}
+.v-upload-card{border:1px solid #e3e9ef;border-radius:12px;background:#fff;padding:13px;margin-bottom:10px;}.v-upload-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;}.v-upload-head b{font-size:12px;color:#10284c;}.v-upload-step{font-size:9px;font-weight:800;color:#718096;}
+.v-file-input{display:none;}.v-file-label{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;min-height:46px;border:1px dashed #9fc7e4;border-radius:10px;background:#f5fbff;color:#0879c1;font-size:11px;font-weight:800;cursor:pointer;}.v-file-label svg{width:17px;height:17px;}
+.v-preview{display:none;margin-top:10px;border:1px solid #e3e9ef;border-radius:10px;background:#f8fafc;padding:8px;}.v-preview.show{display:block;}.v-preview img{display:block;width:100%;max-height:230px;object-fit:contain;border-radius:7px;background:#fff;}.v-file-name{margin-top:6px;font-size:9px;color:#718096;word-break:break-word;}
+.v-submit{width:100%;height:46px;border-radius:10px;background:#0879c1;color:#fff;font-size:13px;font-weight:700;margin-top:6px;}.v-submit:disabled{background:#cbd5e1;cursor:not-allowed;}
+.v-country-box{border:1px solid #e3e9ef;border-radius:11px;background:#fff;padding:12px;margin-bottom:12px;}.v-label{display:block;font-size:10px;font-weight:800;color:#4a5568;margin-bottom:6px;}.v-country-search,.v-country-select{width:100%;height:42px;border:1px solid #cbd5e0;border-radius:9px;padding:0 10px;font-size:11px;outline:none;background:#fff;color:#1a2b4c;}.v-country-search{margin-bottom:8px;}.v-country-options{max-height:190px;overflow:auto;display:none;border:1px solid #e2e8f0;border-radius:9px;background:#fff;margin-bottom:8px;}.v-country-options.show{display:block;}.v-country-option{width:100%;border:0;background:#fff;text-align:left;padding:10px;font-size:10.5px;color:#1a2b4c;cursor:pointer;}.v-country-option:hover{background:#f5f9fc;}
+.v-address-types{display:flex;flex-direction:column;gap:8px;}.v-address-empty{padding:12px;border:1px dashed #cbd5e0;border-radius:10px;color:#718096;font-size:10px;text-align:center;}
+.v-address-form{display:flex;flex-direction:column;gap:10px;}.v-address-field label{display:block;font-size:10px;font-weight:800;color:#4a5568;margin-bottom:5px;}.v-address-field input,.v-address-field select{width:100%;height:42px;border:1px solid #cbd5e0;border-radius:9px;padding:0 10px;font-size:11px;outline:none;background:#fff;color:#1a2b4c;}.v-address-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.v-address-suggestions{display:none;border:1px solid #e2e8f0;border-radius:9px;background:#fff;overflow:hidden;margin-top:5px;}.v-address-suggestions.show{display:block;}.v-address-suggestion{display:block;width:100%;border:0;border-bottom:1px solid #edf0f5;background:#fff;text-align:left;padding:9px 10px;font-size:10px;color:#1a2b4c;cursor:pointer;}.v-address-suggestion:last-child{border-bottom:0;}
+.v-camera-card{background:#0e1c2c;border-radius:15px;padding:13px;color:#fff;overflow:hidden;}.v-camera-wrap{position:relative;width:100%;aspect-ratio:3/4;background:#050b12;border-radius:11px;overflow:hidden;display:flex;align-items:center;justify-content:center;}.v-camera-video{width:100%;height:100%;object-fit:cover;display:block;transform:scaleX(-1);}.v-camera-oval{position:absolute;width:58%;height:64%;border:2px solid rgba(255,255,255,.95);border-radius:50%;box-shadow:0 0 0 999px rgba(0,0,0,.22);pointer-events:none;}.v-camera-guide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}.v-camera-arrow{position:absolute;font-size:42px;font-weight:900;text-shadow:0 2px 8px rgba(0,0,0,.35);}.v-camera-arrow.left{left:12%;}.v-camera-arrow.right{right:12%;}.v-camera-arrow.up{top:10%;}.v-camera-arrow.down{bottom:10%;}.v-camera-tip{margin-top:10px;text-align:center;font-size:12px;font-weight:800;}.v-camera-progress{display:flex;justify-content:center;gap:6px;margin-top:9px;}.v-camera-dot{width:7px;height:7px;border-radius:50%;background:#667789;}.v-camera-dot.active{background:#2da9ff;transform:scale(1.2);}.v-camera-error{display:none;margin-top:10px;padding:9px;border-radius:8px;background:#3a2020;color:#ffb4b4;font-size:9.5px;line-height:1.35;}.v-camera-error.show{display:block;}.v-camera-state{margin-top:10px;text-align:center;font-size:9.5px;color:#a9c2d8;line-height:1.35;}.v-camera-actions{display:none;}
+.v-result{padding:20px 14px;border:1px solid #dce8f0;border-radius:12px;background:#fff;text-align:center;}.v-result-icon{width:52px;height:52px;border-radius:50%;background:#e8f8f1;color:#159765;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}.v-result-icon svg{width:26px;height:26px;}.v-result strong{display:block;font-size:15px;color:#10284c;}.v-result p{font-size:10px;color:#718096;line-height:1.4;margin-top:5px;}.v-back-main{width:100%;height:44px;border-radius:9px;background:#f3f6f9;color:#24415f;font-size:11px;font-weight:800;margin-top:12px;}
 @media (min-width:768px){
-    .profile-subpage-inner{max-width:620px;}
-    .verification-flow{padding:0 0 40px;}
-    .v-main-banner{padding:20px;margin-top:18px;}
-    .v-main-banner strong{font-size:16px;}.v-main-banner span{font-size:12px;}
-    .v-main-item{min-height:78px;padding:16px 55px 16px 18px;}
-    .v-main-item b{font-size:15px;}.v-main-item span.v-main-sub{font-size:11px;}
-    .v-step-title{font-size:24px;}.v-step-sub{font-size:12px;}
-    .v-radio-card{min-height:68px;padding:14px 16px;}.v-radio-copy b{font-size:14px;}.v-radio-copy span{font-size:11px;}
-    .v-file-label{min-height:54px;font-size:12px;}.v-preview img{max-height:360px;}
-    .v-country-search,.v-country-select{height:46px;font-size:12px;}.v-country-option{font-size:12px;}
-    .v-camera-card{max-width:430px;margin:0 auto;}.v-camera-tip{font-size:13px;}
+    .profile-subpage-inner{max-width:620px;}.verification-flow{padding:0 0 40px;}.v-main-banner{padding:20px;margin-top:18px;}.v-main-banner strong{font-size:16px;}.v-main-banner span{font-size:12px;}.v-main-item{min-height:78px;padding:16px 55px 16px 18px;}.v-main-item b{font-size:15px;}.v-main-item span.v-main-sub{font-size:11px;}.v-step-title{font-size:24px;}.v-step-sub{font-size:12px;}.v-radio-card{min-height:68px;padding:14px 16px;}.v-radio-copy b{font-size:14px;}.v-radio-copy span{font-size:11px;}.v-file-label{min-height:54px;font-size:12px;}.v-preview img{max-height:360px;}.v-country-search,.v-country-select{height:46px;font-size:12px;}.v-country-option{font-size:12px;}.v-address-field input,.v-address-field select{height:46px;font-size:12px;}.v-camera-card{max-width:430px;margin:0 auto;}.v-camera-tip{font-size:13px;}
 }
-
 /* AUTH MODAL */
 .auth-modal-backdrop{
     position:fixed;
@@ -2863,104 +2812,79 @@ body{overflow-x:hidden;}
 <section id="profile-verification-page" class="page profile-subpage verification-flow">
   <div class="profile-subpage-inner">
     <div id="verificationMainView" class="verification-main-view">
-      <header class="subpage-header">
-        <button onclick="closeProfileSubpage()" aria-label="Back">‹</button>
-        <h2>Verification</h2><span></span>
-      </header>
-      <div class="v-main-banner">
-        <strong id="verifyBannerTitle">Verification Pending</strong>
-        <span>Complete your identity verification to unlock all features.</span>
-      </div>
+      <header class="subpage-header"><button onclick="closeProfileSubpage()" aria-label="Back">‹</button><h2>Verification</h2><span></span></header>
+      <div class="v-main-banner"><strong id="verifyBannerTitle">Verification Pending</strong><span>Complete your identity verification to unlock all features.</span></div>
       <div class="v-main-list">
-        <button class="v-main-item" id="vMainIdentity" onclick="openVerificationStep('identity')">
-          <b>Identity Verification</b><span class="v-main-sub">Upload your documents</span><i class="v-main-arrow">›</i>
-          <span class="v-main-status"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Submitted</span></span>
-        </button>
-        <button class="v-main-item" id="vMainAddress" onclick="openVerificationStep('address')">
-          <b>Address Verification</b><span class="v-main-sub">Submit proof of address</span><i class="v-main-arrow">›</i>
-          <span class="v-main-status"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Submitted</span></span>
-        </button>
-        <button class="v-main-item" id="vMainSelfie" onclick="openVerificationStep('selfie')">
-          <b>Selfie Verification</b><span class="v-main-sub">Take a live selfie</span><i class="v-main-arrow">›</i>
-          <span class="v-main-status"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Submitted</span></span>
-        </button>
+        <button class="v-main-item" id="vMainIdentity" onclick="openVerificationStep('identity')"><b>Identity Verification</b><span class="v-main-sub">Upload your documents</span><i class="v-main-arrow">›</i><span class="v-main-status"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Submitted</span></span></button>
+        <button class="v-main-item" id="vMainAddress" onclick="openVerificationStep('address')"><b>Address Verification</b><span class="v-main-sub">Submit proof of address</span><i class="v-main-arrow">›</i><span class="v-main-status"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Submitted</span></span></button>
+        <button class="v-main-item" id="vMainSelfie" onclick="openVerificationStep('selfie')"><b>Selfie Verification</b><span class="v-main-sub">Take a live selfie</span><i class="v-main-arrow">›</i><span class="v-main-status"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Submitted</span></span></button>
       </div>
       <button class="v-start-btn" onclick="openVerificationStep('identity')">Start Verification</button>
     </div>
 
     <div id="verificationIdentityView" class="verification-step-view" style="display:none;">
       <header class="v-step-header"><button onclick="showVerificationMain()" aria-label="Back">‹</button><h2>Identity Verification</h2><span></span></header>
-      <div class="v-step-title">Verify your identity</div>
-      <div class="v-step-sub">USA users only. Select one identity document to continue.</div>
+      <div class="v-step-title">Select Document</div>
+      <div class="v-step-sub">Select one identity document to continue.</div>
       <div class="v-doc-list" id="vIdentityDocs">
         <label class="v-radio-card"><input type="radio" name="vIdentityDoc" value="Passport"><span class="v-radio-circle"></span><span class="v-radio-copy"><b>Passport</b><span>Government-issued passport</span></span></label>
-        <label class="v-radio-card"><input type="radio" name="vIdentityDoc" value="Driver's License"><span class="v-radio-circle"></span><span class="v-radio-copy"><b>Driver's License</b><span>Valid US driver's license</span></span></label>
-        <label class="v-radio-card"><input type="radio" name="vIdentityDoc" value="State ID Card"><span class="v-radio-circle"></span><span class="v-radio-copy"><b>State ID Card</b><span>US state-issued identification</span></span></label>
-        <label class="v-radio-card"><input type="radio" name="vIdentityDoc" value="Military ID"><span class="v-radio-circle"></span><span class="v-radio-copy"><b>Military ID</b><span>US military identification</span></span></label>
+        <label class="v-radio-card"><input type="radio" name="vIdentityDoc" value="Driver's License"><span class="v-radio-circle"></span><span class="v-radio-copy"><b>Driver's License</b><span>Driver's license</span></span></label>
+        <label class="v-radio-card"><input type="radio" name="vIdentityDoc" value="State ID Card"><span class="v-radio-circle"></span><span class="v-radio-copy"><b>State ID Card</b><span>State-issued identification</span></span></label>
+        <label class="v-radio-card"><input type="radio" name="vIdentityDoc" value="Military ID"><span class="v-radio-circle"></span><span class="v-radio-copy"><b>Military ID</b><span>Military identification</span></span></label>
       </div>
       <button class="v-continue" id="vIdentityContinue" onclick="continueIdentity()" disabled>Continue</button>
     </div>
 
     <div id="verificationIdentityUploadView" class="verification-step-view" style="display:none;">
       <header class="v-step-header"><button onclick="openVerificationStep('identity')" aria-label="Back">‹</button><h2 id="vIdentityUploadTitle">Upload Document</h2><span></span></header>
-      <div class="v-step-sub">Upload both sides of your selected document. Preview each file before submitting.</div>
-      <div class="v-upload-card">
-        <div class="v-upload-head"><b id="vFrontLabel">Front Page</b><span class="v-upload-step">Step 1</span></div>
-        <input class="v-file-input" id="vIdentityFront" type="file" accept="image/*,.pdf" onchange="handleVerificationFile(this,'vIdentityFrontPreview','vIdentityFrontName','vIdentitySubmit')">
-        <label class="v-file-label" for="vIdentityFront"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 20h16"/></svg>Upload / Choose File</label>
-        <div class="v-preview" id="vIdentityFrontPreview"><img alt="Front document preview"><div class="v-file-name" id="vIdentityFrontName"></div></div>
-      </div>
-      <div class="v-upload-card">
-        <div class="v-upload-head"><b id="vBackLabel">Back Page</b><span class="v-upload-step">Step 2</span></div>
-        <input class="v-file-input" id="vIdentityBack" type="file" accept="image/*,.pdf" onchange="handleVerificationFile(this,'vIdentityBackPreview','vIdentityBackName','vIdentitySubmit')">
-        <label class="v-file-label" for="vIdentityBack"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 20h16"/></svg>Upload / Choose File</label>
-        <div class="v-preview" id="vIdentityBackPreview"><img alt="Back document preview"><div class="v-file-name" id="vIdentityBackName"></div></div>
-      </div>
+      <div class="v-step-sub">Upload the required document pages and preview them before submitting.</div>
+      <div class="v-upload-card"><div class="v-upload-head"><b id="vFrontLabel">Front Page</b><span class="v-upload-step">Step 1</span></div><input class="v-file-input" id="vIdentityFront" type="file" accept="image/*,.pdf" onchange="handleVerificationFile(this,'vIdentityFrontPreview','vIdentityFrontName','vIdentitySubmit')"><label class="v-file-label" for="vIdentityFront"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 20h16"/></svg>Upload Document</label><div class="v-preview" id="vIdentityFrontPreview"><img alt="Front document preview"><div class="v-file-name" id="vIdentityFrontName"></div></div></div>
+      <div class="v-upload-card"><div class="v-upload-head"><b id="vBackLabel">Back Page</b><span class="v-upload-step">Step 2</span></div><input class="v-file-input" id="vIdentityBack" type="file" accept="image/*,.pdf" onchange="handleVerificationFile(this,'vIdentityBackPreview','vIdentityBackName','vIdentitySubmit')"><label class="v-file-label" for="vIdentityBack"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 20h16"/></svg>Upload Document</label><div class="v-preview" id="vIdentityBackPreview"><img alt="Back document preview"><div class="v-file-name" id="vIdentityBackName"></div></div></div>
       <button class="v-submit" id="vIdentitySubmit" onclick="submitIdentityVerification()" disabled>Submit</button>
     </div>
 
     <div id="verificationAddressView" class="verification-step-view" style="display:none;">
       <header class="v-step-header"><button onclick="showVerificationMain()" aria-label="Back">‹</button><h2>Address Verification</h2><span></span></header>
-      <div class="v-step-title">Select Country</div>
-      <div class="v-step-sub">Choose your country to see the configured address-document options.</div>
-      <div class="v-country-box">
-        <label class="v-label" for="vCountrySearch">Country</label>
-        <input class="v-country-search" id="vCountrySearch" type="search" placeholder="Search country..." oninput="filterVerificationCountries()" onclick="openCountryOptions()">
-        <div class="v-country-options" id="vCountryOptions"></div>
-        <select class="v-country-select" id="vCountrySelect" onchange="selectVerificationCountry(this.value)"><option value="">Select country</option></select>
-      </div>
+      <div class="v-step-title">Select Country</div><div class="v-step-sub">Choose your country to see the configured address-document options.</div>
+      <div class="v-country-box"><label class="v-label" for="vCountrySearch">Country</label><input class="v-country-search" id="vCountrySearch" type="search" placeholder="Search country..." oninput="filterVerificationCountries()" onclick="openCountryOptions()"><div class="v-country-options" id="vCountryOptions"></div><select class="v-country-select" id="vCountrySelect" onchange="selectVerificationCountry(this.value)"><option value="">Select country</option></select></div>
       <div id="vAddressTypes" class="v-address-types"><div class="v-address-empty">Select a country to continue.</div></div>
       <button class="v-continue" id="vAddressContinue" onclick="continueAddress()" disabled>Continue</button>
     </div>
 
-    <div id="verificationAddressUploadView" class="verification-step-view" style="display:none;">
-      <header class="v-step-header"><button onclick="openVerificationStep('address')" aria-label="Back">‹</button><h2 id="vAddressUploadTitle">Upload Address Proof</h2><span></span></header>
-      <div class="v-step-sub" id="vAddressUploadSub">Upload the selected address document and review the preview before submitting.</div>
-      <div class="v-upload-card">
-        <div class="v-upload-head"><b id="vAddressDocLabel">Document</b><span class="v-upload-step">Upload</span></div>
-        <input class="v-file-input" id="vAddressFile" type="file" accept="image/*,.pdf" onchange="handleVerificationFile(this,'vAddressPreview','vAddressFileName','vAddressSubmit')">
-        <label class="v-file-label" for="vAddressFile"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 20h16"/></svg>Upload / Choose File</label>
-        <div class="v-preview" id="vAddressPreview"><img alt="Address document preview"><div class="v-file-name" id="vAddressFileName"></div></div>
+    <div id="verificationAddressInfoView" class="verification-step-view" style="display:none;">
+      <header class="v-step-header"><button onclick="openVerificationStep('address')" aria-label="Back">‹</button><h2>Address Verification</h2><span></span></header>
+      <div class="v-step-title">Address Information</div><div class="v-step-sub">Enter the address associated with your selected proof document.</div>
+      <div class="v-address-form">
+        <div class="v-address-field"><label for="vStreetAddress">Street Address</label><input id="vStreetAddress" type="text" placeholder="Start typing your address..." autocomplete="street-address" oninput="suggestVerificationAddress()"><div class="v-address-suggestions" id="vAddressSuggestions"></div></div>
+        <div class="v-address-field"><label for="vApartment">Apartment / Unit (optional)</label><input id="vApartment" type="text" placeholder="Optional" autocomplete="address-line2"></div>
+        <div class="v-address-row"><div class="v-address-field"><label for="vCity">City</label><input id="vCity" type="text" autocomplete="address-level2"></div><div class="v-address-field"><label for="vRegion">State / Province / Region</label><input id="vRegion" type="text" autocomplete="address-level1"></div></div>
+        <div class="v-address-row"><div class="v-address-field"><label for="vPostal">ZIP / Postal Code</label><input id="vPostal" type="text" autocomplete="postal-code"></div><div class="v-address-field"><label for="vInfoCountry">Country</label><input id="vInfoCountry" type="text" readonly></div></div>
       </div>
+      <button class="v-continue" id="vAddressInfoContinue" onclick="continueAddressInfo()" disabled>Continue</button>
+    </div>
+
+    <div id="verificationAddressUploadView" class="verification-step-view" style="display:none;">
+      <header class="v-step-header"><button onclick="showVerificationView('verificationAddressInfoView')" aria-label="Back">‹</button><h2 id="vAddressUploadTitle">Upload Address Proof</h2><span></span></header>
+      <div class="v-step-sub" id="vAddressUploadSub">Upload the selected address document and review the preview before submitting.</div>
+      <div class="v-upload-card"><div class="v-upload-head"><b id="vAddressDocLabel">Document</b><span class="v-upload-step">Upload</span></div><input class="v-file-input" id="vAddressFile" type="file" accept="image/*,.pdf" onchange="handleVerificationFile(this,'vAddressPreview','vAddressFileName','vAddressSubmit')"><label class="v-file-label" for="vAddressFile"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 20h16"/></svg>Upload Document</label><div class="v-preview" id="vAddressPreview"><img alt="Address document preview"><div class="v-file-name" id="vAddressFileName"></div></div></div>
       <button class="v-submit" id="vAddressSubmit" onclick="submitAddressVerification()" disabled>Submit</button>
     </div>
 
     <div id="verificationSelfieView" class="verification-step-view" style="display:none;">
       <header class="v-step-header"><button onclick="showVerificationMain()" aria-label="Back">‹</button><h2>Selfie Verification</h2><span></span></header>
-      <div class="v-step-title">Capture Selfie</div>
-      <div class="v-step-sub">Allow camera access and keep your face inside the circle. The live camera is used for this step.</div>
+      <div class="v-step-title">Live Selfie Check</div><div class="v-step-sub">Allow camera access and follow the live on-screen liveness instructions.</div>
       <div class="v-camera-card">
-        <div class="v-camera-wrap"><video id="vSelfieVideo" class="v-camera-video" autoplay playsinline muted></video><div class="v-camera-oval"></div></div>
+        <div class="v-camera-wrap"><video id="vSelfieVideo" class="v-camera-video" autoplay playsinline muted></video><div class="v-camera-oval"></div><div class="v-camera-guide" id="vSelfieGuide"></div></div>
         <div class="v-camera-tip" id="vSelfieInstruction">Position face inside circle</div>
         <div class="v-camera-progress" id="vSelfieProgress"></div>
         <div class="v-camera-error" id="vSelfieError"></div>
-        <div class="v-camera-actions"><button class="v-camera-btn" onclick="stopSelfieCamera()">Close Camera</button><button class="v-camera-btn primary" id="vSelfieNext" onclick="advanceSelfieStep()" disabled>Start</button></div>
+        <div class="v-camera-state" id="vSelfieState">Starting camera…</div>
       </div>
     </div>
 
     <div id="verificationSelfieResultView" class="verification-step-view" style="display:none;">
       <header class="v-step-header"><button onclick="showVerificationMain()" aria-label="Back">‹</button><h2>Selfie Verification</h2><span></span></header>
-      <div class="v-result"><div class="v-result-icon"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><strong>Selfie submitted</strong><p>Your live selfie capture has been submitted for review.</p></div>
+      <div class="v-result"><div class="v-result-icon"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><strong>Selfie Verification Completed</strong><p>The live camera flow completed. The verification remains submitted until the backend/provider returns an approval.</p></div>
       <button class="v-back-main" onclick="showVerificationMain()">Back to Verification</button>
     </div>
   </div>
@@ -3370,169 +3294,218 @@ function openProfileSubpage(pageName){
    ========================================================= */
 const DINAR_VERIFICATION_KEY = 'din_ar_verification_parts';
 const DINAR_COUNTRIES = [
-  'Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Kosovo','Latvia','Liechtenstein','Lithuania','Luxembourg','Malta','Moldova','Monaco','Montenegro','Netherlands','North Macedonia','Norway','Poland','Portugal','Romania','Russia','San Marino','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Ukraine','United Kingdom','Vatican City','Bangladesh','China'
+  'United States','Bangladesh','China',
+  'Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Kosovo','Latvia','Liechtenstein','Lithuania','Luxembourg','Malta','Moldova','Monaco','Montenegro','Netherlands','North Macedonia','Norway','Poland','Portugal','Romania','Russia','San Marino','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Ukraine','United Kingdom','Vatican City'
 ];
 const DINAR_ADDRESS_TYPES = {
-  'Bangladesh':['Utility Bill','Bank Statement','Government Letter','Residential Lease','Other'],
-  'China':['Utility Bill','Bank Statement','Government Letter','Residential Lease','Other']
+  'United States':['Bank Statement','Utility Bill','Government Letter','Residential Lease'],
+  'Bangladesh':['Bank Statement','Utility Bill','Government Letter','Residential Lease','Other'],
+  'China':['Bank Statement','Utility Bill','Government Letter','Residential Lease']
 };
+const DINAR_DEFAULT_ADDRESS_TYPES=['Bank Statement','Utility Bill','Government Letter','Residential Lease','Other'];
 let vSelectedIdentityDoc='';
 let vSelectedCountry='';
 let vSelectedAddressDoc='';
 let vSelfieStream=null;
 let vSelfieStep=0;
-const vSelfieSteps=['Position face inside circle','Look Left','Look Right','Look Up','Look Down','Smile'];
+let vSelfieDetector=null;
+let vSelfieLandmarker=null;
+let vSelfieRaf=null;
+let vSelfieLastVideoTime=-1;
+let vSelfieLastFace=null;
+let vSelfieStableSince=0;
+const vSelfieSteps=[
+  {key:'center',text:'LOOK AT CAMERA'},
+  {key:'left',text:'TURN LEFT'},
+  {key:'right',text:'TURN RIGHT'},
+  {key:'up',text:'LOOK UP'},
+  {key:'down',text:'LOOK DOWN'},
+  {key:'smile',text:'SMILE'}
+];
 
-function getVerificationParts(){
-  try{return JSON.parse(localStorage.getItem(DINAR_VERIFICATION_KEY)||'{}');}catch(e){return {};}
-}
+function getVerificationParts(){try{return JSON.parse(localStorage.getItem(DINAR_VERIFICATION_KEY)||'{}');}catch(e){return {};}}
 function saveVerificationParts(parts){localStorage.setItem(DINAR_VERIFICATION_KEY,JSON.stringify(parts));}
 function verificationPartStatus(part){return getVerificationParts()[part]||'pending';}
 function setVerificationPartStatus(part,status){
-  const allowed=['pending','submitted','under_review','verified','rejected'];
-  if(!allowed.includes(status)) return;
-  const parts=getVerificationParts(); parts[part]=status; saveVerificationParts(parts);
-  updateVerificationMainStatus();
-  updateProfileVerificationBadge();
+  const allowed=['pending','submitted','under_review','verified','rejected','needs_review'];
+  if(!allowed.includes(status))return;
+  const parts=getVerificationParts();parts[part]=status;saveVerificationParts(parts);updateVerificationMainStatus();updateProfileVerificationBadge();
 }
+function saveVerificationData(patch){const parts=getVerificationParts();Object.assign(parts,patch);saveVerificationParts(parts);}
 function allVerificationPartsVerified(){return ['identity','address','selfie'].every(p=>verificationPartStatus(p)==='verified');}
 function updateProfileVerificationBadge(){
   const verified=allVerificationPartsVerified();
-  const text=document.getElementById('profileStatusText'), check=document.getElementById('profileStatusCheck'), status=document.getElementById('profileStatus'), icon=document.getElementById('profileStatusIcon');
-  if(text) text.textContent=verified?'Verified Account':'Verification Required';
-  if(check) check.style.display=verified?'flex':'none';
-  if(status) status.classList.toggle('pending',!verified);
-  if(icon) icon.innerHTML=verified
-    ? '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l-8-3z"/><polyline points="9 12 11 14 15 10"/></svg>'
-    : '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+  const text=document.getElementById('profileStatusText'),check=document.getElementById('profileStatusCheck'),status=document.getElementById('profileStatus'),icon=document.getElementById('profileStatusIcon');
+  if(text)text.textContent=verified?'Verified Account':'Verification Required';
+  if(check)check.style.display=verified?'flex':'none';
+  if(status)status.classList.toggle('pending',!verified);
+  if(icon)icon.innerHTML=verified
+    ? '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z"/><polyline points="9 12 11 14 15 10"/></svg>'
+    : '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 }
+function statusLabel(st){return st==='verified'?'Verified':st==='rejected'?'Rejected':st==='under_review'?'Under review':st==='needs_review'?'Needs review':st==='submitted'?'Submitted':'Pending';}
 function updateVerificationMainStatus(){
-  const map={identity:'vMainIdentity',address:'vMainAddress',selfie:'vMainSelfie'};
-  const parts=getVerificationParts();
-  let anySubmitted=false;
+  const map={identity:'vMainIdentity',address:'vMainAddress',selfie:'vMainSelfie'},parts=getVerificationParts();let anySubmitted=false;
   Object.keys(map).forEach(part=>{
-    const el=document.getElementById(map[part]); if(!el)return;
-    const st=parts[part]||'pending';
-    el.classList.remove('is-submitted','is-verified','is-rejected','is-under-review');
-    const statusBox=el.querySelector('.v-main-status'); const statusText=statusBox?.querySelector('span'); const svg=statusBox?.querySelector('svg');
-    if(st==='submitted'||st==='under_review'||st==='verified'||st==='rejected'){
-      anySubmitted=true; el.classList.add('is-'+st);
-      if(statusText) statusText.textContent=st==='verified'?'Verified':st==='rejected'?'Rejected':st==='under_review'?'Under review':'Submitted';
-      if(svg) svg.innerHTML=st==='verified'?'<polyline points="20 6 9 17 4 12"/>':'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>';
+    const el=document.getElementById(map[part]);if(!el)return;const st=parts[part]||'pending';
+    el.classList.remove('is-submitted','is-verified','is-rejected','is-under-review','is-needs_review');
+    const box=el.querySelector('.v-main-status'),txt=box?.querySelector('span'),svg=box?.querySelector('svg');
+    if(st!=='pending'){
+      anySubmitted=true;el.classList.add('is-'+st);if(txt)txt.textContent=statusLabel(st);
+      if(svg)svg.innerHTML=st==='verified'?'<polyline points="20 6 9 17 4 12"/>':st==='rejected'?'<line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>':'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>';
     }
   });
-  const banner=document.getElementById('verifyBannerTitle');
-  if(banner) banner.textContent=allVerificationPartsVerified()?'Verification Successful':anySubmitted?'Verification In Progress':'Verification Pending';
+  const banner=document.getElementById('verifyBannerTitle');if(banner)banner.textContent=allVerificationPartsVerified()?'Verification Successful':anySubmitted?'Verification In Progress':'Verification Pending';
 }
-function showVerificationView(id){
-  document.querySelectorAll('#profile-verification-page .verification-main-view,#profile-verification-page .verification-step-view').forEach(v=>v.style.display='none');
-  const el=document.getElementById(id); if(el) el.style.display='block';
-  window.scrollTo(0,0);
-}
+function showVerificationView(id){document.querySelectorAll('#profile-verification-page .verification-main-view,#profile-verification-page .verification-step-view').forEach(v=>v.style.display='none');const el=document.getElementById(id);if(el)el.style.display='block';window.scrollTo(0,0);}
 function showVerificationMain(){stopSelfieCamera();showVerificationView('verificationMainView');updateVerificationMainStatus();}
 function openVerificationStep(step){
   updateVerificationMainStatus();
-  if(step==='identity'){
-    if(verificationPartStatus('identity')==='verified'||verificationPartStatus('identity')==='under_review'||verificationPartStatus('identity')==='submitted'){
-      // Submitted steps remain viewable; user can reopen to inspect the upload flow if needed.
-    }
-    showVerificationView('verificationIdentityView');
-  }else if(step==='address'){
-    populateVerificationCountries(); showVerificationView('verificationAddressView');
-  }else if(step==='selfie'){
-    startSelfieCamera();
-  }
+  if(step==='identity'){wireIdentityRadios();showVerificationView('verificationIdentityView');}
+  else if(step==='address'){populateVerificationCountries();showVerificationView('verificationAddressView');}
+  else if(step==='selfie')startSelfieCamera();
+}
+function wireIdentityRadios(){
+  const box=document.getElementById('vIdentityDocs');if(!box||box.dataset.wired==='1')return;box.dataset.wired='1';
+  box.querySelectorAll('input[name="vIdentityDoc"]').forEach(input=>input.addEventListener('change',()=>{vSelectedIdentityDoc=input.value;box.querySelectorAll('.v-radio-card').forEach(c=>c.classList.toggle('selected',c.querySelector('input')===input));const b=document.getElementById('vIdentityContinue');if(b)b.disabled=false;}));
 }
 function continueIdentity(){
-  const selected=document.querySelector('input[name="vIdentityDoc"]:checked'); if(!selected)return;
-  vSelectedIdentityDoc=selected.value;
+  const selected=document.querySelector('input[name="vIdentityDoc"]:checked');if(!selected)return;vSelectedIdentityDoc=selected.value;
+  saveVerificationData({identityDocumentType:vSelectedIdentityDoc,identityDocuments:[],identityStatus:'pending'});
   document.getElementById('vIdentityUploadTitle').textContent='Upload '+vSelectedIdentityDoc;
   document.getElementById('vFrontLabel').textContent=vSelectedIdentityDoc==='Passport'?'Front Page':'Front Side';
   document.getElementById('vBackLabel').textContent=vSelectedIdentityDoc==='Passport'?'Back Page':'Back Side';
-  resetVerificationUpload('vIdentityFront','vIdentityFrontPreview','vIdentityFrontName','vIdentitySubmit');
-  resetVerificationUpload('vIdentityBack','vIdentityBackPreview','vIdentityBackName','vIdentitySubmit');
-  showVerificationView('verificationIdentityUploadView');
+  resetVerificationUpload('vIdentityFront','vIdentityFrontPreview','vIdentityFrontName','vIdentitySubmit');resetVerificationUpload('vIdentityBack','vIdentityBackPreview','vIdentityBackName','vIdentitySubmit');showVerificationView('verificationIdentityUploadView');
 }
-function resetVerificationUpload(inputId,previewId,nameId,submitId){
-  const input=document.getElementById(inputId); if(input) input.value='';
-  const p=document.getElementById(previewId); if(p){p.classList.remove('show'); const img=p.querySelector('img'); if(img)img.removeAttribute('src');}
-  const n=document.getElementById(nameId); if(n)n.textContent='';
-  updateVerificationSubmitButton(submitId);
-}
+function resetVerificationUpload(inputId,previewId,nameId,submitId){const input=document.getElementById(inputId);if(input)input.value='';const p=document.getElementById(previewId);if(p){p.classList.remove('show');const img=p.querySelector('img');if(img)img.removeAttribute('src');}const n=document.getElementById(nameId);if(n)n.textContent='';updateVerificationSubmitButton(submitId);}
+function fileMeta(file){return file?{name:file.name,type:file.type,size:file.size,lastModified:file.lastModified}:null;}
 function handleVerificationFile(input,previewId,nameId,submitId){
-  const file=input.files&&input.files[0]; if(!file){resetVerificationUpload(input.id,previewId,nameId,submitId);return;}
-  const preview=document.getElementById(previewId), name=document.getElementById(nameId);
-  if(name)name.textContent=file.name;
-  if(preview){preview.classList.add('show'); const img=preview.querySelector('img'); if(img && file.type.startsWith('image/')){const reader=new FileReader(); reader.onload=e=>img.src=e.target.result; reader.readAsDataURL(file);} else if(img){img.removeAttribute('src');}}
+  const file=input.files&&input.files[0];if(!file){resetVerificationUpload(input.id,previewId,nameId,submitId);return;}
+  const preview=document.getElementById(previewId),name=document.getElementById(nameId);if(name)name.textContent=file.name+' • '+Math.ceil(file.size/1024)+' KB';
+  if(preview){preview.classList.add('show');const img=preview.querySelector('img');if(img&&file.type.startsWith('image/')){const reader=new FileReader();reader.onload=e=>img.src=e.target.result;reader.readAsDataURL(file);}else if(img){img.removeAttribute('src');}}
   updateVerificationSubmitButton(submitId);
 }
-function updateVerificationSubmitButton(id){
-  const b=document.getElementById(id); if(!b)return;
-  if(id==='vIdentitySubmit') b.disabled=!(document.getElementById('vIdentityFront')?.files?.length && document.getElementById('vIdentityBack')?.files?.length);
-  if(id==='vAddressSubmit') b.disabled=!document.getElementById('vAddressFile')?.files?.length;
-}
+function updateVerificationSubmitButton(id){const b=document.getElementById(id);if(!b)return;if(id==='vIdentitySubmit')b.disabled=!(document.getElementById('vIdentityFront')?.files?.length&&document.getElementById('vIdentityBack')?.files?.length);if(id==='vAddressSubmit')b.disabled=!document.getElementById('vAddressFile')?.files?.length;}
 function submitIdentityVerification(){
-  if(!document.getElementById('vIdentityFront')?.files?.length||!document.getElementById('vIdentityBack')?.files?.length)return;
-  setVerificationPartStatus('identity','submitted'); showVerificationMain();
+  const f=document.getElementById('vIdentityFront')?.files?.[0],b=document.getElementById('vIdentityBack')?.files?.[0];if(!f||!b)return;
+  saveVerificationData({identityStatus:'submitted',identityDocuments:[fileMeta(f),fileMeta(b)],identitySubmittedAt:new Date().toISOString()});setVerificationPartStatus('identity','submitted');showVerificationMain();
 }
 function populateVerificationCountries(){
-  const sel=document.getElementById('vCountrySelect'), opts=document.getElementById('vCountryOptions'); if(!sel||!opts)return;
-  const current=vSelectedCountry||sel.value;
+  const sel=document.getElementById('vCountrySelect'),opts=document.getElementById('vCountryOptions');if(!sel||!opts)return;const current=vSelectedCountry||sel.value;
   sel.innerHTML='<option value="">Select country</option>'+DINAR_COUNTRIES.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
-  if(current){sel.value=current;document.getElementById('vCountrySearch').value=current;renderAddressDocumentOptions(current);}
-  else{opts.innerHTML='';}
-  renderCountryOptionList('');
+  if(current){sel.value=current;document.getElementById('vCountrySearch').value=current;renderAddressDocumentOptions(current);}else{opts.innerHTML='';document.getElementById('vAddressTypes').innerHTML='<div class="v-address-empty">Select a country to continue.</div>';}
+  renderCountryOptionList(document.getElementById('vCountrySearch')?.value||'');
 }
-function renderCountryOptionList(query){
-  const box=document.getElementById('vCountryOptions'); if(!box)return;
-  const q=(query||'').trim().toLowerCase();
-  box.innerHTML=DINAR_COUNTRIES.filter(c=>!q||c.toLowerCase().includes(q)).map(c=>`<button type="button" class="v-country-option" onclick="selectVerificationCountry('${escapeJs(c)}')">${escapeHtml(c)}</button>`).join('');
-}
-function openCountryOptions(){document.getElementById('vCountryOptions')?.classList.add('show');renderCountryOptionList(document.getElementById('vCountrySearch')?.value||'');}
-function filterVerificationCountries(){const q=document.getElementById('vCountrySearch')?.value||'';openCountryOptions();renderCountryOptionList(q);}
-function selectVerificationCountry(country){
-  if(!country)return; vSelectedCountry=country;
-  const search=document.getElementById('vCountrySearch'),sel=document.getElementById('vCountrySelect'); if(search)search.value=country;if(sel)sel.value=country;
-  document.getElementById('vCountryOptions')?.classList.remove('show');
-  vSelectedAddressDoc=''; renderAddressDocumentOptions(country);
-}
+function renderCountryOptionList(query){const box=document.getElementById('vCountryOptions');if(!box)return;const q=(query||'').trim().toLowerCase();box.innerHTML=DINAR_COUNTRIES.filter(c=>!q||c.toLowerCase().includes(q)).map(c=>`<button type="button" class="v-country-option" onclick="selectVerificationCountry('${escapeJs(c)}')">${escapeHtml(c)}</button>`).join('');}
+function openCountryOptions(){const b=document.getElementById('vCountryOptions');if(b)b.classList.add('show');renderCountryOptionList(document.getElementById('vCountrySearch')?.value||'');}
+function filterVerificationCountries(){openCountryOptions();renderCountryOptionList(document.getElementById('vCountrySearch')?.value||'');}
+function selectVerificationCountry(country){if(!country)return;vSelectedCountry=country;const search=document.getElementById('vCountrySearch'),sel=document.getElementById('vCountrySelect');if(search)search.value=country;if(sel)sel.value=country;document.getElementById('vCountryOptions')?.classList.remove('show');vSelectedAddressDoc='';renderAddressDocumentOptions(country);}
 function renderAddressDocumentOptions(country){
-  const box=document.getElementById('vAddressTypes'); if(!box)return;
-  const types=DINAR_ADDRESS_TYPES[country]||['Bank Statement','Utility Bill','Government Letter','Residential Lease','Other'];
-  box.innerHTML=types.map(t=>`<label class="v-radio-card"><input type="radio" name="vAddressDoc" value="${escapeHtml(t)}"><span class="v-radio-circle"></span><span class="v-radio-copy"><b>${escapeHtml(t)}</b><span>Accepted configured address proof</span></span></label>`).join('');
-  box.querySelectorAll('input').forEach(i=>i.addEventListener('change',()=>{vSelectedAddressDoc=i.value;document.getElementById('vAddressContinue').disabled=false;box.querySelectorAll('.v-radio-card').forEach(c=>c.classList.toggle('selected',c.querySelector('input')===i));}));
-  document.getElementById('vAddressContinue').disabled=true;
+  const box=document.getElementById('vAddressTypes');if(!box)return;const types=DINAR_ADDRESS_TYPES[country]||DINAR_DEFAULT_ADDRESS_TYPES;
+  box.innerHTML=types.map(t=>`<label class="v-radio-card"><input type="radio" name="vAddressDoc" value="${escapeHtml(t)}"><span class="v-radio-circle"></span><span class="v-radio-copy"><b>${escapeHtml(t)}</b><span>Configured address proof</span></span></label>`).join('');
+  box.querySelectorAll('input').forEach(i=>i.addEventListener('change',()=>{vSelectedAddressDoc=i.value;document.getElementById('vAddressContinue').disabled=false;box.querySelectorAll('.v-radio-card').forEach(c=>c.classList.toggle('selected',c.querySelector('input')===i));}));document.getElementById('vAddressContinue').disabled=true;
 }
-function continueAddress(){
-  if(!vSelectedCountry||!vSelectedAddressDoc)return;
-  document.getElementById('vAddressUploadTitle').textContent='Upload '+vSelectedAddressDoc;
-  document.getElementById('vAddressDocLabel').textContent=vSelectedAddressDoc;
-  document.getElementById('vAddressUploadSub').textContent='Upload your '+vSelectedAddressDoc+' and review the preview before submitting.';
-  resetVerificationUpload('vAddressFile','vAddressPreview','vAddressFileName','vAddressSubmit');
-  showVerificationView('verificationAddressUploadView');
+function continueAddress(){if(!vSelectedCountry||!vSelectedAddressDoc)return;saveVerificationData({addressDocumentType:vSelectedAddressDoc,addressInformation:{country:vSelectedCountry}});document.getElementById('vInfoCountry').value=vSelectedCountry;['vStreetAddress','vApartment','vCity','vRegion','vPostal'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});showVerificationView('verificationAddressInfoView');wireAddressInfo();validateAddressInfo();}
+function suggestVerificationAddress(){
+  const input=document.getElementById('vStreetAddress'),box=document.getElementById('vAddressSuggestions');if(!input||!box)return;const q=input.value.trim();
+  if(q.length<3){box.classList.remove('show');box.innerHTML='';validateAddressInfo();return;}
+  const country=vSelectedCountry||'';const suggestions=[q+', '+country,q+' Road, '+country,q+' Street, '+country];box.innerHTML=suggestions.map(x=>`<button type="button" class="v-address-suggestion" onclick="applyVerificationAddressSuggestion('${escapeJs(x)}')">${escapeHtml(x)}</button>`).join('');box.classList.add('show');validateAddressInfo();
 }
-function submitAddressVerification(){if(!document.getElementById('vAddressFile')?.files?.length)return;setVerificationPartStatus('address','submitted');showVerificationMain();}
-function renderSelfieProgress(){const box=document.getElementById('vSelfieProgress');if(!box)return;box.innerHTML=vSelfieSteps.map((_,i)=>`<span class="v-camera-dot ${i===vSelfieStep?'active':''}"></span>`).join('');}
+function applyVerificationAddressSuggestion(value){const input=document.getElementById('vStreetAddress');if(input)input.value=value;document.getElementById('vAddressSuggestions')?.classList.remove('show');validateAddressInfo();}
+function validateAddressInfo(){const ids=['vStreetAddress','vCity','vRegion','vPostal'];const ok=ids.every(id=>(document.getElementById(id)?.value||'').trim());const b=document.getElementById('vAddressInfoContinue');if(b)b.disabled=!ok;}
+function wireAddressInfo(){const form=document.getElementById('verificationAddressInfoView');if(!form||form.dataset.wired==='1')return;form.dataset.wired='1';form.querySelectorAll('input').forEach(i=>i.addEventListener('input',validateAddressInfo));}
+function continueAddressInfo(){if(document.getElementById('vAddressInfoContinue')?.disabled)return;const info={streetAddress:document.getElementById('vStreetAddress').value.trim(),apartment:document.getElementById('vApartment').value.trim(),city:document.getElementById('vCity').value.trim(),region:document.getElementById('vRegion').value.trim(),postalCode:document.getElementById('vPostal').value.trim(),country:vSelectedCountry};saveVerificationData({addressInformation:info,addressStatus:'pending'});document.getElementById('vAddressUploadTitle').textContent='Upload '+vSelectedAddressDoc;document.getElementById('vAddressDocLabel').textContent=vSelectedAddressDoc;document.getElementById('vAddressUploadSub').textContent='Upload your '+vSelectedAddressDoc+' and review the preview before submitting.';resetVerificationUpload('vAddressFile','vAddressPreview','vAddressFileName','vAddressSubmit');showVerificationView('verificationAddressUploadView');}
+function submitAddressVerification(){const f=document.getElementById('vAddressFile')?.files?.[0];if(!f)return;saveVerificationData({addressStatus:'submitted',addressDocuments:[fileMeta(f)],addressSubmittedAt:new Date().toISOString()});setVerificationPartStatus('address','submitted');showVerificationMain();}
+
+function renderSelfieProgress(){const box=document.getElementById('vSelfieProgress');if(!box)return;box.innerHTML=vSelfieSteps.map((_,i)=>`<span class="v-camera-dot ${i===vSelfieStep?'active':''}></span>`).join('');}
+function renderSelfieGuide(){const g=document.getElementById('vSelfieGuide');if(!g)return;g.innerHTML='';const k=vSelfieSteps[vSelfieStep]?.key;if(k==='left')g.innerHTML='<span class="v-camera-arrow left">←</span>';else if(k==='right')g.innerHTML='<span class="v-camera-arrow right">→</span>';else if(k==='up')g.innerHTML='<span class="v-camera-arrow up">↑</span>';else if(k==='down')g.innerHTML='<span class="v-camera-arrow down">↓</span>';else if(k==='smile')g.innerHTML='<span class="v-camera-arrow">☺</span>';}
+function setSelfieInstruction(){const x=vSelfieSteps[vSelfieStep];const el=document.getElementById('vSelfieInstruction');if(el)el.textContent=x?.text||'LIVE SELFIE';renderSelfieGuide();renderSelfieProgress();}
+function faceCenter(face){return {x:face.boundingBox.x+face.boundingBox.width/2,y:face.boundingBox.y+face.boundingBox.height/2,w:face.boundingBox.width,h:face.boundingBox.height};}
+function selfieActionDetected(face){
+  if(!face)return false;const c=faceCenter(face);const video=document.getElementById('vSelfieVideo');if(!video||!video.videoWidth)return false;const nx=c.x/video.videoWidth,ny=c.y/video.videoHeight;
+  if(!vSelfieLastFace){vSelfieLastFace={x:nx,y:ny,w:c.w/video.videoWidth,h:c.h/video.videoHeight};vSelfieStableSince=performance.now();return vSelfieStep===0;}
+  const dx=nx-vSelfieLastFace.x,dy=ny-vSelfieLastFace.y,dw=(c.w/video.videoWidth)-vSelfieLastFace.w;
+  const stable=Math.abs(dx)<.025&&Math.abs(dy)<.025;let ok=false;const key=vSelfieSteps[vSelfieStep].key;
+  if(key==='center')ok=nx>.34&&nx<.66&&ny>.34&&ny<.66&&stable;
+  else if(key==='left')ok=nx<.39;
+  else if(key==='right')ok=nx>.61;
+  else if(key==='up')ok=ny<.40;
+  else if(key==='down')ok=ny>.60;
+  else if(key==='smile')ok=dw>.018;
+  vSelfieLastFace={x:nx,y:ny,w:c.w/video.videoWidth,h:c.h/video.videoHeight};
+  return ok;
+}
+async function loadNativeFaceDetector(){
+  if('FaceDetector' in window){try{return new FaceDetector({fastMode:true,maxDetectedFaces:1});}catch(e){return null;}}
+  return null;
+}
+async function loadSelfieLandmarker(){
+  try{
+    if(!window.FaceLandmarker){
+      const mod=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/vision_bundle.mjs');
+      window.FaceLandmarker=mod.FaceLandmarker;window.FilesetResolver=mod.FilesetResolver;
+    }
+    const vision=await window.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm');
+    return await window.FaceLandmarker.createFromOptions(vision,{baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task'},runningMode:'VIDEO',numFaces:1,outputFaceBlendshapes:true});
+  }catch(e){return null;}
+}
+function lmPoint(landmarks,index){const p=landmarks?.[index];return p?{x:p.x,y:p.y,z:p.z||0}:null;}
+function landmarkMetrics(result){
+  const lm=result?.faceLandmarks?.[0];if(!lm)return null;
+  const nose=lmPoint(lm,1),leftEye=lmPoint(lm,33),rightEye=lmPoint(lm,263),mouthL=lmPoint(lm,61),mouthR=lmPoint(lm,291),mouthTop=lmPoint(lm,13),mouthBottom=lmPoint(lm,14);if(!nose||!leftEye||!rightEye)return null;
+  const eyeMid={x:(leftEye.x+rightEye.x)/2,y:(leftEye.y+rightEye.y)/2};
+  const eyeDist=Math.max(.001,Math.hypot(rightEye.x-leftEye.x,rightEye.y-leftEye.y));
+  const yaw=(nose.x-eyeMid.x)/eyeDist;const pitch=(nose.y-eyeMid.y)/eyeDist;
+  const mouthWidth=mouthL&&mouthR?Math.hypot(mouthR.x-mouthL.x,mouthR.y-mouthL.y):0;const mouthOpen=mouthTop&&mouthBottom?Math.hypot(mouthBottom.x-mouthTop.x,mouthBottom.y-mouthTop.y):0;
+  return {yaw,pitch,mouthWidth,mouthOpen};
+}
+function blendshapeSmile(result){
+  const cats=result?.faceBlendshapes?.[0]?.categories||[];let l=0,r=0;cats.forEach(c=>{if(c.categoryName==='mouthSmileLeft')l=c.score||0;if(c.categoryName==='mouthSmileRight')r=c.score||0;});return (l+r)/2;
+}
+function selfieLandmarkAction(result){
+  const m=landmarkMetrics(result);if(!m)return false;const key=vSelfieSteps[vSelfieStep].key;
+  if(key==='center')return Math.abs(m.yaw)<.18&&Math.abs(m.pitch)<.55;
+  if(key==='left')return m.yaw<-.32;
+  if(key==='right')return m.yaw>.32;
+  if(key==='up')return m.pitch<-.68;
+  if(key==='down')return m.pitch>-.18;
+  if(key==='smile')return blendshapeSmile(result)>.45 || (m.mouthWidth>.16&&m.mouthOpen<.055);
+  return false;
+}
 async function startSelfieCamera(){
-  showVerificationView('verificationSelfieView');
-  vSelfieStep=0;renderSelfieProgress();document.getElementById('vSelfieInstruction').textContent=vSelfieSteps[0];
-  const next=document.getElementById('vSelfieNext'),err=document.getElementById('vSelfieError'); if(next)next.disabled=true;if(err){err.classList.remove('show');err.textContent='';}
+  showVerificationView('verificationSelfieView');vSelfieStep=0;vSelfieLastFace=null;setSelfieInstruction();const err=document.getElementById('vSelfieError'),state=document.getElementById('vSelfieState');if(err){err.classList.remove('show');err.textContent='';}if(state)state.textContent='Requesting camera permission…';
   try{
     if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)throw new Error('Camera access is not supported by this browser.');
-    vSelfieStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});
-    const video=document.getElementById('vSelfieVideo'); video.srcObject=vSelfieStream; await video.play();
-    if(next){next.disabled=false;next.textContent='Continue';}
-  }catch(e){
-    if(err){err.textContent='Camera permission is required. Please allow camera access and open this page over HTTPS (or localhost).';err.classList.add('show');}
-  }
+    vSelfieStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'user'},width:{ideal:1280},height:{ideal:720}},audio:false});
+    const video=document.getElementById('vSelfieVideo');video.srcObject=vSelfieStream;await video.play();
+    if(state)state.textContent='Loading live face/liveness detection…';
+    vSelfieLandmarker=await loadSelfieLandmarker();
+    vSelfieDetector=vSelfieLandmarker?null:await loadNativeFaceDetector();
+    if(!vSelfieLandmarker&&!vSelfieDetector){
+      if(err){err.textContent='Live camera is available, but no browser liveness detector is available. Connect the configured liveness provider before using this step.';err.classList.add('show');}
+      if(state)state.textContent='Liveness provider required';return;
+    }
+    if(state)state.textContent='Live liveness check active • follow the instruction';runSelfieDetection();
+  }catch(e){if(err){err.textContent='Camera permission is required. Please allow camera access and open this page over HTTPS (or localhost).';err.classList.add('show');}if(state)state.textContent='Camera unavailable';}
 }
-function advanceSelfieStep(){
-  if(!vSelfieStream)return;
-  if(vSelfieStep<vSelfieSteps.length-1){vSelfieStep++;document.getElementById('vSelfieInstruction').textContent=vSelfieSteps[vSelfieStep];renderSelfieProgress();return;}
-  stopSelfieCamera();setVerificationPartStatus('selfie','submitted');showVerificationView('verificationSelfieResultView');
+async function runSelfieDetection(){
+  cancelAnimationFrame(vSelfieRaf);const video=document.getElementById('vSelfieVideo');if(!video||!vSelfieStream)return;
+  const tick=async()=>{if(!vSelfieStream)return;try{
+    let ok=false;
+    if(vSelfieLandmarker&&video.readyState>=2&&video.currentTime!==vSelfieLastVideoTime){
+      vSelfieLastVideoTime=video.currentTime;const result=vSelfieLandmarker.detectForVideo(video,performance.now());ok=selfieLandmarkAction(result);
+      const state=document.getElementById('vSelfieState');if(state)state.textContent=result?.faceLandmarks?.length?'Face detected • follow the instruction':'Face not detected • keep your face inside the guide';
+    }else if(vSelfieDetector&&video.readyState>=2){
+      const faces=await vSelfieDetector.detect(video).then(r=>r.faces||[]).catch(()=>[]);ok=faces.length>0&&selfieActionDetected(faces[0]);const state=document.getElementById('vSelfieState');if(state)state.textContent=faces.length?'Face detected • follow the instruction':'Face not detected • keep your face inside the guide';
+    }
+    if(ok){if(vSelfieStep<vSelfieSteps.length-1){vSelfieStep++;vSelfieLastFace=null;setSelfieInstruction();}else{finishSelfieVerification();return;}}
+  }catch(e){}
+  vSelfieRaf=requestAnimationFrame(tick);};tick();
 }
-function stopSelfieCamera(){if(vSelfieStream){vSelfieStream.getTracks().forEach(t=>t.stop());vSelfieStream=null;}const video=document.getElementById('vSelfieVideo');if(video)video.srcObject=null;}
+function finishSelfieVerification(){stopSelfieCamera();saveVerificationData({selfieStatus:'submitted',livenessResult:{client:'camera',provider:'pending_backend',completedAt:new Date().toISOString()}});setVerificationPartStatus('selfie','submitted');showVerificationView('verificationSelfieResultView');}
+function stopSelfieCamera(){if(vSelfieRaf){cancelAnimationFrame(vSelfieRaf);vSelfieRaf=null;}if(vSelfieStream){vSelfieStream.getTracks().forEach(t=>t.stop());vSelfieStream=null;}if(vSelfieLandmarker){try{vSelfieLandmarker.close();}catch(e){}}vSelfieLandmarker=null;vSelfieDetector=null;vSelfieLastVideoTime=-1;const video=document.getElementById('vSelfieVideo');if(video)video.srcObject=null;}
 function escapeJs(value){return String(value).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+function escapeHtml(value){return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
 
 window.DINARVerification={
   getStatus:verificationPartStatus,
