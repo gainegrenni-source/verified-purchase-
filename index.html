@@ -1847,6 +1847,16 @@ button{
     .footer-col button,.footer-brand > p{font-size:7px;}
     .cta-button{min-width:112px;font-size:9px;}
 }
+
+.transaction-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin-bottom:10px;}
+.transaction-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.transaction-id{font-size:11px;font-weight:800;color:#1a2b4c;word-break:break-all;}
+.transaction-status{font-size:9px;font-weight:800;padding:5px 8px;border-radius:20px;background:#fff8db;color:#9a7400;border:1px solid #f1df86;}
+.transaction-meta{font-size:9.5px;color:#718096;line-height:1.55;}
+.transaction-stage{display:flex;align-items:center;gap:8px;margin-top:9px;padding-top:9px;border-top:1px solid #edf0f5;font-size:10px;font-weight:700;color:#4a5568;}
+.pulse-dot{width:9px;height:9px;border-radius:50%;background:#e0a800;box-shadow:0 0 0 0 rgba(224,168,0,.5);animation:pulseDot 1.3s infinite;}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(224,168,0,.5)}70%{box-shadow:0 0 0 7px rgba(224,168,0,0)}100%{box-shadow:0 0 0 0 rgba(224,168,0,0)}}
+
 </style>
 
 <style id="responsive-final-adjustments">
@@ -2511,10 +2521,43 @@ body{overflow-x:hidden;}
         </div>
     </div>
 
-    <button class="btn-continue-full" onclick="showToast('Trade process verified successfully!')">
+    <button class="btn-continue-full" onclick="submitBuyerTrade()">
         Continue 
         <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:16px;height:16px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
     </button>
+</section>
+
+
+<!-- TRANSACTIONS PAGE -->
+<section id="transactions-page" class="page">
+    <div class="nt-header">
+        <div class="nt-back-title">
+            <button class="back-btn" onclick="switchPage('dashboard')">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="nt-title-group">
+                <h2>Transactions</h2>
+                <p>Track your submitted orders</p>
+            </div>
+        </div>
+        <div class="nt-escrow-brand">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div><span>DIN AR</span><small>Escrow</small></div>
+        </div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:14px;">
+        <input id="transactionSearch" type="search" placeholder="Search Transaction ID"
+               style="flex:1;height:42px;border:1px solid #cbd5e0;border-radius:10px;padding:0 12px;font-size:11px;outline:none;"
+               oninput="renderTransactions(this.value)">
+        <button class="icon-btn" onclick="renderTransactions(document.getElementById('transactionSearch').value)" title="Search">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/>
+            </svg>
+        </button>
+    </div>
+
+    <div id="transactionList"></div>
 </section>
 
 <!-- BOTTOM NAVIGATION BAR -->
@@ -2523,7 +2566,7 @@ body{overflow-x:hidden;}
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Home</span>
     </button>
-    <button class="nav-item" onclick="showToast('Transactions clicked')">
+    <button class="nav-item" onclick="switchPage('transactions')">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>
         <span>Transactions</span>
     </button>
@@ -2551,38 +2594,34 @@ body{overflow-x:hidden;}
                 <input type="text" id="formBuyerName" placeholder="Enter buyer name" required>
             </div>
             <div class="form-field-group">
-                <label>PayPal Email</label>
-                <input type="email" id="formPaypalEmail" placeholder="buyer@example.com" required>
+                <label>Order ID</label>
+                <input type="text" id="formOrderId" placeholder="Amazon order number" required>
             </div>
             <div class="form-field-group">
-                <label>Products Name</label>
-                <input type="text" id="formProductName" placeholder="e.g. Amazon Gift Card" required>
+                <label>Order Date & Time</label>
+                <input type="datetime-local" id="formOrderDate" required>
             </div>
             <div class="form-field-group">
-                <label>Product Price ($)</label>
-                <input type="number" id="formProductPrice" placeholder="0.00" required>
+                <label>Order Price ($)</label>
+                <input type="number" id="formOrderPrice" min="0" step="0.01" placeholder="0.00" required>
             </div>
             <div class="form-field-group">
-                <label>Verification Process (E-giftcard Amount)</label>
-                <input type="number" id="formGiftCardAmount" placeholder="0.00" required>
+                <label>Order Status</label>
+                <select id="formOrderStatus" required>
+                    <option value="">Select status</option>
+                    <option value="PAID">PAID</option>
+                    <option value="PROCESSING">PROCESSING</option>
+                    <option value="CANCELLED">CANCELLED</option>
+                </select>
             </div>
             <div class="form-field-group">
-                <label>Total Amount ($)</label>
-                <input type="number" id="formTotalAmount" placeholder="0.00" required>
+                <label>Verification Process Email</label>
+                <input type="email" id="formVerificationEmail" placeholder="buyer@example.com" required>
             </div>
             <div class="form-field-group">
-                <label>Payment Created Date</label>
-                <input type="date" id="formPaymentDate" required>
+                <label>Confirmation Screenshot</label>
+                <input type="file" id="formInvoiceFile" accept="image/*" style="padding:6px;font-size:10px;" required>
             </div>
-            <div class="form-field-group">
-                <label>Transaction ID</label>
-                <input type="text" id="formTxnId" placeholder="e.g. TXN-9842510" required>
-            </div>
-            <div class="form-field-group">
-                <label>Upload Invoice File</label>
-                <input type="file" id="formInvoiceFile" accept="image/*,.pdf" style="padding:6px; font-size:10px;" required>
-            </div>
-
             <button type="submit" class="btn-primary" style="margin-top:6px;">Submit Information</button>
         </form>
     </div>
@@ -2595,15 +2634,67 @@ body{overflow-x:hidden;}
         <h3 style="font-size:15px; font-weight:800; color:#1a2b4c; margin-bottom:4px;">Payment Invoice</h3>
         <p style="font-size:10px; color:#718096; margin-bottom:14px;">Review your transaction details and status below.</p>
 
-        <div class="invoice-points-box">
-            <div class="invoice-point-item">1. <strong>Order Number :</strong> <span id="invOrderNum">DIN-88241</span></div>
-            <div class="invoice-point-item">2. <strong>Order Date :</strong> <span id="invDate">2026-09-12</span></div>
-            <div class="invoice-point-item">3. <strong>Payment successfully :</strong> <span id="invStatus" style="color:#0ca678; font-weight:700;">Secure in Escrow ($125.00)</span></div>
-            <div class="invoice-point-item" style="margin-top:10px;">4. <strong>Amazon E-Giftcard Order Confirmation screenshot :</strong><br>
-                <div style="margin-top:6px; padding:10px; background:#fff; border:1px dashed #cbd5e0; border-radius:8px; text-align:center; font-size:10px; color:#0070ba; font-weight:700;" id="invScreenshotName">
-                    📁 No screenshot uploaded yet
-                </div>
+        
+<div class="invoice-points-box">
+    <div class="invoice-point-item">
+        <strong>1. Order ID :</strong>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:5px;">
+            <span style="font-size:12px;font-weight:800;">Amazon</span>
+            <input id="buyerOrderId" type="text" inputmode="numeric" placeholder="Order number"
+                   style="flex:1;height:36px;border:1px solid #cbd5e0;border-radius:8px;padding:0 9px;font-size:11px;outline:none;"
+                   oninput="updateBuyerOrderId(this.value)">
+        </div>
+        <div id="amazonOrderPreview" style="display:none;margin-top:6px;padding:7px 9px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;font-size:10px;font-weight:700;">
+            <span style="font-weight:900;">a</span> Amazon Order <span id="amazonOrderNumber"></span>
+        </div>
+    </div>
+
+    <div class="invoice-point-item">
+        <strong>2. Order Date :</strong>
+        <input id="buyerOrderDate" type="datetime-local"
+               style="display:block;width:100%;height:36px;margin-top:5px;border:1px solid #cbd5e0;border-radius:8px;padding:0 9px;font-size:11px;outline:none;">
+    </div>
+
+    <div class="invoice-point-item">
+        <strong>3. Order Price :</strong>
+        <div style="display:flex;align-items:center;gap:0;margin-top:5px;">
+            <span style="height:36px;display:flex;align-items:center;padding:0 9px;border:1px solid #cbd5e0;border-right:0;border-radius:8px 0 0 8px;font-weight:800;font-size:12px;">$</span>
+            <input id="buyerOrderPrice" type="number" min="0" step="0.01" placeholder="0.00"
+                   style="flex:1;height:36px;border:1px solid #cbd5e0;border-radius:0 8px 8px 0;padding:0 9px;font-size:11px;outline:none;"
+                   oninput="updateEscrowMessage(this.value)">
+        </div>
+        <div id="escrowPriceMessage" style="display:none;margin-top:7px;font-size:10.5px;font-weight:800;color:#0b7a53;">
+            <span style="display:inline-flex;width:19px;height:19px;border-radius:50%;background:#0ca678;color:#fff;align-items:center;justify-content:center;margin-right:4px;">✓</span>
+            <span id="escrowPriceText"></span> Successfully Secured in Escrow
+        </div>
+    </div>
+
+    <div class="invoice-point-item">
+        <strong>4. Order Status :</strong>
+        <select id="buyerOrderStatus"
+                style="display:block;width:100%;height:36px;margin-top:5px;border:1px solid #cbd5e0;border-radius:8px;padding:0 9px;font-size:11px;outline:none;background:#fff;">
+            <option value="">Select status</option>
+            <option value="PAID">PAID</option>
+            <option value="PROCESSING">PROCESSING</option>
+            <option value="CANCELLED">CANCELLED</option>
+        </select>
+    </div>
+
+    <div class="invoice-point-item" style="margin-top:10px;">
+        <strong><span style="font-weight:900;">a</span> E-giftcard order + screenshot</strong>
+        <div style="margin-top:6px;padding:10px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;">
+            <label style="display:block;font-size:10px;font-weight:700;color:#4a5568;margin-bottom:5px;">Verification process email</label>
+            <div style="display:flex;gap:7px;align-items:center;">
+                <input id="verificationEmail" type="email" placeholder="buyer@example.com"
+                       style="flex:1;height:36px;border:1px solid #cbd5e0;border-radius:8px;padding:0 9px;font-size:10.5px;outline:none;">
+                <input id="verificationFile" type="file" accept="image/*" style="width:1px;height:1px;opacity:0;position:absolute;">
+                <button type="button" class="btn-secondary" style="height:36px;padding:0 10px;white-space:nowrap;"
+                        onclick="document.getElementById('verificationFile').click()">Choose file</button>
             </div>
+            <div id="verificationFileName" style="margin-top:6px;font-size:9.5px;color:#718096;">Choose an image or drag it here.</div>
+        </div>
+    </div>
+</div>
         </div>
 
         <div style="display:flex; gap:8px;">
@@ -2651,6 +2742,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     updateUIState();
     switchPage(currentActivePage, false);
+    initTradeInputs();
 });
 
 function updateUIState() {
@@ -2716,6 +2808,14 @@ function switchPage(pageName, saveToStorage = true) {
         if (isLoggedIn === 'true') {
             document.getElementById('new-trade-page').classList.add('active');
             if(saveToStorage) localStorage.setItem('din_ar_active_page', 'new-trade');
+        } else {
+            openAuthModal('login');
+        }
+    } else if (pageName === 'transactions') {
+        if (isLoggedIn === 'true') {
+            document.getElementById('transactions-page').classList.add('active');
+            renderTransactions();
+            if(saveToStorage) localStorage.setItem('din_ar_active_page', 'transactions');
         } else {
             openAuthModal('login');
         }
@@ -2828,28 +2928,162 @@ function closeSubmitInfoModal() {
 
 function handleTradeInfoSubmit(e) {
     e.preventDefault();
-    const totalAmount = document.getElementById('formTotalAmount').value;
-    const dateVal = document.getElementById('formPaymentDate').value;
-    const fileInput = document.getElementById('formInvoiceFile');
+    const orderId=document.getElementById('formOrderId').value.trim();
+    const orderDate=document.getElementById('formOrderDate').value;
+    const price=parseFloat(document.getElementById('formOrderPrice').value);
+    const status=document.getElementById('formOrderStatus').value;
+    const email=document.getElementById('formVerificationEmail').value.trim();
+    const file=document.getElementById('formInvoiceFile').files[0];
 
-    document.getElementById('invDate').textContent = dateVal || '2026-09-12';
-    document.getElementById('invOrderNum').textContent = 'DIN-' + Math.floor(10000 + Math.random() * 90000);
-    document.getElementById('invStatus').textContent = 'Secure in Escrow ($' + parseFloat(totalAmount || 0).toFixed(2) + ')';
+    document.getElementById('buyerOrderId').value=orderId;
+    document.getElementById('buyerOrderDate').value=orderDate;
+    document.getElementById('buyerOrderPrice').value=Number.isFinite(price)?price.toFixed(2):'';
+    document.getElementById('buyerOrderStatus').value=status;
+    document.getElementById('verificationEmail').value=email;
+    updateBuyerOrderId(orderId);
+    updateEscrowMessage(Number.isFinite(price)?price.toFixed(2):'');
 
-    if(fileInput.files && fileInput.files[0]) {
-        document.getElementById('invScreenshotName').innerHTML = '✅ Uploaded: ' + fileInput.files[0].name;
+    if(file){
+        const input=document.getElementById('verificationFile');
+        // Browser security prevents assigning a file programmatically; keep the modal filename visible instead.
+        document.getElementById('verificationFileName').textContent='Selected: '+file.name;
     }
 
     closeSubmitInfoModal();
-    showToast('Information submitted successfully!');
+    openPaymentInvoiceModal();
+    showToast('Information added to the order');
 }
 
 function openPaymentInvoiceModal() {
+    setDefaultOrderDate();
     document.getElementById('paymentInvoiceModal').classList.add('show');
 }
 
 function closePaymentInvoiceModal() {
     document.getElementById('paymentInvoiceModal').classList.remove('show');
+}
+
+
+function getTransactions(){
+    try { return JSON.parse(localStorage.getItem('din_ar_transactions') || '[]'); }
+    catch(e){ return []; }
+}
+function saveTransactions(items){
+    localStorage.setItem('din_ar_transactions', JSON.stringify(items));
+}
+function makeTransactionId(){
+    return 'TXN-' + Date.now().toString().slice(-8);
+}
+function updateBuyerOrderId(value){
+    const clean = value.replace(/\D/g,'');
+    const preview = document.getElementById('amazonOrderPreview');
+    const num = document.getElementById('amazonOrderNumber');
+    if (clean.length){
+        preview.style.display='block';
+        num.textContent = clean;
+    } else {
+        preview.style.display='none';
+    }
+}
+function updateEscrowMessage(value){
+    const box=document.getElementById('escrowPriceMessage');
+    const text=document.getElementById('escrowPriceText');
+    const amount=parseFloat(value);
+    if(Number.isFinite(amount) && amount>=0 && value!==''){
+        const formatted=amount.toFixed(2);
+        text.textContent='$'+formatted;
+        box.style.display='block';
+    }else{
+        box.style.display='none';
+    }
+}
+function setDefaultOrderDate(){
+    const el=document.getElementById('buyerOrderDate');
+    if(el && !el.value){
+        const d=new Date();
+        d.setMinutes(d.getMinutes()-d.getTimezoneOffset());
+        el.value=d.toISOString().slice(0,16);
+    }
+}
+function submitBuyerTrade(){
+    const orderId=document.getElementById('buyerOrderId').value.trim();
+    const orderDate=document.getElementById('buyerOrderDate').value;
+    const price=parseFloat(document.getElementById('buyerOrderPrice').value);
+    const status=document.getElementById('buyerOrderStatus').value;
+    const email=document.getElementById('verificationEmail').value.trim();
+    const file=document.getElementById('verificationFile').files[0];
+
+    if(!orderId || !orderDate || !Number.isFinite(price) || !status || !email || !file){
+        showToast('Please complete all required fields');
+        return;
+    }
+    const txn={
+        id:makeTransactionId(),
+        orderId:orderId,
+        orderDate:orderDate,
+        price:price.toFixed(2),
+        status:status,
+        verificationEmail:email,
+        screenshotName:file.name,
+        stage:'Ongoing',
+        createdAt:new Date().toISOString()
+    };
+    const list=getTransactions();
+    list.unshift(txn);
+    saveTransactions(list);
+    renderTransactions();
+    showToast('Transaction submitted successfully');
+    switchPage('transactions');
+}
+function renderTransactions(query=''){
+    const box=document.getElementById('transactionList');
+    if(!box)return;
+    const q=(query||'').trim().toLowerCase();
+    const list=getTransactions().filter(t=>!q || t.id.toLowerCase().includes(q) || t.orderId.toLowerCase().includes(q));
+    if(!list.length){
+        box.innerHTML='<div style="padding:28px 12px;text-align:center;color:#718096;font-size:10.5px;border:1px dashed #cbd5e0;border-radius:12px;">No matching transactions found.</div>';
+        return;
+    }
+    box.innerHTML=list.map(t=>{
+        const status=t.status==='CANCELLED'?'CANCELLED':t.status;
+        const stage=t.stage==='Completed'?'Completed':'Ongoing';
+        return `<div class="transaction-card" onclick="openTransaction('${t.id}')">
+            <div class="transaction-head">
+                <div>
+                    <div class="transaction-id">${escapeHtml(t.id)}</div>
+                    <div style="font-size:9px;color:#718096;margin-top:2px;">Order ID: ${escapeHtml(t.orderId)}</div>
+                </div>
+                <div class="transaction-status">${escapeHtml(status)}</div>
+            </div>
+            <div class="transaction-meta">
+                Amount: $${escapeHtml(t.price)}<br>
+                Verification: ${escapeHtml(t.verificationEmail)}
+            </div>
+            <div class="transaction-stage">
+                <span class="${stage==='Ongoing'?'pulse-dot':''}" style="${stage==='Completed'?'width:9px;height:9px;border-radius:50%;background:#0ca678;display:inline-block;':''}"></span>
+                ${stage}
+            </div>
+        </div>`;
+    }).join('');
+}
+function openTransaction(id){
+    const t=getTransactions().find(x=>x.id===id);
+    if(!t)return;
+    document.getElementById('transactionSearch').value=t.id;
+    renderTransactions(t.id);
+    showToast('Transaction opened');
+}
+function escapeHtml(value){
+    return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function initTradeInputs(){
+    setDefaultOrderDate();
+    const file=document.getElementById('verificationFile');
+    const name=document.getElementById('verificationFileName');
+    if(file && name){
+        file.addEventListener('change',()=>name.textContent=file.files[0] ? 'Selected: '+file.files[0].name : 'Choose an image or drag it here.');
+    }
+    renderTransactions();
 }
 
 function showToast(msg) {
