@@ -1707,104 +1707,101 @@ button{
     color:#0070ba;
 }
 
-/* PROFILE MENU OVERLAY - keeps the profile view focused without changing page content */
-.profile-menu-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(255,255,255,.96);
-    z-index:450;
-    display:none;
-}
-.profile-menu-overlay.show{display:block;}
-
 /* PROFILE DROPDOWN MENU */
 .profile-dropdown{
-    position:absolute;
-    top:55px;
-    right:0;
+    position:fixed;
+    top:65px;
+    bottom:65px;
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 32px);
+    max-width:448px;
     background:#fff;
     border:1px solid #e2e8f0;
     border-radius:18px;
-    box-shadow:0 16px 38px rgba(18,38,63,.14);
-    width:min(340px, calc(100vw - 24px));
+    box-shadow:0 10px 28px rgba(26,43,76,.12);
     display:none;
-    z-index:500;
-    padding:10px 0 8px;
-    overflow:hidden;
+    z-index:200;
+    overflow-y:auto;
+    padding:12px 0 0;
 }
 
 .profile-dropdown.show{
     display:block;
 }
 
-.profile-summary{
+.profile-account{
+    padding:10px 16px 12px;
+    border-bottom:1px solid #edf0f5;
+}
+
+.profile-account-head{
     display:flex;
     align-items:center;
     gap:12px;
-    padding:12px 14px 10px;
 }
 
 .profile-avatar{
-    width:48px;
-    height:48px;
-    flex:0 0 48px;
+    width:52px;
+    height:52px;
     border-radius:50%;
+    background:#e6f2ff;
+    color:#123b70;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:#e5f2ff;
-    color:#17345c;
-    font-size:22px;
+    font-size:24px;
     font-weight:800;
+    flex-shrink:0;
 }
 
-.profile-summary-copy{
+.profile-account-info{
     min-width:0;
     flex:1;
 }
 
-.profile-name{
-    color:#162d50;
+.profile-account-info strong{
+    display:block;
     font-size:15px;
     font-weight:800;
-    line-height:1.25;
+    color:#1a2b4c;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
 
-.profile-email{
-    color:#718096;
-    font-size:11px;
+.profile-account-info span{
+    display:block;
     margin-top:3px;
+    font-size:11px;
+    color:#718096;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
 
-.profile-arrow{
+.profile-account-arrow{
     color:#718096;
-    width:17px;
-    height:17px;
-    flex:0 0 17px;
+    flex-shrink:0;
+}
+
+.profile-account-arrow svg{
+    width:18px;
+    height:18px;
 }
 
 .profile-status{
-    margin:2px 12px 10px;
-    padding:9px 11px;
+    margin-top:12px;
+    min-height:42px;
+    padding:0 12px;
     border-radius:12px;
-    background:#e7f4ff;
-    color:#0877b8;
+    background:#edf7ff;
     display:flex;
     align-items:center;
     gap:9px;
+    color:#1478b8;
     font-size:12px;
     font-weight:800;
-}
-
-.profile-status.pending{
-    background:#f4f7fb;
-    color:#64748b;
 }
 
 .profile-status-icon{
@@ -1814,207 +1811,122 @@ button{
     display:flex;
     align-items:center;
     justify-content:center;
-    background:#17a673;
+    background:#0879c1;
     color:#fff;
-    margin-left:auto;
+    flex-shrink:0;
 }
 
-.profile-menu-divider{
-    height:1px;
-    background:#edf0f5;
-    margin:2px 0;
+.profile-status-icon svg{
+    width:14px;
+    height:14px;
+}
+
+.profile-status-check{
+    margin-left:auto;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#21a66b;
+    color:#fff;
+    flex-shrink:0;
+}
+
+.profile-status-check svg{
+    width:14px;
+    height:14px;
+}
+
+.profile-menu-list{
+    padding:2px 16px 0;
 }
 
 .dropdown-item{
     display:flex;
     align-items:center;
-    gap:13px;
+    gap:12px;
     width:100%;
-    padding:11px 14px;
+    min-height:66px;
+    padding:9px 0;
     background:transparent;
-    border:0;
-    text-align:left;
-    font-size:12px;
-    font-weight:700;
-    color:#162d50;
     border-radius:0;
-    cursor:pointer;
+    border-bottom:1px solid #edf0f5;
+    text-align:left;
+    color:#1a2b4c;
+}
+
+.dropdown-item:last-child{
+    border-bottom:0;
 }
 
 .dropdown-item:hover{
-    background:#f6f9fc;
+    background:transparent;
 }
 
-.dropdown-item svg{
-    width:22px;
-    height:22px;
-    flex:0 0 22px;
-    color:#17345c;
-}
-
-.dropdown-item-copy{
+.dropdown-item .menu-icon{
+    width:38px;
+    height:38px;
     display:flex;
-    flex-direction:column;
-    gap:2px;
+    align-items:center;
+    justify-content:center;
+    color:#1a2b4c;
+    flex-shrink:0;
+}
+
+.dropdown-item .menu-icon svg{
+    width:23px;
+    height:23px;
+}
+
+.dropdown-item .menu-copy{
+    flex:1;
     min-width:0;
 }
 
-.dropdown-item-copy span{
-    font-size:12px;
+.dropdown-item .menu-title{
+    display:block;
+    font-size:12.5px;
     font-weight:700;
-    color:#162d50;
+    color:#1a2b4c;
+    line-height:1.2;
 }
 
-.dropdown-item-copy small{
+.dropdown-item .menu-desc{
+    display:block;
+    margin-top:3px;
     font-size:10px;
-    font-weight:500;
+    font-weight:400;
     color:#718096;
+    line-height:1.25;
 }
 
-.dropdown-item.logout{
-    color:#d83c3c;
-    padding-top:13px;
+.dropdown-item .menu-arrow{
+    color:#718096;
+    flex-shrink:0;
 }
 
-.dropdown-item.logout svg,
-.dropdown-item.logout .dropdown-item-copy span{
-    color:#d83c3c;
+.dropdown-item .menu-arrow svg{
+    width:17px;
+    height:17px;
 }
 
-.dropdown-item svg{
-    width:15px;
-    height:15px;
+.profile-logout-wrap{
+    margin-top:2px;
+    padding:12px 16px 14px;
+    border-top:1px solid #edf0f5;
 }
 
+.dropdown-item.logout-item{
+    min-height:58px;
+    border-bottom:0;
+    color:#d63b3b;
+}
 
-/* PROFILE SUBPAGES */
-.profile-page{
-    padding:0 16px 30px;
-    background:#fff;
-}
-.profile-page-header{
-    height:58px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    border-bottom:1px solid #edf0f5;
-    margin:0 -16px 14px;
-}
-.profile-page-header h2{
-    font-size:14px;
-    font-weight:800;
-    color:#102a52;
-}
-.profile-page-back{
-    position:absolute;
-    left:16px;
-    width:32px;
-    height:32px;
-    border:0;
-    background:transparent;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#102a52;
-    cursor:pointer;
-}
-.profile-page-back svg{width:19px;height:19px;}
-.profile-avatar-large{
-    width:74px;height:74px;border-radius:50%;
-    background:#e3f0ff;color:#173b70;
-    display:flex;align-items:center;justify-content:center;
-    font-size:34px;font-weight:800;
-    margin:10px auto 14px;
-    position:relative;
-}
-.profile-camera{
-    position:absolute;right:-2px;bottom:-1px;
-    width:25px;height:25px;border-radius:50%;
-    background:#fff;border:1px solid #dbe5ef;
-    display:flex;align-items:center;justify-content:center;
-}
-.profile-camera svg{width:13px;height:13px;}
-.profile-data-card{
-    border:1px solid #edf0f5;border-radius:10px;
-    overflow:hidden;background:#fff;margin-bottom:16px;
-}
-.profile-data-row{
-    padding:11px 12px;border-bottom:1px solid #edf0f5;
-}
-.profile-data-row:last-child{border-bottom:0;}
-.profile-data-label{font-size:10px;color:#718096;margin-bottom:3px;}
-.profile-data-value{font-size:12px;color:#102a52;font-weight:500;}
-.profile-primary-btn{
-    width:100%;height:42px;border:0;border-radius:8px;
-    background:#d9eaff;color:#0872c0;font-size:12px;font-weight:800;
-}
-.profile-alert{
-    display:flex;gap:12px;align-items:flex-start;
-    padding:13px 12px;border-radius:9px;margin-bottom:14px;
-}
-.profile-alert.pending{background:#fff5df;color:#b75b00;}
-.profile-alert.success{background:#dff7ec;color:#087f5b;}
-.profile-alert-icon{
-    width:30px;height:30px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    background:rgba(255,255,255,.6);flex:0 0 30px;
-}
-.profile-alert h3{font-size:12px;font-weight:800;margin-bottom:3px;}
-.profile-alert p{font-size:9px;line-height:1.4;color:#68788a;}
-.profile-list{display:flex;flex-direction:column;gap:7px;}
-.profile-list-item{
-    min-height:57px;border:1px solid #edf0f5;border-radius:9px;
-    display:flex;align-items:center;gap:11px;padding:9px 10px;
-    background:#fff;text-align:left;cursor:pointer;
-}
-.profile-list-icon{
-    width:34px;height:34px;border-radius:50%;
-    background:#edf6ff;color:#0872c0;display:flex;
-    align-items:center;justify-content:center;flex:0 0 34px;
-}
-.profile-list-icon svg{width:18px;height:18px;}
-.profile-list-copy{min-width:0;flex:1;}
-.profile-list-copy strong{display:block;font-size:10px;color:#102a52;margin-bottom:2px;}
-.profile-list-copy span{display:block;font-size:8px;color:#718096;line-height:1.25;}
-.profile-chevron{width:15px;height:15px;color:#5b728b;flex:0 0 15px;}
-.profile-toggle-row{
-    display:flex;align-items:center;justify-content:space-between;
-    min-height:57px;border:1px solid #edf0f5;border-radius:9px;padding:9px 10px;
-}
-.profile-toggle{
-    width:31px;height:18px;border-radius:20px;background:#d4dce6;
-    position:relative;flex:0 0 31px;
-}
-.profile-toggle.on{background:#087fd0;}
-.profile-toggle:after{
-    content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;
-    background:#fff;border-radius:50%;transition:.15s;
-}
-.profile-toggle.on:after{left:15px;}
-.profile-search{
-    height:38px;border:0;border-radius:10px;background:#f1f5f9;
-    padding:0 12px;width:100%;font-size:10px;color:#34495e;margin-bottom:9px;
-}
-.profile-logout-icon{
-    width:52px;height:52px;border-radius:50%;background:#fff0f0;
-    color:#e53232;display:flex;align-items:center;justify-content:center;
-    margin:26px auto 12px;
-}
-.profile-logout-icon svg{width:26px;height:26px;}
-.profile-logout-title{text-align:center;font-size:15px;font-weight:800;color:#102a52;}
-.profile-logout-sub{text-align:center;font-size:9px;color:#718096;margin-top:4px;}
-.profile-logout-btn{
-    width:100%;height:40px;border:0;border-radius:7px;background:#ef2d2d;
-    color:#fff;font-size:11px;font-weight:800;margin-top:22px;
-}
-.profile-cancel-btn{
-    width:100%;height:40px;border:1px solid #edf0f5;border-radius:7px;
-    background:#f7f9fc;color:#1a2b4c;font-size:11px;font-weight:700;margin-top:7px;
-}
-.profile-info-note{
-    margin-top:12px;padding:10px;border-radius:8px;background:#f5f9fd;
-    color:#607287;font-size:8px;line-height:1.45;
+.dropdown-item.logout-item .menu-icon,
+.dropdown-item.logout-item .menu-title{
+    color:#d63b3b;
 }
 
 /* AUTH MODAL */
@@ -2829,21 +2741,6 @@ body{overflow-x:hidden;}
     <div id="transactionList"></div>
 </section>
 
-<!-- PROFILE MENU OVERLAY -->
-<div class="profile-menu-overlay" id="profileMenuOverlay" onclick="closeProfileDropdown()"></div>
-
-
-<!-- PROFILE SUBPAGES -->
-<section id="profile-page" class="page profile-page">
-    <div class="profile-page-header">
-        <button class="profile-page-back" onclick="closeProfilePage()" aria-label="Back">
-            <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <h2 id="profilePageTitle">My Profile</h2>
-    </div>
-    <div id="profilePageContent"></div>
-</section>
-
 <!-- BOTTOM NAVIGATION BAR -->
 <nav class="bottom-nav" id="bottomNav" style="display:none;">
     <button class="nav-item active" onclick="switchPage('dashboard')">
@@ -3002,11 +2899,11 @@ body{overflow-x:hidden;}
         <form onsubmit="handleAuthSubmit(event)">
             <div class="form-group" id="nameFieldGroup" style="display:none; margin-bottom:14px;">
                 <label style="font-size:10px; font-weight:700; color:#4a5568; margin-bottom:5px; display:block;">Full Name</label>
-                <input id="authName" type="text" placeholder="Your Name" autocomplete="name" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;">
+                <input type="text" id="authName" placeholder="Your Name" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;">
             </div>
             <div class="form-group" style="margin-bottom:14px;">
                 <label style="font-size:10px; font-weight:700; color:#4a5568; margin-bottom:5px; display:block;">Email Address</label>
-                <input id="authEmail" type="email" placeholder="name@example.com" autocomplete="email" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;" required>
+                <input type="email" id="authEmail" placeholder="name@example.com" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;" required>
             </div>
             <div class="form-group" style="margin-bottom:14px;">
                 <label style="font-size:10px; font-weight:700; color:#4a5568; margin-bottom:5px; display:block;">Password</label>
@@ -3040,71 +2937,100 @@ function updateUIState() {
             <button class="icon-btn" onclick="showToast('No new notifications')">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
             </button>
-            <div style="position:relative; z-index:500;">
+            <div style="position:relative;">
                 <button class="icon-btn" onclick="toggleProfileDropdown(event)">
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </button>
                 <div class="profile-dropdown" id="profileDropdown">
-                    <div class="profile-summary">
-                        <div class="profile-avatar" id="profileAvatar">R</div>
-                        <div class="profile-summary-copy">
-                            <div class="profile-name" id="profileName">Account</div>
-                            <div class="profile-email" id="profileEmail">name@example.com</div>
+                    <div class="profile-account">
+                        <div class="profile-account-head">
+                            <div class="profile-avatar" id="profileAvatar">R</div>
+                            <div class="profile-account-info">
+                                <strong id="profileName">Randy D Smith</strong>
+                                <span id="profileEmail">randy@example.com</span>
+                            </div>
+                            <div class="profile-account-arrow">
+                                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                            </div>
                         </div>
-                        <svg class="profile-arrow" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                        <div class="profile-status" id="profileStatus">
+                            <div class="profile-status-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z"/><polyline points="9 12 11 14 15 10"/></svg>
+                            </div>
+                            <span id="profileStatusText">Verified Account</span>
+                            <div class="profile-status-check" id="profileStatusCheck">
+                                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="profile-status pending" id="profileVerificationStatus">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:20px;height:20px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        <span id="profileVerificationText">Verification Required</span>
-                        <span class="profile-status-icon" id="profileVerificationIcon">! </span>
+                    <div class="profile-menu-list">
+                        <button class="dropdown-item">
+                            <span class="menu-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                            <span class="menu-copy"><span class="menu-title">My Profile</span><span class="menu-desc">View and edit your information</span></span>
+                            <span class="menu-arrow"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                        </button>
+                        <button class="dropdown-item">
+                            <span class="menu-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>
+                            <span class="menu-copy"><span class="menu-title">Verification</span><span class="menu-desc">Identity &amp; document verification</span></span>
+                            <span class="menu-arrow"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                        </button>
+                        <button class="dropdown-item">
+                            <span class="menu-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+                            <span class="menu-copy"><span class="menu-title">Security</span><span class="menu-desc">Password, 2FA and login settings</span></span>
+                            <span class="menu-arrow"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                        </button>
+                        <button class="dropdown-item">
+                            <span class="menu-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+                            <span class="menu-copy"><span class="menu-title">Payment Methods</span><span class="menu-desc">Add or manage payment options</span></span>
+                            <span class="menu-arrow"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                        </button>
+                        <button class="dropdown-item">
+                            <span class="menu-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
+                            <span class="menu-copy"><span class="menu-title">Notifications</span><span class="menu-desc">Manage your notification preferences</span></span>
+                            <span class="menu-arrow"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                        </button>
+                        <button class="dropdown-item">
+                            <span class="menu-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.4 1.6c-.9 1-1.9 1.2-1.9 2.4"/><line x1="12" y1="17" x2="12" y2="17"/></svg></span>
+                            <span class="menu-copy"><span class="menu-title">Help Center</span><span class="menu-desc">FAQs and support</span></span>
+                            <span class="menu-arrow"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                        </button>
+                        <button class="dropdown-item">
+                            <span class="menu-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span>
+                            <span class="menu-copy"><span class="menu-title">Terms of Service</span><span class="menu-desc">Read our terms and policies</span></span>
+                            <span class="menu-arrow"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                        </button>
+                        <button class="dropdown-item">
+                            <span class="menu-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+                            <span class="menu-copy"><span class="menu-title">Privacy Policy</span><span class="menu-desc">How we protect your data</span></span>
+                            <span class="menu-arrow"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+                        </button>
                     </div>
 
-                    <div class="profile-menu-divider"></div>
-
-                    <button class="dropdown-item" onclick="openProfileItem('My Profile')">
-                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        <span class="dropdown-item-copy"><span>My Profile</span><small>View and edit your information</small></span>
-                    </button>
-                    <button class="dropdown-item" onclick="openProfileItem('Verification')">
-                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-                        <span class="dropdown-item-copy"><span>Verification</span><small>Identity &amp; document verification</small></span>
-                    </button>
-                    <button class="dropdown-item" onclick="openProfileItem('Security')">
-                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-                        <span class="dropdown-item-copy"><span>Security</span><small>Password, 2FA and login settings</small></span>
-                    </button>
-                    <button class="dropdown-item" onclick="openProfileItem('Payment Methods')">
-                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
-                        <span class="dropdown-item-copy"><span>Payment Methods</span><small>Add or manage payment options</small></span>
-                    </button>
-                    <button class="dropdown-item" onclick="openProfileItem('Notifications')">
-                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                        <span class="dropdown-item-copy"><span>Notifications</span><small>Manage your notification preferences</small></span>
-                    </button>
-                    <button class="dropdown-item" onclick="openProfileItem('Help Center')">
-                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.5 1.5c-.8 1-2.1 1.2-2.1 2.5"/><path d="M12 17h.01"/></svg>
-                        <span class="dropdown-item-copy"><span>Help Center</span><small>FAQs and support</small></span>
-                    </button>
-                    <button class="dropdown-item" onclick="openProfileItem('Terms of Service')">
-                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h8M8 17h8"/></svg>
-                        <span class="dropdown-item-copy"><span>Terms of Service</span><small>Read our terms and policies</small></span>
-                    </button>
-                    <button class="dropdown-item" onclick="openProfileItem('Privacy Policy')">
-                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                        <span class="dropdown-item-copy"><span>Privacy Policy</span><small>How we protect your data</small></span>
-                    </button>
-
-                    <div class="profile-menu-divider"></div>
-
-                    <button class="dropdown-item logout" onclick="openProfileItem('Log Out')">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                        <span class="dropdown-item-copy"><span>Log Out</span><small>Sign out from your account</small></span>
-                    </button>
+                    <div class="profile-logout-wrap">
+                        <button class="dropdown-item logout-item" onclick="handleLogout()">
+                            <span class="menu-icon"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+                            <span class="menu-copy"><span class="menu-title">Log Out</span><span class="menu-desc">Sign out from your account</span></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
-        updateProfileMenu();
+
+        const profileName = localStorage.getItem('din_ar_profile_name') || 'Randy D Smith';
+        const profileEmail = localStorage.getItem('din_ar_profile_email') || 'randy@example.com';
+        const profileNameEl = document.getElementById('profileName');
+        const profileEmailEl = document.getElementById('profileEmail');
+        const profileAvatarEl = document.getElementById('profileAvatar');
+        if (profileNameEl) profileNameEl.textContent = profileName;
+        if (profileEmailEl) profileEmailEl.textContent = profileEmail;
+        if (profileAvatarEl) profileAvatarEl.textContent = profileName.charAt(0).toUpperCase();
+
+        const verified = localStorage.getItem('din_ar_verification_status') === 'verified';
+        const statusText = document.getElementById('profileStatusText');
+        const statusCheck = document.getElementById('profileStatusCheck');
+        if (statusText) statusText.textContent = verified ? 'Verified Account' : 'Verification Required';
+        if (statusCheck) statusCheck.style.display = verified ? 'flex' : 'none';
     } else {
         bottomNav.style.display = 'none';
         headerRight.innerHTML = `
@@ -3156,14 +3082,6 @@ function switchPage(pageName, saveToStorage = true) {
         } else {
             openAuthModal('login');
         }
-    } else if (pageName === 'profile') {
-        if (isLoggedIn === 'true') {
-            renderProfilePage('my-profile');
-            document.getElementById('profile-page').classList.add('active');
-            if(saveToStorage) localStorage.setItem('din_ar_active_page', 'profile');
-        } else {
-            openAuthModal('login');
-        }
     } else {
         document.getElementById('landing-page').classList.add('active');
         if(saveToStorage) localStorage.setItem('din_ar_active_page', 'landing');
@@ -3190,21 +3108,14 @@ function showLandingFeature(name) {
 function toggleProfileDropdown(e) {
     e.stopPropagation();
     const dropdown = document.getElementById('profileDropdown');
-    const overlay = document.getElementById('profileMenuOverlay');
-    if (!dropdown) return;
-    const isOpen = dropdown.classList.toggle('show');
-    if (overlay) overlay.classList.toggle('show', isOpen);
-}
-
-function closeProfileDropdown() {
-    const dropdown = document.getElementById('profileDropdown');
-    const overlay = document.getElementById('profileMenuOverlay');
-    if (dropdown) dropdown.classList.remove('show');
-    if (overlay) overlay.classList.remove('show');
+    dropdown.classList.toggle('show');
 }
 
 window.addEventListener('click', () => {
-    closeProfileDropdown();
+    const dropdown = document.getElementById('profileDropdown');
+    if (dropdown && dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+    }
 });
 
 function openAuthModal(mode) {
@@ -3240,228 +3151,22 @@ function switchModalTab(mode) {
 
 function handleAuthSubmit(e) {
     e.preventDefault();
-
     const nameInput = document.getElementById('authName');
     const emailInput = document.getElementById('authEmail');
     const isSignup = document.getElementById('tabSignupBtn').classList.contains('active');
 
     if (isSignup) {
-        const name = (nameInput ? nameInput.value : '').trim();
-        const email = (emailInput ? emailInput.value : '').trim();
-        if (!name || !email) {
-            showToast('Please enter your name and email');
-            return;
-        }
-        localStorage.setItem('din_ar_user_name', name);
-        localStorage.setItem('din_ar_user_email', email);
-        if (!localStorage.getItem('din_ar_verification_status')) {
-            localStorage.setItem('din_ar_verification_status', 'pending');
-        }
-    } else if (emailInput && emailInput.value.trim()) {
-        localStorage.setItem('din_ar_user_email', emailInput.value.trim());
+        const name = nameInput ? nameInput.value.trim() : '';
+        const email = emailInput ? emailInput.value.trim() : '';
+        if (name) localStorage.setItem('din_ar_profile_name', name);
+        if (email) localStorage.setItem('din_ar_profile_email', email);
     }
 
     localStorage.setItem('din_ar_logged_in', 'true');
     closeAuthModal();
-    showToast(isSignup ? 'Account created successfully!' : 'Successfully logged in!');
+    showToast('Successfully logged in!');
     updateUIState();
     switchPage('dashboard');
-}
-
-function getProfileUserData() {
-    return {
-        name: localStorage.getItem('din_ar_user_name') || 'Account User',
-        email: localStorage.getItem('din_ar_user_email') || 'name@example.com',
-        verified: localStorage.getItem('din_ar_verification_status') === 'verified'
-    };
-}
-
-function updateProfileMenu() {
-    const nameEl = document.getElementById('profileName');
-    const emailEl = document.getElementById('profileEmail');
-    const avatarEl = document.getElementById('profileAvatar');
-    const statusEl = document.getElementById('profileVerificationStatus');
-    const statusText = document.getElementById('profileVerificationText');
-    const statusIcon = document.getElementById('profileVerificationIcon');
-    if (!nameEl || !emailEl || !avatarEl || !statusEl || !statusText || !statusIcon) return;
-
-    const user = getProfileUserData();
-    nameEl.textContent = user.name;
-    emailEl.textContent = user.email;
-    avatarEl.textContent = user.name.charAt(0).toUpperCase();
-
-    if (user.verified) {
-        statusEl.classList.remove('pending');
-        statusText.textContent = 'Verified Account';
-        statusIcon.textContent = '✓';
-    } else {
-        statusEl.classList.add('pending');
-        statusText.textContent = 'Verification Required';
-        statusIcon.textContent = '!';
-    }
-}
-
-function openProfileItem(name) {
-    closeProfileDropdown();
-    const pageMap = {
-        'My Profile':'my-profile',
-        'Verification':'verification',
-        'Security':'security',
-        'Payment Methods':'payment-methods',
-        'Notifications':'notifications',
-        'Help Center':'help-center',
-        'Terms of Service':'terms',
-        'Privacy Policy':'privacy',
-        'Log Out':'logout'
-    };
-    const key = pageMap[name];
-    if (!key) return;
-    renderProfilePage(key);
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('profile-page').classList.add('active');
-    localStorage.setItem('din_ar_active_page','profile');
-}
-
-function closeProfilePage() {
-    switchPage('dashboard');
-}
-
-function profileIcon(svg) {
-    return `<div class="profile-list-icon">${svg}</div>`;
-}
-function profileChevron() {
-    return `<svg class="profile-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>`;
-}
-function profileRow(title, subtitle, icon, action='') {
-    return `<button class="profile-list-item" ${action ? `onclick="${action}"` : ''}>
-        ${profileIcon(icon)}
-        <span class="profile-list-copy"><strong>${title}</strong><span>${subtitle}</span></span>
-        ${profileChevron()}
-    </button>`;
-}
-
-function renderProfilePage(page) {
-    const titleEl = document.getElementById('profilePageTitle');
-    const content = document.getElementById('profilePageContent');
-    if (!titleEl || !content) return;
-
-    const user = getProfileUserData();
-    const initial = (user.name || 'A').charAt(0).toUpperCase();
-
-    const icons = {
-        user:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
-        shield:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>',
-        lock:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
-        card:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>',
-        bell:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
-        question:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.5 1.5c-.8 1-2.1 1.2-2.1 2.5"/><path d="M12 17h.01"/></svg>',
-        doc:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
-        info:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6"/><path d="M12 7h.01"/></svg>',
-        refresh:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 1 4"/><polyline points="20 4 20 11 13 11"/></svg>',
-        search:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
-        logout:'<svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>',
-        camera:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h3l1.5-2h7L17 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"/><circle cx="12" cy="13" r="3"/></svg>'
-    };
-
-    if (page === 'my-profile') {
-        titleEl.textContent='My Profile';
-        content.innerHTML = `
-            <div class="profile-avatar-large">${initial}<span class="profile-camera">${icons.camera}</span></div>
-            <div class="profile-data-card">
-                <div class="profile-data-row"><div class="profile-data-label">Full Name</div><div class="profile-data-value" id="profileFullName">${user.name}</div></div>
-                <div class="profile-data-row"><div class="profile-data-label">Email Address</div><div class="profile-data-value" id="profileFullEmail">${user.email}</div></div>
-                <div class="profile-data-row"><div class="profile-data-label">Phone Number</div><div class="profile-data-value">+880 1XXX XXXXXXX</div></div>
-                <div class="profile-data-row"><div class="profile-data-label">Country</div><div class="profile-data-value">Bangladesh</div></div>
-                <div class="profile-data-row"><div class="profile-data-label">Member Since</div><div class="profile-data-value">${new Date().toLocaleDateString('en-US',{month:'short',day:'2-digit',year:'numeric'})}</div></div>
-            </div>
-            <button class="profile-primary-btn" onclick="showToast('Edit Profile')">Edit Profile</button>`;
-    } else if (page === 'verification') {
-        titleEl.textContent='Verification';
-        content.innerHTML = `
-            <div class="profile-alert ${user.verified?'success':'pending'}">
-                <div class="profile-alert-icon">${user.verified?icons.shield:'<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'}</div>
-                <div><h3>${user.verified?'Verification Complete':'Verification Pending'}</h3><p>${user.verified?'Your identity verification is complete.':'Complete your identity verification to unlock all features.'}</p></div>
-            </div>
-            <div class="profile-list">
-                ${profileRow('Identity Verification','Upload your national ID',icons.user)}
-                ${profileRow('Address Verification','Submit proof of address',icons.shield)}
-                ${profileRow('Selfie Verification','Take a live selfie',icons.user)}
-            </div>
-            ${user.verified?'':'<button class="profile-primary-btn" style="margin-top:16px;background:#0070ba;color:#fff;" onclick="showToast(\'Start Verification\')">Start Verification</button>'}`;
-    } else if (page === 'security') {
-        titleEl.textContent='Security';
-        content.innerHTML = `
-            <div class="profile-alert success"><div class="profile-alert-icon">${icons.shield}</div><div><h3>Your account is secure</h3><p>Follow security best practices to keep your account safe.</p></div></div>
-            <div class="profile-list">
-                ${profileRow('Change Password','Update your password',icons.lock)}
-                ${profileRow('Two-Factor Authentication','Add an extra layer of security',icons.shield)}
-                ${profileRow('Login Sessions','Manage your active sessions',icons.card)}
-                ${profileRow('Email Alerts','Get notified about important activity','<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>')}
-            </div>`;
-    } else if (page === 'payment-methods') {
-        titleEl.textContent='Payment Methods';
-        content.innerHTML = `
-            <div class="profile-list">
-                ${profileRow('PayPal',user.email,icons.card)}
-                ${profileRow('Card','Add or manage card',icons.card)}
-                ${profileRow('Bank Account','Add or manage bank account','<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10h18M5 10v8M9 10v8M15 10v8M19 10v8M2 18h20M12 3l10 5H2l10-5z"/></svg>')}
-                ${profileRow('E-wallet','Add or manage e-wallet',icons.card)}
-            </div>`;
-    } else if (page === 'notifications') {
-        titleEl.textContent='Notifications';
-        content.innerHTML = `
-            <div class="profile-list">
-                <div class="profile-toggle-row">${profileIcon(icons.bell)}<span class="profile-list-copy"><strong>Trade Updates</strong><span>Get notified about your trades</span></span><span class="profile-toggle on"></span></div>
-                <div class="profile-toggle-row">${profileIcon('<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.8 8.8 0 0 1-4-.9L3 21l1.4-4.2A8.3 8.3 0 1 1 21 11.5z"/></svg>')}<span class="profile-list-copy"><strong>Messages</strong><span>New messages from buyers or sellers</span></span><span class="profile-toggle on"></span></div>
-                <div class="profile-toggle-row">${profileIcon(icons.user)}<span class="profile-list-copy"><strong>Account Activity</strong><span>Login and security alerts</span></span><span class="profile-toggle on"></span></div>
-                <div class="profile-toggle-row">${profileIcon('<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m13 3 8 4-9 14-4-8z"/><path d="M3 20h7"/></svg>')}<span class="profile-list-copy"><strong>Promotions</strong><span>Offers, tips and platform news</span></span><span class="profile-toggle"></span></div>
-            </div>`;
-    } else if (page === 'help-center') {
-        titleEl.textContent='Help Center';
-        content.innerHTML = `
-            <input class="profile-search" placeholder="Search for help..." />
-            <div class="profile-list">
-                ${profileRow('How to create a trade?','Step by step guide',icons.question)}
-                ${profileRow('Payment methods','Supported payment options',icons.card)}
-                ${profileRow('Verification process','How to verify your account',icons.shield)}
-                ${profileRow('Fees and charges','Platform fees and pricing',icons.info)}
-                ${profileRow('Contact Support','Get in touch with our support team',icons.user)}
-            </div>`;
-    } else if (page === 'terms') {
-        titleEl.textContent='Terms of Service';
-        content.innerHTML = `
-            <div class="profile-list">
-                ${profileRow('Use of Our Services','',icons.doc)}
-                ${profileRow('User Responsibilities','',icons.user)}
-                ${profileRow('Payments and Fees','',icons.card)}
-                ${profileRow('Prohibited Activities','',icons.info)}
-                ${profileRow('Changes to Terms','',icons.refresh)}
-                ${profileRow('Contact Us','',icons.card)}
-            </div>`;
-    } else if (page === 'privacy') {
-        titleEl.textContent='Privacy Policy';
-        content.innerHTML = `
-            <div class="profile-list">
-                ${profileRow('Data Security','',icons.shield)}
-                ${profileRow('Cookies and Tracking','',icons.question)}
-                ${profileRow('Your Rights','',icons.user)}
-                ${profileRow('Contact Us','',icons.card)}
-            </div>`;
-    } else if (page === 'logout') {
-        titleEl.textContent='';
-        content.innerHTML = `
-            <div class="profile-logout-icon">${icons.logout}</div>
-            <div class="profile-logout-title">Log Out</div>
-            <div class="profile-logout-sub">Are you sure you want to sign out<br>from your account?</div>
-            <button class="profile-logout-btn" onclick="handleLogout()">Log Out</button>
-            <button class="profile-cancel-btn" onclick="closeProfilePage()">Cancel</button>`;
-    }
-}
-
-function setAccountVerificationStatus(status) {
-    if (status !== 'verified' && status !== 'pending') return;
-    localStorage.setItem('din_ar_verification_status', status);
-    updateProfileMenu();
 }
 
 function toggleBalanceVisibility() {
