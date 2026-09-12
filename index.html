@@ -1711,36 +1711,164 @@ button{
 .profile-dropdown{
     position:absolute;
     top:55px;
-    right:16px;
+    right:0;
     background:#fff;
     border:1px solid #e2e8f0;
-    border-radius:12px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.1);
-    width:160px;
+    border-radius:18px;
+    box-shadow:0 16px 38px rgba(18,38,63,.14);
+    width:min(340px, calc(100vw - 24px));
     display:none;
-    z-index:200;
-    padding:6px;
+    z-index:500;
+    padding:10px 0 8px;
+    overflow:hidden;
 }
 
 .profile-dropdown.show{
     display:block;
 }
 
+.profile-summary{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 14px 10px;
+}
+
+.profile-avatar{
+    width:48px;
+    height:48px;
+    flex:0 0 48px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#e5f2ff;
+    color:#17345c;
+    font-size:22px;
+    font-weight:800;
+}
+
+.profile-summary-copy{
+    min-width:0;
+    flex:1;
+}
+
+.profile-name{
+    color:#162d50;
+    font-size:15px;
+    font-weight:800;
+    line-height:1.25;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.profile-email{
+    color:#718096;
+    font-size:11px;
+    margin-top:3px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.profile-arrow{
+    color:#718096;
+    width:17px;
+    height:17px;
+    flex:0 0 17px;
+}
+
+.profile-status{
+    margin:2px 12px 10px;
+    padding:9px 11px;
+    border-radius:12px;
+    background:#e7f4ff;
+    color:#0877b8;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.profile-status.pending{
+    background:#f4f7fb;
+    color:#64748b;
+}
+
+.profile-status-icon{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#17a673;
+    color:#fff;
+    margin-left:auto;
+}
+
+.profile-menu-divider{
+    height:1px;
+    background:#edf0f5;
+    margin:2px 0;
+}
+
 .dropdown-item{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:13px;
     width:100%;
-    padding:10px 12px;
+    padding:11px 14px;
     background:transparent;
-    font-size:11px;
+    border:0;
+    text-align:left;
+    font-size:12px;
     font-weight:700;
-    color:#e53e3e;
-    border-radius:8px;
+    color:#162d50;
+    border-radius:0;
+    cursor:pointer;
 }
 
 .dropdown-item:hover{
-    background:#fff5f5;
+    background:#f6f9fc;
+}
+
+.dropdown-item svg{
+    width:22px;
+    height:22px;
+    flex:0 0 22px;
+    color:#17345c;
+}
+
+.dropdown-item-copy{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    min-width:0;
+}
+
+.dropdown-item-copy span{
+    font-size:12px;
+    font-weight:700;
+    color:#162d50;
+}
+
+.dropdown-item-copy small{
+    font-size:10px;
+    font-weight:500;
+    color:#718096;
+}
+
+.dropdown-item.logout{
+    color:#d83c3c;
+    padding-top:13px;
+}
+
+.dropdown-item.logout svg,
+.dropdown-item.logout .dropdown-item-copy span{
+    color:#d83c3c;
 }
 
 .dropdown-item svg{
@@ -2718,11 +2846,11 @@ body{overflow-x:hidden;}
         <form onsubmit="handleAuthSubmit(event)">
             <div class="form-group" id="nameFieldGroup" style="display:none; margin-bottom:14px;">
                 <label style="font-size:10px; font-weight:700; color:#4a5568; margin-bottom:5px; display:block;">Full Name</label>
-                <input type="text" placeholder="Your Name" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;">
+                <input id="authName" type="text" placeholder="Your Name" autocomplete="name" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;">
             </div>
             <div class="form-group" style="margin-bottom:14px;">
                 <label style="font-size:10px; font-weight:700; color:#4a5568; margin-bottom:5px; display:block;">Email Address</label>
-                <input type="email" placeholder="name@example.com" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;" required>
+                <input id="authEmail" type="email" placeholder="name@example.com" autocomplete="email" style="width:100%; height:42px; border:1px solid #cbd5e0; border-radius:10px; padding:0 12px; font-size:12px;" required>
             </div>
             <div class="form-group" style="margin-bottom:14px;">
                 <label style="font-size:10px; font-weight:700; color:#4a5568; margin-bottom:5px; display:block;">Password</label>
@@ -2761,13 +2889,66 @@ function updateUIState() {
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </button>
                 <div class="profile-dropdown" id="profileDropdown">
-                    <button class="dropdown-item" onclick="handleLogout()">
+                    <div class="profile-summary">
+                        <div class="profile-avatar" id="profileAvatar">R</div>
+                        <div class="profile-summary-copy">
+                            <div class="profile-name" id="profileName">Account</div>
+                            <div class="profile-email" id="profileEmail">name@example.com</div>
+                        </div>
+                        <svg class="profile-arrow" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                    </div>
+
+                    <div class="profile-status pending" id="profileVerificationStatus">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:20px;height:20px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span id="profileVerificationText">Verification Required</span>
+                        <span class="profile-status-icon" id="profileVerificationIcon">! </span>
+                    </div>
+
+                    <div class="profile-menu-divider"></div>
+
+                    <button class="dropdown-item" onclick="openProfileItem('My Profile')">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <span class="dropdown-item-copy"><span>My Profile</span><small>View and edit your information</small></span>
+                    </button>
+                    <button class="dropdown-item" onclick="openProfileItem('Verification')">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                        <span class="dropdown-item-copy"><span>Verification</span><small>Identity &amp; document verification</small></span>
+                    </button>
+                    <button class="dropdown-item" onclick="openProfileItem('Security')">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                        <span class="dropdown-item-copy"><span>Security</span><small>Password, 2FA and login settings</small></span>
+                    </button>
+                    <button class="dropdown-item" onclick="openProfileItem('Payment Methods')">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
+                        <span class="dropdown-item-copy"><span>Payment Methods</span><small>Add or manage payment options</small></span>
+                    </button>
+                    <button class="dropdown-item" onclick="openProfileItem('Notifications')">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <span class="dropdown-item-copy"><span>Notifications</span><small>Manage your notification preferences</small></span>
+                    </button>
+                    <button class="dropdown-item" onclick="openProfileItem('Help Center')">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.5 1.5c-.8 1-2.1 1.2-2.1 2.5"/><path d="M12 17h.01"/></svg>
+                        <span class="dropdown-item-copy"><span>Help Center</span><small>FAQs and support</small></span>
+                    </button>
+                    <button class="dropdown-item" onclick="openProfileItem('Terms of Service')">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h8M8 17h8"/></svg>
+                        <span class="dropdown-item-copy"><span>Terms of Service</span><small>Read our terms and policies</small></span>
+                    </button>
+                    <button class="dropdown-item" onclick="openProfileItem('Privacy Policy')">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                        <span class="dropdown-item-copy"><span>Privacy Policy</span><small>How we protect your data</small></span>
+                    </button>
+
+                    <div class="profile-menu-divider"></div>
+
+                    <button class="dropdown-item logout" onclick="handleLogout()">
                         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                        Log Out
+                        <span class="dropdown-item-copy"><span>Log Out</span><small>Sign out from your account</small></span>
                     </button>
                 </div>
             </div>
         `;
+        updateProfileMenu();
     } else {
         bottomNav.style.display = 'none';
         headerRight.innerHTML = `
@@ -2888,11 +3069,76 @@ function switchModalTab(mode) {
 
 function handleAuthSubmit(e) {
     e.preventDefault();
+
+    const nameInput = document.getElementById('authName');
+    const emailInput = document.getElementById('authEmail');
+    const isSignup = document.getElementById('tabSignupBtn').classList.contains('active');
+
+    if (isSignup) {
+        const name = (nameInput ? nameInput.value : '').trim();
+        const email = (emailInput ? emailInput.value : '').trim();
+        if (!name || !email) {
+            showToast('Please enter your name and email');
+            return;
+        }
+        localStorage.setItem('din_ar_user_name', name);
+        localStorage.setItem('din_ar_user_email', email);
+        if (!localStorage.getItem('din_ar_verification_status')) {
+            localStorage.setItem('din_ar_verification_status', 'pending');
+        }
+    } else if (emailInput && emailInput.value.trim()) {
+        localStorage.setItem('din_ar_user_email', emailInput.value.trim());
+    }
+
     localStorage.setItem('din_ar_logged_in', 'true');
     closeAuthModal();
-    showToast('Successfully logged in!');
+    showToast(isSignup ? 'Account created successfully!' : 'Successfully logged in!');
     updateUIState();
     switchPage('dashboard');
+}
+
+function getProfileUserData() {
+    return {
+        name: localStorage.getItem('din_ar_user_name') || 'Account User',
+        email: localStorage.getItem('din_ar_user_email') || 'name@example.com',
+        verified: localStorage.getItem('din_ar_verification_status') === 'verified'
+    };
+}
+
+function updateProfileMenu() {
+    const nameEl = document.getElementById('profileName');
+    const emailEl = document.getElementById('profileEmail');
+    const avatarEl = document.getElementById('profileAvatar');
+    const statusEl = document.getElementById('profileVerificationStatus');
+    const statusText = document.getElementById('profileVerificationText');
+    const statusIcon = document.getElementById('profileVerificationIcon');
+    if (!nameEl || !emailEl || !avatarEl || !statusEl || !statusText || !statusIcon) return;
+
+    const user = getProfileUserData();
+    nameEl.textContent = user.name;
+    emailEl.textContent = user.email;
+    avatarEl.textContent = user.name.charAt(0).toUpperCase();
+
+    if (user.verified) {
+        statusEl.classList.remove('pending');
+        statusText.textContent = 'Verified Account';
+        statusIcon.textContent = '✓';
+    } else {
+        statusEl.classList.add('pending');
+        statusText.textContent = 'Verification Required';
+        statusIcon.textContent = '!';
+    }
+}
+
+function openProfileItem(name) {
+    document.getElementById('profileDropdown')?.classList.remove('show');
+    showToast(name + ' selected');
+}
+
+function setAccountVerificationStatus(status) {
+    if (status !== 'verified' && status !== 'pending') return;
+    localStorage.setItem('din_ar_verification_status', status);
+    updateProfileMenu();
 }
 
 function toggleBalanceVisibility() {
