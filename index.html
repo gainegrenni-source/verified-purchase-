@@ -2103,6 +2103,23 @@ button{
 .pulse-dot{width:9px;height:9px;border-radius:50%;background:#e0a800;box-shadow:0 0 0 0 rgba(224,168,0,.5);animation:pulseDot 1.3s infinite;}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(224,168,0,.5)}70%{box-shadow:0 0 0 7px rgba(224,168,0,0)}100%{box-shadow:0 0 0 0 rgba(224,168,0,0)}}
 
+
+.txn-detail-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px;box-shadow:0 3px 12px rgba(15,23,42,.05);}
+.txn-detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px;}
+.txn-detail-head h3{margin:0;font-size:15px;color:#1a2b4c;font-weight:800;}
+.txn-detail-head p{margin:4px 0 0;font-size:10px;color:#718096;word-break:break-all;}
+.txn-detail-head .modal-close-btn{position:static;width:32px;height:32px;flex:none;}
+.txn-detail-amount{display:flex;align-items:center;justify-content:space-between;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:14px;font-size:18px;font-weight:900;color:#1a2b4c;}
+.txn-detail-amount span{font-size:9px;font-weight:800;color:#9a7400;background:#fff8db;border:1px solid #f1df86;border-radius:20px;padding:6px 9px;}
+.txn-timeline{position:relative;padding-left:4px;}
+.txn-step{display:flex;gap:11px;position:relative;padding:0 0 16px 0;}
+.txn-step:last-child{padding-bottom:0;}
+.txn-step:not(:last-child)::after{content:"";position:absolute;left:13px;top:29px;width:2px;height:calc(100% - 17px);background:#d9dee7;}
+.txn-step-indicator{width:27px;height:27px;border-radius:50%;background:#d8dee8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex:none;position:relative;z-index:1;}
+.txn-step.done .txn-step-indicator{background:#087fbd;}
+.txn-step-indicator.yellow{background:#f1c453;color:#fff;}
+.txn-step b{display:block;font-size:11px;color:#1a2b4c;margin:2px 0 3px;}
+.txn-step p{margin:0;font-size:9.5px;color:#718096;line-height:1.4;}
 </style>
 
 <style id="responsive-final-adjustments">
@@ -2613,7 +2630,7 @@ body{overflow-x:hidden;}
 
     <div class="section-header-row">
         <div class="section-title">Recent Transactions</div>
-        <button class="dashboard-view-all" onclick="showToast('Transactions opened')">View All
+        <button class="dashboard-view-all" onclick="switchPage('transactions')">View All
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
     </div>
@@ -2804,6 +2821,8 @@ body{overflow-x:hidden;}
             </svg>
         </button>
     </div>
+
+    <div id="transactionDetail" style="display:none;margin-bottom:12px;"></div>
 
     <div id="transactionList"></div>
 </section>
@@ -3672,8 +3691,10 @@ function closePaymentInvoiceModal() {
 
 
 function getTransactions(){
-    try { return JSON.parse(localStorage.getItem('din_ar_transactions') || '[]'); }
-    catch(e){ return []; }
+    try {
+        const items=JSON.parse(localStorage.getItem('din_ar_transactions') || '[]');
+        return Array.isArray(items) ? items.map(t=>({...t, stage:t.stage||'Ongoing'})) : [];
+    } catch(e){ return []; }
 }
 function saveTransactions(items){
     localStorage.setItem('din_ar_transactions', JSON.stringify(items));
@@ -3711,7 +3732,7 @@ function submitBuyerTrade(){
     const orderDate=document.getElementById('buyerOrderDate').value || (pending && pending.orderDate) || '';
     const priceValue=document.getElementById('buyerOrderPrice').value;
     const price=Number.isFinite(parseFloat(priceValue)) ? parseFloat(priceValue) : parseFloat(pending && pending.price);
-    const status=document.getElementById('buyerOrderStatus').value || (pending && pending.status) || '';
+    const status='PROCESSING';
     const email=document.getElementById('verificationEmail').value.trim() || (pending && pending.verificationEmail) || '';
     const screenshotName=(pending && pending.screenshotName) || '';
 
@@ -3727,7 +3748,7 @@ function submitBuyerTrade(){
         status:status,
         verificationEmail:email,
         screenshotName:screenshotName,
-        stage:status==='PAID'?'Completed':status==='CANCELLED'?'Cancelled':'Ongoing',
+        stage:'Ongoing',
         createdAt:new Date().toISOString()
     };
     const list=getTransactions(); list.unshift(txn); saveTransactions(list);
@@ -3738,9 +3759,9 @@ function submitBuyerTrade(){
 }
 function updateDashboardTransactionSummary(){
     const list=getTransactions();
-    const pending=list.filter(t=>t.status==='PROCESSING');
-    const completed=list.filter(t=>t.status==='PAID');
-    const cancelled=list.filter(t=>t.status==='CANCELLED');
+    const pending=list.filter(t=>t.stage==='Ongoing');
+    const completed=list.filter(t=>t.stage==='Completed');
+    const cancelled=list.filter(t=>t.stage==='Cancelled');
     const pendingAmount=pending.reduce((sum,t)=>sum+(parseFloat(t.price)||0),0);
     const completedAmount=completed.reduce((sum,t)=>sum+(parseFloat(t.price)||0),0);
     const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
@@ -3795,9 +3816,27 @@ function renderTransactions(query=''){
 function openTransaction(id){
     const t=getTransactions().find(x=>x.id===id);
     if(!t)return;
-    document.getElementById('transactionSearch').value=t.id;
-    renderTransactions(t.id);
-    showToast('Transaction opened');
+    switchPage('transactions');
+    const search=document.getElementById('transactionSearch');
+    if(search) search.value='';
+    renderTransactions();
+    renderTransactionDetail(t);
+}
+function renderTransactionDetail(t){
+    let detail=document.getElementById('transactionDetail');
+    if(!detail)return;
+    const completed=t.stage==='Completed';
+    detail.style.display='block';
+    detail.innerHTML=`<div class="txn-detail-card">
+        <div class="txn-detail-head"><div><h3>Transaction Details</h3><p>${escapeHtml(t.id)}</p></div><button class="modal-close-btn" onclick="document.getElementById('transactionDetail').style.display='none'">✕</button></div>
+        <div class="txn-detail-amount">$${escapeHtml(t.price)}<span>Pending</span></div>
+        <div class="txn-timeline">
+            <div class="txn-step done"><div class="txn-step-indicator">✓</div><div><b>1. Submitted</b><p>Order information has been submitted.</p></div></div>
+            <div class="txn-step"><div class="txn-step-indicator yellow">2</div><div><b>2. Upload Verification</b><p>Buyer uploads required documents.</p></div></div>
+            <div class="txn-step"><div class="txn-step-indicator yellow">3</div><div><b>3. Under Review</b><p>We are verifying the information.</p></div></div>
+            <div class="txn-step"><div class="txn-step-indicator yellow">4</div><div><b>4. Payment Release</b><p>Funds will be released after all steps are completed.</p></div></div>
+        </div>
+    </div>`;
 }
 function escapeHtml(value){
     return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
