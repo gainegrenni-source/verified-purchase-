@@ -2619,10 +2619,10 @@ body{overflow-x:hidden;}
     </div>
 
     <div id="dashboardRecentTransaction">
-        <div class="recent-box">
-            <div class="recent-empty-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
-            <div class="recent-copy"><strong>No transaction yet</strong><p>Your recent transactions will appear here once you start trading.</p></div>
-        </div>
+    <div class="recent-box">
+        <div class="recent-empty-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
+        <div class="recent-copy"><strong>No transactions yet</strong><p>Your recent transactions will appear here once you start trading.</p></div>
+    </div>
     </div>
 
     <div class="dashboard-info-card blue">
@@ -3637,21 +3637,13 @@ function handleTradeInfoSubmit(e) {
     updateBuyerOrderId(orderId);
     updateEscrowMessage(Number.isFinite(price)?price.toFixed(2):'');
 
-    localStorage.setItem('din_ar_pending_trade', JSON.stringify({
-        orderId: orderId,
-        orderDate: orderDate,
-        price: Number.isFinite(price) ? price.toFixed(2) : '',
-        status: status,
-        verificationEmail: email,
-        screenshotName: file ? file.name : ''
-    }));
-
     if(file){
+        const input=document.getElementById('verificationFile');
+        // Browser security prevents assigning a file programmatically; keep the modal filename visible instead.
         document.getElementById('verificationFileName').textContent='Selected: '+file.name;
     }
 
     closeSubmitInfoModal();
-    openPaymentInvoiceModal();
     showToast('Information added to the order');
 }
 
@@ -3679,30 +3671,21 @@ function updateBuyerOrderId(value){
     const clean = value.replace(/\D/g,'');
     const preview = document.getElementById('amazonOrderPreview');
     const num = document.getElementById('amazonOrderNumber');
-    if (clean.length){
-        preview.style.display='block';
-        num.textContent = clean;
-    } else {
-        preview.style.display='none';
-    }
+    if (clean.length){ preview.style.display='block'; num.textContent=clean; }
+    else { preview.style.display='none'; }
 }
 function updateEscrowMessage(value){
     const box=document.getElementById('escrowPriceMessage');
     const text=document.getElementById('escrowPriceText');
     const amount=parseFloat(value);
     if(Number.isFinite(amount) && amount>=0 && value!==''){
-        const formatted=amount.toFixed(2);
-        text.textContent='$'+formatted;
-        box.style.display='block';
-    }else{
-        box.style.display='none';
-    }
+        text.textContent='$'+amount.toFixed(2); box.style.display='block';
+    }else box.style.display='none';
 }
 function setDefaultOrderDate(){
     const el=document.getElementById('buyerOrderDate');
     if(el && !el.value){
-        const d=new Date();
-        d.setMinutes(d.getMinutes()-d.getTimezoneOffset());
+        const d=new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset());
         el.value=d.toISOString().slice(0,16);
     }
 }
@@ -3713,64 +3696,42 @@ function submitBuyerTrade(){
     const status=document.getElementById('buyerOrderStatus').value;
     const email=document.getElementById('verificationEmail').value.trim();
     const file=document.getElementById('verificationFile').files[0];
-    const pending=(()=>{try{return JSON.parse(localStorage.getItem('din_ar_pending_trade')||'null');}catch(e){return null;}})();
-
-    const finalOrderId=orderId || pending?.orderId || '';
-    const finalOrderDate=orderDate || pending?.orderDate || '';
-    const finalPrice=Number.isFinite(price) ? price : parseFloat(pending?.price);
-    const finalStatus=status || pending?.status || '';
-    const finalEmail=email || pending?.verificationEmail || '';
-    const screenshotName=file?.name || pending?.screenshotName || '';
-
-    if(!finalOrderId || !finalOrderDate || !Number.isFinite(finalPrice) || !finalStatus || !finalEmail){
-        showToast('Please complete all required fields');
-        return;
+    if(!orderId || !orderDate || !Number.isFinite(price) || !status || !email || !file){
+        showToast('Please complete all required fields'); return;
     }
-
     const txn={
-        id:finalOrderId,
-        orderId:finalOrderId,
-        orderDate:finalOrderDate,
-        price:finalPrice.toFixed(2),
-        status:finalStatus,
-        verificationEmail:finalEmail,
-        screenshotName:screenshotName,
-        stage:finalStatus==='PAID'?'Completed':finalStatus==='CANCELLED'?'Cancelled':'Ongoing',
+        id:orderId,
+        orderId:orderId,
+        orderDate:orderDate,
+        price:price.toFixed(2),
+        status:status,
+        verificationEmail:email,
+        screenshotName:file.name,
+        stage:status==='PAID'?'Completed':status==='CANCELLED'?'Cancelled':'Ongoing',
         createdAt:new Date().toISOString()
     };
-
-    const list=getTransactions();
-    list.unshift(txn);
-    saveTransactions(list);
-    localStorage.removeItem('din_ar_pending_trade');
-
-    renderTransactions();
-    updateDashboardTransactionSummary();
-
+    const list=getTransactions(); list.unshift(txn); saveTransactions(list);
+    renderTransactions(); updateDashboardTransactionSummary();
     showToast('Order Placed Successfully');
-    setTimeout(()=>switchPage('dashboard'),350);
+    setTimeout(()=>switchPage('dashboard'),900);
 }
 function updateDashboardTransactionSummary(){
     const list=getTransactions();
-    const pending=list.filter(t=>t.status==='PROCESSING' || t.stage==='Ongoing');
-    const completed=list.filter(t=>t.status==='PAID' || t.stage==='Completed');
-    const cancelled=list.filter(t=>t.status==='CANCELLED' || t.stage==='Cancelled');
-
+    const pending=list.filter(t=>t.status==='PROCESSING');
+    const completed=list.filter(t=>t.status==='PAID');
+    const cancelled=list.filter(t=>t.status==='CANCELLED');
     const pendingAmount=pending.reduce((sum,t)=>sum+(parseFloat(t.price)||0),0);
     const completedAmount=completed.reduce((sum,t)=>sum+(parseFloat(t.price)||0),0);
-
-    const setText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
-    setText('dashboardPendingAmount','$'+pendingAmount.toFixed(2));
-    setText('dashboardCompletedAmount','$'+completedAmount.toFixed(2));
-    setText('dashboardTradeCount',String(list.length));
-    setText('dashboardTotalTrades',String(list.length));
-    setText('dashboardCompletedTrades',String(completed.length));
-    setText('dashboardPendingTrades',String(pending.length));
-    setText('dashboardCancelledTrades',String(cancelled.length));
-
+    const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+    set('dashboardPendingAmount','$'+pendingAmount.toFixed(2));
+    set('dashboardCompletedAmount','$'+completedAmount.toFixed(2));
+    set('dashboardTradeCount',String(list.length));
+    set('dashboardTotalTrades',String(list.length));
+    set('dashboardCompletedTrades',String(completed.length));
+    set('dashboardPendingTrades',String(pending.length));
+    set('dashboardCancelledTrades',String(cancelled.length));
     const wrap=document.getElementById('dashboardRecentTransaction');
     if(!wrap)return;
-
     if(!list.length){
         wrap.innerHTML=`<div class="recent-box">
             <div class="recent-empty-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
@@ -3778,60 +3739,38 @@ function updateDashboardTransactionSummary(){
         </div>`;
         return;
     }
-
     const t=list[0];
     const statusText=t.status==='CANCELLED'?'Cancelled':t.status==='PAID'?'Completed':'Pending';
-    const statusClass=t.status==='CANCELLED'?'cancelled':t.status==='PAID'?'completed':'pending';
-
-    wrap.innerHTML=`<div class="recent-box" style="cursor:pointer;" onclick="openTransaction('${escapeHtml(t.id)}')">
+    wrap.innerHTML=`<div class="recent-box" style="cursor:pointer" onclick="openTransaction('${escapeJs(t.id)}')">
         <div style="width:48px;height:48px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">
-            <div style="font-size:42px;line-height:1;font-weight:800;font-family:Arial,sans-serif;color:#111;position:relative;top:-2px;">a</div>
+            <span style="font-family:Arial,sans-serif;font-size:40px;font-weight:900;color:#111;line-height:1">a</span>
         </div>
-        <div class="recent-copy" style="flex:1;min-width:0;">
-            <strong style="font-size:12px;">${escapeHtml(t.id)}</strong>
-            <p>${escapeHtml(t.orderDate ? new Date(t.orderDate).toLocaleString([], {month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '')}</p>
+        <div class="recent-copy" style="flex:1;min-width:0">
+            <strong>${escapeHtml(t.id)}</strong>
+            <p>Amazon Gift Card<br>${t.orderDate ? escapeHtml(new Date(t.orderDate).toLocaleString([], {month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'})) : ''}</p>
         </div>
-        <div style="text-align:right;flex-shrink:0;">
-            <strong style="font-size:13px;color:#1a2b4c;">$${escapeHtml(t.price)}</strong>
-            <div class="transaction-status ${statusClass}" style="margin-top:5px;">${statusText}</div>
+        <div style="text-align:right;flex-shrink:0">
+            <strong style="font-size:13px;color:#1a2b4c">$${escapeHtml(t.price)}</strong>
+            <div class="transaction-status" style="margin-top:5px">${statusText}</div>
         </div>
-        <div style="color:#718096;display:flex;align-items:center;">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:16px;height:16px;"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:16px;height:16px;color:#718096;flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
     </div>`;
 }
 function renderTransactions(query=''){
-    const box=document.getElementById('transactionList');
-    if(!box)return;
+    const box=document.getElementById('transactionList'); if(!box)return;
     const q=(query||'').trim().toLowerCase();
     const list=getTransactions().filter(t=>!q || t.id.toLowerCase().includes(q) || t.orderId.toLowerCase().includes(q));
-    if(!list.length){
-        box.innerHTML='<div style="padding:28px 12px;text-align:center;color:#718096;font-size:10.5px;border:1px dashed #cbd5e0;border-radius:12px;">No matching transactions found.</div>';
-        return;
-    }
+    if(!list.length){box.innerHTML='<div style="padding:28px 12px;text-align:center;color:#718096;font-size:10.5px;border:1px dashed #cbd5e0;border-radius:12px;">No matching transactions found.</div>';return;}
     box.innerHTML=list.map(t=>{
         const status=t.status==='CANCELLED'?'CANCELLED':t.status;
         const stage=t.stage==='Completed'?'Completed':'Ongoing';
-        return `<div class="transaction-card" onclick="openTransaction('${t.id}')">
-            <div class="transaction-head">
-                <div>
-                    <div class="transaction-id">${escapeHtml(t.id)}</div>
-                    <div style="font-size:9px;color:#718096;margin-top:2px;">Order ID: ${escapeHtml(t.orderId)}</div>
-                </div>
-                <div class="transaction-status">${escapeHtml(status)}</div>
-            </div>
-            <div class="transaction-meta">
-                Amount: $${escapeHtml(t.price)}<br>
-                Verification: ${escapeHtml(t.verificationEmail)}
-            </div>
-            <div class="transaction-stage">
-                <span class="${stage==='Ongoing'?'pulse-dot':''}" style="${stage==='Completed'?'width:9px;height:9px;border-radius:50%;background:#0ca678;display:inline-block;':''}"></span>
-                ${stage}
-            </div>
+        return `<div class="transaction-card" onclick="openTransaction('${escapeJs(t.id)}')">
+            <div class="transaction-head"><div><div class="transaction-id">${escapeHtml(t.id)}</div><div style="font-size:9px;color:#718096;margin-top:2px;">Order ID: ${escapeHtml(t.orderId)}</div></div><div class="transaction-status">${escapeHtml(status)}</div></div>
+            <div class="transaction-meta">Amount: $${escapeHtml(t.price)}<br>Verification: ${escapeHtml(t.verificationEmail)}</div>
+            <div class="transaction-stage">${stage}</div>
         </div>`;
     }).join('');
 }
-
 function openTransaction(id){
     const t=getTransactions().find(x=>x.id===id);
     if(!t)return;
