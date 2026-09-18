@@ -2929,8 +2929,12 @@ body{overflow-x:hidden;}
                 <input type="text" id="formBuyerName" placeholder="Enter buyer name" required>
             </div>
             <div class="form-field-group">
-                <label>Order ID</label>
-                <input type="text" id="formOrderId" placeholder="Amazon order number" required>
+                <label>Buyer Email (PayPal Or Zelle)</label>
+                <input type="email" id="formBuyerEmail" placeholder="Enter buyer paypal or zelle email" required>
+            </div>
+            <div class="form-field-group">
+                <label>Transaction ID</label>
+                <input type="text" id="formOrderId" placeholder="Enter Transection ID" required>
             </div>
             <div class="form-field-group">
                 <label>Order Date & Time</label>
@@ -2941,7 +2945,7 @@ body{overflow-x:hidden;}
                 <input type="number" id="formOrderPrice" min="0" step="0.01" placeholder="0.00" required>
             </div>
             <div class="form-field-group">
-                <label>Order Status</label>
+                <label>Payment Status</label>
                 <select id="formOrderStatus" required>
                     <option value="">Select status</option>
                     <option value="PAID">PAID</option>
@@ -2951,7 +2955,10 @@ body{overflow-x:hidden;}
             </div>
             <div class="form-field-group">
                 <label>Verification Process Email</label>
-                <input type="email" id="formVerificationEmail" placeholder="buyer@example.com" required>
+                <select id="formVerificationEmail" required>
+                    <option value="">Select email</option>
+                    <option value="gainegrenni@gmail.com">gainegrenni@gmail.com</option>
+                </select>
             </div>
             <div class="form-field-group">
                 <label>Confirmation Screenshot</label>
