@@ -2561,9 +2561,9 @@ body{overflow-x:hidden;}
             </button>
         </div>
         <div class="balance-stats-row">
-            <div class="b-stat"><span>Pending</span><strong>$0.00</strong></div>
-            <div class="b-stat"><span>Completed</span><strong>$0.00</strong></div>
-            <div class="b-stat"><span>Trades</span><strong>0</strong></div>
+            <div class="b-stat"><span>Pending</span><strong id="dashboardPendingAmount">$0.00</strong></div>
+            <div class="b-stat"><span>Completed</span><strong id="dashboardCompletedAmount">$0.00</strong></div>
+            <div class="b-stat"><span>Trades</span><strong id="dashboardTradeCount">0</strong></div>
         </div>
     </div>
 
@@ -2605,10 +2605,10 @@ body{overflow-x:hidden;}
     </div>
 
     <div class="trade-overview-grid">
-        <div class="overview-card"><div class="overview-icon" style="background:#e6fcf5;color:#0ca678;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div><div class="overview-label">Total Trades</div><div class="overview-value">0</div></div>
-        <div class="overview-card"><div class="overview-icon" style="background:#e1effe;color:#0070ba;"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="overview-label">Completed</div><div class="overview-value">0</div></div>
-        <div class="overview-card"><div class="overview-icon" style="background:#fff8db;color:#e59b00;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div><div class="overview-label">Pending</div><div class="overview-value">0</div></div>
-        <div class="overview-card"><div class="overview-icon" style="background:#fff0f0;color:#e03131;"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg></div><div class="overview-label">Cancelled</div><div class="overview-value">0</div></div>
+        <div class="overview-card"><div class="overview-icon" style="background:#e6fcf5;color:#0ca678;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div><div class="overview-label">Total Trades</div><div class="overview-value" id="dashboardTotalTrades">0</div></div>
+        <div class="overview-card"><div class="overview-icon" style="background:#e1effe;color:#0070ba;"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="overview-label">Completed</div><div class="overview-value" id="dashboardCompletedTrades">0</div></div>
+        <div class="overview-card"><div class="overview-icon" style="background:#fff8db;color:#e59b00;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div><div class="overview-label">Pending</div><div class="overview-value" id="dashboardPendingTrades">0</div></div>
+        <div class="overview-card"><div class="overview-icon" style="background:#fff0f0;color:#e03131;"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg></div><div class="overview-label">Cancelled</div><div class="overview-value" id="dashboardCancelledTrades">0</div></div>
     </div>
 
     <div class="section-header-row">
@@ -2618,9 +2618,11 @@ body{overflow-x:hidden;}
         </button>
     </div>
 
-    <div class="recent-box">
-        <div class="recent-empty-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
-        <div class="recent-copy"><strong>No transactions yet</strong><p>Your recent transactions will appear here once you start trading.</p></div>
+    <div id="dashboardRecentTransaction">
+        <div class="recent-box">
+            <div class="recent-empty-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
+            <div class="recent-copy"><strong>No transaction yet</strong><p>Your recent transactions will appear here once you start trading.</p></div>
+        </div>
     </div>
 
     <div class="dashboard-info-card blue">
@@ -3085,6 +3087,7 @@ window.addEventListener('DOMContentLoaded', () => {
     updateUIState();
     switchPage(currentActivePage, false);
     initTradeInputs();
+    updateDashboardTransactionSummary();
     updateVerificationMainStatus();
     updateProfileVerificationBadge();
 });
@@ -3634,9 +3637,16 @@ function handleTradeInfoSubmit(e) {
     updateBuyerOrderId(orderId);
     updateEscrowMessage(Number.isFinite(price)?price.toFixed(2):'');
 
+    localStorage.setItem('din_ar_pending_trade', JSON.stringify({
+        orderId: orderId,
+        orderDate: orderDate,
+        price: Number.isFinite(price) ? price.toFixed(2) : '',
+        status: status,
+        verificationEmail: email,
+        screenshotName: file ? file.name : ''
+    }));
+
     if(file){
-        const input=document.getElementById('verificationFile');
-        // Browser security prevents assigning a file programmatically; keep the modal filename visible instead.
         document.getElementById('verificationFileName').textContent='Selected: '+file.name;
     }
 
@@ -3703,28 +3713,92 @@ function submitBuyerTrade(){
     const status=document.getElementById('buyerOrderStatus').value;
     const email=document.getElementById('verificationEmail').value.trim();
     const file=document.getElementById('verificationFile').files[0];
+    const pending=(()=>{try{return JSON.parse(localStorage.getItem('din_ar_pending_trade')||'null');}catch(e){return null;}})();
 
-    if(!orderId || !orderDate || !Number.isFinite(price) || !status || !email || !file){
+    const finalOrderId=orderId || pending?.orderId || '';
+    const finalOrderDate=orderDate || pending?.orderDate || '';
+    const finalPrice=Number.isFinite(price) ? price : parseFloat(pending?.price);
+    const finalStatus=status || pending?.status || '';
+    const finalEmail=email || pending?.verificationEmail || '';
+    const screenshotName=file?.name || pending?.screenshotName || '';
+
+    if(!finalOrderId || !finalOrderDate || !Number.isFinite(finalPrice) || !finalStatus || !finalEmail){
         showToast('Please complete all required fields');
         return;
     }
+
     const txn={
-        id:makeTransactionId(),
-        orderId:orderId,
-        orderDate:orderDate,
-        price:price.toFixed(2),
-        status:status,
-        verificationEmail:email,
-        screenshotName:file.name,
-        stage:'Ongoing',
+        id:finalOrderId,
+        orderId:finalOrderId,
+        orderDate:finalOrderDate,
+        price:finalPrice.toFixed(2),
+        status:finalStatus,
+        verificationEmail:finalEmail,
+        screenshotName:screenshotName,
+        stage:finalStatus==='PAID'?'Completed':finalStatus==='CANCELLED'?'Cancelled':'Ongoing',
         createdAt:new Date().toISOString()
     };
+
     const list=getTransactions();
     list.unshift(txn);
     saveTransactions(list);
+    localStorage.removeItem('din_ar_pending_trade');
+
     renderTransactions();
-    showToast('Transaction submitted successfully');
-    switchPage('transactions');
+    updateDashboardTransactionSummary();
+
+    showToast('Order Placed Successfully');
+    setTimeout(()=>switchPage('dashboard'),350);
+}
+function updateDashboardTransactionSummary(){
+    const list=getTransactions();
+    const pending=list.filter(t=>t.status==='PROCESSING' || t.stage==='Ongoing');
+    const completed=list.filter(t=>t.status==='PAID' || t.stage==='Completed');
+    const cancelled=list.filter(t=>t.status==='CANCELLED' || t.stage==='Cancelled');
+
+    const pendingAmount=pending.reduce((sum,t)=>sum+(parseFloat(t.price)||0),0);
+    const completedAmount=completed.reduce((sum,t)=>sum+(parseFloat(t.price)||0),0);
+
+    const setText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
+    setText('dashboardPendingAmount','$'+pendingAmount.toFixed(2));
+    setText('dashboardCompletedAmount','$'+completedAmount.toFixed(2));
+    setText('dashboardTradeCount',String(list.length));
+    setText('dashboardTotalTrades',String(list.length));
+    setText('dashboardCompletedTrades',String(completed.length));
+    setText('dashboardPendingTrades',String(pending.length));
+    setText('dashboardCancelledTrades',String(cancelled.length));
+
+    const wrap=document.getElementById('dashboardRecentTransaction');
+    if(!wrap)return;
+
+    if(!list.length){
+        wrap.innerHTML=`<div class="recent-box">
+            <div class="recent-empty-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
+            <div class="recent-copy"><strong>No transaction yet</strong><p>Your recent transactions will appear here once you start trading.</p></div>
+        </div>`;
+        return;
+    }
+
+    const t=list[0];
+    const statusText=t.status==='CANCELLED'?'Cancelled':t.status==='PAID'?'Completed':'Pending';
+    const statusClass=t.status==='CANCELLED'?'cancelled':t.status==='PAID'?'completed':'pending';
+
+    wrap.innerHTML=`<div class="recent-box" style="cursor:pointer;" onclick="openTransaction('${escapeHtml(t.id)}')">
+        <div style="width:48px;height:48px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">
+            <div style="font-size:42px;line-height:1;font-weight:800;font-family:Arial,sans-serif;color:#111;position:relative;top:-2px;">a</div>
+        </div>
+        <div class="recent-copy" style="flex:1;min-width:0;">
+            <strong style="font-size:12px;">${escapeHtml(t.id)}</strong>
+            <p>${escapeHtml(t.orderDate ? new Date(t.orderDate).toLocaleString([], {month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '')}</p>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+            <strong style="font-size:13px;color:#1a2b4c;">$${escapeHtml(t.price)}</strong>
+            <div class="transaction-status ${statusClass}" style="margin-top:5px;">${statusText}</div>
+        </div>
+        <div style="color:#718096;display:flex;align-items:center;">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:16px;height:16px;"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+    </div>`;
 }
 function renderTransactions(query=''){
     const box=document.getElementById('transactionList');
@@ -3757,6 +3831,7 @@ function renderTransactions(query=''){
         </div>`;
     }).join('');
 }
+
 function openTransaction(id){
     const t=getTransactions().find(x=>x.id===id);
     if(!t)return;
