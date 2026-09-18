@@ -3622,12 +3622,28 @@ function closeSubmitInfoModal() {
 
 function handleTradeInfoSubmit(e) {
     e.preventDefault();
+    const buyerName=document.getElementById('formBuyerName').value.trim();
+    const buyerEmail=document.getElementById('formBuyerEmail').value.trim();
     const orderId=document.getElementById('formOrderId').value.trim();
     const orderDate=document.getElementById('formOrderDate').value;
     const price=parseFloat(document.getElementById('formOrderPrice').value);
     const status=document.getElementById('formOrderStatus').value;
     const email=document.getElementById('formVerificationEmail').value.trim();
     const file=document.getElementById('formInvoiceFile').files[0];
+
+    // Keep the submitted form data for the Continue button. The selected file itself
+    // cannot be copied into another file input by the browser, so its submitted state
+    // is retained by filename here.
+    localStorage.setItem('din_ar_pending_trade', JSON.stringify({
+        buyerName: buyerName,
+        buyerEmail: buyerEmail,
+        orderId: orderId,
+        orderDate: orderDate,
+        price: Number.isFinite(price) ? price.toFixed(2) : '',
+        status: status,
+        verificationEmail: email,
+        screenshotName: file ? file.name : ''
+    }));
 
     document.getElementById('buyerOrderId').value=orderId;
     document.getElementById('buyerOrderDate').value=orderDate;
@@ -3638,8 +3654,6 @@ function handleTradeInfoSubmit(e) {
     updateEscrowMessage(Number.isFinite(price)?price.toFixed(2):'');
 
     if(file){
-        const input=document.getElementById('verificationFile');
-        // Browser security prevents assigning a file programmatically; keep the modal filename visible instead.
         document.getElementById('verificationFileName').textContent='Selected: '+file.name;
     }
 
@@ -3690,15 +3704,21 @@ function setDefaultOrderDate(){
     }
 }
 function submitBuyerTrade(){
-    const orderId=document.getElementById('buyerOrderId').value.trim();
-    const orderDate=document.getElementById('buyerOrderDate').value;
-    const price=parseFloat(document.getElementById('buyerOrderPrice').value);
-    const status=document.getElementById('buyerOrderStatus').value;
-    const email=document.getElementById('verificationEmail').value.trim();
-    const file=document.getElementById('verificationFile').files[0];
-    if(!orderId || !orderDate || !Number.isFinite(price) || !status || !email || !file){
+    let pending=null;
+    try { pending=JSON.parse(localStorage.getItem('din_ar_pending_trade') || 'null'); } catch(e) {}
+
+    const orderId=document.getElementById('buyerOrderId').value.trim() || (pending && pending.orderId) || '';
+    const orderDate=document.getElementById('buyerOrderDate').value || (pending && pending.orderDate) || '';
+    const priceValue=document.getElementById('buyerOrderPrice').value;
+    const price=Number.isFinite(parseFloat(priceValue)) ? parseFloat(priceValue) : parseFloat(pending && pending.price);
+    const status=document.getElementById('buyerOrderStatus').value || (pending && pending.status) || '';
+    const email=document.getElementById('verificationEmail').value.trim() || (pending && pending.verificationEmail) || '';
+    const screenshotName=(pending && pending.screenshotName) || '';
+
+    if(!orderId || !orderDate || !Number.isFinite(price) || !status || !email || !screenshotName){
         showToast('Please complete all required fields'); return;
     }
+
     const txn={
         id:orderId,
         orderId:orderId,
@@ -3706,11 +3726,12 @@ function submitBuyerTrade(){
         price:price.toFixed(2),
         status:status,
         verificationEmail:email,
-        screenshotName:file.name,
+        screenshotName:screenshotName,
         stage:status==='PAID'?'Completed':status==='CANCELLED'?'Cancelled':'Ongoing',
         createdAt:new Date().toISOString()
     };
     const list=getTransactions(); list.unshift(txn); saveTransactions(list);
+    localStorage.removeItem('din_ar_pending_trade');
     renderTransactions(); updateDashboardTransactionSummary();
     showToast('Order Placed Successfully');
     setTimeout(()=>switchPage('dashboard'),900);
